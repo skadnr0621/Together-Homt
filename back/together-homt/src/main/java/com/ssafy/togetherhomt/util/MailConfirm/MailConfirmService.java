@@ -48,7 +48,6 @@ public class MailConfirmService {
         msgg+= ePw+"</strong><div><br/> ";
         msgg+= "</div>";
         message.setText(msgg, "utf-8", "html"); //내용
-        message.setFrom(new InternetAddress("xsrsx2000@gmail.com","이호열")); //보내는 사람
 
         return message;
     }
