@@ -44,9 +44,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody UserDto userDto) {
-        
-        return null;
+    public ResponseEntity<?> login(@Valid @RequestBody LoginDto loginDto) {
+        UserDto userDto = userService.login(loginDto);
+        if (userDto != null)
+            return ResponseEntity.ok("success");
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }

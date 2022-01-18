@@ -30,4 +30,16 @@ public class UserService {
 
         return "success";
     }
+
+    public UserDto login(LoginDto loginDto) {
+        User user = userRepository.findByEmail(loginDto.getEmail());
+
+        if (user == null)
+            return null;
+        if (!user.getPassword().equals(loginDto.getPassword()))
+            return null;
+
+        return new UserDto(user.getEmail(), user.getPassword(), user.getUsername());
+    }
+
 }
