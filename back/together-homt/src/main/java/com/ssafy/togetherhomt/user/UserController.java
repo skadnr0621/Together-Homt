@@ -23,15 +23,18 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@Valid @RequestBody UserDto userDto) {
-
         String result = userService.signup(userDto);
-        if (result.equals("success")) {
-            return ResponseEntity.ok("success");
-        } else {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
 
+        if (result.equals("success"))
+            return ResponseEntity.ok("success");
+        else
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@Valid @RequestBody UserDto userDto) {
+
+        return null;
+    }
 
 }
