@@ -40,13 +40,12 @@ public class UserController {
 
     @PostMapping("/signup/mail-confirm")
     public ResponseEntity<String> confirmMail(@RequestBody String email) throws Exception {
-        String confirmCode = mailConfirmService.sendSimpleMessage(email);
-        return ResponseEntity.ok(confirmCode);
+        return ResponseEntity.ok(mailConfirmService.sendSimpleMessage(email));
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody UserDto userDto) {
-
+        
         return null;
     }
 
