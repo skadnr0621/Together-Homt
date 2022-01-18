@@ -1,5 +1,7 @@
 package com.ssafy.togetherhomt.user;
 
+import com.ssafy.togetherhomt.util.MailConfirm.MailConfirmService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +18,15 @@ import javax.validation.Valid;
 public class UserController {
 
     private UserService userService;
+    private MailConfirmService mailConfirmService;
 
-    public UserController(UserService userService) {
+
+    @Autowired
+    public UserController(UserService userService, MailConfirmService mailConfirmService) {
         this.userService = userService;
+        this.mailConfirmService = mailConfirmService;
     }
+
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@Valid @RequestBody UserDto userDto) {
@@ -29,6 +36,12 @@ public class UserController {
             return ResponseEntity.ok("success");
         else
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @PostMapping("/signup/mail-confirm")
+    public ResponseEntity<String> confirmMail(@RequestBody String email) throws Exception {
+        String confirmCode = mailConfirmService.sendSimpleMessage(email);
+        return ResponseEntity.ok(confirmCode);
     }
 
     @PostMapping("/login")

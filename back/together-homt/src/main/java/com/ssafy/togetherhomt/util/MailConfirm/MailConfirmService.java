@@ -1,6 +1,8 @@
 package com.ssafy.togetherhomt.util.MailConfirm;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -11,12 +13,17 @@ import javax.mail.internet.MimeMessage;
 import java.util.Random;
 
 @Service
+@PropertySource("classpath:mailConfirm.properties")
 public class MailConfirmService {
 
     @Autowired
     JavaMailSender emailSender;
 
     private String ePw = createKey();
+
+    @Value("${AdminMail.id}")
+    private String id;
+
 
     private MimeMessage createMessage(String to) throws Exception{
         System.out.println("보내는 대상 : " + to);
@@ -41,7 +48,7 @@ public class MailConfirmService {
         msgg+= ePw+"</strong><div><br/> ";
         msgg+= "</div>";
         message.setText(msgg, "utf-8", "html"); //내용
-        message.setFrom(new InternetAddress("gkuer95@gmail.com","kuer G")); //보내는 사람
+        message.setFrom(new InternetAddress("xsrsx2000@gmail.com","이호열")); //보내는 사람
 
         return message;
     }
