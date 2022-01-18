@@ -26,17 +26,17 @@ public class MailConfirmConfig {
     @Value("${mail.smtp.socketFactory.fallback}")
     private boolean fallback;
     @Value("${AdminMail.id}")
-    private String id;
+    private String ADMIN_ADDRESS;
     @Value("${AdminMail.password}")
-    private String password;
+    private String ADMIN_PASSWORD;
 
 
     @Bean
     public JavaMailSender javaMailService() {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
         javaMailSender.setHost("smtp.gmail.com");
-        javaMailSender.setUsername(id);
-        javaMailSender.setPassword(password);
+        javaMailSender.setUsername(ADMIN_ADDRESS);
+        javaMailSender.setPassword(ADMIN_PASSWORD);
         javaMailSender.setPort(port);
         javaMailSender.setJavaMailProperties(getMailProperties());
         javaMailSender.setDefaultEncoding("UTF-8");

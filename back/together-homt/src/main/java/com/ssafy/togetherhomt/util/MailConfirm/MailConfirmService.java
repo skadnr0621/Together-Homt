@@ -22,7 +22,9 @@ public class MailConfirmService {
     private String ePw = createKey();
 
     @Value("${AdminMail.id}")
-    private String id;
+    private String ADMIN_ADDRESS;
+    @Value("${AdminMail.name")
+    private String ADMIN_NAME;
 
 
     private MimeMessage createMessage(String to) throws Exception{
@@ -48,7 +50,7 @@ public class MailConfirmService {
         msgg+= ePw+"</strong><div><br/> ";
         msgg+= "</div>";
         message.setText(msgg, "utf-8", "html"); //내용
-        message.setFrom(new InternetAddress("xsrsx2000@gmail.com","이호열")); //보내는 사람
+        message.setFrom(new InternetAddress(ADMIN_ADDRESS, ADMIN_NAME)); //보내는 사람
 
         return message;
     }
