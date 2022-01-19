@@ -1,5 +1,6 @@
 package com.ssafy.togetherhomt.user;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -7,10 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private UserRepository userRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
 
     @Transactional
     public String signup(UserDto userDto) {
@@ -21,7 +24,7 @@ public class UserService {
 
         User user = User.builder()
                 .email(userDto.getEmail())
-                .password(userDto.getPassword()) // 인코딩 필요
+                .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
                 .username(userDto.getUsername())
                 .role("ROLE_USER")
                 .build();
