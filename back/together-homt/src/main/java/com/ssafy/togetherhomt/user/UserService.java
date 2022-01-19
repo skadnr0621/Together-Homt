@@ -1,5 +1,6 @@
 package com.ssafy.togetherhomt.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,8 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserService {
 
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -24,7 +28,7 @@ public class UserService {
 
         User user = User.builder()
                 .email(userDto.getEmail())
-                .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
+                .password(userDto.getPassword())
                 .username(userDto.getUsername())
                 .role("ROLE_USER")
                 .build();

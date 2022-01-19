@@ -17,7 +17,6 @@ public class UserController {
     private UserService userService;
     private MailConfirmService mailConfirmService;
 
-
     @Autowired
     public UserController(UserService userService, MailConfirmService mailConfirmService) {
         this.userService = userService;
@@ -46,6 +45,7 @@ public class UserController {
         if (userDto != null)
             return ResponseEntity.ok("success");
         else
+            System.out.println("fail");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
