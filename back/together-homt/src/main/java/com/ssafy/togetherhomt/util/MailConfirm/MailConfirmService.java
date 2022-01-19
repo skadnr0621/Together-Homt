@@ -23,7 +23,7 @@ public class MailConfirmService {
 
     @Value("${AdminMail.id}")
     private String ADMIN_ADDRESS;
-    @Value("${AdminMail.name")
+    @Value("${AdminMail.name}")
     private String ADMIN_NAME;
 
 
