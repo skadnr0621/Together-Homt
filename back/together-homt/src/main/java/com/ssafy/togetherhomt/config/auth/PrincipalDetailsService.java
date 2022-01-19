@@ -19,4 +19,5 @@ public class PrincipalDetailsService implements UserDetailsService {
         User userEntity = userRepository.findByEmail(username);
         return null;
     }
+
 }

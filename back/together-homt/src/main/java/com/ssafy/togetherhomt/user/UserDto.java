@@ -23,4 +23,5 @@ public class UserDto { // 회원가입
     @NotNull
     @Size(min = 3, max = 10)
     private String username;
+
 }

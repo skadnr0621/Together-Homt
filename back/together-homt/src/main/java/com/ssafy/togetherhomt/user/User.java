@@ -24,7 +24,7 @@ public class User {
     private String password;
 
     @Column(name = "role")
-    private String role; //ROLE_USER, ROLE_ADMIN
+    private String role; // ROLE_USER, ROLE_ADMIN
 
     @Column(name = "username")
     private String username;
@@ -34,4 +34,5 @@ public class User {
 
     @Column(name = "profile_url")
     private String profile_url;
+
 }

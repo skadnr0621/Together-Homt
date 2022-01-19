@@ -13,7 +13,6 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -21,14 +20,13 @@ public class UserService {
 
     @Transactional
     public String signup(UserDto userDto) {
-
-        if (userRepository.findByEmail(userDto.getEmail()) != null) {
+        if (userRepository.findByEmail(userDto.getEmail()) != null)
             return "failure";
-        }
+
 
         User user = User.builder()
                 .email(userDto.getEmail())
-                .password(userDto.getPassword())
+                .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
                 .username(userDto.getUsername())
                 .role("ROLE_USER")
                 .build();
@@ -40,10 +38,11 @@ public class UserService {
 
     public UserDto login(LoginDto loginDto) {
         User user = userRepository.findByEmail(loginDto.getEmail());
-
         if (user == null)
             return null;
-        if (!user.getPassword().equals(loginDto.getPassword()))
+
+//        if (!user.getPassword().equals(bCryptPasswordEncoder.encode(loginDto.getPassword())))
+        if (!bCryptPasswordEncoder.matches(loginDto.getPassword(), user.getPassword()))
             return null;
 
         return new UserDto(user.getEmail(), user.getPassword(), user.getUsername());
