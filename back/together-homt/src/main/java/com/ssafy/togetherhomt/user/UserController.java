@@ -41,6 +41,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginDto loginDto) {
+        System.out.println("UserController - login");
         UserDto userDto = userService.login(loginDto);
         if (userDto != null)
             return ResponseEntity.ok("success");
@@ -52,6 +53,11 @@ public class UserController {
     @GetMapping("/admin")
     public ResponseEntity<String> admin() {
         return new ResponseEntity<String>("authorized", HttpStatus.OK);
+    }
+
+    @GetMapping("/main")
+    public ResponseEntity<String> main() {
+        return new ResponseEntity<String>("this is /user/main", HttpStatus.OK);
     }
 
 }

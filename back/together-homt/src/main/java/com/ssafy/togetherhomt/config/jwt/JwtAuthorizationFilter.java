@@ -37,16 +37,16 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         String jwtToken = request.getHeader(JwtProperties.HEADER_STRING).replace(JwtProperties.TOKEN_PREFIX, "");
 
-        String username =
+        String email =
                 JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build()
                         .verify(jwtToken)
-                        .getClaim("username")
+                        .getClaim("email")  // getClaim("username") --> getClaim("email")
                         .asString();
 
         // 서명이 정상적으로 되었음.
-        if (username != null) {
-            System.out.println("username : " + username + "      [정상 서명됨]");
-            User userEntity = userRepository.findByEmail(username);
+        if (email != null) {    // username != null --> email != nul
+            System.out.println("email : " + email + "      [정상 서명됨]");
+            User userEntity = userRepository.findByEmail(email);    // findByEmail(username) --> findByEmail(email)
 
             PrincipalDetails principalDetails = new PrincipalDetails(userEntity);
 

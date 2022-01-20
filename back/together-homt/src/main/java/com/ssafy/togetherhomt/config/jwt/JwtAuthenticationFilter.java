@@ -19,15 +19,20 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
 
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+        setFilterProcessesUrl("/**/login");
+    }
 
-    // '/login' 요청 시 로그인 시도를 위해 실행되는 함수.
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        System.out.println("Attempting Login . . .");
         try {
             // JSON으로 요청을 받을 경우
             ObjectMapper om = new ObjectMapper();
@@ -35,7 +40,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             // 로그인 시도 - 토큰 생성
             UsernamePasswordAuthenticationToken authenticationToken =
-                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
 
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
             return authentication;
@@ -51,7 +56,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         PrincipalDetails principalDetails = (PrincipalDetails)authResult.getPrincipal();
         String jwtToken = JWT.create()
-                .withSubject("cos 토큰")
+                .withSubject("THT's JWT")
                 .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
                 .withClaim("email", principalDetails.getUser().getEmail())
                 .withClaim("username", principalDetails.getUser().getUsername())

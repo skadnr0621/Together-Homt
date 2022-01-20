@@ -39,10 +39,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/admin").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll()
                 .and()
-            .formLogin().disable()
+            .formLogin()
+                .and()
             .httpBasic().disable()
             .addFilter(corsFilter)
             .addFilter(new JwtAuthenticationFilter(authenticationManager()))
             .addFilter(new JwtAuthorizationFilter(authenticationManager(), userRepository));
+
     }
 }
