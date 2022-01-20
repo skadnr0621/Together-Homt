@@ -1,10 +1,13 @@
 package com.ssafy.togetherhomt.user;
 
+import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
 import com.ssafy.togetherhomt.util.MailConfirm.MailConfirmService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,6 +52,27 @@ public class UserController {
             System.out.println("fail");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @DeleteMapping("/{email}")
+    public ResponseEntity<?> withdraw(@PathVariable String email){
+        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(email == null || !principalDetails.getUsername().equals(email)){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        userService.withdraw(email);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("/{email}")
+    public ResponseEntity<?> update(@PathVariable String email, @Valid @RequestBody UpdateDto updateDto){
+        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(email == null || !principalDetails.getUsername().equals(email)){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        userService.update(email, updateDto);
+        return ResponseEntity.ok("update success");
+    }
+
 
     @GetMapping("/admin")
     public ResponseEntity<String> admin() {

@@ -5,6 +5,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
+
 @Service
 public class UserService {
 
@@ -46,6 +48,21 @@ public class UserService {
             return null;
 
         return new UserDto(user.getEmail(), user.getPassword(), user.getUsername());
+    }
+
+    @Transactional
+    public void withdraw(String email){
+        User user = userRepository.findByEmail(email);
+        userRepository.delete(user);
+    }
+
+    @Transactional
+    public void update(String email, @Valid UpdateDto updateDto){
+        User user = userRepository.findByEmail(email);
+        user.setUsername(updateDto.getUsername());
+        user.setIntroduce(updateDto.getIntroduce());
+        user.setProfile_url(updateDto.getProfile_url());
+        userRepository.save(user);
     }
 
 }
