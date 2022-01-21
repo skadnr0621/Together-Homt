@@ -1,5 +1,6 @@
 package com.ssafy.togetherhomt.feed;
 
+import com.ssafy.togetherhomt.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,5 +34,7 @@ public class Feed {
 
     private Integer like_cnt;
 
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 }

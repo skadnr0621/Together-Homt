@@ -27,7 +27,7 @@ public class FeedService {
         List<FeedDto> feeds = new ArrayList<>();
 
         // ** 팔로잉 추가 필요 ** //
-        for (Feed feed : feedRepository.findByUserId(user.getUser_id())) {
+        for (Feed feed : feedRepository.findAll()) {
             FeedDto feedDto = new FeedDto();
 
             feedDto.setId(feed.getFeed_id());
@@ -36,7 +36,7 @@ public class FeedService {
             feedDto.setCreated_at(feed.getCreated_at());
             feedDto.setMedia_url(feed.getMedia_url());
             feedDto.setLike_cnt(feed.getLike_cnt());
-            feedDto.setUserName(user.getUsername());
+            feedDto.setUserName(feed.getUser().getUsername());
 
             feeds.add(feedDto);
         }
@@ -49,7 +49,7 @@ public class FeedService {
         User user = userRepository.findByEmail(email);
 
         List<FeedDto> feeds = new ArrayList<>();
-        for (Feed feed : feedRepository.findByUserId(user.getUser_id())) {
+        for (Feed feed : feedRepository.findByUser(user)) {
             FeedDto feedDto = new FeedDto();
 
             feedDto.setId(feed.getFeed_id());
@@ -58,7 +58,7 @@ public class FeedService {
             feedDto.setCreated_at(feed.getCreated_at());
             feedDto.setMedia_url(feed.getMedia_url());
             feedDto.setLike_cnt(feed.getLike_cnt());
-            feedDto.setUserName(user.getUsername());
+            feedDto.setUserName(feed.getUser().getUsername());
 
             feeds.add(feedDto);
         }

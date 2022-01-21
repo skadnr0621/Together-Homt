@@ -1,8 +1,14 @@
 package com.ssafy.togetherhomt.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ssafy.togetherhomt.feed.Feed;
 import lombok.*;
+import org.hibernate.criterion.Order;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -35,4 +41,7 @@ public class User {
     @Column(name = "profile_url")
     private String profile_url;
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user"})
+    private List<Feed> feeds = new ArrayList<>();
 }
