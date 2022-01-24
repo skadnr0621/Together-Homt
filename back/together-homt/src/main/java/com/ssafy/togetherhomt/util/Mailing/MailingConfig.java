@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.util.MailConfirm;
+package com.ssafy.togetherhomt.util.Mailing;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,7 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:mailConfirm.properties")
-public class MailConfirmConfig {
+public class MailingConfig {
 
     @Value("${mail.smtp.port}")
     private int port;

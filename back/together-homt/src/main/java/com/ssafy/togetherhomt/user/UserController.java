@@ -1,14 +1,11 @@
 package com.ssafy.togetherhomt.user;
 
 import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
-import com.ssafy.togetherhomt.util.MailConfirm.MailConfirmService;
-import lombok.AllArgsConstructor;
+import com.ssafy.togetherhomt.util.Mailing.MailingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,18 +15,18 @@ import javax.validation.Valid;
 public class UserController {
 
     private UserService userService;
-    private MailConfirmService mailConfirmService;
+    private MailingService mailingService;
 
     @Autowired
-    public UserController(UserService userService, MailConfirmService mailConfirmService) {
+    public UserController(UserService userService, MailingService mailingService) {
         this.userService = userService;
-        this.mailConfirmService = mailConfirmService;
+        this.mailingService = mailingService;
     }
 
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@Valid @RequestBody UserDto userDto) {
-        String result = userService.signup(userDto);
+    public ResponseEntity<?> signup(@Valid @RequestBody SignupDto signupDto) {
+        String result = userService.signup(signupDto);
 
         if (result.equals("success"))
             return ResponseEntity.ok("success");
@@ -37,21 +34,21 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @PostMapping("/signup/mail-confirm")
+    @PostMapping({"/signup/confirm", "/reset-password"})
     public ResponseEntity<String> confirmMail(@RequestBody String email) throws Exception {
-        return ResponseEntity.ok(mailConfirmService.sendSimpleMessage(email));
+        return ResponseEntity.ok(mailingService.sendSimpleMessage(email));
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginDto loginDto) {
-        System.out.println("UserController - login");
-        UserDto userDto = userService.login(loginDto);
-        if (userDto != null)
-            return ResponseEntity.ok("success");
-        else
-            System.out.println("fail");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<?> login(@Valid @RequestBody LoginDto loginDto) {
+//        System.out.println("UserController - login");
+//        SignupDto signupDto = userService.login(loginDto);
+//        if (signupDto != null)
+//            return ResponseEntity.ok("success");
+//        else
+//            System.out.println("fail");
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    }
 
     @DeleteMapping("/{email}")
     public ResponseEntity<?> withdraw(@PathVariable String email){

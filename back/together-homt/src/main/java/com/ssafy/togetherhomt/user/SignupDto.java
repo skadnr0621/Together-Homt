@@ -9,11 +9,15 @@ import javax.validation.constraints.Size;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto2 {
+public class SignupDto {
 
     @NotNull
     @Size(max = 50)
     private String email;
+
+    @NotNull
+    @Size(min = 6, max = 15)
+    private String password;
 
     @NotNull
     @Size(min = 3, max = 10)

@@ -1,7 +1,6 @@
 package com.ssafy.togetherhomt.feed;
 
 import com.ssafy.togetherhomt.user.User;
-import com.ssafy.togetherhomt.user.UserDto;
 import com.ssafy.togetherhomt.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

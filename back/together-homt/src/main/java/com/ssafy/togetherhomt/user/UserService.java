@@ -21,15 +21,15 @@ public class UserService {
 
 
     @Transactional
-    public String signup(UserDto userDto) {
-        if (userRepository.findByEmail(userDto.getEmail()) != null)
+    public String signup(SignupDto signupDto) {
+        if (userRepository.findByEmail(signupDto.getEmail()) != null)
             return "failure";
 
 
         User user = User.builder()
-                .email(userDto.getEmail())
-                .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
-                .username(userDto.getUsername())
+                .email(signupDto.getEmail())
+                .password(bCryptPasswordEncoder.encode(signupDto.getPassword()))
+                .username(signupDto.getUsername())
                 .role("ROLE_USER")
                 .build();
 
@@ -38,7 +38,7 @@ public class UserService {
         return "success";
     }
 
-    public UserDto login(LoginDto loginDto) {
+    public SignupDto login(LoginDto loginDto) {
         User user = userRepository.findByEmail(loginDto.getEmail());
         if (user == null)
             return null;
@@ -47,7 +47,7 @@ public class UserService {
         if (!bCryptPasswordEncoder.matches(loginDto.getPassword(), user.getPassword()))
             return null;
 
-        return new UserDto(user.getEmail(), user.getPassword(), user.getUsername());
+        return new SignupDto(user.getEmail(), user.getPassword(), user.getUsername());
     }
 
     @Transactional
