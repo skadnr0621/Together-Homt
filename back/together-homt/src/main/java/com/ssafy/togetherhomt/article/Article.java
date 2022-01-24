@@ -1,10 +1,9 @@
 package com.ssafy.togetherhomt.article;
 
+import com.ssafy.togetherhomt.baseEntity.BaseTimeEntity;
 import com.ssafy.togetherhomt.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
@@ -13,7 +12,9 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Article {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class Article extends BaseTimeEntity {
 
     @Id
     @Column(name = "article_id")
