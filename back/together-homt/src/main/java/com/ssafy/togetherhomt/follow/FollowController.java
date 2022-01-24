@@ -1,31 +1,24 @@
 package com.ssafy.togetherhomt.follow;
 
+import com.ssafy.togetherhomt.common.CommonService;
 import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
 import com.ssafy.togetherhomt.user.User;
-import com.ssafy.togetherhomt.user.UserDto2;
 import com.ssafy.togetherhomt.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/follow")
+@AllArgsConstructor
 public class FollowController {
 
     private UserRepository userRepository;
 
     private FollowService followService;
-
-    @Autowired
-    public FollowController(UserRepository userRepository, FollowService followService) {
-        this.userRepository = userRepository;
-        this.followService = followService;
-    }
+    private CommonService commonService;
 
 
     // 나를 팔로우 하는 사람 검색
@@ -33,9 +26,9 @@ public class FollowController {
     public ResponseEntity<?> listFollowers(@PathVariable("my-email") String myEmail) {
         User me = userRepository.findByEmail(myEmail);
         if (me == null)
-            return new ResponseEntity<String>("BAD REQUEST", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("BAD REQUEST", HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<List<UserDto2>>(followService.listFollowers(me), HttpStatus.OK);
+        return new ResponseEntity<>(followService.listFollowers(me), HttpStatus.OK);
     }
 
     // 내가 팔로우 하는 사람 검색
@@ -43,14 +36,14 @@ public class FollowController {
     public ResponseEntity<?> listFollowings(@PathVariable("my-email") String myEmail) {
         User me = userRepository.findByEmail(myEmail);
         if (me == null)
-            return new ResponseEntity<String>("BAD REQUEST", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("BAD REQUEST", HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<List<UserDto2>>(followService.listFollowings(me), HttpStatus.OK);
+        return new ResponseEntity<>(followService.listFollowings(me), HttpStatus.OK);
     }
 
     @PostMapping("/{my-email}/{your-email}")
     public ResponseEntity<String> follow(@PathVariable("my-email") String myEmail,
-                                    @PathVariable("your-email") String yourEmail) {
+                                         @PathVariable("your-email") String yourEmail) {
 
         PrincipalDetails principalDetails = (PrincipalDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User me = principalDetails.getUser();
@@ -60,11 +53,25 @@ public class FollowController {
             return new ResponseEntity<>("BAD REQUEST", HttpStatus.BAD_REQUEST);
 
         Follow follow = followService.follow(me, you);
-        if (follow != null)
-            return new ResponseEntity<String>(String.format("Follow success : %s ---> %s", me.getUsername(), you.getUsername()),
-                                                HttpStatus.OK);
+        if (follow == null)
+            return new ResponseEntity<>("Requested follow already exists", HttpStatus.CONFLICT);
 
-        return new ResponseEntity<>("Follow request failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        String msg = String.format("Follow success : %s ---> %s", me.getUsername(), you.getUsername());
+        return new ResponseEntity<>(msg, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{my-email}/{your-email}")
+    public ResponseEntity<Void> unfollow(@PathVariable("my-email") String myEmail,
+                                         @PathVariable("your-email") String yourEmail) {
+
+        User me = userRepository.findByEmail(myEmail);
+        User you = userRepository.findByEmail(yourEmail);
+
+        if (you == null || !commonService.isLoginUser(me))
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        followService.unfollow(me, you);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
