@@ -1,6 +1,5 @@
 package com.ssafy.togetherhomt.feed;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ssafy.togetherhomt.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,38 +9,30 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "feed")
+@Table(name = "comment")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Feed {
+public class Comment {
 
     @Id
-    @Column(name = "feed_id")
+    @Column(name = "comment_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long feed_id;
-
-    private String title;
-
-    private String content;
+    private Long comment_id;
 
     @CreatedDate
     private LocalDateTime created_at;
 
-    private String media_url;
-
-    private Integer like_cnt;
+    private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "feed")
-    @JsonIgnoreProperties({"feed"})
-    private List<Comment> comments = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "feed_id")
+    private Feed feed;
 }
