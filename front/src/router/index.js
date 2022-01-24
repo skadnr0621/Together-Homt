@@ -4,7 +4,7 @@ import VueRouter from "vue-router";
 import FindPW from "@/views/user/FindPW";
 
 import FirstPageRouters from "@/router/firstpage"
-import MyPageRouters from "@/router/mypage";
+import MainRouters from "@/router/main";
 
 Vue.use(VueRouter);
 
@@ -15,7 +15,7 @@ const routes = [
     path: "/findpw/",
     component: FindPW,
   },
-  { ...MyPageRouters },
+  { ...MainRouters },
 ];
 
 const router = new VueRouter({

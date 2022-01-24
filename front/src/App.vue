@@ -9,9 +9,28 @@ export default {
   name: "App",
 };
 </script>
-<style scoped>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 #app {
-  height: 640px;
+  display: flex;
+  justify-content: center;
+}
+
+a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+a:visited {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+ul {
+  list-style: none;
 }
 </style>

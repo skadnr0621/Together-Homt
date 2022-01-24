@@ -31,6 +31,37 @@
       <svg xmlns="http://www.w3.org/2000/svg" height="33px" viewBox="0 0 26 26" width="33px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/>
       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.51.88 4.93 1.78C15.57 19.36 13.86 20 12 20s-3.57-.64-4.93-1.72zm11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6zm0 5c-.83 0-1.5-.67-1.5-1.5S11.17 8 12 8s1.5.67 1.5 1.5S12.83 11 12 11z"/></svg>
     </router-link>
+  <div id="navbar">
+    <ul>
+      <li class="menu-feed">
+        <router-link
+          :to="{ name: 'Feed' }"
+          v-on:click.prevent="changeMenu('feed')"
+        >
+          <span class="material-icons"> home </span>
+        </router-link>
+      </li>
+      <li class="menu-search">
+        <router-link :to="{ name: '' }">
+          <span class="material-icons"> search </span>
+        </router-link>
+      </li>
+      <li class="menu-add">
+        <router-link :to="{ name: '' }">
+          <span class="material-icons-outlined"> add_box </span>
+        </router-link>
+      </li>
+      <li class="menu-homt">
+        <router-link :to="{ name: '' }">
+          <span class="material-icons-outlined"> fitness_center </span>
+        </router-link>
+      </li>
+      <li class="menu-my">
+        <router-link :to="{ name: 'UserPage', params: { userName: '죠르디' } }">
+          <span class="material-icons"> account_circle </span>
+        </router-link>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -39,7 +70,66 @@ import '@/components/css/common.css'
 
 export default {
   name: "Navbar",
+  // methods: {
+  //   changeMenu(menu) {},
+  // },
+  // mounted() {
+  //   console.log(this.$route.name);
+  // },
 };
 </script>
 
-<style></style>
+<style>
+#navbar {
+  position: fixed;
+  bottom: 0;
+  height: 46px;
+  width: 100%;
+  /* border-top: 1px solid rgba(0, 0, 0, 0.1); */
+}
+
+#navbar > ul {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#navbar > ul > li {
+  text-align: center;
+  height: 100%;
+  padding: 11px;
+  width: 25%;
+}
+
+#navbar > ul > li > a:hover {
+}
+
+#navbar > ul > li > a > span {
+  font-size: 24px;
+}
+
+#navbar > ul > .menu-my > a > span {
+  color: rgba(41, 98, 255, 0.86);
+}
+
+#navbar > ul > .menu-my {
+  border-top: 1px solid rgba(41, 98, 255, 0.86);
+}
+
+#navbar > ul > .menu-feed {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#navbar > ul > .menu-search {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#navbar > ul > .menu-add {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#navbar > ul > .menu-homt {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+</style>

@@ -34,4 +34,8 @@ public class User {
 
     @Column(name = "profile_url")
     private String profile_url;
+
+    public static Object builder() {
+      return null;
+    }
 }
