@@ -73,6 +73,16 @@ public class UserController {
         return ResponseEntity.ok("update success");
     }
 
+    @PutMapping("/{email}/passwordUpdate")
+    public ResponseEntity<?> passwordUpdate(@PathVariable String email, @Valid @RequestBody LoginDto loginDto){
+        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(email == null || !principalDetails.getUsername().equals(email)){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        userService.passwordUpdate(email, loginDto);
+        return ResponseEntity.ok("passwordUpdate success");
+    }
+
 
     @GetMapping("/admin")
     public ResponseEntity<String> admin() {

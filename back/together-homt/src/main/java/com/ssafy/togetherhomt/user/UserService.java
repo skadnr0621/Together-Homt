@@ -65,4 +65,13 @@ public class UserService {
         userRepository.save(user);
     }
 
+    @Transactional
+    public void passwordUpdate(String email,LoginDto loginDto){
+        User user = userRepository.findByEmail(email);
+        user.setPassword(bCryptPasswordEncoder.encode(loginDto.getPassword()));
+        userRepository.save(user);
+    }
+
+
+
 }
