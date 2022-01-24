@@ -1,17 +1,19 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import FirstPage from "@/views/FirstPage";
+import FindPW from "@/views/user/FindPW";
 
+import FirstPageRouters from "@/router/firstpage"
 import MyPageRouters from "@/router/mypage";
 
 Vue.use(VueRouter);
 
 const routes = [
+  { ...FirstPageRouters},
   {
-    path: "/",
-    name: "FirstPage",
-    component: FirstPage,
+    name: "FindPW",
+    path: "/findpw/",
+    component: FindPW,
   },
   { ...MyPageRouters },
 ];
