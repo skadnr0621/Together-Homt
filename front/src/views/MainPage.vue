@@ -1,26 +1,32 @@
 <template>
-  <div>
-    <h1>MainPage</h1>
+  <div id="main-page">
+    <!-- 헤더 컴포넌트 -->
     <Header />
-    <Navbar />
+
+    <!-- 메인 라우터 : 피드 페이지, 유저 페이지 -->
     <router-view />
-    <Footer />
+
+    <!-- 네비게이션바 컴포넌트 -->
+    <Navbar />
   </div>
 </template>
 
 <script>
 import Header from "@/components/common/Header";
-import Footer from "@/components/common/Footer";
 import Navbar from "@/components/common/Navbar";
 
 export default {
   name: "MainPage",
   components: {
     Header,
-    Footer,
     Navbar,
   },
 };
 </script>
 
-<style></style>
+<style>
+#main-page {
+  /* padding-bottom: 19px; */
+  width: 735px;
+}
+</style>

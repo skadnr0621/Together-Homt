@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 
 import FirstPage from "@/views/FirstPage";
 
-import MyPageRouters from "@/router/mypage";
+import MainRouters from "@/router/main";
 
 Vue.use(VueRouter);
 
@@ -13,7 +13,7 @@ const routes = [
     name: "FirstPage",
     component: FirstPage,
   },
-  { ...MyPageRouters },
+  { ...MainRouters },
 ];
 
 const router = new VueRouter({

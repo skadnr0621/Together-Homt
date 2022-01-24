@@ -1,5 +1,5 @@
 <template>
-  <div><h1>Footer</h1></div>
+  <div id="footer"><h1>Footer</h1></div>
 </template>
 
 <script>
@@ -8,4 +8,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#footer {
+  position: absolute;
+  bottom: 0;
+}
+</style>
