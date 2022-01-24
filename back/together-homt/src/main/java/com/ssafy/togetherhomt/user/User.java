@@ -3,6 +3,7 @@ package com.ssafy.togetherhomt.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ssafy.togetherhomt.feed.Feed;
+import com.ssafy.togetherhomt.follow.Follow;
 import lombok.*;
 import org.hibernate.criterion.Order;
 
@@ -40,6 +41,15 @@ public class User {
 
     @Column(name = "profile_url")
     private String profile_url;
+
+    // 나를 팔로우 하고 있는 사람들
+    @OneToMany(mappedBy = "following")
+    private List<Follow> follower;
+
+    // 내가 팔로우 하고 있는 사람들
+    @OneToMany(mappedBy = "follower")
+    private List<Follow> following;
+
 
     @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties({"user"})

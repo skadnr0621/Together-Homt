@@ -57,6 +57,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             // SecurityContextHolder.getContext() = security를 저장할 수 있는 session 획득
             // 강제로 시큐리티의 세션에 접근하여 Authentication 객체 저장.
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
             chain.doFilter(request, response);
         }

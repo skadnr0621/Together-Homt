@@ -24,6 +24,7 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         String resourcePattern = config.getUploadResourcePath()+"**";
+
         registry.addResourceHandler(resourcePattern)
                 .addResourceLocations("file:///"+ config.getUploadFilePath());
         System.out.println("resourcePattern = " + resourcePattern);
