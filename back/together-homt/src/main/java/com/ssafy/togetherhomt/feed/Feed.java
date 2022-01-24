@@ -1,6 +1,7 @@
 package com.ssafy.togetherhomt.feed;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ssafy.togetherhomt.feed.comment.Comment;
 import com.ssafy.togetherhomt.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

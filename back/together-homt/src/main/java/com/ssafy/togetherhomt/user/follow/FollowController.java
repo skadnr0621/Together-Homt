@@ -1,13 +1,12 @@
-package com.ssafy.togetherhomt.follow;
+package com.ssafy.togetherhomt.user.follow;
 
 import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
 import com.ssafy.togetherhomt.user.User;
-import com.ssafy.togetherhomt.user.UserDto2;
+import com.ssafy.togetherhomt.user.info.UserDto;
 import com.ssafy.togetherhomt.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +34,7 @@ public class FollowController {
         if (me == null)
             return new ResponseEntity<String>("BAD REQUEST", HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<List<UserDto2>>(followService.listFollowers(me), HttpStatus.OK);
+        return new ResponseEntity<List<UserDto>>(followService.listFollowers(me), HttpStatus.OK);
     }
 
     // 내가 팔로우 하는 사람 검색
@@ -45,7 +44,7 @@ public class FollowController {
         if (me == null)
             return new ResponseEntity<String>("BAD REQUEST", HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<List<UserDto2>>(followService.listFollowings(me), HttpStatus.OK);
+        return new ResponseEntity<List<UserDto>>(followService.listFollowings(me), HttpStatus.OK);
     }
 
     @PostMapping("/{my-email}/{your-email}")

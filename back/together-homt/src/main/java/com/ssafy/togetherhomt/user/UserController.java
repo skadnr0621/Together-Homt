@@ -1,14 +1,14 @@
 package com.ssafy.togetherhomt.user;
 
 import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
+import com.ssafy.togetherhomt.user.auth.LoginDto;
+import com.ssafy.togetherhomt.user.info.SignupDto;
+import com.ssafy.togetherhomt.user.info.UpdateDto;
 import com.ssafy.togetherhomt.util.MailConfirm.MailConfirmService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,7 +28,7 @@ public class UserController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@Valid @RequestBody UserDto userDto) {
+    public ResponseEntity<?> signup(@Valid @RequestBody SignupDto userDto) {
         String result = userService.signup(userDto);
 
         if (result.equals("success"))
@@ -37,7 +37,7 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @PostMapping("/signup/mail-confirm")
+    @GetMapping("/signup/mail-confirm")
     public ResponseEntity<String> confirmMail(@RequestBody String email) throws Exception {
         return ResponseEntity.ok(mailConfirmService.sendSimpleMessage(email));
     }
@@ -45,7 +45,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginDto loginDto) {
         System.out.println("UserController - login");
-        UserDto userDto = userService.login(loginDto);
+        SignupDto userDto = userService.login(loginDto);
         if (userDto != null)
             return ResponseEntity.ok("success");
         else
@@ -82,16 +82,4 @@ public class UserController {
         userService.passwordUpdate(email, loginDto);
         return ResponseEntity.ok("passwordUpdate success");
     }
-
-
-    @GetMapping("/admin")
-    public ResponseEntity<String> admin() {
-        return new ResponseEntity<String>("authorized", HttpStatus.OK);
-    }
-
-    @GetMapping("/main")
-    public ResponseEntity<String> main() {
-        return new ResponseEntity<String>("this is /user/main", HttpStatus.OK);
-    }
-
 }

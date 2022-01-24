@@ -1,5 +1,6 @@
-package com.ssafy.togetherhomt.feed;
+package com.ssafy.togetherhomt.feed.comment;
 
+import com.ssafy.togetherhomt.feed.Feed;
 import com.ssafy.togetherhomt.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

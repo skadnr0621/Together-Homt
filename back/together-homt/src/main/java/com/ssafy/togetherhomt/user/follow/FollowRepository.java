@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.follow;
+package com.ssafy.togetherhomt.user.follow;
 
 import com.ssafy.togetherhomt.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;

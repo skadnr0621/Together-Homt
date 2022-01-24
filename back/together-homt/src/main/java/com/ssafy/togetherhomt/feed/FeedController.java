@@ -1,11 +1,8 @@
 package com.ssafy.togetherhomt.feed;
 
-import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
-import com.ssafy.togetherhomt.user.User;
+import com.ssafy.togetherhomt.feed.comment.CommentDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +16,18 @@ public class FeedController {
     @Autowired
     public FeedController(FeedService feedService) {
         this.feedService = feedService;
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<?> create(@ModelAttribute("file") FeedDto feedDto){
+
+        String result = feedService.create(feedDto);
+
+        if (result.equals("success")) {
+            return ResponseEntity.ok("success");
+        } else {
+            return (ResponseEntity<?>) ResponseEntity.badRequest();
+        }
     }
 
     @GetMapping("/main")
@@ -48,4 +57,6 @@ public class FeedController {
     public String deleteComment(@PathVariable("comment_id") Long comment_id) {
         return feedService.deleteComment(comment_id);
     }
+
+
 }

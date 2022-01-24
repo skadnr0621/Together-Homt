@@ -1,12 +1,7 @@
-package com.ssafy.togetherhomt.feed;
+package com.ssafy.togetherhomt.feed.comment;
 
-import com.ssafy.togetherhomt.user.User;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Getter
