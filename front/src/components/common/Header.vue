@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar navbar-light">
+    <!-- <nav class="navbar navbar-light">
       <div class="container-fluid">
         <a class="navbar-brand fw-bold" href="#">투게더 홈트</a>
         <button class="btn btn-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -21,11 +21,12 @@
           </div>
         </div>
       </div>
-    </nav>
+    </nav> -->
   <div id="header">
     <img src="@/assets/logo.png" alt="로고" />
     <span class="material-icons-outlined"> menu </span>
   </div>
+</div>
 </template>
 
 <script>
