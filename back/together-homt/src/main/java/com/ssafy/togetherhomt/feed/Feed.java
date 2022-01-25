@@ -3,11 +3,13 @@ package com.ssafy.togetherhomt.feed;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ssafy.togetherhomt.baseEntity.BaseTimeEntity;
 import com.ssafy.togetherhomt.feed.comment.Comment;
+import com.ssafy.togetherhomt.feed.like.Like;
 import com.ssafy.togetherhomt.user.User;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.sql.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,4 +44,8 @@ public class Feed extends BaseTimeEntity {
     @OneToMany(mappedBy = "feed")
     @JsonIgnoreProperties({"feed"})
     private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "feed")
+    @JsonIgnoreProperties({"feed"})
+    private List<Like> likes = new ArrayList<>();
 }
