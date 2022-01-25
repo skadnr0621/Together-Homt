@@ -5,6 +5,7 @@ import com.ssafy.togetherhomt.user.info.SignupDto;
 import com.ssafy.togetherhomt.user.info.UpdateDto;
 import com.ssafy.togetherhomt.util.Mailing.MailingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -94,4 +95,8 @@ public class UserService {
         return "success";
     }
 
+    public User getProfile(String email) {
+        User user = userRepository.findByEmail(email);
+        return user;
+    }
 }

@@ -87,4 +87,10 @@ public class UserController {
     public String passwordFind(@RequestBody String email) throws Exception{
         return userService.passwordFind(email);
     }
+
+    @GetMapping("/profile/{email}")
+    public ResponseEntity<?> getProfile(@PathVariable String email) {
+        User user = userService.getProfile(email);
+        return ResponseEntity.ok(user);
+    }
 }
