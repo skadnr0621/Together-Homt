@@ -1,12 +1,10 @@
 package com.ssafy.togetherhomt.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ssafy.togetherhomt.feed.comment.Comment;
 import com.ssafy.togetherhomt.feed.Feed;
-import com.ssafy.togetherhomt.follow.Follow;
-import com.ssafy.togetherhomt.like.Like;
+import com.ssafy.togetherhomt.user.follow.Follow;
 import lombok.*;
-import org.hibernate.criterion.Order;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -56,8 +54,7 @@ public class User {
     @JsonIgnoreProperties({"user"})
     private List<Feed> feeds = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name = "like_id")
-    @ToString.Exclude
-    private List<Like> like_articles = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user"})
+    private List<Comment> comments = new ArrayList<>();
 }

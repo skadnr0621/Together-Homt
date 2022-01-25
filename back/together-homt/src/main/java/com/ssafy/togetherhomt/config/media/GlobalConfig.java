@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.config.articleConfig;
+package com.ssafy.togetherhomt.config.media;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

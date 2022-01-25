@@ -1,7 +1,7 @@
-package com.ssafy.togetherhomt.follow;
+package com.ssafy.togetherhomt.user.follow;
 
 import com.ssafy.togetherhomt.user.User;
-import com.ssafy.togetherhomt.user.UserDto2;
+import com.ssafy.togetherhomt.user.info.UserDto;
 import com.ssafy.togetherhomt.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,25 +20,25 @@ public class FollowService {
 
 
     // 나를 팔로우 하는 사람 검색
-    public List<UserDto2> listFollowers(User me) {
+    public List<UserDto> listFollowers(User me) {
         List<Follow> followers = followRepository.findByFollowing(me);
 
-        List<UserDto2> followerList = new ArrayList<>();
+        List<UserDto> followerList = new ArrayList<>();
         for (Follow follow : followers) {
             User follower = follow.getFollower();
-            followerList.add(new UserDto2(follower.getEmail(), follower.getUsername()));
+            followerList.add(new UserDto(follower.getEmail(), follower.getUsername()));
         }
         return followerList;
     }
 
     // 내가 팔로우 하는 사람 검색
-    public List<UserDto2> listFollowings(User me) {
+    public List<UserDto> listFollowings(User me) {
         List<Follow> followings = followRepository.findByFollower(me);
 
-        List<UserDto2> followingList = new ArrayList<>();
+        List<UserDto> followingList = new ArrayList<>();
         for (Follow follow : followings) {
             User following = follow.getFollowing();
-            followingList.add(new UserDto2(following.getEmail(), following.getUsername()));
+            followingList.add(new UserDto(following.getEmail(), following.getUsername()));
         }
         return followingList;
     }

@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.follow;
+package com.ssafy.togetherhomt.user.follow;
 
 import com.ssafy.togetherhomt.user.User;
 import lombok.AllArgsConstructor;
@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "follow")
