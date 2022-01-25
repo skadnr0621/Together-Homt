@@ -37,7 +37,7 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @PostMapping({"/signup/confirm", "/reset-password"})
+    @PostMapping("/signup/confirm")
     public ResponseEntity<String> confirmMail(@RequestBody String email) throws Exception {
         return ResponseEntity.ok(mailConfirmService.sendSimpleMessage(email));
     }
@@ -81,5 +81,16 @@ public class UserController {
         }
         userService.passwordUpdate(email, loginDto);
         return ResponseEntity.ok("passwordUpdate success");
+    }
+
+    @PostMapping("/passwordFind")
+    public String passwordFind(@RequestBody String email) throws Exception{
+        return userService.passwordFind(email);
+    }
+
+    @GetMapping("/profile/{email}")
+    public ResponseEntity<?> getProfile(@PathVariable String email) {
+        User user = userService.getProfile(email);
+        return ResponseEntity.ok(user);
     }
 }

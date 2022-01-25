@@ -181,4 +181,10 @@ public class FeedService {
         feedRepository.save(feed);
         return "success";
     }
+
+    public String feedDelete(Long feed_id) {
+        Optional<Feed> feed = feedRepository.findById(feed_id);
+        feedRepository.delete(feed.get());
+        return "success";
+    }
 }
