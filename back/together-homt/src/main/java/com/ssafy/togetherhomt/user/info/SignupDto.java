@@ -1,7 +1,6 @@
-package com.ssafy.togetherhomt.user;
+package com.ssafy.togetherhomt.user.info;
 
 import lombok.*;
-import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -10,7 +9,7 @@ import javax.validation.constraints.Size;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto { // 회원가입
+public class SignupDto { // 회원가입
 
     @NotNull
     @Size(max = 50)
@@ -23,4 +22,5 @@ public class UserDto { // 회원가입
     @NotNull
     @Size(min = 3, max = 10)
     private String username;
+
 }

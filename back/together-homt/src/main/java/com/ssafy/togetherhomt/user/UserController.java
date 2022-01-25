@@ -1,15 +1,15 @@
 package com.ssafy.togetherhomt.user;
 
+import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
+import com.ssafy.togetherhomt.user.auth.LoginDto;
+import com.ssafy.togetherhomt.user.info.SignupDto;
+import com.ssafy.togetherhomt.user.info.UpdateDto;
 import com.ssafy.togetherhomt.util.MailConfirm.MailConfirmService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -20,7 +20,6 @@ public class UserController {
     private UserService userService;
     private MailConfirmService mailConfirmService;
 
-
     @Autowired
     public UserController(UserService userService, MailConfirmService mailConfirmService) {
         this.userService = userService;
@@ -29,8 +28,8 @@ public class UserController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@Valid @RequestBody UserDto userDto) {
-        String result = userService.signup(userDto);
+    public ResponseEntity<?> signup(@Valid @RequestBody SignupDto signDto) {
+        String result = userService.signup(signDto);
 
         if (result.equals("success"))
             return ResponseEntity.ok("success");
@@ -38,18 +37,49 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @PostMapping("/signup/mail-confirm")
+    @PostMapping({"/signup/confirm", "/reset-password"})
     public ResponseEntity<String> confirmMail(@RequestBody String email) throws Exception {
         return ResponseEntity.ok(mailConfirmService.sendSimpleMessage(email));
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginDto loginDto) {
-        UserDto userDto = userService.login(loginDto);
+        System.out.println("UserController - login");
+        SignupDto userDto = userService.login(loginDto);
         if (userDto != null)
             return ResponseEntity.ok("success");
         else
+            System.out.println("fail");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @DeleteMapping("/{email}")
+    public ResponseEntity<?> withdraw(@PathVariable String email){
+        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(email == null || !principalDetails.getUsername().equals(email)){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        userService.withdraw(email);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("/{email}")
+    public ResponseEntity<?> update(@PathVariable String email, @Valid @RequestBody UpdateDto updateDto){
+        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(email == null || !principalDetails.getUsername().equals(email)){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        userService.update(email, updateDto);
+        return ResponseEntity.ok("update success");
+    }
+
+    @PutMapping("/{email}/passwordUpdate")
+    public ResponseEntity<?> passwordUpdate(@PathVariable String email, @Valid @RequestBody LoginDto loginDto){
+        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(email == null || !principalDetails.getUsername().equals(email)){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        userService.passwordUpdate(email, loginDto);
+        return ResponseEntity.ok("passwordUpdate success");
+    }
 }
