@@ -1,18 +1,14 @@
 package com.ssafy.togetherhomt.user.follow;
 
+import com.ssafy.togetherhomt.common.CommonService;
 import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
 import com.ssafy.togetherhomt.user.User;
-import com.ssafy.togetherhomt.user.info.UserDto;
 import com.ssafy.togetherhomt.user.UserRepository;
-import com.ssafy.togetherhomt.util.CommonService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/follow")

@@ -173,6 +173,7 @@ public class FeedService {
         Feed feed = Feed.builder()
                 .title(feedDto.getTitle())
                 .content(feedDto.getContent())
+                .like_cnt(0L)
                 .media_url(resourcePathname)
                 .user(user)
                 .build();

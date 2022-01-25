@@ -3,6 +3,7 @@ package com.ssafy.togetherhomt.user;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ssafy.togetherhomt.feed.comment.Comment;
 import com.ssafy.togetherhomt.feed.Feed;
+import com.ssafy.togetherhomt.feed.like.Like;
 import com.ssafy.togetherhomt.user.follow.Follow;
 import lombok.*;
 
@@ -57,4 +58,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties({"user"})
     private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user"})
+    private List<Like> likes = new ArrayList<>();
 }

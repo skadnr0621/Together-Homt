@@ -27,7 +27,7 @@ public class FeedDto {
 
     private String media_url;
 
-    private Integer like_cnt;
+    private Long like_cnt;
 
     private String userName;
 }

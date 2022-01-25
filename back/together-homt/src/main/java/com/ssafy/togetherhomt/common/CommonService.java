@@ -17,4 +17,7 @@ public class CommonService {
         return user.getEmail().equals(sUser.getEmail());
     }
 
+    public User getLoginUser() {
+        return ((PrincipalDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+    }
 }
