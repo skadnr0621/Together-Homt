@@ -6,11 +6,8 @@ import com.ssafy.togetherhomt.feed.comment.Comment;
 import com.ssafy.togetherhomt.feed.like.Like;
 import com.ssafy.togetherhomt.user.User;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.sql.Array;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +32,7 @@ public class Feed extends BaseTimeEntity {
 
     private String media_url;
 
-    private Integer like_cnt;
+    private Long like_cnt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
