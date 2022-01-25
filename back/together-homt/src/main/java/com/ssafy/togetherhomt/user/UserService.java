@@ -1,5 +1,8 @@
 package com.ssafy.togetherhomt.user;
 
+import com.ssafy.togetherhomt.user.auth.LoginDto;
+import com.ssafy.togetherhomt.user.info.SignupDto;
+import com.ssafy.togetherhomt.user.info.UpdateDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,15 +24,15 @@ public class UserService {
 
 
     @Transactional
-    public String signup(SignupDto signupDto) {
-        if (userRepository.findByEmail(signupDto.getEmail()) != null)
+    public String signup(SignupDto userDto) {
+        if (userRepository.findByEmail(userDto.getEmail()) != null)
             return "failure";
 
 
         User user = User.builder()
-                .email(signupDto.getEmail())
-                .password(bCryptPasswordEncoder.encode(signupDto.getPassword()))
-                .username(signupDto.getUsername())
+                .email(userDto.getEmail())
+                .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
+                .username(userDto.getUsername())
                 .role("ROLE_USER")
                 .build();
 
@@ -43,7 +46,6 @@ public class UserService {
         if (user == null)
             return null;
 
-//        if (!user.getPassword().equals(bCryptPasswordEncoder.encode(loginDto.getPassword())))
         if (!bCryptPasswordEncoder.matches(loginDto.getPassword(), user.getPassword()))
             return null;
 

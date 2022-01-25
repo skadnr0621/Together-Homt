@@ -1,7 +1,7 @@
-package com.ssafy.togetherhomt.follow;
+package com.ssafy.togetherhomt.user.follow;
 
 import com.ssafy.togetherhomt.user.User;
-import com.ssafy.togetherhomt.user.UserDto;
+import com.ssafy.togetherhomt.user.info.UserDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -60,3 +60,4 @@ public class FollowService {
     }
 
 }
+

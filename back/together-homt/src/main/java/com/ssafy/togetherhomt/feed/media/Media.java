@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.article;
+package com.ssafy.togetherhomt.feed.media;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Video {
+public class Media {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long video_id;
@@ -26,3 +26,4 @@ public class Video {
 
     private String fileOriginName;
 }
+

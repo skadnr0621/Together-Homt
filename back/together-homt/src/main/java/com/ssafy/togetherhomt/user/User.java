@@ -1,12 +1,10 @@
 package com.ssafy.togetherhomt.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ssafy.togetherhomt.feed.comment.Comment;
 import com.ssafy.togetherhomt.feed.Feed;
-import com.ssafy.togetherhomt.follow.Follow;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.ssafy.togetherhomt.user.follow.Follow;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -55,4 +53,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties({"user"})
     private List<Feed> feeds = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user"})
+    private List<Comment> comments = new ArrayList<>();
 }

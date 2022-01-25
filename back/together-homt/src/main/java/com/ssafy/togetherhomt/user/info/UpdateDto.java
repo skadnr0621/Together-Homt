@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.user;
+package com.ssafy.togetherhomt.user.info;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
