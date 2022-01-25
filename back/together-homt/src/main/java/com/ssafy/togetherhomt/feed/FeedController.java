@@ -30,6 +30,12 @@ public class FeedController {
         }
     }
 
+    @DeleteMapping("/{feed_id}")
+    public String feedDelete(@PathVariable("feed_id") Long feed_id){
+
+        return feedService.feedDelete(feed_id);
+    }
+
     @GetMapping("/main")
     public ResponseEntity<List<FeedDto>> main(@RequestBody String email) {
         List<FeedDto> feeds = feedService.main(email);
