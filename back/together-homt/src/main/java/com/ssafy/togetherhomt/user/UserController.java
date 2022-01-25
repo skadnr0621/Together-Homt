@@ -28,8 +28,8 @@ public class UserController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@Valid @RequestBody SignupDto userDto) {
-        String result = userService.signup(userDto);
+    public ResponseEntity<?> signup(@Valid @RequestBody SignupDto signDto) {
+        String result = userService.signup(signDto);
 
         if (result.equals("success"))
             return ResponseEntity.ok("success");
@@ -37,7 +37,7 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @GetMapping("/signup/mail-confirm")
+    @PostMapping({"/signup/confirm", "/reset-password"})
     public ResponseEntity<String> confirmMail(@RequestBody String email) throws Exception {
         return ResponseEntity.ok(mailConfirmService.sendSimpleMessage(email));
     }
