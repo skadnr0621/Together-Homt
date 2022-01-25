@@ -13,11 +13,11 @@ public class Like {
     @Column(name = "like_id")
     private Long like_id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "feed_id")
-    private Feed feed;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "feed_id")
+//    private Feed feed;
 }

@@ -51,7 +51,6 @@ public class FeedService {
             feedDto.setId(feed.getFeed_id());
             feedDto.setTitle(feed.getTitle());
             feedDto.setContent(feed.getContent());
-            feedDto.setCreated_at(feed.getCreated_at());
             feedDto.setMedia_url(feed.getMedia_url());
             feedDto.setLike_cnt(feed.getLike_cnt());
             feedDto.setUserName(feed.getUser().getUsername());
@@ -73,7 +72,6 @@ public class FeedService {
             feedDto.setId(feed.getFeed_id());
             feedDto.setTitle(feed.getTitle());
             feedDto.setContent(feed.getContent());
-            feedDto.setCreated_at(feed.getCreated_at());
             feedDto.setMedia_url(feed.getMedia_url());
             feedDto.setLike_cnt(feed.getLike_cnt());
             feedDto.setUserName(feed.getUser().getUsername());
@@ -94,7 +92,6 @@ public class FeedService {
             CommentDto commentDto = new CommentDto();
             commentDto.setComment_id(comment.getComment_id());
             commentDto.setContent(comment.getContent());
-            commentDto.setCreated_at(comment.getCreated_at());
             commentDto.setFeed_id(comment.getFeed().getFeed_id());
             commentDto.setUsername(comment.getUser().getUsername());
 

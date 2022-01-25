@@ -1,22 +1,24 @@
-server:
-  port: 8092
-  servlet:
-    context-path: /
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
-
 spring:
+
+  h2:
+    console:
+      enabled: true
+
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url:
-    username: ssafy
-    password: 1234
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: gkuer
+    password:
 
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: update #create update none
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    show-sql: true
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+
+  # Springboot 2.6 - Swagger 충돌 fix
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
