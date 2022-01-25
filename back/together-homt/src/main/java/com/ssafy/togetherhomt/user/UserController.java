@@ -4,7 +4,7 @@ import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
 import com.ssafy.togetherhomt.user.auth.LoginDto;
 import com.ssafy.togetherhomt.user.info.SignupDto;
 import com.ssafy.togetherhomt.user.info.UpdateDto;
-import com.ssafy.togetherhomt.util.MailConfirm.MailConfirmService;
+import com.ssafy.togetherhomt.util.Mailing.MailingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +18,10 @@ import javax.validation.Valid;
 public class UserController {
 
     private UserService userService;
-    private MailConfirmService mailConfirmService;
+    private MailingService mailConfirmService;
 
     @Autowired
-    public UserController(UserService userService, MailConfirmService mailConfirmService) {
+    public UserController(UserService userService, MailingService mailConfirmService) {
         this.userService = userService;
         this.mailConfirmService = mailConfirmService;
     }

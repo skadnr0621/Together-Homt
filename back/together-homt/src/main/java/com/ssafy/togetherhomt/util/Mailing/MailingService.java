@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.util.MailConfirm;
+package com.ssafy.togetherhomt.util.Mailing;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +14,7 @@ import java.util.Random;
 
 @Service
 @PropertySource("classpath:mailConfirm.properties")
-public class MailConfirmService {
+public class MailingService {
 
     @Autowired
     JavaMailSender emailSender;
@@ -33,18 +33,18 @@ public class MailConfirmService {
         MimeMessage message = emailSender.createMimeMessage();
 
         message.addRecipients(Message.RecipientType.TO, to); //보내는 대상
-        message.setSubject("투게더 홈트 회원가입 이메일 인증"); //제목
+        message.setSubject("투게더 홈트 이메일 인증"); //제목
 
         String msgg="";
         msgg+= "<div style='margin:100px;'>";
         msgg+= "<h1> 안녕하세요 투게더 홈트입니다. </h1>";
         msgg+= "<br>";
-        msgg+= "<p>아래 코드를 회원가입 창으로 돌아가 입력해주세요<p>";
+        msgg+= "<p>아래 코드를 서비스 화면으로 돌아가 입력해주세요<p>";
         msgg+= "<br>";
         msgg+= "<p>감사합니다!<p>";
         msgg+= "<br>";
         msgg+= "<div align='center' style='border:1px solid black; font-family:verdana';>";
-        msgg+= "<h3 style='color:blue;'>회원가입 인증 코드입니다.</h3>";
+        msgg+= "<h3 style='color:blue;'>서비스 이용 인증 코드입니다.</h3>";
         msgg+= "<div style='font-size:130%'>";
         msgg+= "CODE : <strong>";
         msgg+= ePw+"</strong><div><br/> ";
