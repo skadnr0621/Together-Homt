@@ -10,7 +10,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3606/together-homt?serverTimezone=Asia/Seoul
+    url:
     username: ssafy
     password: 1234
 
