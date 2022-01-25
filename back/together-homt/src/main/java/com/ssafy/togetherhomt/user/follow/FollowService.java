@@ -2,20 +2,17 @@ package com.ssafy.togetherhomt.user.follow;
 
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.info.UserDto;
-import com.ssafy.togetherhomt.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class FollowService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private FollowRepository followRepository;
 
 
@@ -43,7 +40,11 @@ public class FollowService {
         return followingList;
     }
 
+    @Transactional
     public Follow follow(User me, User you) {
+        if (followRepository.findByFollowerAndFollowing(me, you) != null)
+            return null;
+
         Follow follow = new Follow();
         follow.setFollower(me);
         follow.setFollowing(you);
@@ -51,4 +52,12 @@ public class FollowService {
         return followRepository.save(follow);
     }
 
+    @Transactional
+    public void unfollow(User me, User you) {
+        Follow follow = followRepository.findByFollowerAndFollowing(me, you);
+        if (follow != null)
+            followRepository.delete(follow);
+    }
+
 }
+
