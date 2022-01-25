@@ -1,12 +1,10 @@
 package com.ssafy.togetherhomt.feed;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ssafy.togetherhomt.baseEntity.BaseTimeEntity;
 import com.ssafy.togetherhomt.feed.comment.Comment;
 import com.ssafy.togetherhomt.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -20,7 +18,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Feed {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class Feed extends BaseTimeEntity {
 
     @Id
     @Column(name = "feed_id")
@@ -30,9 +30,6 @@ public class Feed {
     private String title;
 
     private String content;
-
-    @CreatedDate
-    private LocalDateTime created_at;
 
     private String media_url;
 

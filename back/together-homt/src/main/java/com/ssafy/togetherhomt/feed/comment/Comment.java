@@ -1,11 +1,9 @@
 package com.ssafy.togetherhomt.feed.comment;
 
+import com.ssafy.togetherhomt.baseEntity.BaseTimeEntity;
 import com.ssafy.togetherhomt.feed.Feed;
 import com.ssafy.togetherhomt.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -17,15 +15,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Comment {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class Comment extends BaseTimeEntity {
 
     @Id
     @Column(name = "comment_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long comment_id;
-
-    @CreatedDate
-    private LocalDateTime created_at;
 
     private String content;
 
