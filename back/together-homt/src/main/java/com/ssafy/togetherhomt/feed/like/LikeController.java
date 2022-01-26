@@ -1,10 +1,8 @@
 package com.ssafy.togetherhomt.feed.like;
 
-import com.ssafy.togetherhomt.feed.FeedDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Api("'좋아요' 기능 접근 방법")

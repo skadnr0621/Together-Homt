@@ -3,7 +3,9 @@ package com.ssafy.togetherhomt.user;
 import com.ssafy.togetherhomt.user.auth.LoginDto;
 import com.ssafy.togetherhomt.user.info.SignupDto;
 import com.ssafy.togetherhomt.user.info.UpdateDto;
+import com.ssafy.togetherhomt.util.Mailing.MailingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,13 +17,18 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private MailingService mailingService;
 
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, MailingService mailingService) {
+        this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.mailingService = mailingService;
+    }
 
     @Transactional
     public String signup(SignupDto userDto) {
@@ -74,6 +81,22 @@ public class UserService {
         userRepository.save(user);
     }
 
+    @Transactional
+    public String passwordFind(String email) throws Exception{
+        User user = userRepository.findByEmail(email);
+        String newPassword = mailingService.sendSimpleMessage(email);
 
+        System.out.println("newPassword = " + newPassword);
 
+        user.setPassword(bCryptPasswordEncoder.encode(newPassword));
+
+        userRepository.save(user);
+
+        return "success";
+    }
+
+    public User getProfile(String email) {
+        User user = userRepository.findByEmail(email);
+        return user;
+    }
 }

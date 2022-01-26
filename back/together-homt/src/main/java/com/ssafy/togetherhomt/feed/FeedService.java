@@ -9,6 +9,8 @@ import com.ssafy.togetherhomt.feed.media.Media;
 import com.ssafy.togetherhomt.feed.media.MediaRepository;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserRepository;
+import com.ssafy.togetherhomt.user.follow.Follow;
+import com.ssafy.togetherhomt.user.follow.FollowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -26,42 +28,55 @@ public class FeedService {
     public UserRepository userRepository;
     public CommentRepository commentRepository;
     public MediaRepository mediaRepository;
+    public FollowRepository followRepository;
     private GlobalConfig config;
 
     @Autowired
-    public FeedService(FeedRepository feedRepository, UserRepository userRepository,
-                       CommentRepository commentRepository, MediaRepository mediaRepository, GlobalConfig config) {
+    public FeedService(FeedRepository feedRepository, UserRepository userRepository, CommentRepository commentRepository,
+                       MediaRepository mediaRepository, FollowRepository followRepository, GlobalConfig config) {
         this.feedRepository = feedRepository;
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;
         this.mediaRepository = mediaRepository;
+        this.followRepository = followRepository;
         this.config = config;
     }
 
+    public List<FeedDto> main() {
 
-    public List<FeedDto> main(String email) {
+        // Get User
+        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userTemp = principalDetails.getUser();
+        User user = userRepository.findByEmail(userTemp.getEmail());
 
-        User user = userRepository.findByEmail(email);
+        // Return Feed List
         List<FeedDto> feeds = new ArrayList<>();
 
-        // ** 팔로잉 추가 필요 ** //
-        for (Feed feed : feedRepository.findAll()) {
-            FeedDto feedDto = new FeedDto();
+        // Get Followings by User
+        List<Follow> followings = followRepository.findByFollower(user);
 
-            feedDto.setId(feed.getFeed_id());
-            feedDto.setTitle(feed.getTitle());
-            feedDto.setContent(feed.getContent());
-            feedDto.setMedia_url(feed.getMedia_url());
-            feedDto.setLike_cnt(feed.getLike_cnt());
-            feedDto.setUserName(feed.getUser().getUsername());
+        // Add Following's Feed
+        for (Follow following : followings) {
+            User toUser = following.getFollowing();
+            List<Feed> tempFeeds = toUser.getFeeds();
+            for (Feed tempFeed : tempFeeds) {
+                FeedDto feedDto = new FeedDto();
 
-            feeds.add(feedDto);
+                feedDto.setId(tempFeed.getFeed_id());
+                feedDto.setTitle(tempFeed.getTitle());
+                feedDto.setContent(tempFeed.getContent());
+                feedDto.setMedia_url(tempFeed.getMedia_url());
+                feedDto.setLike_cnt(tempFeed.getLike_cnt());
+                feedDto.setUserName(tempFeed.getUser().getUsername());
+
+                feeds.add(feedDto);
+            }
         }
 
         return feeds;
     }
 
-    public List<FeedDto> profile(String email) {
+    public List<FeedDto> getPersonalFeed(String email) {
 
         User user = userRepository.findByEmail(email);
 
@@ -179,6 +194,12 @@ public class FeedService {
                 .build();
 
         feedRepository.save(feed);
+        return "success";
+    }
+
+    public String feedDelete(Long feed_id) {
+        Optional<Feed> feed = feedRepository.findById(feed_id);
+        feedRepository.delete(feed.get());
         return "success";
     }
 }

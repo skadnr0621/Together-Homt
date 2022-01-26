@@ -21,6 +21,7 @@ public class FeedController {
         this.feedService = feedService;
     }
 
+
     @ApiOperation(value = "피드 등록", notes = "피드 등록")
     @PostMapping("/create")
     public ResponseEntity<?> create(@ModelAttribute("file") FeedDto feedDto){
@@ -35,16 +36,16 @@ public class FeedController {
     }
 
     @ApiOperation(value = "전체 피드 조회", notes = "로그인 한 사용자가 팔로우 하는 유저의 피드를 조회하여 목록으로 보여줍니다.")
-    @GetMapping("/main")
-    public ResponseEntity<List<FeedDto>> main(@RequestBody String email) {
-        List<FeedDto> feeds = feedService.main(email);
-        return ResponseEntity.ok(feeds);
+    @DeleteMapping("/{feed_id}")
+    public String feedDelete(@PathVariable("feed_id") Long feed_id){
+
+        return feedService.feedDelete(feed_id);
     }
 
     @ApiOperation(value = "내 피드 조회", notes = "내가 작성한 피드를 조회합니다.")
-    @GetMapping("/profile")
-    public ResponseEntity<List<FeedDto>> profile(@RequestBody String email) {
-        List<FeedDto> feeds = feedService.profile(email);
+    @GetMapping("/personal_feed/{email}")
+    public ResponseEntity<List<FeedDto>> getPersonalFeed(@PathVariable String email) {
+        List<FeedDto> feeds = feedService.getPersonalFeed(email);
         return ResponseEntity.ok(feeds);
     }
 

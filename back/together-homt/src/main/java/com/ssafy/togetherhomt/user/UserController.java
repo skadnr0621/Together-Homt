@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "회원 가입 승인 이메일", notes = "승인 이메일 발송")
-    @PostMapping({"/signup/confirm", "/reset-password"})
+    @PostMapping("/signup/confirm")
     public ResponseEntity<String> confirmMail(@RequestBody String email) throws Exception {
         return ResponseEntity.ok(mailConfirmService.sendSimpleMessage(email));
     }
@@ -89,5 +89,16 @@ public class UserController {
         }
         userService.passwordUpdate(email, loginDto);
         return ResponseEntity.ok("passwordUpdate success");
+    }
+
+    @PostMapping("/passwordFind")
+    public String passwordFind(@RequestBody String email) throws Exception{
+        return userService.passwordFind(email);
+    }
+
+    @GetMapping("/profile/{email}")
+    public ResponseEntity<?> getProfile(@PathVariable String email) {
+        User user = userService.getProfile(email);
+        return ResponseEntity.ok(user);
     }
 }
