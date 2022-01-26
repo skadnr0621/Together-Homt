@@ -42,32 +42,35 @@ public class FeedService {
         this.config = config;
     }
 
-    
-    
+    public List<FeedDto> main() {
 
+        // Get User
+        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userTemp = principalDetails.getUser();
+        User user = userRepository.findByEmail(userTemp.getEmail());
 
-    public List<FeedDto> main(String email) {
-
-        User user = userRepository.findByEmail(email);
+        // Return Feed List
         List<FeedDto> feeds = new ArrayList<>();
 
-        // ** 팔로잉 추가 필요 ** //
+        // Get Followings by User
         List<Follow> followings = followRepository.findByFollower(user);
 
+        // Add Following's Feed
         for (Follow following : followings) {
+            User toUser = following.getFollowing();
+            List<Feed> tempFeeds = toUser.getFeeds();
+            for (Feed tempFeed : tempFeeds) {
+                FeedDto feedDto = new FeedDto();
 
-        }
-        for (Feed feed : feedRepository.findAll()) {
-            FeedDto feedDto = new FeedDto();
+                feedDto.setId(tempFeed.getFeed_id());
+                feedDto.setTitle(tempFeed.getTitle());
+                feedDto.setContent(tempFeed.getContent());
+                feedDto.setMedia_url(tempFeed.getMedia_url());
+                feedDto.setLike_cnt(tempFeed.getLike_cnt());
+                feedDto.setUserName(tempFeed.getUser().getUsername());
 
-            feedDto.setId(feed.getFeed_id());
-            feedDto.setTitle(feed.getTitle());
-            feedDto.setContent(feed.getContent());
-            feedDto.setMedia_url(feed.getMedia_url());
-            feedDto.setLike_cnt(feed.getLike_cnt());
-            feedDto.setUserName(feed.getUser().getUsername());
-
-            feeds.add(feedDto);
+                feeds.add(feedDto);
+            }
         }
 
         return feeds;
