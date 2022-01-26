@@ -36,15 +36,15 @@ public class FeedController {
         return feedService.feedDelete(feed_id);
     }
 
-    @GetMapping("/main")
-    public ResponseEntity<List<FeedDto>> main(@RequestBody String email) {
+    @GetMapping("/main/{email}")
+    public ResponseEntity<List<FeedDto>> main(@PathVariable String email) {
         List<FeedDto> feeds = feedService.main(email);
         return ResponseEntity.ok(feeds);
     }
 
-    @GetMapping("/profile")
-    public ResponseEntity<List<FeedDto>> profile(@RequestBody String email) {
-        List<FeedDto> feeds = feedService.profile(email);
+    @GetMapping("/personal_feed/{email}")
+    public ResponseEntity<List<FeedDto>> getPersonalFeed(@PathVariable String email) {
+        List<FeedDto> feeds = feedService.getPersonalFeed(email);
         return ResponseEntity.ok(feeds);
     }
 

@@ -9,6 +9,8 @@ import com.ssafy.togetherhomt.feed.media.Media;
 import com.ssafy.togetherhomt.feed.media.MediaRepository;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserRepository;
+import com.ssafy.togetherhomt.user.follow.Follow;
+import com.ssafy.togetherhomt.user.follow.FollowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -26,17 +28,22 @@ public class FeedService {
     public UserRepository userRepository;
     public CommentRepository commentRepository;
     public MediaRepository mediaRepository;
+    public FollowRepository followRepository;
     private GlobalConfig config;
 
     @Autowired
-    public FeedService(FeedRepository feedRepository, UserRepository userRepository,
-                       CommentRepository commentRepository, MediaRepository mediaRepository, GlobalConfig config) {
+    public FeedService(FeedRepository feedRepository, UserRepository userRepository, CommentRepository commentRepository,
+                       MediaRepository mediaRepository, FollowRepository followRepository, GlobalConfig config) {
         this.feedRepository = feedRepository;
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;
         this.mediaRepository = mediaRepository;
+        this.followRepository = followRepository;
         this.config = config;
     }
+
+    
+    
 
 
     public List<FeedDto> main(String email) {
@@ -45,6 +52,11 @@ public class FeedService {
         List<FeedDto> feeds = new ArrayList<>();
 
         // ** 팔로잉 추가 필요 ** //
+        List<Follow> followings = followRepository.findByFollower(user);
+
+        for (Follow following : followings) {
+
+        }
         for (Feed feed : feedRepository.findAll()) {
             FeedDto feedDto = new FeedDto();
 
@@ -61,7 +73,7 @@ public class FeedService {
         return feeds;
     }
 
-    public List<FeedDto> profile(String email) {
+    public List<FeedDto> getPersonalFeed(String email) {
 
         User user = userRepository.findByEmail(email);
 
