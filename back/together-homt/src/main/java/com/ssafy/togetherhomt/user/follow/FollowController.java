@@ -6,6 +6,8 @@ import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,10 @@ public class FollowController {
 
     // 나를 팔로우 하는 사람 검색
     @ApiOperation(value = "팔로워 검색", notes = "나를 팔로우 하는 사람 검색")
+    @ApiResponses({
+            @ApiResponse(code = 400, message = "잘못된 요청입니다. 존재하지 않는 유저를 조회하였습니다."),
+            @ApiResponse(code = 200, message = "요청한 유저의 팔로워 목록을 성공적으로 조회하였습니다.")
+    })
     @GetMapping("/{my-email}/followers")
     public ResponseEntity<?> listFollowers(@PathVariable("my-email") String myEmail) {
         User me = userRepository.findByEmail(myEmail);
@@ -37,6 +43,10 @@ public class FollowController {
 
     // 내가 팔로우 하는 사람 검색
     @ApiOperation(value = "팔로잉 검색", notes = "내가 팔로우 하는 사람 검색")
+    @ApiResponses({
+            @ApiResponse(code = 400, message = "잘못된 요청입니다. 존재하지 않는 유저를 조회하였습니다."),
+            @ApiResponse(code = 200, message = "요청한 유저의 팔로잉 목록을 성공적으로 조회하였습니다.")
+    })
     @GetMapping("/{my-email}/followings")
     public ResponseEntity<?> listFollowings(@PathVariable("my-email") String myEmail) {
         User me = userRepository.findByEmail(myEmail);
@@ -47,6 +57,10 @@ public class FollowController {
     }
 
     @ApiOperation(value = "팔로우", notes = "로그인한 유저로 상대 유저 팔로우")
+    @ApiResponses({
+            @ApiResponse(code = 400, message = "잘못된 요청입니다. 존재하지 않는 유저를 조회하였거나 로그인 정보와 맞지 않습니다."),
+            @ApiResponse(code = 200, message = "요청한 팔로우를 성공적으로 등록하였습니다.")
+    })
     @PostMapping("/{my-email}/{your-email}")
     public ResponseEntity<String> follow(@PathVariable("my-email") String myEmail,
                                          @PathVariable("your-email") String yourEmail) {
@@ -67,6 +81,10 @@ public class FollowController {
     }
 
     @ApiOperation(value = "팔로우 취소", notes = "로그인한 유저로 상대 유저 팔로우 취소")
+    @ApiResponses({
+            @ApiResponse(code = 400, message = "잘못된 요청입니다. 존재하지 않는 유저를 조회하였거나 로그인 정보와 맞지 않습니다."),
+            @ApiResponse(code = 200, message = "요청한 팔로우를 성공적으로 삭제하였습니다.")
+    })
     @DeleteMapping("/{my-email}/{your-email}")
     public ResponseEntity<Void> unfollow(@PathVariable("my-email") String myEmail,
                                          @PathVariable("your-email") String yourEmail) {
