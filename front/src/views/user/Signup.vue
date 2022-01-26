@@ -115,7 +115,7 @@ export default {
       this.isSendNum = true
       axios({
         method: 'post',
-        url: `/user/signup/mail-confirm`,
+        url: `/user/signup/confirm`,
         data: this.user.email,
         headers: { 'Content-Type' : 'text/plain' }
       })

@@ -56,8 +56,8 @@ export default {
   data: function() {
     return {
       user: {
-        email: null,
-        password: null,
+        email: 'ohsg97@gmail.com',
+        password: 'aaasdf',
       },
       errForm: {
         email:null,
