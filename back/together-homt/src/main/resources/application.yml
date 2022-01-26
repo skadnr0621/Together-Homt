@@ -1,5 +1,13 @@
-spring:
+server:
+  port: 8092
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 
+spring:
   servlet:
     multipart:
       max-file-size: 1000MB
@@ -7,10 +15,6 @@ spring:
       maxRequestSize: 1000MB
     mvc:
       static-path-pattern: /files/**
-
-  h2:
-    console:
-      enabled: true
 
   datasource:
     url: jdbc:h2:mem:testdb
@@ -25,6 +29,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+
+  h2:
+    console:
+      enabled: true
 
   # Springboot 2.6 - Swagger 충돌 fix
   mvc:
