@@ -37,14 +37,14 @@ public class FeedController {
     }
 
     @GetMapping("/main")
-    public ResponseEntity<List<FeedDto>> main(@RequestBody String email) {
-        List<FeedDto> feeds = feedService.main(email);
+    public ResponseEntity<List<FeedDto>> main() {
+        List<FeedDto> feeds = feedService.main();
         return ResponseEntity.ok(feeds);
     }
 
-    @GetMapping("/profile")
-    public ResponseEntity<List<FeedDto>> profile(@RequestBody String email) {
-        List<FeedDto> feeds = feedService.profile(email);
+    @GetMapping("/personal_feed/{email}")
+    public ResponseEntity<List<FeedDto>> getPersonalFeed(@PathVariable String email) {
+        List<FeedDto> feeds = feedService.getPersonalFeed(email);
         return ResponseEntity.ok(feeds);
     }
 
