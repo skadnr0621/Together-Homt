@@ -4,12 +4,15 @@ import com.ssafy.togetherhomt.common.CommonService;
 import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserRepository;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+@Api("팔로우 기능 접근 방법")
 @RestController
 @RequestMapping("/follow")
 @AllArgsConstructor
@@ -22,6 +25,7 @@ public class FollowController {
 
 
     // 나를 팔로우 하는 사람 검색
+    @ApiOperation(value = "팔로워 검색", notes = "나를 팔로우 하는 사람 검색")
     @GetMapping("/{my-email}/followers")
     public ResponseEntity<?> listFollowers(@PathVariable("my-email") String myEmail) {
         User me = userRepository.findByEmail(myEmail);
@@ -32,6 +36,7 @@ public class FollowController {
     }
 
     // 내가 팔로우 하는 사람 검색
+    @ApiOperation(value = "팔로잉 검색", notes = "내가 팔로우 하는 사람 검색")
     @GetMapping("/{my-email}/followings")
     public ResponseEntity<?> listFollowings(@PathVariable("my-email") String myEmail) {
         User me = userRepository.findByEmail(myEmail);
@@ -41,6 +46,7 @@ public class FollowController {
         return new ResponseEntity<>(followService.listFollowings(me), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "팔로우", notes = "로그인한 유저로 상대 유저 팔로우")
     @PostMapping("/{my-email}/{your-email}")
     public ResponseEntity<String> follow(@PathVariable("my-email") String myEmail,
                                          @PathVariable("your-email") String yourEmail) {
@@ -60,6 +66,7 @@ public class FollowController {
         return new ResponseEntity<>(msg, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "팔로우 취소", notes = "로그인한 유저로 상대 유저 팔로우 취소")
     @DeleteMapping("/{my-email}/{your-email}")
     public ResponseEntity<Void> unfollow(@PathVariable("my-email") String myEmail,
                                          @PathVariable("your-email") String yourEmail) {
