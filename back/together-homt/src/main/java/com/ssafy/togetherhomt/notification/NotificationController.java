@@ -41,8 +41,8 @@ public class NotificationController {
             @ApiResponse(code = 200, message = "알림 확인에 성공하였습니다.")
     })
     @GetMapping("/check")
-    public ResponseEntity<List<NotificationDto>> checkNotification(@RequestBody String email) {
-        return ResponseEntity.ok(notificationService.checkNotification(email));
+    public ResponseEntity<List<NotificationDto>> checkNotification() {
+        return ResponseEntity.ok(notificationService.checkNotification());
     }
 
 }

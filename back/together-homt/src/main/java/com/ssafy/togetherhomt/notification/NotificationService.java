@@ -56,24 +56,16 @@ public class NotificationService {
         return notificationDto;
     }
 
-    public List<NotificationDto> checkNotification(String email) {
+    public List<NotificationDto> checkNotification() {
 
         // Get Login User
         PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User userTemp = principalDetails.getUser();
         User loginUser = userRepository.findByEmail(userTemp.getEmail());
 
-        // Get Email User
-        User emailUser = userRepository.findByEmail(email);
-
-        // Check Verified User
-        if (loginUser != emailUser) {
-            throw new RuntimeException();
-        }
-
         ArrayList<NotificationDto> resNotification = new ArrayList<>();
 
-        for (Notification notification : notificationRepository.findByToIdEmail(email)) {
+        for (Notification notification : notificationRepository.findByToIdEmail(loginUser.getEmail())) {
 
             NotificationDto notificationDto = new NotificationDto();
             notificationDto.setFromEmail(notification.getFromId().getEmail());
@@ -82,6 +74,8 @@ public class NotificationService {
             notificationDto.setCreated_at(notification.getCreatedAt());
 
             resNotification.add(notificationDto);
+
+            notificationRepository.delete(notification);
         }
 
         return resNotification;
