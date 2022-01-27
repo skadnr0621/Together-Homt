@@ -83,10 +83,12 @@ public class UserService {
 
     @Transactional
     public String passwordFind(String email) throws Exception{
+        System.out.println("email = " + email);
         User user = userRepository.findByEmail(email);
         String newPassword = mailingService.sendSimpleMessage(email);
 
         System.out.println("newPassword = " + newPassword);
+        System.out.println("user = " + user);
 
         user.setPassword(bCryptPasswordEncoder.encode(newPassword));
 
