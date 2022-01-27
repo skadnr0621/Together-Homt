@@ -59,6 +59,7 @@ public class FollowController {
     @ApiOperation(value = "팔로우", notes = "로그인한 유저로 상대 유저 팔로우")
     @ApiResponses({
             @ApiResponse(code = 400, message = "잘못된 요청입니다. 존재하지 않는 유저를 조회하였거나 로그인 정보와 맞지 않습니다."),
+            @ApiResponse(code = 409, message = "올바르지 않은 팔로우 요청입니다."),
             @ApiResponse(code = 200, message = "요청한 팔로우를 성공적으로 등록하였습니다.")
     })
     @PostMapping("/{my-email}/{your-email}")
@@ -71,6 +72,8 @@ public class FollowController {
 
         if (you == null || !myEmail.equals(me.getEmail()))
             return new ResponseEntity<>("BAD REQUEST", HttpStatus.BAD_REQUEST);
+        else if (me.getEmail().equals(you.getEmail()))
+            return new ResponseEntity<>("Cannot follow myself", HttpStatus.CONFLICT);
 
         Follow follow = followService.follow(me, you);
         if (follow == null)
