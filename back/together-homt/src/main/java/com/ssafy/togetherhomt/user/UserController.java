@@ -93,21 +93,6 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-    @ApiOperation(value = "회원 정보 수정", notes = "회원 정보 수정")
-    @ApiResponses({
-            @ApiResponse(code = 400, message = "잘못된 요청입니다. 계정을 명시하지 않았거나 로그인 정보와 맞지 않습니다. 또는 존재하지 않는 미디어 파일입니다."),
-            @ApiResponse(code = 200, message = "회원 정보 수정에 성공하였습니다.")
-    })
-    @PutMapping("/{email}")
-    public ResponseEntity<?> update(@PathVariable String email, @Valid @RequestBody UpdateDto updateDto){
-        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(email == null || !principalDetails.getUsername().equals(email)){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        userService.update(email, updateDto);
-        return ResponseEntity.ok("update success");
-    }
-
     @ApiOperation(value = "비밀번호 변경", notes = "비밀번호 찾기 후 생성된 난수로 비밀번호 초기화")
     @ApiResponses({
             @ApiResponse(code = 400, message = "잘못된 요청입니다. 계정을 명시하지 않았거나 로그인 정보와 맞지 않습니다."),
@@ -131,4 +116,15 @@ public class UserController {
     public String passwordFind(@RequestBody String email) throws Exception{
         return userService.passwordFind(email);
     }
+
+    @ApiOperation(value = "회원 정보 수정", notes = "회원 정보 수정")
+    @ApiResponses({
+            @ApiResponse(code = 400, message = "잘못된 요청입니다. 계정을 명시하지 않았거나 로그인 정보와 맞지 않습니다. 또는 존재하지 않는 미디어 파일입니다."),
+            @ApiResponse(code = 200, message = "회원 정보 수정에 성공하였습니다.")
+    })
+    @PutMapping("/profile/update")
+    public String update(@Valid @RequestBody UpdateDto updateDto){
+        return userService.update(updateDto);
+    }
+
 }
