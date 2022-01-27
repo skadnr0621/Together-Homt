@@ -63,6 +63,7 @@ public class UserService {
                 .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
                 .username(userDto.getUsername())
                 .role("ROLE_USER")
+                .introduce("")
                 .build();
 
         userRepository.save(user);
@@ -117,56 +118,61 @@ public class UserService {
 
     public String update(UpdateDto updateDto){
 
-        MultipartFile multipartFile = updateDto.getMedia();
-
-        if(multipartFile == null || multipartFile.isEmpty()){
-            return "fail";
-        }
-
-        // 현재 날짜 폴더만들어서 저장
-        String currentDate = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
-        String uploadFilePath = config.getUploadFilePath()+currentDate+"/";
-
-        // 랜덤이름 + . 확장자 가져오기
-        String prefix = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".")+1,multipartFile.getOriginalFilename().length());
-        String filename = UUID.randomUUID().toString()+"."+prefix;
-
-        // 폴더 없으면 만들기
-        File folder = new File(uploadFilePath);
-        if(!folder.isDirectory()){
-            folder.mkdirs();
-        }
-        String pathname = uploadFilePath+filename;
-        String resourcePathname = config.getUploadResourcePath()+currentDate+"/"+filename;
-
-        // url 경로 출력
-        System.out.println("resourcePathname = " + resourcePathname);
-
-        // 새로 파일 만들기
-        File dest = new File(pathname);
-        try {
-            multipartFile.transferTo(dest);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // 경로
-        System.out.println("pathname = " + pathname);
-        Media media = Media.builder()
-                .fileOriginName(multipartFile.getOriginalFilename())
-                .videoPath(uploadFilePath)
-                .videoUrl(pathname)
-                .build();
-        mediaRepository.save(media);
-
         PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User userTemp = principalDetails.getUser();
         User user = userRepository.findByEmail(userTemp.getEmail());
 
-        user.setProfile_url(resourcePathname);
-        user.setUsername(updateDto.getUsername());
-        user.setIntroduce(updateDto.getIntroduce());
-        userRepository.save(user);
+        MultipartFile multipartFile = updateDto.getMedia();
+
+        if(multipartFile == null || multipartFile.isEmpty()){
+            user.setUsername(updateDto.getUsername());
+            user.setIntroduce(updateDto.getIntroduce());
+            userRepository.save(user);
+            return "success";
+
+        }else{
+            // 현재 날짜 폴더만들어서 저장
+            String currentDate = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
+            String uploadFilePath = config.getUploadFilePath()+currentDate+"/";
+
+            // 랜덤이름 + . 확장자 가져오기
+            String prefix = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".")+1,multipartFile.getOriginalFilename().length());
+            String filename = UUID.randomUUID().toString()+"."+prefix;
+
+            // 폴더 없으면 만들기
+            File folder = new File(uploadFilePath);
+            if(!folder.isDirectory()){
+                folder.mkdirs();
+            }
+            String pathname = uploadFilePath+filename;
+            String resourcePathname = config.getUploadResourcePath()+currentDate+"/"+filename;
+
+            // url 경로 출력
+            System.out.println("resourcePathname = " + resourcePathname);
+
+            // 새로 파일 만들기
+            File dest = new File(pathname);
+            try {
+                multipartFile.transferTo(dest);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // 경로
+            System.out.println("pathname = " + pathname);
+            Media media = Media.builder()
+                    .fileOriginName(multipartFile.getOriginalFilename())
+                    .videoPath(uploadFilePath)
+                    .videoUrl(pathname)
+                    .build();
+            mediaRepository.save(media);
+
+            user.setProfile_url(resourcePathname);
+            user.setUsername(updateDto.getUsername());
+            user.setIntroduce(updateDto.getIntroduce());
+            userRepository.save(user);
+
+        }
 
         return "success";
     }
