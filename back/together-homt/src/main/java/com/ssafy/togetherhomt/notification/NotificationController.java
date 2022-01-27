@@ -18,16 +18,9 @@ public class NotificationController {
     private CommonService commonService;
 
 
-    @GetMapping("/{my-email}")
-    public ResponseEntity<?> getNotification(@PathVariable("my-email") String myEmail) {
-        User me = commonService.getLoginUser();
-        if (!myEmail.equals(me.getEmail()))
-            return new ResponseEntity<>("Bad Request", HttpStatus.BAD_REQUEST);
-
-        List<NotificationDto> notificationList = notificationService.getNotification(me);
-        if (notificationList == null)
-            return new ResponseEntity<>("Failed to get notification", HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(notificationList, HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<?> getNotification() {
+        return new ResponseEntity<>(notificationService.getNotification(), HttpStatus.OK);
     }
 
     @PostMapping

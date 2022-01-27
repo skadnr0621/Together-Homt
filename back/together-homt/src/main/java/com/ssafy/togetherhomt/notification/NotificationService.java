@@ -21,9 +21,9 @@ public class NotificationService {
 
 
     /*** 알림 조회 ***/
-    public List<NotificationDto> getNotification(User receiver) {
+    public List<NotificationDto> getNotification() {
         List<NotificationDto> notificationList = new ArrayList<>();
-        for (Notification notification : notificationRepository.findByReceiver(receiver))
+        for (Notification notification : notificationRepository.findByReceiver(commonService.getLoginUser()))
             notificationList.add(new NotificationDto(notification));
         return notificationList;
     }

@@ -22,7 +22,7 @@ public class NotificationDto {
     private LocalDateTime sentDate;
 
     public NotificationDto(Notification notification) {
-        this.notificationId = notification.getId();
+        this.notificationId = notification.getNotificationId();
         this.sender = new UserDto(notification.getSender());
         this.notificationType = notification.getNotificationType();
         this.sentDate = notification.getSentDate();
