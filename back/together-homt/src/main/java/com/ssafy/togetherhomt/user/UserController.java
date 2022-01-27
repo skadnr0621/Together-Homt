@@ -1,6 +1,7 @@
 package com.ssafy.togetherhomt.user;
 
 import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
+import com.ssafy.togetherhomt.feed.FeedDto;
 import com.ssafy.togetherhomt.user.auth.LoginDto;
 import com.ssafy.togetherhomt.user.info.SignupDto;
 import com.ssafy.togetherhomt.user.info.UpdateDto;
@@ -92,5 +93,11 @@ public class UserController {
     public ResponseEntity<?> getProfile(@PathVariable String email) {
         User user = userService.getProfile(email);
         return ResponseEntity.ok(user);
+    }
+
+    @PutMapping("/profile/pic")
+    public String updateProfilePic(@ModelAttribute("file") UpdateDto updateDto) {
+
+        return userService.create(updateDto);
     }
 }

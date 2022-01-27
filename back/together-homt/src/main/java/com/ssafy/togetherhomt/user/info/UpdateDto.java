@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Column;
 
@@ -18,6 +19,8 @@ public class UpdateDto {
 
     @Column(name = "introduce")
     private String introduce;
+
+    private MultipartFile media;
 
     @Column(name = "profile_url")
     private String profile_url;
