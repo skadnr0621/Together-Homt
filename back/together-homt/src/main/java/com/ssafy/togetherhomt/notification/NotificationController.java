@@ -3,29 +3,46 @@ package com.ssafy.togetherhomt.notification;
 import com.ssafy.togetherhomt.common.CommonService;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserRepository;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@Api("알림 관련 기능 접근 방법")
 @RestController
-@RequestMapping("/notify")
-@AllArgsConstructor
+@RequestMapping("/notification")
 public class NotificationController {
 
     private NotificationService notificationService;
 
-    private UserRepository userRepository;
+    @Autowired
+    public NotificationController(NotificationService notificationService) {
+        this.notificationService = notificationService;
+    }
 
+    @ApiOperation(value = "알림 전송", notes = "알림 전송")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "알림 전송에 성공하였습니다.")
+    })
+    @PostMapping("/send")
+    public ResponseEntity<NotificationDto> sendNotification(@RequestBody NotificationDto notificationDto) throws Exception{
+        return ResponseEntity.ok(notificationService.sendNotification(notificationDto));
+    }
 
-//    @PostMapping
-//    public ResponseEntity<String> sendNotification(@RequsetBody NotificationDto notificationDto) {
-//        User receiver = userRepository.findByEmail(receiverEmail);
-//        if (receiver == null)
-//            return new ResponseEntity<>("올바르지 않은 수신자", HttpStatus.BAD_REQUEST);
-//
-//        notificationService.sendNotification(receiver);
-//        return new ResponseEntity<>("알림이 전송되었습니다.", HttpStatus.OK);
-//    }
+    @ApiOperation(value = "알림 확인", notes = "알림 확인")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "알림 확인에 성공하였습니다.")
+    })
+    @GetMapping("/check")
+    public ResponseEntity<List<NotificationDto>> checkNotification(@RequestBody String email) {
+        return ResponseEntity.ok(notificationService.checkNotification(email));
+    }
 
 }

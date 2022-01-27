@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class GroupController {
 
     private GroupService groupService;
-    
+
     @Autowired
     public GroupController(GroupService groupService) {
         this.groupService = groupService;
