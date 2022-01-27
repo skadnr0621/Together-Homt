@@ -25,7 +25,7 @@ import java.util.List;
 public class SwaggerConfig implements WebMvcConfigurer {
 
     private final String title = "Together Homt";
-    private final String version = "0.0.2-SNAPSHOT";
+    private final String version = "0.0.4-SNAPSHOT";
 
 
     @Bean

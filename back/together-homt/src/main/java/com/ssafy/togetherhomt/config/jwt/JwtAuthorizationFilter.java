@@ -31,7 +31,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String jwtHeader = request.getHeader("Authorization");
         if (jwtHeader == null || !jwtHeader.startsWith("Bearer")) {
-            chain.doFilter(request, response);
+            response.sendError(400, "Bad Request : NO Authorization header || JWT 토큰을 확인하세요.");
+//            chain.doFilter(request, response);
             return;
         }
 
