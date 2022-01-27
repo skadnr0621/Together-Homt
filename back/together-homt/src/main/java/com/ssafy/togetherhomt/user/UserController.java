@@ -64,16 +64,6 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-    @PutMapping("/{email}")
-    public ResponseEntity<?> update(@PathVariable String email, @Valid @RequestBody UpdateDto updateDto){
-        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(email == null || !principalDetails.getUsername().equals(email)){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        userService.update(email, updateDto);
-        return ResponseEntity.ok("update success");
-    }
-
     @PutMapping("/{email}/passwordUpdate")
     public ResponseEntity<?> passwordUpdate(@PathVariable String email, @Valid @RequestBody LoginDto loginDto){
         PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -95,9 +85,9 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @PutMapping("/profile/pic")
-    public String updateProfilePic(@ModelAttribute("file") UpdateDto updateDto) {
+    @PutMapping("/profile/update")
+    public String update(@ModelAttribute("file") UpdateDto updateDto) {
 
-        return userService.create(updateDto);
+        return userService.update(updateDto);
     }
 }
