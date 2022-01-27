@@ -92,7 +92,6 @@ public class UserService {
         User user = userRepository.findByEmail(email);
         user.setUsername(updateDto.getUsername());
         user.setIntroduce(updateDto.getIntroduce());
-        user.setProfile_url(updateDto.getProfile_url());
         userRepository.save(user);
     }
 
