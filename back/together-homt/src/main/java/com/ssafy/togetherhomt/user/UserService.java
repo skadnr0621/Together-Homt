@@ -88,15 +88,6 @@ public class UserService {
     }
 
     @Transactional
-    public void update(String email, @Valid UpdateDto updateDto){
-        User user = userRepository.findByEmail(email);
-        user.setUsername(updateDto.getUsername());
-        user.setIntroduce(updateDto.getIntroduce());
-        user.setProfile_url(updateDto.getProfile_url());
-        userRepository.save(user);
-    }
-
-    @Transactional
     public void passwordUpdate(String email,LoginDto loginDto){
         User user = userRepository.findByEmail(email);
         user.setPassword(bCryptPasswordEncoder.encode(loginDto.getPassword()));
@@ -124,7 +115,7 @@ public class UserService {
         return user;
     }
 
-    public String create(UpdateDto updateDto){
+    public String update(UpdateDto updateDto){
 
         MultipartFile multipartFile = updateDto.getMedia();
 
@@ -173,6 +164,8 @@ public class UserService {
         User user = userRepository.findByEmail(userTemp.getEmail());
 
         user.setProfile_url(resourcePathname);
+        user.setUsername(updateDto.getUsername());
+        user.setIntroduce(updateDto.getIntroduce());
         userRepository.save(user);
 
         return "success";
