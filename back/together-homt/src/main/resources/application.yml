@@ -1,24 +1,52 @@
+server:
+  port: 8092
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
 spring:
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+      maxFileSize: 1000MB
+      maxRequestSize: 1000MB
+    mvc:
+      static-path-pattern: /files/**
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3606/together-homt?serverTimezone=Asia/Seoul
+    username: ssafy
+    password: 1234
+
+  jpa:
+    hibernate:
+      ddl-auto: update #create update none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
 
   h2:
     console:
       enabled: true
 
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: gkuer
-    password:
-
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: create-drop
-    properties:
-      hibernate:
-        format_sql: true
-
   # Springboot 2.6 - Swagger 충돌 fix
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+
+logging:
+  io:
+    swagger:
+      models:
+        parameters:
+          AbstractSerializableParameter: error
+          # https://github.com/springfox/springfox/issues/2776#issuecomment-600405932
