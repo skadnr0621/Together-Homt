@@ -1,15 +1,11 @@
 package com.ssafy.togetherhomt.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ssafy.togetherhomt.exercise.Attendance;
 import com.ssafy.togetherhomt.exercise.Record;
-import com.ssafy.togetherhomt.exercise.TodayExercise;
 import com.ssafy.togetherhomt.feed.comment.Comment;
 import com.ssafy.togetherhomt.feed.Feed;
 import com.ssafy.togetherhomt.feed.like.Like;
-import com.ssafy.togetherhomt.notification.Notification;
 import com.ssafy.togetherhomt.user.follow.Follow;
-import com.ssafy.togetherhomt.user.group.Group;
 import lombok.*;
 
 import javax.persistence.*;
@@ -77,12 +73,34 @@ public class User {
     private List<Record> records = new ArrayList<>();
 
 
+<<<<<<< HEAD
 //    @OneToMany(mappedBy = "fromId")
+=======
+    @OneToMany(mappedBy = "fromId")
+    @JsonIgnoreProperties({"user"})
+    private List<Notification> getNotifications = new ArrayList<>();
+
+    @OneToMany(mappedBy = "toId")
+    @JsonIgnoreProperties({"user"})
+    private List<Notification> sendNotifications = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "user")
+>>>>>>> 3a7f29ffc77186a690bde5121d7c56f9c9edd0e3
 //    @JsonIgnoreProperties({"user"})
 //    private List<Notification> getNotifications = new ArrayList<>();
 //
 //    @OneToMany(mappedBy = "toId")
 //    @JsonIgnoreProperties({"user"})
+<<<<<<< HEAD
 //    private List<Notification> sendNotifications = new ArrayList<>();
+=======
+//    private List<TodayExercise> todayExercises = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "user")
+//    @JsonIgnoreProperties({"user"})
+//    private List<Attendance> attendances = new ArrayList<>();
+//
+//
+>>>>>>> 3a7f29ffc77186a690bde5121d7c56f9c9edd0e3
 }
 
