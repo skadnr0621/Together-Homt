@@ -123,7 +123,7 @@ public class UserController {
             @ApiResponse(code = 200, message = "회원 정보 수정에 성공하였습니다.")
     })
     @PutMapping("/profile/update")
-    public String update(@Valid @RequestBody UpdateDto updateDto){
+    public String update(@ModelAttribute("file") UpdateDto updateDto){
         return userService.update(updateDto);
     }
 

@@ -1,35 +1,35 @@
 package com.ssafy.togetherhomt.notification;
 
-import com.ssafy.togetherhomt.baseEntity.BaseTimeEntity;
 import com.ssafy.togetherhomt.user.User;
-import com.ssafy.togetherhomt.user.group.Group;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "notification")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-public class Notification extends BaseTimeEntity {
+public class Notification {
 
-    @Id
-    @Column(name = "notification_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long notification_id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long notificationId;
 
-    @ManyToOne
-    @JoinColumn(name = "from_id")
-    private User fromId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User sender;
 
-    @ManyToOne
-    @JoinColumn(name = "to_id")
-    private User toId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User receiver;
 
     @Enumerated(EnumType.STRING)
     private NotificationType notificationType;
+
+    @CreationTimestamp
+    private LocalDateTime sentDate;
+
 }

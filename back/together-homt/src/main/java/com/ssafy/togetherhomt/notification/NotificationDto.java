@@ -1,29 +1,31 @@
 package com.ssafy.togetherhomt.notification;
 
-import com.ssafy.togetherhomt.user.User;
-import io.swagger.annotations.ApiParam;
-import lombok.*;
+import com.ssafy.togetherhomt.user.info.UserDto;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
 import java.time.LocalDateTime;
 
+@Data
 @Getter
-@Setter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class NotificationDto {
 
-    @ApiParam(value = "송신자 이메일")
-    private String fromEmail;
-
-    @ApiParam(value = "수신자 이메일")
-    private String toEmail;
-
-    @ApiParam(value = "생성시간")
-    private LocalDateTime created_at;
-
-    @ApiParam(value = "운동 타입")
-    @Enumerated(EnumType.STRING)
+    private Long notificationId;
+    private UserDto sender;
+    private UserDto receiver;
     private NotificationType notificationType;
+    private LocalDateTime sentDate;
+
+    public NotificationDto(Notification notification) {
+        this.notificationId = notification.getNotificationId();
+        this.sender = new UserDto(notification.getSender());
+        this.notificationType = notification.getNotificationType();
+        this.sentDate = notification.getSentDate();
+    }
+
 }

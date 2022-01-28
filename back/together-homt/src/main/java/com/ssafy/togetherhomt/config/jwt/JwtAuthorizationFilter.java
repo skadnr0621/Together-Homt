@@ -45,7 +45,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                         .asString();
 
         // 서명이 정상적으로 되었음.
-        if (email != null) {    // username != null --> email != nul
+        if (email != null) {    // username != null --> email != null
             System.out.println("email : " + email + "      [정상 서명됨]");
             User userEntity = userRepository.findByEmail(email);    // findByEmail(username) --> findByEmail(email)
 

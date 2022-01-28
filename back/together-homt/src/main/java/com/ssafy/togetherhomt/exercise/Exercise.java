@@ -2,10 +2,12 @@ package com.ssafy.togetherhomt.exercise;
 
 import lombok.Getter;
 
+import javax.persistence.Entity;
+
 @Getter
 public enum Exercise {
-    NECK_STRETCHING(1L, Type.Stretching, "neck", 0L, 20L, "naver.com"),
-    PUSHUP(2L, Type.WeightTraining,"chest", 0L, 40L, "naver.com");
+    NECK_STRETCHING(0L, Type.Stretching, "neck", 0L, 20L, "naver.com"),
+    PUSHUP(1L, Type.WeightTraining,"chest", 0L, 40L, "naver.com");
 
     private final Long exercise_id;
     private final String part;
