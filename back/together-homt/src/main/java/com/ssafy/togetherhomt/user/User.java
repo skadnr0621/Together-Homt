@@ -77,12 +77,12 @@ public class User {
     private List<Record> records = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "fromId")
-    @JsonIgnoreProperties({"user"})
-    private List<Notification> getNotifications = new ArrayList<>();
-
-    @OneToMany(mappedBy = "toId")
-    @JsonIgnoreProperties({"user"})
-    private List<Notification> sendNotifications = new ArrayList<>();
+//    @OneToMany(mappedBy = "fromId")
+//    @JsonIgnoreProperties({"user"})
+//    private List<Notification> getNotifications = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "toId")
+//    @JsonIgnoreProperties({"user"})
+//    private List<Notification> sendNotifications = new ArrayList<>();
 }
 
