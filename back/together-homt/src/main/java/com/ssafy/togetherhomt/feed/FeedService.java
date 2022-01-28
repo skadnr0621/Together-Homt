@@ -42,6 +42,28 @@ public class FeedService {
         this.config = config;
     }
 
+    public List<FeedDto> all() {
+
+        // Return Feed List
+        List<FeedDto> feeds = new ArrayList<>();
+
+        for (Feed tempFeed : feedRepository.findAll()) {
+
+            FeedDto feedDto = new FeedDto();
+
+            feedDto.setId(tempFeed.getFeed_id());
+            feedDto.setTitle(tempFeed.getTitle());
+            feedDto.setContent(tempFeed.getContent());
+            feedDto.setMedia_url(tempFeed.getMedia_url());
+            feedDto.setLike_cnt(tempFeed.getLike_cnt());
+            feedDto.setUserName(tempFeed.getUser().getUsername());
+
+            feeds.add(feedDto);
+        }
+
+        return feeds;
+    }
+
     public List<FeedDto> main() {
 
         // Get User
