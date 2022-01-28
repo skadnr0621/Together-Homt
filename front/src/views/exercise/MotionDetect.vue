@@ -6,7 +6,7 @@
         <span class="back-btn material-icons-outlined">keyboard_arrow_left</span>
       </router-link>
       <p class="exercise-title">Let's <strong>{{exercise}}</strong></p>
-      <button id="success-btn">완료</button>
+      <button class="is-exercise fail-btn" @click="doneExercise()" >미완료</button>
     </div>
 
     <div><canvas id="canvas"></canvas></div>
@@ -52,6 +52,15 @@ export default {
       success: false,
     }
   },
+  watch: {
+    success: function() {
+      const btnStatus = document.querySelector('.is-exercise')
+      btnStatus.classList.remove('fail-btn')
+      btnStatus.classList.add('success-btn')
+      btnStatus.innerHTML = '완료'
+    }
+  },
+
   created() {
   },
   mounted() {
@@ -78,8 +87,8 @@ export default {
     window.requestAnimationFrame(this.loop);
 
     const canvas = document.getElementById("canvas");
-    canvas.width = 300;
-    canvas.height = size;
+    canvas.width = 300
+    canvas.height = size
     ctx = canvas.getContext("2d");
     labelContainer = document.getElementById("label-container");
     for (let i = 0; i < maxPredictions; i++) {
@@ -133,7 +142,14 @@ export default {
     
     doneExercise() {
       // DB로 보내기
-      this.$router.push({ name: 'exerciseList'})
+      if (this.success) {
+        // axisos
+        this.$router.push({ name: 'exerciseList'})
+      }
+      else {
+        alert('운동을 완료해주세요')
+      }
+      
     },
 
 

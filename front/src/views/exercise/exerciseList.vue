@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="excerciselist">
   <button @click="exercise('hi')">hi운동</button>
 </div>
 </template>
@@ -15,4 +15,7 @@ export default {
 </script>
 
 <style>
+.excerciselist {
+  margin: 100px;
+}
 </style>

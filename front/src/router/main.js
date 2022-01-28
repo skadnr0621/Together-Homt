@@ -4,6 +4,9 @@ import UserPage from "@/components/UserPage";
 import FollowPage from "@/components/FollowPage";
 import UserEditPage from "@/components/UserEditPage";
 
+import ExerciseList from "@/views/exercise/ExerciseList";
+import SearchList from "@/views/search/SearchList";
+
 export default {
   path: "/homet",
   component: MainPage,
@@ -37,5 +40,16 @@ export default {
         default: true,
       },
     },
+
+    {
+      name: "ExerciseList",
+      path: "/exerciselist/",
+      component: ExerciseList,
+    },
+    {
+      name: "SearchList",
+      path: "/searchlist/",
+      component: SearchList,
+    }
   ],
 };

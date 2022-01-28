@@ -26,14 +26,14 @@
     <img src="@/assets/logo.png" alt="로고" />
     <div>
       <span class="btn js-click-modal material-icons-outlined"> menu </span>
-      <div class="modal">
+      <!-- <div class="modal">
         <ul class="body">
           <li>설정</li>
           <li>보관</li>
         </ul>
         <div class="header">설정 목록</div>
         <a class="btn js-close-modal">X</a>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

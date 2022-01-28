@@ -44,7 +44,7 @@
         </router-link>
       </li>
       <li class="menu-search">
-        <router-link :to="{ name: '' }">
+        <router-link :to="{ name: 'SearchList' }">
           <span class="material-icons"> search </span>
         </router-link>
       </li>
@@ -54,7 +54,7 @@
         </router-link>
       </li>
       <li class="menu-homt">
-        <router-link :to="{ name: '' }">
+        <router-link :to="{ name: 'ExerciseList' }">
           <span class="material-icons-outlined"> fitness_center </span>
         </router-link>
       </li>
