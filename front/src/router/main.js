@@ -43,12 +43,12 @@ export default {
 
     {
       name: "ExerciseList",
-      path: "/exerciselist/",
+      path: "exerciselist",
       component: ExerciseList,
     },
     {
       name: "SearchList",
-      path: "/searchlist/",
+      path: "searchlist",
       component: SearchList,
     }
   ],
