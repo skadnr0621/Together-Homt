@@ -19,6 +19,7 @@ export default {
 #app {
   display: flex;
   justify-content: center;
+  height: 640px;
 }
 
 a {
