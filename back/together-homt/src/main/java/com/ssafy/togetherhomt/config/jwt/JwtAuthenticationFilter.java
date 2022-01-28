@@ -32,6 +32,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        if (!"POST".equals(request.getMethod())) {
+            try {
+                response.sendError(404, "Bad Request");
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                return null;
+            }
+        }
+
         System.out.println("Attempting Login . . .");
         try {
             // JSON으로 요청을 받을 경우
@@ -55,6 +65,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         PrincipalDetails principalDetails = (PrincipalDetails)authResult.getPrincipal();
+        System.out.println("Login authenticated :: " + principalDetails.getUsername());
+
         String jwtToken = JWT.create()
                 .withSubject("THT's JWT")
                 .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
