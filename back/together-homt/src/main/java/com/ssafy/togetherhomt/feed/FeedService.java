@@ -57,6 +57,7 @@ public class FeedService {
             feedDto.setMedia_url(tempFeed.getMedia_url());
             feedDto.setLike_cnt(tempFeed.getLike_cnt());
             feedDto.setUserName(tempFeed.getUser().getUsername());
+            feedDto.setTag(tempFeed.getTag());
 
             feeds.add(feedDto);
         }
@@ -90,6 +91,7 @@ public class FeedService {
                 feedDto.setMedia_url(tempFeed.getMedia_url());
                 feedDto.setLike_cnt(tempFeed.getLike_cnt());
                 feedDto.setUserName(tempFeed.getUser().getUsername());
+                feedDto.setTag(tempFeed.getTag());
 
                 feeds.add(feedDto);
             }
@@ -112,6 +114,7 @@ public class FeedService {
             feedDto.setMedia_url(feed.getMedia_url());
             feedDto.setLike_cnt(feed.getLike_cnt());
             feedDto.setUserName(feed.getUser().getUsername());
+            feedDto.setTag(feed.getTag());
 
             feeds.add(feedDto);
         }
@@ -213,6 +216,7 @@ public class FeedService {
                 .like_cnt(0L)
                 .media_url(resourcePathname)
                 .user(user)
+                .tag(feedDto.getTag())
                 .build();
 
         feedRepository.save(feed);
