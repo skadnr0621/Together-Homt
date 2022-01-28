@@ -32,6 +32,8 @@ public class Feed extends BaseTimeEntity {
 
     private String media_url;
 
+    private String tag;
+
     private Long like_cnt;
 
     @ManyToOne(fetch = FetchType.LAZY)
