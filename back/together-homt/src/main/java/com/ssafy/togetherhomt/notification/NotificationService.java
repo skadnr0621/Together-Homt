@@ -65,6 +65,7 @@ public class NotificationService {
 
         ArrayList<NotificationDto> resNotification = new ArrayList<>();
 
+
         for (Notification notification : notificationRepository.findByToIdEmail(loginUser.getEmail())) {
 
             NotificationDto notificationDto = new NotificationDto();
