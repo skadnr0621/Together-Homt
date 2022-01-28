@@ -1,31 +1,24 @@
 package com.ssafy.togetherhomt.exercise;
 
-import com.ssafy.togetherhomt.baseEntity.BaseTimeEntity;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ssafy.togetherhomt.user.User;
 import lombok.*;
 
 import javax.persistence.*;
 
-@Getter @Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-public class Record {
+public class TodayExercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long record_id;
-
-    private String date;
-
-    private String video_url; // ??운동기록 남길거
-
-    private Long countCheck;
-
-    private Exercise exercise;
+    private Long TodayExercise_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    private Exercise exercise;
 }
