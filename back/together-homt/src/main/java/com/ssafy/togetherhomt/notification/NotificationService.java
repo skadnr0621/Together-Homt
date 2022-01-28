@@ -59,5 +59,4 @@ public class NotificationService {
         notificationRepository.delete(notification);
         return notification;
     }
-
 }
