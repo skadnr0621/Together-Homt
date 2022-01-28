@@ -2,13 +2,11 @@
 
 ### 팀명 : 남(욱)탓 금지
 
-
 ###  **팀 소개**
 
 프론트엔드 : 김남욱(長), 오수경, 임채은     
 </br>
 백엔드 : 이호열(長), 이건희, 정명수
-
 
 
 ### **카테고리**  
@@ -44,6 +42,14 @@
 https://www.notion.so/2-6-Home-fd1bb076ef5048c7a5b6c942df5d7b22
 
 
-### 와이어프레임, API 명세서, ERD는 노션에 링크 첨부했습니다. 
+### 링크
+### 와이어프레임
+https://www.figma.com/file/fSi9NPvyqNqPmjeloZaBYZ/Untitled?node-id=219%3A937
+
+### API명세서
+https://www.notion.so/API-SNS-030cbdc0fef44900a31e4d78a57518a6
+
+### ERD
+https://www.erdcloud.com/d/37Gx4ezKbNB8tPoQt
 
 
