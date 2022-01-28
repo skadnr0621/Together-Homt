@@ -27,22 +27,18 @@
 
 - 프로젝트 명 : 투게더홈트
 - 서비스 주제 소개 : 당신만을 위한 운동을 추천해 드립니다. 운동하고, 기록하고, 그리고 모두와 공유하세요! 
-- 주요 기능 :  
-- 주요 기술 : Vue.js, Springboot, Spring Security, JPA
+- 주요 기능 : 큐레이션 SNS, 운동 추천, 운동 보조, 피드 공유, 운동 기록 관리
+- 주요 기술 : Vue.js, Vuex, Springboot, Spring Security, JPA
 - 참조 리소스 : 
-- 배포 환경  :
-
-
-### 프로젝트 상세 설명
+- 배포 환경  : AWS EC2, Jenkins, Docker (예정)
 
 
 
 ### 팀 노션
-
 https://www.notion.so/2-6-Home-fd1bb076ef5048c7a5b6c942df5d7b22
 
 
-### 링크
+### [링크]
 ### 와이어프레임
 https://www.figma.com/file/fSi9NPvyqNqPmjeloZaBYZ/Untitled?node-id=219%3A937
 
