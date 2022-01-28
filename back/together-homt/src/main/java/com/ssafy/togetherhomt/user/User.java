@@ -6,7 +6,6 @@ import com.ssafy.togetherhomt.feed.comment.Comment;
 import com.ssafy.togetherhomt.feed.Feed;
 import com.ssafy.togetherhomt.feed.like.Like;
 import com.ssafy.togetherhomt.user.follow.Follow;
-import com.ssafy.togetherhomt.user.group.Group;
 import lombok.*;
 
 import javax.persistence.*;
@@ -73,5 +72,27 @@ public class User {
     @JsonIgnoreProperties({"user"})
     private List<Record> records = new ArrayList<>();
 
+
+    @OneToMany(mappedBy = "fromId")
+    @JsonIgnoreProperties({"user"})
+    private List<Notification> getNotifications = new ArrayList<>();
+
+    @OneToMany(mappedBy = "toId")
+    @JsonIgnoreProperties({"user"})
+    private List<Notification> sendNotifications = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "user")
+//    @JsonIgnoreProperties({"user"})
+//    private List<Record> records = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "user")
+//    @JsonIgnoreProperties({"user"})
+//    private List<TodayExercise> todayExercises = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "user")
+//    @JsonIgnoreProperties({"user"})
+//    private List<Attendance> attendances = new ArrayList<>();
+//
+//
 }
 

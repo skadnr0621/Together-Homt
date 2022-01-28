@@ -7,6 +7,14 @@ server:
       enabled: true
       force: true
 
+logging:
+  io:
+    swagger:
+      models:
+        parameters:
+          AbstractSerializableParameter: error
+# https://github.com/springfox/springfox/issues/2776#issuecomment-600405932
+
 spring:
   servlet:
     multipart:
@@ -41,12 +49,3 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-
-
-logging:
-  io:
-    swagger:
-      models:
-        parameters:
-          AbstractSerializableParameter: error
-          # https://github.com/springfox/springfox/issues/2776#issuecomment-600405932

@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RecordRepository extends JpaRepository<Record, Long> {
-
+public interface TodayExerciseRepository extends JpaRepository<TodayExercise, Long> {
+    List<TodayExercise> findByUser(User user);
 }

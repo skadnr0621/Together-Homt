@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.exercise;
+package com.ssafy.togetherhomt.notification;
 
 import com.ssafy.togetherhomt.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RecordRepository extends JpaRepository<Record, Long> {
+public interface NotificationRepository extends JpaRepository<Notification, Long> {
+
+    List<Notification> findByReceiver(User me);
 
 }
