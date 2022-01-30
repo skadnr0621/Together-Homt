@@ -1,7 +1,7 @@
 export default {
   mutations: {
-    FETCH_MY_INFO(state, myNickname) {
-      state.myInfo = myNickname;
+    SET_MY_INFO(state, myInfo) {
+      state.myInfo = myInfo;
     },
   },
 };

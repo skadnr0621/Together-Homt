@@ -3,6 +3,9 @@ import Feed from "@/components/Feed";
 import UserPage from "@/components/UserPage";
 import FollowPage from "@/components/FollowPage";
 import UserEditPage from "@/components/UserEditPage";
+import CalendarPage from "@/components/CalendarPage";
+import RegisterFeedPage from "@/components/RegisterFeedPage";
+import ChangePasswordPage from "@/components/ChangePasswordPage";
 
 import ExerciseList from "@/views/exercise/ExerciseList";
 import SearchPage from "@/views/search/SearchPage";
@@ -50,6 +53,30 @@ export default {
       name: "SearchPage",
       path: "search",
       component: SearchPage,
-    }
+    },
+    {
+      name: "CalendarPage",
+      path: "calendar/:userName",
+      component: CalendarPage,
+      props: {
+        default: true,
+      },
+    },
+    {
+      name: "RegisterFeedPage",
+      path: "feed/create/:userName",
+      component: RegisterFeedPage,
+      props: {
+        default: true,
+      },
+    },
+    {
+      name: "ChangePasswordPage",
+      path: "/pw/:userName",
+      component: ChangePasswordPage,
+      props: {
+        default: true,
+      },
+    },
   ],
 };

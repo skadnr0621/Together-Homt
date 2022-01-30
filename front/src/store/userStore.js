@@ -8,14 +8,14 @@ export default {
   },
 
   mutations: {
-    GET_LOGIN_USER: function(state, username) {
-      state.LoginUser = username
+    GET_LOGIN_USER: function (state, username) {
+      state.LoginUser = username;
     },
   },
 
   actions: {
-    getLoginUser: function({ commit }, username) {
-      commit('GET_LOGIN_USER', username)
-    }
-  }
-}
+    getLoginUser: function ({ commit }, username) {
+      commit("GET_LOGIN_USER", username);
+    },
+  },
+};
