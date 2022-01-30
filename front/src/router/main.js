@@ -5,7 +5,7 @@ import FollowPage from "@/components/FollowPage";
 import UserEditPage from "@/components/UserEditPage";
 
 import ExerciseList from "@/views/exercise/ExerciseList";
-import SearchList from "@/views/search/SearchList";
+import SearchPage from "@/views/search/SearchPage";
 
 export default {
   path: "/homet",
@@ -18,7 +18,7 @@ export default {
     },
     {
       name: "UserPage",
-      path: ":userName",
+      path: "profile/:userName",
       component: UserPage,
       props: {
         default: true,
@@ -47,9 +47,9 @@ export default {
       component: ExerciseList,
     },
     {
-      name: "SearchList",
-      path: "searchlist",
-      component: SearchList,
+      name: "SearchPage",
+      path: "search",
+      component: SearchPage,
     }
   ],
 };

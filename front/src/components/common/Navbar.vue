@@ -44,7 +44,7 @@
         </router-link>
       </li>
       <li class="menu-search">
-        <router-link :to="{ name: 'SearchList' }">
+        <router-link :to="{ name: 'SearchPage' }">
           <span class="material-icons"> search </span>
         </router-link>
       </li>
