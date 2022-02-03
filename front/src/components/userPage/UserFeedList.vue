@@ -1,33 +1,41 @@
 <template>
   <div id="user-feed-list">
-    <div v-if="feed.length == 0">피드 없음</div>
-    <div v-else v-for="(f, index) in feed" :key="index" class="feed">
-      {{ f }}
+    <div v-if="myInfo.feeds.length == 0">피드 없음</div>
+    <div v-else v-for="(feed, index) in myInfo.feeds" :key="index" class="feed">
+      <img
+        :src="feed.media_url"
+        alt="피드사진"
+        @click="viewDetailFeed(index)"
+      />
     </div>
-    <!-- <div class="feed">feed1</div>
-    <div class="feed">feed2</div>
-    <div class="feed">feed3</div>
-    <div class="feed">feed4</div>
-    <div class="feed">feed5</div>
-    <div class="feed">feed6</div>
-    <div class="feed">feed6</div>
-    <div class="feed">feed7</div>
-    <div class="feed">feed8</div>
-    <div class="feed">feed9</div>
-    <div class="feed">feed10</div>
-    <div class="feed">feed11</div>
-    <div class="feed">feed12</div> -->
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "UserFeedList",
-  props: ["feeds"],
+  // props: ["feeds"],
+  computed: {
+    // 로그인한 유저 정보
+    ...mapState(["myInfo"]),
+  },
   data() {
     return {
-      feed: ["feed1", "feed2", "feed3", "feed4", "feed5"],
+      // feed: ["feed1", "feed2", "feed3", "feed4", "feed5"],
     };
+  },
+  methods: {
+    viewDetailFeed(index) {
+      this.$router.push({
+        name: "FeedDetailPage",
+        params: {
+          feedId: index,
+          userName: this.myInfo.username,
+        },
+      });
+    },
   },
 };
 </script>
@@ -44,5 +52,10 @@ export default {
 #user-feed-list > .feed {
   border: 1px solid rgba(0, 0, 0, 0.1);
   aspect-ratio: 1;
+}
+
+#user-feed-list > .feed > img {
+  width: 100%;
+  height: 100%;
 }
 </style>

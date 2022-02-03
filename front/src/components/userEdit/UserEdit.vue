@@ -5,7 +5,7 @@
         <img v-if="viewProfile" :src="viewProfile" alt="프로필 사진" />
         <img
           v-else
-          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+          src="https://cdn.pixabay.com/photo/2022/01/29/08/40/08-40-47-951_960_720.png"
           alt="프로필 사진"
         />
       </div>
@@ -92,7 +92,8 @@ export default {
         formData.append("username", this.nickname);
         formData.append("introduce", this.introduction);
 
-        if (typeof this.profile == "object") {
+        if (this.profile) {
+          console.log("들어옴");
           formData.append("media", this.profile);
         }
 
@@ -107,14 +108,15 @@ export default {
           .then((res) => {
             alert("변경 완료");
             console.log(res);
-            this.$router.push({
-              name: "UserPage",
-              params: { userName: this.nickname },
-            });
           })
           .catch((err) => {
+            alert("변경 실패");
             console.log(err.response.data.msg);
           });
+        this.$router.push({
+          name: "UserPage",
+          params: { userName: this.nickname },
+        });
       }
     },
   },

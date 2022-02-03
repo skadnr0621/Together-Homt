@@ -55,32 +55,47 @@ export default {
       this.$router.back();
     },
     async changePassword() {
-      console.log(this.newPassword);
-      console.log(this.confirmPassword);
-      // 현재 비밀번호 맞는지 확인하는 로직 안넣음
+      // 현재 비밀번호 맞는지 확인
+      await axios
+        .post(`/user/login`, {
+          email: this.loginUser,
+          password: this.currentPassword,
+        })
+        .then((res) => {
+          const token = res.headers.authorization;
+          sessionStorage.setItem("jwt", token);
 
-      // 새 비밀번호 = 새 비밀번호 확인
-      if (this.newPassword == this.confirmPassword) {
-        console.log("비밀번호 바꾸자~");
-        // 비밀번호 변경하기
-        await axios
-          .put(`/user/${this.loginUser}/passwordUpdate`, {
-            headers: {
-              Authorization: sessionStorage.getItem("jwt"),
-            },
-          })
-          .then((res) => {
-            console.log(res);
-            alert("비밀번호가 변경되었습니다.");
-            this.goBack();
-          })
-          .catch((err) => {
-            console.log(err);
-            alert("비밀번호 변경을 실패하였습니다.");
-          });
-      } else {
-        alert("새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다.");
-      }
+          // 새 비밀번호 = 새 비밀번호 확인
+          if (this.newPassword == this.confirmPassword) {
+            console.log("비밀번호 바꾸자~");
+            // 비밀번호 변경하기
+            axios
+              .put(
+                `/user/${this.loginUser}/passwordUpdate`,
+                { email: this.loginUser, password: this.confirmPassword },
+                {
+                  headers: {
+                    Authorization: sessionStorage.getItem("jwt"),
+                  },
+                }
+              )
+              .then((res) => {
+                console.log(res);
+                alert("비밀번호가 변경되었습니다.");
+                this.goBack();
+              })
+              .catch((err) => {
+                console.log(err);
+                alert("비밀번호 변경을 실패하였습니다.");
+              });
+          } else {
+            alert("새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다.");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("현재 비밀번호가 일치하지 않습니다.");
+        });
     },
   },
 };
