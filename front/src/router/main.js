@@ -7,6 +7,9 @@ import CalendarPage from "@/components/CalendarPage";
 import RegisterFeedPage from "@/components/RegisterFeedPage";
 import ChangePasswordPage from "@/components/ChangePasswordPage";
 
+import ExerciseList from "@/views/exercise/ExerciseList";
+import SearchPage from "@/views/search/SearchPage";
+
 export default {
   path: "/homet",
   component: MainPage,
@@ -18,7 +21,7 @@ export default {
     },
     {
       name: "UserPage",
-      path: ":userName",
+      path: "profile/:userName",
       component: UserPage,
       props: {
         default: true,
@@ -39,6 +42,17 @@ export default {
       props: {
         default: true,
       },
+    },
+
+    {
+      name: "ExerciseList",
+      path: "exerciselist",
+      component: ExerciseList,
+    },
+    {
+      name: "searchPage",
+      path: "search",
+      component: SearchPage,
     },
     {
       name: "CalendarPage",

@@ -24,6 +24,7 @@ export default {
   },
   methods: {
     pictureUrl() {
+      console.log(this.myInfo.profile_url)
       return "http://localhost:8092" + this.myInfo.profile_url;
     },
   },

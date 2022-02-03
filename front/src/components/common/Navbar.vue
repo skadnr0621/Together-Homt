@@ -7,7 +7,7 @@
         </router-link>
       </li>
       <li class="menu-search">
-        <router-link :to="{ name: '' }">
+        <router-link :to="{ name: 'searchPage' }">
           <span class="material-icons" @click="changeMenu(1)"> search </span>
         </router-link>
       </li>
@@ -24,7 +24,7 @@
         </router-link>
       </li>
       <li class="menu-homt">
-        <router-link :to="{ name: '' }">
+        <router-link :to="{ name: 'ExerciseList' }">
           <span class="material-icons-outlined" @click="changeMenu(3)">
             fitness_center
           </span>
