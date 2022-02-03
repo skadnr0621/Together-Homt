@@ -56,6 +56,7 @@ export default {
     };
   },
   methods: {
+    // 이전값이랑 비교?
     changeMenu(num) {
       for (let i = 0; i < 5; i++) {
         // 활성화색으로 바꾸기

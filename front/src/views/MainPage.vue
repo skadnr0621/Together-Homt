@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     // 유저 정보 조회
-    ...mapActions(["setMyInfo"]),
+    ...mapActions(["setAllMyInfo"]),
     logout() {
       sessionStorage.clear();
       this.$store.dispatch("userStore/getLoginUser", null);
@@ -43,19 +43,19 @@ export default {
     },
   },
   mounted() {
-    this.setMyInfo(this.loginUser);
+    this.setAllMyInfo(this.loginUser);
   },
   updated() {
     // jwt 토큰 여부 확인
     this.isAuthorized = sessionStorage.getItem("jwt");
-    this.setMyInfo(this.loginUser);
+    // this.setMyInfo(this.loginUser);
   },
   computed: {
     // 로그인한 사용자 이메일 가져오기
     ...mapState({ loginUser: (state) => state.userStore.LoginUser }),
 
     // 로그인한 유저 정보
-    ...mapState(["myInfo"]),
+    // ...mapState(["myInfo"]),
   },
 };
 </script>

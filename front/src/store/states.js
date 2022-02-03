@@ -1,16 +1,33 @@
 export default {
   state: {
-    // 유저 정보
-    myInfo: {},
-    myFeed: [
-      "스쿼트 사진",
-      "스트레칭 사진",
-      "푸쉬업 사진",
-      "런지 사진",
-      "플랭크 사진",
-      "브릿지 사진",
-    ],
+    // 나의 정보
+    myInfo: {
+      email: null,
+      group: null,
+      introduce: null,
+      password: null,
+      profile_url: null,
+      role: null,
+      user_id: null,
+      username: null,
+    },
 
-    // 로그인
+    // 나의 피드 정보
+    myFeeds: [],
+
+    // 나의 댓글 정보
+    myComments: [],
+
+    // 나의 팔로우/팔로워 정보
+    myFollows: {
+      follower: [],
+      following: [],
+    },
+
+    // 나의 운동 기록 정보
+    myRecords: [],
+
+    // 나의 좋아요 정보
+    myLikes: [],
   },
 };
