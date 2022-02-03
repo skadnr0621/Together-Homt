@@ -1,5 +1,6 @@
 package com.ssafy.togetherhomt.user.follow;
 
+import com.ssafy.togetherhomt.common.CommonService;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.info.UserDto;
 import lombok.AllArgsConstructor;
@@ -15,10 +16,12 @@ public class FollowService {
 
     private FollowRepository followRepository;
 
+    private CommonService commonService;
+
 
     // 나를 팔로우 하는 사람 검색
-    public List<UserDto> listFollowers(User me) {
-        List<Follow> followers = followRepository.findByFollowing(me);
+    public List<UserDto> listFollowers() {
+        List<Follow> followers = followRepository.findByFollowing(commonService.getLoginUser());
 
         List<UserDto> followerList = new ArrayList<>();
         for (Follow follow : followers) {
@@ -29,8 +32,8 @@ public class FollowService {
     }
 
     // 내가 팔로우 하는 사람 검색
-    public List<UserDto> listFollowings(User me) {
-        List<Follow> followings = followRepository.findByFollower(me);
+    public List<UserDto> listFollowings() {
+        List<Follow> followings = followRepository.findByFollower(commonService.getLoginUser());
 
         List<UserDto> followingList = new ArrayList<>();
         for (Follow follow : followings) {
@@ -41,7 +44,8 @@ public class FollowService {
     }
 
     @Transactional
-    public Follow follow(User me, User you) {
+    public Follow follow(User you) {
+        User me = commonService.getLoginUser();
         if (followRepository.findByFollowerAndFollowing(me, you) != null)
             return null;
 
@@ -53,7 +57,8 @@ public class FollowService {
     }
 
     @Transactional
-    public void unfollow(User me, User you) {
+    public void unfollow(User you) {
+        User me = commonService.getLoginUser();
         Follow follow = followRepository.findByFollowerAndFollowing(me, you);
         if (follow != null)
             followRepository.delete(follow);
