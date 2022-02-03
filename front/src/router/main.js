@@ -50,7 +50,7 @@ export default {
       component: ExerciseList,
     },
     {
-      name: "SearchPage",
+      name: "searchPage",
       path: "search",
       component: SearchPage,
     },

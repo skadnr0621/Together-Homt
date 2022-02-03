@@ -24,7 +24,7 @@
         </router-link>
       </li>
       <li class="menu-homt">
-        <router-link :to="{ name: '' }">
+        <router-link :to="{ name: 'ExerciseList' }">
           <span class="material-icons-outlined" @click="changeMenu(3)">
             fitness_center
           </span>

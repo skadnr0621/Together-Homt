@@ -1,6 +1,8 @@
 <template>
 <div class="excerciselist">
   <button @click="exercise('hi')">hi운동</button>
+  <button @click="exercise('neck')">목 스트레칭</button>
+  <button @click="exercise('waist')">허리 스트레칭</button>
 </div>
 </template>
 
@@ -10,7 +12,7 @@ export default {
     exercise: function(exercise) {
       this.$router.push({ name: 'MotionDetect', query: { exercise: exercise}})
     }
-  }
+  },
 }
 </script>
 

@@ -13,7 +13,7 @@
     </div>
 
     <!-- jwt 토큰을 가지고 있지 않을 경우 -->
-    <div v-else>{{ logout() }}</div>
+    <!-- <div v-else>{{ logout() }}</div> -->
   </div>
 </template>
 
