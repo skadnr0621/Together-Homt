@@ -1,6 +1,9 @@
-package com.ssafy.togetherhomt.exercise;
+package com.ssafy.togetherhomt.Record;
 
+import com.ssafy.togetherhomt.Record.Attendance.Attendance;
+import com.ssafy.togetherhomt.Record.Attendance.AttendanceRepository;
 import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
+import com.ssafy.togetherhomt.exercise.*;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +23,48 @@ public class RecordService {
     public RecordRepository recordRepository;
     public AttendanceRepository attendanceRepository;
     public TodayExerciseRepository todayExerciseRepository;
+    public ExerciseRepository exerciseRepository;
 
     @Autowired
-    public RecordService(UserRepository userRepository, RecordRepository recordRepository, AttendanceRepository attendanceRepository, TodayExerciseRepository todayExerciseRepository) {
+    public RecordService(UserRepository userRepository, RecordRepository recordRepository, AttendanceRepository attendanceRepository, TodayExerciseRepository todayExerciseRepository, ExerciseRepository exerciseRepository) {
         this.userRepository = userRepository;
         this.recordRepository = recordRepository;
         this.attendanceRepository = attendanceRepository;
         this.todayExerciseRepository = todayExerciseRepository;
+        this.exerciseRepository = exerciseRepository;
+    }
+
+    @Transactional
+    public List<String> exerciseAdd(TodayExerciseDto todayExerciseDto) {
+
+        System.out.println("todayExerciseDto = " + todayExerciseDto);
+        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userTemp = principalDetails.getUser();
+        User user = userRepository.findByEmail(userTemp.getEmail());
+        Exercise exercise = exerciseRepository.findByName(todayExerciseDto.getExercise());
+
+        List<TodayExercise> exercises = todayExerciseRepository.findByUser(user);
+        if(exercises.size()>0){
+            for(TodayExercise ex:exercises ){
+                if(ex.getExercise().getName().equals(todayExerciseDto.getExercise())) {
+                    return null;
+                }
+            }
+        }
+
+        TodayExercise todayExercise = TodayExercise.builder()
+                .user(user)
+                .exercise(exercise)
+                .build();
+        todayExerciseRepository.save(todayExercise);
+
+        List<String> myExercises = new ArrayList<>();
+
+        exercises = todayExerciseRepository.findByUser(user);
+        for (TodayExercise ex : exercises) {
+            myExercises.add(ex.getExercise().getName());
+        }
+        return myExercises;
     }
 
     public String create(RecordDto recordDto){
@@ -34,11 +72,12 @@ public class RecordService {
         PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User userTemp = principalDetails.getUser();
         User user = userRepository.findByEmail(userTemp.getEmail());
+        Exercise exercise = exerciseRepository.findByName(recordDto.getExercise());
 
         Record record = Record.builder()
                 .user(user)
                 .countCheck(recordDto.getCountCheck())
-                .exercise(Exercise.valueOf(recordDto.getExercise()))
+                .exercise(exercise)
                 .build();
         String record_time = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
         record.setDate(record_time);
@@ -62,7 +101,9 @@ public class RecordService {
         List<Attendance> attendances = attendanceRepository.findAllByUser(user);
         List<String> attendance_dates = new ArrayList<>();
         for(int i=0;i< attendances.size();i++){
-            attendance_dates.add(attendances.get(i).getDate());
+            if(!attendance_dates.contains(attendances.get(i).getDate()));{
+                attendance_dates.add(attendances.get(i).getDate());
+            }
         }
         return attendance_dates;
     }
@@ -73,38 +114,12 @@ public class RecordService {
         List<Attendance> attendances = attendanceRepository.findAllByDate(record_time);
         List<String> attendees = new ArrayList<>();
         for(int i=0;i< attendances.size();i++){
-            attendees.add(attendances.get(i).getUser().getUsername());
+            if(!attendees.contains(attendances.get(i).getUser().getUsername())){
+                attendees.add(attendances.get(i).getUser().getUsername());
+            }
         }
         return attendees;
     }
 
-    @Transactional
-    public List<String> exerciseAdd(TodayExerciseDto todayExerciseDto) {
 
-        System.out.println("todayExerciseDto = " + todayExerciseDto);
-        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User userTemp = principalDetails.getUser();
-        User user = userRepository.findByEmail(userTemp.getEmail());
-
-        List<TodayExercise> exercises = todayExerciseRepository.findByUser(user);
-        for(TodayExercise exercise:exercises ){
-            if(exercise.getExercise().name().equals(todayExerciseDto.getExercise())) {
-                return null;
-            }
-        }
-
-        TodayExercise todayExercise = TodayExercise.builder()
-                .user(user)
-                .exercise(Exercise.valueOf(todayExerciseDto.getExercise()))
-                .build();
-        todayExerciseRepository.save(todayExercise);
-
-        List<String> myExercises = new ArrayList<>();
-
-        exercises = todayExerciseRepository.findByUser(user);
-        for (TodayExercise exercise : exercises) {
-            myExercises.add(exercise.getExercise().name());
-        }
-        return myExercises;
-    }
 }

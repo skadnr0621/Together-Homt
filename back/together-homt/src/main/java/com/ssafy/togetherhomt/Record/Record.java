@@ -1,7 +1,8 @@
-package com.ssafy.togetherhomt.exercise;
+package com.ssafy.togetherhomt.Record;
 
 import com.ssafy.togetherhomt.baseEntity.BaseTimeEntity;
 
+import com.ssafy.togetherhomt.exercise.Exercise;
 import com.ssafy.togetherhomt.user.User;
 import lombok.*;
 
@@ -23,9 +24,13 @@ public class Record {
 
     private Long countCheck;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "exercise_id")
+    @ToString.Exclude
     private Exercise exercise;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @ToString.Exclude
     private User user;
 }
