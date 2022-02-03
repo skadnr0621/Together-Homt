@@ -7,6 +7,9 @@ import com.ssafy.togetherhomt.feed.comment.CommentDto;
 import com.ssafy.togetherhomt.feed.comment.CommentRepository;
 import com.ssafy.togetherhomt.feed.media.Media;
 import com.ssafy.togetherhomt.feed.media.MediaRepository;
+import com.ssafy.togetherhomt.feed.tag.Tag;
+import com.ssafy.togetherhomt.feed.tag.TagDto;
+import com.ssafy.togetherhomt.feed.tag.TagRepository;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserRepository;
 import com.ssafy.togetherhomt.user.follow.Follow;
@@ -30,16 +33,17 @@ public class FeedService {
     public MediaRepository mediaRepository;
     public FollowRepository followRepository;
     private GlobalConfig config;
+    public TagRepository tagRepository;
 
     @Autowired
-    public FeedService(FeedRepository feedRepository, UserRepository userRepository, CommentRepository commentRepository,
-                       MediaRepository mediaRepository, FollowRepository followRepository, GlobalConfig config) {
+    public FeedService(FeedRepository feedRepository, UserRepository userRepository, CommentRepository commentRepository, MediaRepository mediaRepository, FollowRepository followRepository, GlobalConfig config, TagRepository tagRepository) {
         this.feedRepository = feedRepository;
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;
         this.mediaRepository = mediaRepository;
         this.followRepository = followRepository;
         this.config = config;
+        this.tagRepository = tagRepository;
     }
 
     public List<FeedDto> all() {
@@ -57,7 +61,6 @@ public class FeedService {
             feedDto.setMedia_url(tempFeed.getMedia_url());
             feedDto.setLike_cnt(tempFeed.getLike_cnt());
             feedDto.setUserName(tempFeed.getUser().getUsername());
-            feedDto.setTag(tempFeed.getTag());
 
             feeds.add(feedDto);
         }
@@ -91,7 +94,6 @@ public class FeedService {
                 feedDto.setMedia_url(tempFeed.getMedia_url());
                 feedDto.setLike_cnt(tempFeed.getLike_cnt());
                 feedDto.setUserName(tempFeed.getUser().getUsername());
-                feedDto.setTag(tempFeed.getTag());
 
                 feeds.add(feedDto);
             }
@@ -114,7 +116,6 @@ public class FeedService {
             feedDto.setMedia_url(feed.getMedia_url());
             feedDto.setLike_cnt(feed.getLike_cnt());
             feedDto.setUserName(feed.getUser().getUsername());
-            feedDto.setTag(feed.getTag());
 
             feeds.add(feedDto);
         }
@@ -162,7 +163,7 @@ public class FeedService {
         return "success";
     }
 
-    public String create(FeedDto feedDto){
+    public String create(FeedDto feedDto, TagDto tagDto){
 
         MultipartFile multipartFile = feedDto.getMedia();
 
@@ -210,13 +211,29 @@ public class FeedService {
         User userTemp = principalDetails.getUser();
         User user = userRepository.findByEmail(userTemp.getEmail());
 
+        // Tag
+        List<Tag> resTags = new ArrayList<>();
+
+        for (String tempName : tagDto.getNameList()) {
+            Tag tempTag = tagRepository.findByName(tempName);
+            if (tempTag != null) {
+                resTags.add(tempTag);
+            } else {
+                Tag newTag = Tag.builder()
+                        .name(tempName)
+                        .build();
+                tagRepository.save(newTag);
+                resTags.add(newTag);
+            }
+        }
+
         Feed feed = Feed.builder()
                 .title(feedDto.getTitle())
                 .content(feedDto.getContent())
                 .like_cnt(0L)
                 .media_url(resourcePathname)
                 .user(user)
-                .tag(feedDto.getTag())
+                .tags(resTags)
                 .build();
 
         feedRepository.save(feed);

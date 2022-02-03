@@ -55,4 +55,5 @@ public class RecordController {
         List<String> result = recordService.todayAttendance();
         return new ResponseEntity(result, HttpStatus.OK);
     }
+
 }
