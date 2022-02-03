@@ -1,0 +1,35 @@
+@charset "utf-8";
+
+.execise_recommend > * {
+  border: 1px solid black;
+  margin: 2px 0;
+}
+.today_exercise > * {
+  border: 1px solid black;
+  margin: 2px 0;
+}
+.exercises_list > * {
+  border: 1px solid black;
+  margin: 2px 0;
+}
+.username {
+  text-align: center;
+}
+.information {
+  text-align: center;
+}
+.gage-bar {
+  text-align: center;
+}
+.exercises_list > ex {
+  margin: 2px 0;
+}
+.circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: brown;
+  text-align: center;
+  line-height: 100px;
+  display: inline-block;
+}
