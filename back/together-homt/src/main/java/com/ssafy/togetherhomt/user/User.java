@@ -73,19 +73,9 @@ public class User {
     @JsonIgnoreProperties({"user"})
     private List<Record> records = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "fromId")
-//    @OneToMany(mappedBy = "fromId")
-//    @JsonIgnoreProperties({"user"})
-//    private List<Notification> getNotifications = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "toId")
-//    @JsonIgnoreProperties({"user"})
-//    private List<Notification> sendNotifications = new ArrayList<>();
-//
 //    @OneToMany(mappedBy = "user")
 //    @JsonIgnoreProperties({"user"})
 //    private List<Attendance> attendances = new ArrayList<>();
-//
-//
+
 }
 

@@ -23,8 +23,9 @@ public class UserDto {
     @Size(min = 3, max = 10)
     private String username;
 
-    public UserDto(User user){
+    public UserDto(User user) {
         this.email = user.getEmail();
         this.username = user.getUsername();
     }
+
 }
