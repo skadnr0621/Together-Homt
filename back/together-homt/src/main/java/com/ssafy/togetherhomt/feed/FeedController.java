@@ -1,6 +1,7 @@
 package com.ssafy.togetherhomt.feed;
 
 import com.ssafy.togetherhomt.feed.comment.CommentDto;
+import com.ssafy.togetherhomt.feed.tag.TagDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -30,9 +31,9 @@ public class FeedController {
             @ApiResponse(code = 200, message = "피드 생성에 성공하였습니다.")
     })
     @PostMapping("/create")
-    public ResponseEntity<?> create(@ModelAttribute("file") FeedDto feedDto){
+    public ResponseEntity<?> create(@ModelAttribute("file") FeedDto feedDto, TagDto tagDto){
 
-        String result = feedService.create(feedDto);
+        String result = feedService.create(feedDto,tagDto);
 
         if (result.equals("success")) {
             return ResponseEntity.ok("success");

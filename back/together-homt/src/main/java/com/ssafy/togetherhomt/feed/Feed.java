@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ssafy.togetherhomt.baseEntity.BaseTimeEntity;
 import com.ssafy.togetherhomt.feed.comment.Comment;
 import com.ssafy.togetherhomt.feed.like.Like;
+import com.ssafy.togetherhomt.feed.tag.Tag;
 import com.ssafy.togetherhomt.user.User;
 import lombok.*;
 
@@ -32,7 +33,11 @@ public class Feed extends BaseTimeEntity {
 
     private String media_url;
 
-    private String tag;
+    @ManyToMany
+    @JoinTable(name = "feed_tag",
+            joinColumns = @JoinColumn(name = "feed_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private List<Tag> tags = new ArrayList<Tag>();
 
     private Long like_cnt;
 

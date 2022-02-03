@@ -39,6 +39,4 @@ public class FeedDto {
     @ApiParam(value = "피드 작성자")
     private String userName;
 
-    @ApiParam(value = "피드 태그")
-    private String tag;
 }
