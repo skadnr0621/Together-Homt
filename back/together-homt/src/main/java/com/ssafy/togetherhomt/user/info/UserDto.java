@@ -1,5 +1,6 @@
 package com.ssafy.togetherhomt.user.info;
 
+import com.ssafy.togetherhomt.user.User;
 import io.swagger.annotations.ApiParam;
 import lombok.*;
 
@@ -22,5 +23,9 @@ public class UserDto {
     @Size(min = 3, max = 10)
     private String username;
 
+    public UserDto(User user) {
+        this.email = user.getEmail();
+        this.username = user.getUsername();
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.ssafy.togetherhomt.feed;
 
 import com.ssafy.togetherhomt.feed.comment.CommentDto;
+import com.ssafy.togetherhomt.feed.tag.TagDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -30,9 +31,9 @@ public class FeedController {
             @ApiResponse(code = 200, message = "피드 생성에 성공하였습니다.")
     })
     @PostMapping("/create")
-    public ResponseEntity<?> create(@ModelAttribute("file") FeedDto feedDto){
+    public ResponseEntity<?> create(@ModelAttribute("file") FeedDto feedDto, TagDto tagDto){
 
-        String result = feedService.create(feedDto);
+        String result = feedService.create(feedDto,tagDto);
 
         if (result.equals("success")) {
             return ResponseEntity.ok("success");
@@ -41,7 +42,7 @@ public class FeedController {
         }
     }
 
-    @ApiOperation(value = "전체 피드 조회", notes = "로그인 한 사용자가 팔로우 하는 유저의 피드를 조회하여 목록으로 보여줍니다.")
+    @ApiOperation(value = "피드 삭제", notes = "원하는 피드를 삭제합니다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "피드 삭제에 성공하였습니다.")
     })
@@ -49,6 +50,26 @@ public class FeedController {
     public String feedDelete(@PathVariable("feed_id") Long feed_id){
 
         return feedService.feedDelete(feed_id);
+    }
+
+    @ApiOperation(value = "전체 피드 조회", notes = "전체 피드를 조회합니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "피드 조회에 성공하였습니다.")
+    })
+    @GetMapping("/all")
+    public List<FeedDto> all() {
+
+        return feedService.all();
+    }
+
+    @ApiOperation(value = "팔로우 기반 전체 피드 조회", notes = "로그인 한 사용자가 팔로우 하는 유저의 피드를 조회하여 목록으로 보여줍니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "팔로우 하는 피드 조회에 성공하였습니다.")
+    })
+    @GetMapping("/main")
+    public List<FeedDto> main() {
+
+        return feedService.main();
     }
 
     @ApiOperation(value = "내 피드 조회", notes = "내가 작성한 피드를 조회합니다.")
