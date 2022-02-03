@@ -1,5 +1,5 @@
 import MainPage from "@/views/MainPage";
-import Feed from "@/components/Feed";
+// import Feed from "@/components/Feed";
 import UserPage from "@/components/UserPage";
 import FollowPage from "@/components/FollowPage";
 import UserEditPage from "@/components/UserEditPage";
@@ -17,11 +17,11 @@ export default {
   path: "/homet",
   component: MainPage,
   children: [
-    {
-      name: "Feed",
-      path: "feed",
-      component: Feed,
-    },
+    // {
+    //   name: "Feed",
+    //   path: "feed",
+    //   component: Feed,
+    // },
     {
       name: "UserPage",
       path: "profile/:userName",
