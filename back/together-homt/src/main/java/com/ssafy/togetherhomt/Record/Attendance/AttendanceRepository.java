@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.exercise;
+package com.ssafy.togetherhomt.Record.Attendance;
 
 import com.ssafy.togetherhomt.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;

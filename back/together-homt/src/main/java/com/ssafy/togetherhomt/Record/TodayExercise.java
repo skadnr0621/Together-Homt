@@ -1,6 +1,7 @@
-package com.ssafy.togetherhomt.exercise;
+package com.ssafy.togetherhomt.Record;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ssafy.togetherhomt.exercise.Exercise;
 import com.ssafy.togetherhomt.user.User;
 import lombok.*;
 
@@ -20,5 +21,7 @@ public class TodayExercise {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 }

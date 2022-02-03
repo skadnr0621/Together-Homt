@@ -9,7 +9,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TodayExerciseDto {
+public class ExerciseDto {
 
-    private String exercise;
+    private String name;
+
+    private String part;
+
+    private String type;
+
+    private Long exercise_time;
+
+    private Long exercise_count;
+
+    private String video_url;
 }
