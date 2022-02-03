@@ -1,0 +1,69 @@
+<template>
+  <div id="comment-page">
+    <comment-header v-on:goBack="onGoBack" />
+    <comment-detail
+      :feedId="this.$route.params.feedId"
+      v-on:registerComment="onRegisterComment"
+    />
+  </div>
+</template>
+
+<script>
+import CommentHeader from "@/components/CommentPage/CommentHeader";
+import CommentDetail from "@/components/CommentPage/CommentDetail";
+import { mapState } from "vuex";
+import axios from "axios";
+
+export default {
+  name: "CommentPage",
+  components: {
+    CommentHeader,
+    CommentDetail,
+  },
+  computed: {
+    // 로그인한 유저 정보
+    ...mapState(["myInfo"]),
+  },
+  methods: {
+    onGoBack() {
+      this.$router.back();
+    },
+    async onRegisterComment(value) {
+      const feedId = this.myInfo.feeds[this.$route.params.feedId].feed_id;
+
+      await axios
+        .post(
+          `/feed/${feedId}/comment`,
+          { content: value, feed_id: feedId, username: this.myInfo.username },
+          {
+            headers: {
+              Authorization: sessionStorage.getItem("jwt"),
+            },
+          }
+        )
+        .then((res) => {
+          alert("댓글 등록 완료!");
+          console.log(res);
+        })
+        .catch((err) => {
+          alert("댓글 등록 실패!");
+          console.log(err);
+        });
+
+      this.$router.go(this.$router.currentRoute);
+    },
+  },
+};
+</script>
+
+<style>
+#comment-page {
+  position: fixed;
+  top: 45px;
+  left: 0;
+  right: 0;
+  bottom: 45px;
+  overflow: auto;
+  /* background-color: rgba(0, 0, 0, 0.025); */
+}
+</style>

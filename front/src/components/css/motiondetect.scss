@@ -36,10 +36,22 @@ $radius: 50px;
       font-size: 30px;
       font-family: 'Roboto', sans-serif;
     }
+    
 
-    #success-btn {
+    .fail-btn {
       border: none;
-      width: 42px;
+      width: 45px;
+      height: 28px;
+      font-family: 'Noto Sans KR', sans-serif;
+      border-radius: 5px;
+      background: #e6e6e6;
+      box-shadow: inset 3px 3px 4px #9f9f9f,
+      inset -3px -3px 4px #ffffff;
+    }
+    
+    .success-btn {
+      border: none;
+      width: 45px;
       height: 28px;
       font-family: 'Noto Sans KR', sans-serif;
       border-radius: 5px;
@@ -82,7 +94,7 @@ $radius: 50px;
     background-color: #42a4f5d2;
     border-radius: 30px;
     height: 25px;
-    transition: 0.3s;
+    transition: 0.2s;
   }
 
   // 카운트 다운 

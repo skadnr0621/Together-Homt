@@ -7,7 +7,7 @@ import FirstPageRouters from "@/router/firstpage"
 import MainRouters from "@/router/main";
 
 import MotionDetect from "@/views/exercise/MotionDetect";
-import ExerciseList from "@/views/exercise/exerciseList"
+
 
 Vue.use(VueRouter);
 
@@ -20,15 +20,10 @@ const routes = [
   },
   { ...MainRouters },
   {
-    name: "ExerciseList",
-    path: "/exerciselist/",
-    component: ExerciseList,
-  },
-  {
     name: "MotionDetect",
     path: "/exercise/",
     component: MotionDetect,
-  }
+  },
 ];
 
 const router = new VueRouter({

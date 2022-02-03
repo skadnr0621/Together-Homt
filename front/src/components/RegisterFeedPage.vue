@@ -1,31 +1,41 @@
 <template>
   <div id="register-feed-page">
-    피드 등록 페이지
-    <register-feed-header />
-    <register-feed />
-    <register-feed-tag />
-    <register-feed-setting />
+    <!-- <img
+      src="https://cdn.pixabay.com/photo/2014/03/24/13/40/dumbbells-293955_960_720.png"
+      alt="기본 이미지"
+    /> -->
+    <register-feed-header
+      v-on:goBack="onGoBack"
+      v-on:registerFeed="onRegisterFeed"
+    />
+    <register-feed :isRegister="isRegister" :nickname="nickname" />
   </div>
 </template>
 
 <script>
 import RegisterFeedHeader from "@/components/RegisterFeedPage/RegisterFeedHeader";
 import RegisterFeed from "@/components/RegisterFeedPage/RegisterFeed";
-import RegisterFeedTag from "@/components/RegisterFeedPage/RegisterFeedTag";
-import RegisterFeedSetting from "@/components/RegisterFeedPage/RegisterFeedSetting";
 
 export default {
   name: "RegisterFeedPage",
   components: {
     RegisterFeedHeader,
     RegisterFeed,
-    RegisterFeedTag,
-    RegisterFeedSetting,
   },
   data() {
-    return {};
+    return {
+      isRegister: false,
+      nickname: this.$route.params.userName,
+    };
   },
-  methods: {},
+  methods: {
+    onGoBack() {
+      this.$router.back();
+    },
+    onRegisterFeed(value) {
+      this.isRegister = value;
+    },
+  },
 };
 </script>
 
