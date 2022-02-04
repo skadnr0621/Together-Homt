@@ -22,6 +22,7 @@ public class RecordController {
     @PostMapping("/todayExercise/add")
     public ResponseEntity<?> exerciseAdd(@RequestBody TodayExerciseDto todayExerciseDto){
         List<String> result = recordService.exerciseAdd(todayExerciseDto);
+        if(result.isEmpty()) return new ResponseEntity("이미 추가한 운동입니다.", HttpStatus.BAD_REQUEST);
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
@@ -36,6 +37,13 @@ public class RecordController {
         } else {
             return (ResponseEntity<?>) ResponseEntity.badRequest();
         }
+    }
+
+    // 한 사람이 오늘 한 운동
+    @GetMapping("/{email}")
+    public ResponseEntity<?> personalTodayExercises(@PathVariable String email){
+        List<String> result = recordService.todayExercises(email);
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
     // 한 사람이 운동을 한 기록(달력)

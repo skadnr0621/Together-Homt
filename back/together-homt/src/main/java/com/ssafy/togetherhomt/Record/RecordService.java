@@ -34,6 +34,7 @@ public class RecordService {
         this.exerciseRepository = exerciseRepository;
     }
 
+    // 오늘 내 운동 추가, 내 운동리스트 반환
     @Transactional
     public List<String> exerciseAdd(TodayExerciseDto todayExerciseDto) {
 
@@ -47,7 +48,7 @@ public class RecordService {
         if(exercises.size()>0){
             for(TodayExercise ex:exercises ){
                 if(ex.getExercise().getName().equals(todayExerciseDto.getExercise())) {
-                    return null;
+                    return new ArrayList<>();
                 }
             }
         }
@@ -67,6 +68,18 @@ public class RecordService {
         return myExercises;
     }
 
+    public List<String> todayExercises(String email){
+        User user = userRepository.findByEmail(email);
+        List<String> myExercises = new ArrayList<>();
+
+        List<TodayExercise> exercises = todayExerciseRepository.findByUser(user);
+        for (TodayExercise ex : exercises) {
+            myExercises.add(ex.getExercise().getName());
+        }
+        return myExercises;
+    }
+
+    // 내 운동 기록 남기기
     public String create(RecordDto recordDto){
 
         PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -96,6 +109,7 @@ public class RecordService {
         return "success";
     }
 
+    // 개인 운동 날짜 기록
     public List<String> personalAttendance(String email){
         User user = userRepository.findByEmail(email);
         List<Attendance> attendances = attendanceRepository.findAllByUser(user);
