@@ -1,10 +1,11 @@
-package com.ssafy.togetherhomt.Record.Attendance;
+package com.ssafy.togetherhomt.exerciseAll.attendance;
 
 import com.ssafy.togetherhomt.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.persistence.*;
 
@@ -18,11 +19,10 @@ public class Attendance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long attendance_id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    private String date;
-
     private Boolean done;
+
 }
