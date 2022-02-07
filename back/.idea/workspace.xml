@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="afcb553c-ae6c-403c-ba81-abe4e211e001" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/gkuer/controller/Slide3Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/gkuer/controller/Slide3Controller.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +58,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="master" />
+        <entry key="$PROJECT_DIR$/.." value="back" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -77,20 +76,23 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="gradle.compiler" />
+    <property name="show.run.dashboard.notification" value="false" />
   </component>
-  <component name="RunManager" selected="Gradle.together-homt [build]">
+  <component name="RunManager" selected="Spring Boot.TogetherHomtApplication (1)">
     <configuration name="together-homt [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -156,6 +158,8 @@
       <list>
         <item itemvalue="Gradle.together-homt [build]" />
         <item itemvalue="Gradle.together-homt" />
+        <item itemvalue="Gradle.together-homt [build]" />
+        <item itemvalue="Gradle.together-homt" />
       </list>
     </recent_temporary>
   </component>
@@ -168,9 +172,9 @@
       <option name="presentableId" value="Default" />
       <updated>1643897406169</updated>
       <workItem from="1643897415674" duration="554000" />
-      <workItem from="1643938665612" duration="1803000" />
-      <workItem from="1644043022093" duration="6204000" />
-      <workItem from="1644200191382" duration="2403000" />
+      <workItem from="1644062577882" duration="347000" />
+      <workItem from="1644106536461" duration="8323000" />
+      <workItem from="1644192747103" duration="11570000" />
     </task>
     <servers />
   </component>

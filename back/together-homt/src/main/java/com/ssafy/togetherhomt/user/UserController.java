@@ -4,6 +4,7 @@ import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
 import com.ssafy.togetherhomt.user.auth.LoginDto;
 import com.ssafy.togetherhomt.user.info.SignupDto;
 import com.ssafy.togetherhomt.user.info.UpdateDto;
+import com.ssafy.togetherhomt.user.info.UserDto;
 import com.ssafy.togetherhomt.util.Mailing.MailingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,7 +20,7 @@ import javax.validation.Valid;
 
 @Api("사용자(유저) 관련 기능 접근 방법")
 @RestController
-@RequestMapping("/user")
+@RequestMapping(value = "/user", produces = "application/json; charset=UTF-8")
 public class UserController {
 
     private UserService userService;
@@ -34,15 +35,18 @@ public class UserController {
 
     @ApiOperation(value = "회원 가입", notes = "회원 가입")
     @ApiResponses({
-            @ApiResponse(code = 500, message = "이미 존재하는 유저입니다. 회원가입에 실패하였습니다."),
+            @ApiResponse(code = 500, message = "Internal Server Error"),
+            @ApiResponse(code = 409, message = "이미 존재하는 유저입니다. 회원가입에 실패하였습니다."),
             @ApiResponse(code = 200, message = "200 + \"success\". 회원가입에 성공하였습니다.")
     })
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@Valid @RequestBody SignupDto signDto) {
-        String result = userService.signup(signDto);
+    public ResponseEntity<?> signup(@Valid @RequestBody SignupDto signupDto) {
+        String result = userService.signup(signupDto);
 
-        if (result.equals("success"))
-            return ResponseEntity.ok("success");
+        if ("success".equals(result))
+            return new ResponseEntity<>("회원가입에 성공하였습니다.", HttpStatus.OK);
+        else if ("duplicate".equals(result))
+            return new ResponseEntity<>("이미 가입된 계정 주소입니다.", HttpStatus.CONFLICT);
         else
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -57,25 +61,18 @@ public class UserController {
         return ResponseEntity.ok(mailConfirmService.sendSimpleMessage(email));
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginDto loginDto) {
-        System.out.println("UserController - login");
-        SignupDto userDto = userService.login(loginDto);
-        if (userDto != null)
-            return ResponseEntity.ok("success");
-        else
-            System.out.println("fail");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
     @ApiOperation(value = "회원 정보 조회", notes = "회원 정보 조회")
     @ApiResponses({
+            @ApiResponse(code = 400, message = "잘못된 요청입니다. 존재하지 않는 유저입니다."),
             @ApiResponse(code = 200, message = "유저 정보 조회에 성공하였습니다.")
     })
     @GetMapping("/profile/{email}")
     public ResponseEntity<?> getProfile(@PathVariable String email) {
-        User user = userService.getProfile(email);
-        return ResponseEntity.ok(user);
+        UserDto userDto = userService.getProfile(email);
+        if (userDto == null)
+            return new ResponseEntity<>("존재하지 않는 유저입니다.", HttpStatus.BAD_REQUEST);
+        else
+            return ResponseEntity.ok(userDto);
     }
 
     @ApiOperation(value = "회원 탈퇴", notes = "회원 탈퇴")
@@ -83,14 +80,10 @@ public class UserController {
             @ApiResponse(code = 400, message = "잘못된 요청입니다. 계정을 명시하지 않았거나 로그인 정보와 맞지 않습니다."),
             @ApiResponse(code = 200, message = "회원 탈퇴에 성공하였습니다.")
     })
-    @DeleteMapping("/{email}")
-    public ResponseEntity<?> withdraw(@PathVariable String email){
-        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(email == null || !principalDetails.getUsername().equals(email)){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        userService.withdraw(email);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    @DeleteMapping
+    public ResponseEntity<?> withdraw(){
+        userService.withdraw();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @ApiOperation(value = "비밀번호 변경", notes = "비밀번호 찾기 후 생성된 난수로 비밀번호 초기화")
@@ -98,13 +91,9 @@ public class UserController {
             @ApiResponse(code = 400, message = "잘못된 요청입니다. 계정을 명시하지 않았거나 로그인 정보와 맞지 않습니다."),
             @ApiResponse(code = 200, message = "비밀번호 재설정에 성공하였습니다.")
     })
-    @PutMapping("/{email}/passwordUpdate")
-    public ResponseEntity<?> passwordUpdate(@PathVariable String email, @Valid @RequestBody LoginDto loginDto){
-        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(email == null || !principalDetails.getUsername().equals(email)){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        userService.passwordUpdate(email, loginDto);
+    @PutMapping("/password")
+    public ResponseEntity<?> updatePassword(@RequestBody String newPassword){
+        userService.updatePassword(newPassword);
         return ResponseEntity.ok("passwordUpdate success");
     }
 

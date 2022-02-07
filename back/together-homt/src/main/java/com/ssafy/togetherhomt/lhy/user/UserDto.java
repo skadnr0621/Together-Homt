@@ -1,14 +1,11 @@
-package com.ssafy.togetherhomt.user.info;
+package com.ssafy.togetherhomt.lhy.user;
 
 import com.ssafy.togetherhomt.user.User;
-import com.ssafy.togetherhomt.user.follow.Follow;
 import io.swagger.annotations.ApiParam;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter @Setter
 @Builder
@@ -30,8 +27,8 @@ public class UserDto {
 
     private String profileUrl;
 
-    private List<UserDto> followers;
-    private List<UserDto> followings;
+    private int nFollower;
+    private int nFollowing;
 
     public UserDto(User user) {
         this.email = user.getEmail();
@@ -48,15 +45,8 @@ public class UserDto {
         this.profileUrl = user.getProfile_url();
 
         if (detailed) {
-            List<UserDto> followers = new ArrayList<>();
-            for (Follow follower : user.getFollower())
-                followers.add(new UserDto(follower.getFollower()));
-            this.followers = followers;
-
-            List<UserDto> followings = new ArrayList<>();
-            for (Follow following : user.getFollowing())
-                followings.add(new UserDto(following.getFollowing()));
-            this.followings = followings;
+            nFollower = user.getFollower().size();
+            nFollowing = user.getFollowing().size();
         }
     }
 
