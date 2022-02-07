@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Api("슬라이드3")
 @RestController
@@ -60,13 +62,13 @@ public class Slide3Controller {
             @ApiResponse(code = 200, message = "팔로워 + 팔로잉 리스트 조회 성공")
     })
     @GetMapping("/followlist")
-    public ResponseEntity<ArrayList<List<FollowListDto>>> followlist(@RequestBody String email) {
+    public ResponseEntity<HashMap<String,List<FollowListDto>>> followlist(@RequestBody String email) {
         List<FollowListDto> followerResult = slide3Service.followerlist(email);
         List<FollowListDto> followingResult = slide3Service.followinglist(email);
 
-        ArrayList<List<FollowListDto>> result = new ArrayList<>();
-        result.add(followerResult);
-        result.add(followingResult);
+        HashMap<String, List<FollowListDto>> result = new HashMap<>();
+        result.put("followerlist",followerResult);
+        result.put("followinglist",followingResult);
 
         return ResponseEntity.ok(result);
     }

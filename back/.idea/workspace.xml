@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="afcb553c-ae6c-403c-ba81-abe4e211e001" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/gkuer/controller/Slide3Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/gkuer/controller/Slide3Controller.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,9 +148,9 @@
     </configuration>
     <list>
       <item itemvalue="Gradle.together-homt" />
+      <item itemvalue="Gradle.together-homt [build]" />
       <item itemvalue="Spring Boot.TogetherHomtApplication" />
       <item itemvalue="Spring Boot.TogetherHomtApplication (1)" />
-      <item itemvalue="Gradle.together-homt [build]" />
     </list>
     <recent_temporary>
       <list>
@@ -168,7 +169,8 @@
       <updated>1643897406169</updated>
       <workItem from="1643897415674" duration="554000" />
       <workItem from="1643938665612" duration="1803000" />
-      <workItem from="1644043022093" duration="5977000" />
+      <workItem from="1644043022093" duration="6204000" />
+      <workItem from="1644200191382" duration="2403000" />
     </task>
     <servers />
   </component>
