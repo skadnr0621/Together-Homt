@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.exercise;
+package com.ssafy.togetherhomt.exerciseAll.exercise;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,8 +1,6 @@
-package com.ssafy.togetherhomt.Record;
+package com.ssafy.togetherhomt.exerciseAll.record;
 
-import com.ssafy.togetherhomt.baseEntity.BaseTimeEntity;
-
-import com.ssafy.togetherhomt.exercise.Exercise;
+import com.ssafy.togetherhomt.exerciseAll.exercise.Exercise;
 import com.ssafy.togetherhomt.user.User;
 import lombok.*;
 
@@ -26,7 +24,6 @@ public class Record {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_id")
-    @ToString.Exclude
     private Exercise exercise;
 
     @ManyToOne(fetch = FetchType.LAZY)

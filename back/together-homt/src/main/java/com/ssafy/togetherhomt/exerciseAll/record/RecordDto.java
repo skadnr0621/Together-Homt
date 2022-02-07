@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.Record;
+package com.ssafy.togetherhomt.exerciseAll.record;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TodayExerciseDto {
+public class RecordDto {
+
+//    private String video_url;
+
+    private Long countCheck;
+
+    private String date;
 
     private String exercise;
+
 }
