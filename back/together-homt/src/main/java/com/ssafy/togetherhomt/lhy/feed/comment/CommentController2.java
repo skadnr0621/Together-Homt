@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.lhy.feed.like;
+package com.ssafy.togetherhomt.lhy.feed.comment;
 
 import com.ssafy.togetherhomt.feed.Feed;
 import com.ssafy.togetherhomt.feed.FeedRepository;
@@ -15,19 +15,19 @@ import java.util.Optional;
 @RestController
 @RequestMapping(produces = "application/json; charset=UTF-8")
 @AllArgsConstructor
-public class LikeController {
+public class CommentController2 {
 
-    private LikeService likeService;
+    private CommentService2 commentService2;
 
     private FeedRepository feedRepository;
 
 
-    @GetMapping("/feed/{feed-id}/likes")
-    public ResponseEntity<?> getFeedLikes(@PathVariable("feed-id") Long feedId) {
+    @GetMapping("/feed/{feed-id}/comments")
+    public ResponseEntity<?> getFeedComments(@PathVariable("feed-id") Long feedId) {
         Optional<Feed> optFeed = feedRepository.findById(feedId);
         if (!optFeed.isPresent())
             return new ResponseEntity<>("Bad Request. 해당하는 피드가 존재하지 않습니다.", HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(likeService.getFeedLikes(optFeed.get()), HttpStatus.OK);
+        return new ResponseEntity(commentService2.getFeedComments(optFeed.get()), HttpStatus.OK);
     }
 
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface LikeRepository extends JpaRepository<Like, Long> {
+public interface LikeRepository2 extends JpaRepository<Like, Long> {
 
     List<Like> findByFeed(Feed feed);
 

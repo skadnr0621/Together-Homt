@@ -6,12 +6,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class FeedService {
+public class FeedService2 {
 
 
 
-    public FeedDto getFeed(Feed feed) {
-        return new FeedDto(feed);
+    public FeedDto2 getFeed(Feed feed) {
+        return new FeedDto2(feed);
     }
 
 }

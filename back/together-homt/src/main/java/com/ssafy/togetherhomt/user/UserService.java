@@ -11,6 +11,7 @@ import com.ssafy.togetherhomt.user.info.UpdateDto;
 import com.ssafy.togetherhomt.user.info.UserDto;
 import com.ssafy.togetherhomt.util.Mailing.MailingService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,6 @@ import java.util.Calendar;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
 public class UserService {
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -36,15 +36,15 @@ public class UserService {
     private UserRepository userRepository;
     private MediaRepository mediaRepository;
 
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, MailingService mailingService,
-                       GlobalConfig config, MediaRepository mediaRepository) {
-        this.userRepository = userRepository;
+    @Autowired
+    public UserService(BCryptPasswordEncoder bCryptPasswordEncoder, GlobalConfig config, CommonService commonService, MailingService mailingService, UserRepository userRepository, MediaRepository mediaRepository) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.mailingService = mailingService;
         this.config = config;
+        this.commonService = commonService;
+        this.mailingService = mailingService;
+        this.userRepository = userRepository;
         this.mediaRepository = mediaRepository;
     }
-
 
     @Transactional
     public String signup(SignupDto signupDto) {

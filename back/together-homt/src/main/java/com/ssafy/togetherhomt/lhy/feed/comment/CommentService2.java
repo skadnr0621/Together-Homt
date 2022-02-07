@@ -10,15 +10,15 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class CommentService {
+public class CommentService2 {
 
-    private CommentRepository commentRepository;
+    private CommentRepository2 commentRepository2;
 
 
-    public List<CommentDto> getFeedComments(Feed feed) {
-        List<CommentDto> commentList = new ArrayList<>();
-        for (Comment comment : commentRepository.findByFeed(feed))
-            commentList.add(new CommentDto(comment));
+    public List<CommentDto2> getFeedComments(Feed feed) {
+        List<CommentDto2> commentList = new ArrayList<>();
+        for (Comment comment : commentRepository2.findByFeed(feed))
+            commentList.add(new CommentDto2(comment));
         return commentList;
     }
 }

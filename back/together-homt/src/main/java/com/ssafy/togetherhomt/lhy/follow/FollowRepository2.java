@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FollowRepository extends JpaRepository<Follow, Long> {
+public interface FollowRepository2 extends JpaRepository<Follow, Long> {
 
     // 나를 팔로우 하는 사람 수 검색
     Long countByFollowing(User user);

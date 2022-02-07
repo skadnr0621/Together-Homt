@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class UserDto2 {
 
     @ApiParam(value = "사용자 계정 주소")
     @NotNull
@@ -30,7 +30,7 @@ public class UserDto {
     private int nFollower;
     private int nFollowing;
 
-    public UserDto(User user) {
+    public UserDto2(User user) {
         this.email = user.getEmail();
         this.username = user.getUsername();
         this.introduce = user.getIntroduce();
@@ -38,7 +38,7 @@ public class UserDto {
 //        this.followers = user.getFollower();
     }
 
-    public UserDto(User user, boolean detailed) {
+    public UserDto2(User user, boolean detailed) {
         this.email = user.getEmail();
         this.username = user.getUsername();
         this.introduce = user.getIntroduce();
@@ -50,7 +50,7 @@ public class UserDto {
         }
     }
 
-    public UserDto(String email, String username) {
+    public UserDto2(String email, String username) {
         this.email = email;
         this.username = username;
     }

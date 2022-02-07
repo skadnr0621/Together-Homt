@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.lhy.feed;
+package com.ssafy.togetherhomt.lhy.feed.like;
 
 import com.ssafy.togetherhomt.feed.Feed;
 import com.ssafy.togetherhomt.feed.FeedRepository;
@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/feed", produces = "application/json; charset=UTF-8")
+@RequestMapping(produces = "application/json; charset=UTF-8")
 @AllArgsConstructor
-public class FeedController {
+public class LikeController2 {
 
-    private FeedService feedService;
+    private LikeService2 likeService2;
 
     private FeedRepository feedRepository;
 
 
-    @GetMapping("/{feed-id}")
-    public ResponseEntity<?> getFeed(@PathVariable("feed-id") Long feedId) {
+    @GetMapping("/feed/{feed-id}/likes")
+    public ResponseEntity<?> getFeedLikes(@PathVariable("feed-id") Long feedId) {
         Optional<Feed> optFeed = feedRepository.findById(feedId);
         if (!optFeed.isPresent())
-            return new ResponseEntity<>("잘못된 요청입니다. 해당하는 피드가 존재하지 않습니다.", HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(feedService.getFeed(optFeed.get()), HttpStatus.OK);
+            return new ResponseEntity<>("Bad Request. 해당하는 피드가 존재하지 않습니다.", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(likeService2.getFeedLikes(optFeed.get()), HttpStatus.OK);
     }
 
 }

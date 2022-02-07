@@ -10,15 +10,15 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class LikeService {
+public class LikeService2 {
 
-    private LikeRepository likeRepository;
+    private LikeRepository2 likeRepository2;
 
 
-    public List<LikeDto> getFeedLikes(Feed feed) {
-        List<LikeDto> likeList = new ArrayList<>();
-        for (Like like : likeRepository.findByFeed(feed))
-            likeList.add(new LikeDto(like));
+    public List<LikeDto2> getFeedLikes(Feed feed) {
+        List<LikeDto2> likeList = new ArrayList<>();
+        for (Like like : likeRepository2.findByFeed(feed))
+            likeList.add(new LikeDto2(like));
         return likeList;
     }
 

@@ -1,20 +1,20 @@
 package com.ssafy.togetherhomt.lhy.feed.comment;
 
 import com.ssafy.togetherhomt.feed.comment.Comment;
-import com.ssafy.togetherhomt.lhy.user.UserDto;
+import com.ssafy.togetherhomt.lhy.user.UserDto2;
 
 import java.time.LocalDateTime;
 
-public class CommentDto {
+public class CommentDto2 {
 
-    private UserDto writer;
+    private UserDto2 writer;
 
     private String content;
     private LocalDateTime createdAt;
 
 
-    public CommentDto(Comment comment) {
-        writer = new UserDto(comment.getUser());
+    public CommentDto2(Comment comment) {
+        writer = new UserDto2(comment.getUser());
 
         content = comment.getContent();
         createdAt = comment.getCreatedAt();
