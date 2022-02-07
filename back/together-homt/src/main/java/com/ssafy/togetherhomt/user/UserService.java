@@ -1,24 +1,22 @@
 package com.ssafy.togetherhomt.user;
 
+import com.ssafy.togetherhomt.common.CommonService;
 import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
 import com.ssafy.togetherhomt.config.media.GlobalConfig;
-import com.ssafy.togetherhomt.feed.Feed;
-import com.ssafy.togetherhomt.feed.FeedDto;
 import com.ssafy.togetherhomt.feed.media.Media;
 import com.ssafy.togetherhomt.feed.media.MediaRepository;
 import com.ssafy.togetherhomt.user.auth.LoginDto;
 import com.ssafy.togetherhomt.user.info.SignupDto;
 import com.ssafy.togetherhomt.user.info.UpdateDto;
+import com.ssafy.togetherhomt.user.info.UserDto;
 import com.ssafy.togetherhomt.util.Mailing.MailingService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -26,21 +24,16 @@ import java.util.Calendar;
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
-    private MailingService mailingService;
-
-    @Autowired
     private GlobalConfig config;
 
-    @Autowired
+    private CommonService commonService;
+    private MailingService mailingService;
+
+    private UserRepository userRepository;
     private MediaRepository mediaRepository;
 
     public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, MailingService mailingService,
@@ -52,46 +45,34 @@ public class UserService {
         this.mediaRepository = mediaRepository;
     }
 
-    @Transactional
-    public String signup(SignupDto userDto) {
-        if (userRepository.findByEmail(userDto.getEmail()) != null)
-            return "failure";
 
+    @Transactional
+    public String signup(SignupDto signupDto) {
+        if (userRepository.findByEmail(signupDto.getEmail()) != null)
+            return "duplicate";
 
         User user = User.builder()
-                .email(userDto.getEmail())
-                .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
-                .username(userDto.getUsername())
+                .email(signupDto.getEmail())
+                .password(bCryptPasswordEncoder.encode(signupDto.getPassword()))
+                .username(signupDto.getUsername())
                 .role("ROLE_USER")
                 .introduce("")
                 .build();
-
         userRepository.save(user);
 
         return "success";
     }
 
-    public SignupDto login(LoginDto loginDto) {
-        User user = userRepository.findByEmail(loginDto.getEmail());
-        if (user == null)
-            return null;
-
-        if (!bCryptPasswordEncoder.matches(loginDto.getPassword(), user.getPassword()))
-            return null;
-
-        return new SignupDto(user.getEmail(), user.getPassword(), user.getUsername());
-    }
-
     @Transactional
-    public void withdraw(String email){
-        User user = userRepository.findByEmail(email);
+    public void withdraw(){
+        User user = commonService.getLoginUser();
         userRepository.delete(user);
     }
 
     @Transactional
-    public void passwordUpdate(String email,LoginDto loginDto){
-        User user = userRepository.findByEmail(email);
-        user.setPassword(bCryptPasswordEncoder.encode(loginDto.getPassword()));
+    public void updatePassword(String newPassword){
+        User user = userRepository.findByEmail(commonService.getLoginUser().getEmail());
+        user.setPassword(bCryptPasswordEncoder.encode(newPassword));
         userRepository.save(user);
     }
 
@@ -111,9 +92,12 @@ public class UserService {
         return "success";
     }
 
-    public User getProfile(String email) {
+    public UserDto getProfile(String email) {
         User user = userRepository.findByEmail(email);
-        return user;
+        if (user == null)
+            return null;
+        else
+            return new UserDto(user, true);
     }
 
     public String update(UpdateDto updateDto){
