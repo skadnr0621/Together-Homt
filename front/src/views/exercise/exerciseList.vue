@@ -3,6 +3,8 @@
   <button @click="exercise('hi')">hi운동</button>
   <button @click="exercise('neck')">목 스트레칭</button>
   <button @click="exercise('waist')">허리 스트레칭</button>
+  <button @click="exercise('arm')">팔 스트레칭</button>
+  <button @click="exercise('squat')">스쿼트</button>
 </div>
 </template>
 

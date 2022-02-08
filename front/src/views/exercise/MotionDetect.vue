@@ -88,14 +88,14 @@ export default {
       else if (this.exercise == 'neck'){ // 목 스트레칭
         this.URL = "https://teachablemachine.withgoogle.com/models/XoVPimrL9/";
       }
-      else if (this.exercise == 'waist'){ // 허리 스트레칭
+      else if (this.exercise == 'waist'){ // 허리 스트레칭 -> 다시 학습
         this.URL = "https://teachablemachine.withgoogle.com/models/yKKZxJXRk/";
       }
       else if (this.exercise == 'arm') { // 팔 뻗기
-        this.URL = "";
+        this.URL = "https://teachablemachine.withgoogle.com/models/CklpGq-46/";
       }
       else if (this.exercise == 'squat') { // 스쿼트
-        this.URL = "";
+        this.URL = "https://teachablemachine.withgoogle.com/models/lroOtcUBl/";
       }
       
 
@@ -139,12 +139,15 @@ export default {
         else if (this.exercise == 'neck' || this.exercise == 'waist') {
           await this.neckwaistPredict();
         }
+        else if (this.exercise == 'arm' || this.exercise == 'squat') {
+          await this.armsquatPredict();
+        }
         window.requestAnimationFrame(this.loop);
       }
     },
 
 
-    
+    // 안녕 운동
     async hiPredict() {
       const { pose, posenetOutput } = await this.model.estimatePose(this.webcam.canvas);
       const prediction = await this.model.predict(posenetOutput);
@@ -158,14 +161,12 @@ export default {
         }
         this.status="hi"
       }
-      // 클래스명 : 어느정도(최대 1)
-      // const classPrediction =
-      //     prediction[1].className + ": " + prediction[1].probability.toFixed(2);
-      // labelContainer.childNodes[1].innerHTML = classPrediction;
       this.percent = prediction[1].probability.toFixed(2);
       this.drawPose(pose);
     },
 
+
+    // 목 스트레칭, 허리 스트레칭
     async neckwaistPredict() {
       const { pose, posenetOutput } = await this.model.estimatePose(this.webcam.canvas);
       const prediction = await this.model.predict(posenetOutput);
@@ -175,7 +176,7 @@ export default {
       if (prediction[0].probability.toFixed(2) == 1.00) {
         this.status = "default"
       } else if (prediction[1].probability.toFixed(2) == 1.00) {
-        if (this.status == "default") {
+        if (this.status != "left") {
           this.leftCnt = 1
         }
         this.status = "left"
@@ -187,14 +188,41 @@ export default {
         this.status = "right"
       }
 
-      if (this.leftCnt == 0 || this.status == 'left') {
+      if (this.leftCnt == 0 || prediction[1].probability.toFixed(2) > 0.89) {
         labelContainer.innerHTML = 'left';
         this.percent = prediction[1].probability.toFixed(2);
-      } else if(this.leftCnt != 0 && this.status == 'default') {
+      } else if(this.leftCnt != 0) {
         labelContainer.innerHTML = 'right';
         this.percent = prediction[2].probability.toFixed(2);
       }
 
+      this.drawPose(pose);
+    },
+
+
+    async armsquatPredict() {
+      const { pose, posenetOutput } = await this.model.estimatePose(this.webcam.canvas);
+      const prediction = await this.model.predict(posenetOutput);
+
+
+      // 0 : defalut, 1: good, 2: bent
+      if (prediction[0].probability.toFixed(2) == 1.00) {
+        this.status = "default"
+      } else if (prediction[1].probability.toFixed(2) == 1.00) {
+        if (this.status == "default" || this.status == "bent") {
+          this.success = true
+        }
+        this.status = "good"
+      } else if (prediction[2].probability.toFixed(2) == 1.00) {
+        this.status = "bent"
+      }
+      for (let i = 0; i < maxPredictions; i++) {
+          const classPrediction =
+              prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+          labelContainer.childNodes[i].innerHTML = classPrediction;
+      }
+
+      this.percent = prediction[1].probability.toFixed(2);
       this.drawPose(pose);
     },
 
@@ -216,12 +244,12 @@ export default {
       // DB로 보내기
       if (this.success) {
         // axisos
-        this.$router.push({ name: 'ExerciseList'})
+        console.log(this.exercise)
+        this.goOut()
       }
       else {
         alert('운동을 완료해주세요')
       }
-      
     },
 
 
