@@ -43,12 +43,12 @@ export default {
     },
   },
   mounted() {
-    this.setAllMyInfo(this.loginUser);
+    //this.setAllMyInfo(this.loginUser);
   },
   updated() {
     // jwt 토큰 여부 확인
     this.isAuthorized = sessionStorage.getItem("jwt");
-    // this.setMyInfo(this.loginUser);
+    // this.setMyInfo(this.loginUser); //받아오면서 에러
   },
   computed: {
     // 로그인한 사용자 이메일 가져오기
