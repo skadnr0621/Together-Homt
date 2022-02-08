@@ -16,16 +16,15 @@ public class GlobalConfig {
 
     private ApplicationContext context;
     private ResourceLoader resourceLoader;
-    private String uploadFilePath;
-    private String uploadResourcePath;
 
     @Autowired
-    public GlobalConfig(ApplicationContext context, ResourceLoader resourceLoader, String uploadFilePath, String uploadResourcePath) {
+    public GlobalConfig(ApplicationContext context, ResourceLoader resourceLoader) {
         this.context = context;
         this.resourceLoader = resourceLoader;
-        this.uploadFilePath = uploadFilePath;
-        this.uploadResourcePath = uploadResourcePath;
     }
+
+    private String uploadFilePath;
+    private String uploadResourcePath;
 
     @PostConstruct
     public void init(){
@@ -40,7 +39,6 @@ public class GlobalConfig {
             Properties properties = PropertiesLoaderUtils.loadProperties(resource);
 
             this.uploadFilePath = properties.getProperty("uploadFile.path");
-            System.out.println("properties.getProperty(\"uploadFile.resourcePath\") = " + properties.getProperty("uploadFile.resourcePath"));
             this.uploadResourcePath = properties.getProperty("uploadFile.resourcePath");
         }catch (Exception e){
             System.out.println("e = " + e);
