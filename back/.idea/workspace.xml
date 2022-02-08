@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="afcb553c-ae6c-403c-ba81-abe4e211e001" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/config/media/GlobalConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/config/media/GlobalConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/config/media/WebConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/config/media/WebConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/feed/FeedService.java" beforeDir="false" afterPath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/feed/FeedService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/together-homt/src/main/resources/globals/global-local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/together-homt/src/main/resources/globals/global-local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
