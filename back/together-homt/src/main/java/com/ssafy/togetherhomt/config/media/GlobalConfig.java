@@ -14,11 +14,14 @@ import java.util.Properties;
 @Configuration
 public class GlobalConfig {
 
-    @Autowired
     private ApplicationContext context;
+    private ResourceLoader resourceLoader;
 
     @Autowired
-    private ResourceLoader resourceLoader;
+    public GlobalConfig(ApplicationContext context, ResourceLoader resourceLoader) {
+        this.context = context;
+        this.resourceLoader = resourceLoader;
+    }
 
     private String uploadFilePath;
     private String uploadResourcePath;

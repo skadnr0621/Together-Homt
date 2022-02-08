@@ -180,6 +180,7 @@ public class FeedService {
         String filename = UUID.randomUUID().toString()+"."+prefix;
 
         // 폴더 없으면 만들기
+        System.out.println("uploadFilePath = " + uploadFilePath);
         File folder = new File(uploadFilePath);
         if(!folder.isDirectory()){
             folder.mkdirs();
