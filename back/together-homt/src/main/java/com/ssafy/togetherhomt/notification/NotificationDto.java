@@ -1,13 +1,12 @@
 package com.ssafy.togetherhomt.notification;
 
-import com.ssafy.togetherhomt.user.info.UserDto;
+import com.ssafy.togetherhomt.user.UserDto;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.GeneratedValue;
 import java.time.LocalDateTime;
 
 @Data

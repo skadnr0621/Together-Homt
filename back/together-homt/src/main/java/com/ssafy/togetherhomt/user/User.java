@@ -24,7 +24,7 @@ public class User {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private Long userId;
 
     @Column(name = "email", length = 50)
     private String email;
@@ -41,8 +41,8 @@ public class User {
     @Column(name = "introduce")
     private String introduce;
 
-    @Column(name = "profile_url")
-    private String profile_url;
+    @Column(name = "image_path")
+    private String imagePath;
 
     // 나를 팔로우 하고 있는 사람들
     @OneToMany(mappedBy = "following")

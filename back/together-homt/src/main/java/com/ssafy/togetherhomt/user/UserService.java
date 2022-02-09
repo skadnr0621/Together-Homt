@@ -1,50 +1,44 @@
 package com.ssafy.togetherhomt.user;
 
 import com.ssafy.togetherhomt.common.CommonService;
-import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
 import com.ssafy.togetherhomt.config.media.GlobalConfig;
-import com.ssafy.togetherhomt.feed.media.Media;
+import com.ssafy.togetherhomt.config.media.MediaService;
 import com.ssafy.togetherhomt.feed.media.MediaRepository;
-import com.ssafy.togetherhomt.user.auth.LoginDto;
+import com.ssafy.togetherhomt.user.follow.FollowRepository;
 import com.ssafy.togetherhomt.user.info.SignupDto;
-import com.ssafy.togetherhomt.user.info.UpdateDto;
-import com.ssafy.togetherhomt.user.info.UserDto;
 import com.ssafy.togetherhomt.util.Mailing.MailingService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
+//@AllArgsConstructor
 public class UserService {
 
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private GlobalConfig config;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private CommonService commonService;
-    private MailingService mailingService;
+    private final CommonService commonService;
+    private final MediaService mediaService;
+    private final MailingService mailingService;
 
-    private UserRepository userRepository;
-    private MediaRepository mediaRepository;
+    private final UserRepository userRepository;
+    private final FollowRepository followRepository;
 
     @Autowired
-    public UserService(BCryptPasswordEncoder bCryptPasswordEncoder, GlobalConfig config, CommonService commonService, MailingService mailingService, UserRepository userRepository, MediaRepository mediaRepository) {
+    public UserService(BCryptPasswordEncoder bCryptPasswordEncoder, CommonService commonService, MediaService mediaService, MailingService mailingService, UserRepository userRepository, FollowRepository followRepository, MediaRepository mediaRepository) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.config = config;
         this.commonService = commonService;
+        this.mediaService = mediaService;
         this.mailingService = mailingService;
         this.userRepository = userRepository;
-        this.mediaRepository = mediaRepository;
+        this.followRepository = followRepository;
     }
+
 
     @Transactional
     public String signup(SignupDto signupDto) {
@@ -61,6 +55,41 @@ public class UserService {
         userRepository.save(user);
 
         return "success";
+    }
+
+    public List<UserDto> getAllUsers() {
+        List<User> users = userRepository.findAll();
+
+        List<UserDto> userList = new ArrayList<>();
+        for (User user : users) {
+            userList.add(this.builder(user, false));
+        }
+        return userList;
+    }
+
+    public UserDto getProfile(User user) {
+        return this.builder(user, true);
+    }
+
+    @Transactional
+    public UserDto update(UserDto userDto, MultipartFile picture) {
+        User user = userRepository.findByEmail(commonService.getLoginUser().getEmail());
+        if (!user.getEmail().equals(userDto.getEmail()) || !user.getUsername().equals(userDto.getUsername())) {
+            return null;
+        }
+
+        // update user
+        if (picture != null) {
+            String resourcePath = mediaService.save(picture);
+            if (resourcePath == null)
+                return null;
+            else
+                user.setPicturePath(resourcePath);
+        }
+        user.setIntroduce(userDto.getIntroduce());
+
+        userRepository.save(user);
+        return this.builder(user, true);
     }
 
     @Transactional
@@ -92,72 +121,60 @@ public class UserService {
         return "success";
     }
 
-    public UserDto getProfile(String email) {
-        User user = userRepository.findByEmail(email);
-        if (user == null)
-            return null;
-        else
-            return new UserDto(user, true);
-    }
 
-    public String update(UpdateDto updateDto){
+    // --------------------------------------------------
 
-        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User userTemp = principalDetails.getUser();
-        User user = userRepository.findByEmail(userTemp.getEmail());
+//    private List<UserDto> txFollowerListToUserDtoList(List<Follow> followerList) {
+//        List<UserDto> followers = new ArrayList<>();
+//        for (Follow follow : followerList) {
+//            User follower = follow.getFollower();
+//            followers.add(
+//                    UserDto.builder()
+//                            .email(follower.getEmail())
+//                            .username(follower.getUsername())
+//                            .profileUrl(follower.getProfile_url())
+//                            .introduce(follower.getIntroduce())
+//                            .build()
+//            );
+//        }
+//        return followers;
+//    }
+//
+//    private List<UserDto> txFollowingListToUserDtoList(List<Follow> followingList) {
+//        List<UserDto> followings = new ArrayList<>();
+//        for (Follow follow : followingList) {
+//            User following = follow.getFollowing();
+//            followings.add(
+//                    UserDto.builder()
+//                            .email(following.getEmail())
+//                            .username(following.getUsername())
+//                            .profileUrl(following.getProfile_url())
+//                            .introduce(following.getIntroduce())
+//                            .build()
+//            );
+//        }
+//        return followings;
+//    }
 
-        MultipartFile multipartFile = updateDto.getMedia();
+    // --------------------------------------------------
 
-        if(multipartFile == null || multipartFile.isEmpty()){
-            user.setUsername(updateDto.getUsername());
-            user.setIntroduce(updateDto.getIntroduce());
-            userRepository.save(user);
-            return "success";
+    private UserDto builder(User user, boolean verbose) {
+        UserDto.UserDtoBuilder userDtoBuilder = UserDto.builder();
+        userDtoBuilder
+                .email(user.getEmail())
+                .username(user.getUsername())
+                .picturePath(user.getPicturePath())
+                .introduce(user.getIntroduce());
 
-        }else{
-            // 현재 날짜 폴더만들어서 저장
-            String currentDate = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
-            String uploadFilePath = config.getUploadFilePath()+currentDate+"/";
-
-            // 랜덤이름 + . 확장자 가져오기
-            String prefix = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".")+1,multipartFile.getOriginalFilename().length());
-            String filename = UUID.randomUUID().toString()+"."+prefix;
-
-            // 폴더 없으면 만들기
-            File folder = new File(uploadFilePath);
-            if(!folder.isDirectory()){
-                folder.mkdirs();
-            }
-            String pathname = uploadFilePath+filename;
-            String resourcePathname = config.getUploadResourcePath()+currentDate+"/"+filename;
-
-            // url 경로 출력
-            System.out.println("resourcePathname = " + resourcePathname);
-
-            // 새로 파일 만들기
-            File dest = new File(pathname);
-            try {
-                multipartFile.transferTo(dest);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            // 경로
-            System.out.println("pathname = " + pathname);
-            Media media = Media.builder()
-                    .fileOriginName(multipartFile.getOriginalFilename())
-                    .videoPath(uploadFilePath)
-                    .videoUrl(pathname)
-                    .build();
-            mediaRepository.save(media);
-
-            user.setProfile_url(resourcePathname);
-            user.setUsername(updateDto.getUsername());
-            user.setIntroduce(updateDto.getIntroduce());
-            userRepository.save(user);
-
+        if (verbose) {
+            userDtoBuilder
+//                    .followers(txFollowerListToUserDtoList(user.getFollower()))
+//                    .followings(txFollowingListToUserDtoList(user.getFollowing()))
+                    .cntFollower(followRepository.countByFollower(user))
+                    .cntFollowing(followRepository.countByFollowing(user));
         }
 
-        return "success";
+        return userDtoBuilder.build();
     }
+
 }
