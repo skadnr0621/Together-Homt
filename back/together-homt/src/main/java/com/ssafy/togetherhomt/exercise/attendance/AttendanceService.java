@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.exerciseAll.attendance;
+package com.ssafy.togetherhomt.exercise.attendance;
 
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserRepository;
@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -23,6 +21,7 @@ public class AttendanceService {
         this.userRepository = userRepository;
     }
 
+    // 00시가 되면 초기화
     @Scheduled(cron = "0 0 0 * * ?")
     public void create(){
         System.out.println("attendance created!!!!!!!");
@@ -38,12 +37,12 @@ public class AttendanceService {
         }
     }
 
-
+    // 오늘 불참러 조회
     public List<AttendanceDto> todayAttendance(){
         List<AttendanceDto> attendees = new ArrayList<>();
-        for(Attendance attendance:attendanceRepository.findAll()){
+        for(Attendance attendance:attendanceRepository.findAllByDoneFalse()){
             AttendanceDto attendanceDto = AttendanceDto.builder()
-                    .user(attendance.getUser().getUsername())
+                    .username(attendance.getUser().getUsername())
                     .image(attendance.getUser().getProfile_url())
                     .done(attendance.getDone())
                     .build();

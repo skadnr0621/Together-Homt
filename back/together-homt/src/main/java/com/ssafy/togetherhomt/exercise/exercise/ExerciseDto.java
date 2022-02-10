@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.exerciseAll.exercise;
+package com.ssafy.togetherhomt.exercise.exercise;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

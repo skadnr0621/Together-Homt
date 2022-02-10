@@ -1,6 +1,6 @@
-package com.ssafy.togetherhomt.exerciseAll.todayExercise;
+package com.ssafy.togetherhomt.exercise.todayExercise;
 
-import com.ssafy.togetherhomt.exerciseAll.exercise.Exercise;
+import com.ssafy.togetherhomt.exercise.exercise.Exercise;
 import com.ssafy.togetherhomt.user.User;
 import lombok.*;
 
@@ -23,8 +23,6 @@ public class TodayExercise {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
-
-    private String date;
 
     private boolean done;
 }

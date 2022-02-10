@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.exerciseAll.attendance;
+package com.ssafy.togetherhomt.exercise.attendance;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AttendanceDto {
 
-    private String user;
+    private String username;
 
     private String image;
 

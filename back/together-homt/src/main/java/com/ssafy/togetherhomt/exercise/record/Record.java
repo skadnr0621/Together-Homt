@@ -1,6 +1,6 @@
-package com.ssafy.togetherhomt.exerciseAll.record;
+package com.ssafy.togetherhomt.exercise.record;
 
-import com.ssafy.togetherhomt.exerciseAll.exercise.Exercise;
+import com.ssafy.togetherhomt.exercise.exercise.Exercise;
 import com.ssafy.togetherhomt.user.User;
 import lombok.*;
 

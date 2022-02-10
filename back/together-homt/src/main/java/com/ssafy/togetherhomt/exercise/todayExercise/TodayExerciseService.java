@@ -1,21 +1,19 @@
-package com.ssafy.togetherhomt.exerciseAll.todayExercise;
+package com.ssafy.togetherhomt.exercise.todayExercise;
 
-import com.ssafy.togetherhomt.exerciseAll.attendance.Attendance;
+import com.ssafy.togetherhomt.exercise.attendance.Attendance;
 import com.ssafy.togetherhomt.common.CommonService;
-import com.ssafy.togetherhomt.exerciseAll.attendance.AttendanceRepository;
-import com.ssafy.togetherhomt.exerciseAll.exercise.Exercise;
-import com.ssafy.togetherhomt.exerciseAll.exercise.ExerciseDto;
-import com.ssafy.togetherhomt.exerciseAll.exercise.ExerciseRepository;
+import com.ssafy.togetherhomt.exercise.attendance.AttendanceRepository;
+import com.ssafy.togetherhomt.exercise.exercise.Exercise;
+import com.ssafy.togetherhomt.exercise.exercise.ExerciseRepository;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -36,6 +34,7 @@ public class TodayExerciseService {
         this.commonService = commonService;
     }
 
+    // 00시가 되면 오늘 운동 목록 삭제!!
     @Scheduled(cron = "0 0 0 * * ?")
     public void create(){
         System.out.println("todayexercise deleted!!!!!!!");
@@ -47,7 +46,7 @@ public class TodayExerciseService {
 
         User user = userRepository.findByEmail(commonService.getLoginUser().getEmail());
         Exercise exercise = exerciseRepository.findByName(todayExerciseDto.getExercise());
-        // 이미 있는지 확인
+        // 이미 있는지 확인, 있으면 추가 안한 상태로 오늘의 운동 목록 반환
         List<TodayExercise> exercises = todayExerciseRepository.findByUser(user);
         if(exercises.size()>0){
             for(TodayExercise ex:exercises ){
@@ -66,32 +65,36 @@ public class TodayExerciseService {
         return getTodayExerciseDtos(user);
     }
 
-    // 조회
+    // 개인의 오늘 운동 목록 조회
     public List<TodayExerciseDto> todayExercises(String email){
         User user = userRepository.findByEmail(email);
         return getTodayExerciseDtos(user);
     }
 
-    // 삭제
-    public List<TodayExerciseDto> exerciseDelete(TodayExerciseDto todayExerciseDto) {
+    // 개인 운동 하나 삭제
+    public List<TodayExerciseDto> exerciseDelete(String exerciseToDelete) {
 
         User user = userRepository.findByEmail(commonService.getLoginUser().getEmail());
-        Exercise exercise = exerciseRepository.findByName(todayExerciseDto.getExercise());
+        Exercise exercise = exerciseRepository.findByName(exerciseToDelete);
 
-        TodayExercise todayExercise = todayExerciseRepository.findByUserAndExercise(user, exercise);
+        TodayExercise todayExercise = todayExerciseRepository.findByUserAndExercise(user, exercise).orElse(null);
+        if(todayExercise==null) throw new EntityNotFoundException("없는 운동이에요");
         todayExerciseRepository.delete(todayExercise);
 
         return getTodayExerciseDtos(user);
     }
 
-    // 운동 하나 완료하기
+    // 개인 운동 하나 완료하기
     // 출석 체크
-    public List<TodayExerciseDto> exerciseDone(TodayExerciseDto todayExerciseDto) {
+    public List<TodayExerciseDto> exerciseDone(String todayExerciseDone) {
 
         User user = userRepository.findByEmail(commonService.getLoginUser().getEmail());
-        Exercise exercise = exerciseRepository.findByName(todayExerciseDto.getExercise());
+        Exercise exercise = exerciseRepository.findByName(todayExerciseDone);
 
-        TodayExercise todayExercise = todayExerciseRepository.findByUserAndExercise(user, exercise);
+        TodayExercise todayExercise = todayExerciseRepository.findByUserAndExercise(user, exercise).orElse(null);
+        if (todayExercise==null){
+            throw new EntityNotFoundException("없는 운동이에요");
+        }
         todayExercise.setDone(true);
         todayExerciseRepository.save(todayExercise);
 
@@ -102,7 +105,7 @@ public class TodayExerciseService {
         return getTodayExerciseDtos(user);
     }
 
-    // 오늘 운동 조회 메서드
+    // 개인 오늘 운동 조회 메서드
     private List<TodayExerciseDto> getTodayExerciseDtos(User user) {
         List<TodayExerciseDto> myExercises = new ArrayList<>();
 

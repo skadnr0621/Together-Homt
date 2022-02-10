@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.exerciseAll.exercise;
+package com.ssafy.togetherhomt.exercise.exercise;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +17,7 @@ public class ExerciseService {
     }
 
     String exerciseAdd(ExerciseDto exerciseDto){
+
         Exercise exercise = Exercise.builder()
                 .name(exerciseDto.getName())
                 .part(exerciseDto.getPart())
@@ -55,12 +56,12 @@ public class ExerciseService {
 
     public String exerciseUpdate(String exercise, ExerciseDto exerciseDto) {
         Exercise newExercise = exerciseRepository.findByName(exercise);
-        newExercise.setName(exerciseDto.getName());
-        newExercise.setPart(exerciseDto.getPart());
-        newExercise.setExercise_count(exerciseDto.getExercise_count());
-        newExercise.setExercise_time(exerciseDto.getExercise_time());
-        newExercise.setVideo_url(exerciseDto.getVideo_url());
-        newExercise.setType(exerciseDto.getType());
+        if(exerciseDto.getName() != null) newExercise.setName(exerciseDto.getName());
+        if(exerciseDto.getPart() != null) newExercise.setPart(exerciseDto.getPart());
+        if(exerciseDto.getExercise_count()!= null) newExercise.setExercise_count(exerciseDto.getExercise_count());
+        if(exerciseDto.getExercise_time()!= null) newExercise.setExercise_time(exerciseDto.getExercise_time());
+        if(exerciseDto.getVideo_url() != null) newExercise.setVideo_url(exerciseDto.getVideo_url());
+        if(exerciseDto.getType() != null) newExercise.setType(exerciseDto.getType());
 
         exerciseRepository.save(newExercise);
 

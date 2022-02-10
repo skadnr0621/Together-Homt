@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.exerciseAll.todayExercise;
+package com.ssafy.togetherhomt.exercise.todayExercise;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ public class TodayExerciseController {
     }
 
     // 오늘의 운동 추가
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<?> exerciseAdd(@RequestBody TodayExerciseDto todayExerciseDto){
         List<TodayExerciseDto> result = todayExerciseService.exerciseAdd(todayExerciseDto);
         if(result.isEmpty()) return new ResponseEntity("이미 추가한 운동입니다.", HttpStatus.BAD_REQUEST);
@@ -27,9 +27,9 @@ public class TodayExerciseController {
     }
 
     // 오늘의 운동 제거
-    @DeleteMapping("/delete")
-    public ResponseEntity<?> exerciseDelete(@RequestBody TodayExerciseDto todayExerciseDto){
-        List<TodayExerciseDto> result = todayExerciseService.exerciseDelete(todayExerciseDto);
+    @DeleteMapping("/{todayExercise}")
+    public ResponseEntity<?> exerciseDelete(@PathVariable String todayExercise){
+        List<TodayExerciseDto> result = todayExerciseService.exerciseDelete(todayExercise);
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
@@ -41,9 +41,9 @@ public class TodayExerciseController {
     }
 
     // 오늘 운동 완료
-    @PutMapping("/done")
-    public ResponseEntity<?> exerciseDone(@RequestBody TodayExerciseDto todayExerciseDto){
-        List<TodayExerciseDto> result = todayExerciseService.exerciseDone(todayExerciseDto);
+    @PutMapping("/{todayExercise}/done")
+    public ResponseEntity<?> exerciseDone(@PathVariable String todayExercise){
+        List<TodayExerciseDto> result = todayExerciseService.exerciseDone(todayExercise);
         return new ResponseEntity(result, HttpStatus.OK);
     }
 

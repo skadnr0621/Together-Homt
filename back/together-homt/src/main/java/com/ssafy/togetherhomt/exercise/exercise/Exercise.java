@@ -1,11 +1,12 @@
-package com.ssafy.togetherhomt.exerciseAll.exercise;
+package com.ssafy.togetherhomt.exercise.exercise;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ssafy.togetherhomt.exerciseAll.record.Record;
+import com.ssafy.togetherhomt.exercise.record.Record;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
-import com.ssafy.togetherhomt.exerciseAll.todayExercise.TodayExercise;
+import com.ssafy.togetherhomt.exercise.todayExercise.TodayExercise;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -16,11 +17,19 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = "name")
+    }
+)
 public class Exercise {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long exercise_id;
 
+    @Column(unique = true, nullable = false)
+    @NotNull
     private String name;
 
     private String part;

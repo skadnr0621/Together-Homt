@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.exerciseAll.attendance;
+package com.ssafy.togetherhomt.exercise.attendance;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ public class AttendanceController {
         this.attendanceService = attendanceService;
     }
 
-    // 오늘 운동 한 사람들
+    // 오늘 운동 안 한 사람들
     @GetMapping("/todayAttendance")
     public ResponseEntity<?> todayAttendance(){
         List<AttendanceDto> result = attendanceService.todayAttendance();

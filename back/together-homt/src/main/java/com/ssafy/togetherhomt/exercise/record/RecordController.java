@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.exerciseAll.record;
+package com.ssafy.togetherhomt.exercise.record;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +28,7 @@ public class RecordController {
         if (result.equals("success")) {
             return ResponseEntity.ok("success");
         } else {
-            return (ResponseEntity<?>) ResponseEntity.badRequest();
+            return new ResponseEntity(result, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -39,10 +39,14 @@ public class RecordController {
     public ResponseEntity<List<RecordDto>> personalRecords(@PathVariable String email){
 
         List<RecordDto> result = recordService.personalRecord(email);
-
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
-
+    // 개인 날짜별 상세 조회
+    @GetMapping("/{email}/{date}")
+    public ResponseEntity<List<RecordDto>> personalRecords(@PathVariable String email,@PathVariable String date){
+        List<RecordDto> result = recordService.personalDayRecord(email, date);
+        return new ResponseEntity(result, HttpStatus.OK);
+    }
 
 }
