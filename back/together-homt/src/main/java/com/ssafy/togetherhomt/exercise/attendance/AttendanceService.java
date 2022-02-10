@@ -43,7 +43,7 @@ public class AttendanceService {
         for(Attendance attendance:attendanceRepository.findAllByDoneFalse()){
             AttendanceDto attendanceDto = AttendanceDto.builder()
                     .username(attendance.getUser().getUsername())
-                    .image(attendance.getUser().getProfile_url())
+                    .image(attendance.getUser().getImagePath())
                     .done(attendance.getDone())
                     .build();
             attendees.add(attendanceDto);

@@ -195,7 +195,7 @@ public class FeedService {
 
                 feedListDto.setFeed_id(feed.getFeed_id());
                 feedListDto.setUsername(feed.getUser().getUsername());
-                feedListDto.setProfile_url(feed.getUser().getProfile_url());
+                feedListDto.setProfile_url(feed.getUser().getImagePath());
                 feedListDto.setMedia_url(feed.getMedia_url());
                 feedListDto.setLike_cnt(feed.getLike_cnt());
                 feedListDto.setContent(feed.getContent());
@@ -228,7 +228,7 @@ public class FeedService {
 
             feedListDto.setFeed_id(feed.getFeed_id());
             feedListDto.setUsername(feed.getUser().getUsername());
-            feedListDto.setProfile_url(feed.getUser().getProfile_url());
+            feedListDto.setProfile_url(feed.getUser().getImagePath());
             feedListDto.setMedia_url(feed.getMedia_url());
             feedListDto.setLike_cnt(feed.getLike_cnt());
             feedListDto.setContent(feed.getContent());
@@ -480,7 +480,7 @@ public class FeedService {
         for (Comment comment : commentRepository.findByFeed(feed.get())) {
             CommentListDto commentListDto = new CommentListDto();
 
-            commentListDto.setProfile_url(comment.getUser().getProfile_url());
+            commentListDto.setProfile_url(comment.getUser().getImagePath());
             commentListDto.setEmail(comment.getUser().getEmail());
             commentListDto.setUsername(comment.getUser().getUsername());
             commentListDto.setComment_content(comment.getContent());

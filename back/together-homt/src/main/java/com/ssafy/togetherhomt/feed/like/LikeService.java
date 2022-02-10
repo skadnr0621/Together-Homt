@@ -80,8 +80,8 @@ public class LikeService {
         for (Like like : likeRepository.findAllByFeed(feed.get())) {
             LikeUserDto likeUserDto = new LikeUserDto();
 
-            likeUserDto.setProfile_url(like.getUser().getProfile_url());
-            likeUserDto.setEmail(like.getUser().getProfile_url());
+            likeUserDto.setProfile_url(like.getUser().getImagePath());
+            likeUserDto.setEmail(like.getUser().getImagePath());
             likeUserDto.setUsernmae(like.getUser().getUsername());
             likeUserDto.setIntroduce(like.getUser().getIntroduce());
 
