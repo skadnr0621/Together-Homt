@@ -41,6 +41,8 @@
 <script>
 import SearchDetail from './SearchDetail.vue'
 import SearchList from './SearchList.vue'
+import { mapState, mapActions } from "vuex";
+
 
 export default {
   name: "SearchPage",
@@ -58,15 +60,11 @@ export default {
       tagSearchFeeds: null,
 
       showFeedList: null,
-
-      allUsers: [
-        {userName: '바보', introduce:'바보입니다.', media_url: '/upload/20220130/748badae-5303-402b-bf66-eba780330fa9.png'}, 
-        {userName: '천재', introduce:'천재입니다.',media_url: '/upload/20220130/722f2a33-fb8d-494a-b8c2-2139b1ec21fe.jpg'},
-        {userName: '바보', introduce:'바보일까 천재일까?',media_url: '/upload/20220130/748badae-5303-402b-bf66-eba780330fa9.png'},
-        ],
     }
   },
   methods: {
+    ...mapActions(["getAllUsers"]),
+
     search: function() {
       this.searchMode = true
       document.querySelector('#search-bar').classList.remove('no-search-mode-input')
@@ -83,31 +81,25 @@ export default {
       this.searchUsers = null
     },
     getAllFeeds: function(allFeeds) {
-      this.allFeeds = this.getTags(allFeeds)
+      this.allFeeds = allFeeds
+      console.log(this.allFeeds)
     },
-
-    getTags: function(allFeeds) {
-      allFeeds.forEach(feed => {
-        if (feed.tag != null) {
-          var stringToArray = (new Function("return" + feed.tag + ";")())
-          feed.tag = stringToArray
-        }
-      })
-      return allFeeds
-    },
-
+    
     autoComplete: function(event) {
       this.searchKeyword = event.target.value
       if (this.searchKeyword) {
   
         // 전체유저 조회
         this.searchUsers = this.allUsers.filter(user => {
-          return user.userName.includes(this.searchKeyword)
+          return user.username.includes(this.searchKeyword)
         })
 
         // 태그 조회
         this.tagSearchFeeds = this.allFeeds.filter(feed => {
-          return feed.tag != null && feed.tag.includes(this.searchKeyword)
+          return feed.tags != null && feed.tags.includes(this.searchKeyword)
+        })
+        this.tagSearchFeeds.sort((a,b) => {
+          return b.like_cnt - a.like_cnt
         })
       }
     },
@@ -117,6 +109,14 @@ export default {
       this.searchMode = false
     }
   },
+
+  mounted() {
+    this.getAllUsers()
+  },
+
+  computed: {
+    ...mapState(["allUsers"]),
+  }
 }
 </script>
 

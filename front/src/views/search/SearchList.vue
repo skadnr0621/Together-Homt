@@ -1,10 +1,19 @@
 <template>
   <div class="search-list">
     <div id="feed-container">
-      <img
+      <div
       v-for="(feed, index) in showList"
-      :key="index"
-      :src="mediaURL(index)" alt="">
+      :key="index">
+        <div v-if="mediaURL(index).slice(-3) == 'jpg' || mediaURL(index).slice(-3) == 'png'">
+          <img
+          :src="mediaURL(index)">
+        </div>
+        <div v-else>
+          <video
+          :src="mediaURL(index)"
+          controls autoplay></video>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -12,6 +21,7 @@
 <script>
 import axios from 'axios'
 
+const server = "http://i6b206.p.ssafy.io:8092"
 export default {
   name: "SearchList",
   props: {
@@ -25,15 +35,17 @@ export default {
   },
   methods: {
     mediaURL(idx) {
-      return "http://localhost:8092" + this.showList[idx].media_url;
+      return server + this.showList[idx].media_url;
     }
   },
   mounted() {
     axios({
       method: 'get',
-      url: `/feed/all`,
+      url: `/slide1/feedlist`,
     })
     .then((res)=> {
+      console.log(res)
+
       this.allFeeds = res.data
       this.$emit('all-feeds', this.allFeeds)
       
@@ -61,4 +73,11 @@ export default {
   width: 119.3px;
   height: 119.3px;
 }
+
+#feed-container video {
+  background: black;
+  width: 119.3px;
+  height: 119.3px;
+}
+
 </style>

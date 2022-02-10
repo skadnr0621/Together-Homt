@@ -5,7 +5,7 @@
       <input type="button" value="알림" style="float: right" />
       <input type="button" value="염탐" style="float: right" />
     </div>
-    <div class="username">{{ username }}</div>
+    <!-- <div class="username">{{ username }}</div> -->
     <div class="exercises_list">
       운동리스트
       <div class="category">

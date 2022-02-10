@@ -60,8 +60,8 @@ export default {
   data: function () {
     return {
       user: {
-        email: 'ohsg97@gmail.com',
-        password: 'aaaddd',
+        email: 'abc@abc',
+        password: '123456789',
       },
       errForm: {
         email: null,
@@ -83,6 +83,7 @@ export default {
           sessionStorage.setItem("jwt", token);
           this.$store.dispatch("userStore/getLoginUser", this.user.email); //로그인 응답으로 username 받음
 
+          // this.$store.dispatch("setMyInfo");
           this.$router.push({ name: "Feed" });
         })
         .catch((err) => {

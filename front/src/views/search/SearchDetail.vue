@@ -25,10 +25,10 @@
         v-for="(item, index) in searchUsers"
         :key="index"
         >
-        <div id="account-box" @click="goProfile(item.userName)">
+        <div id="account-box" @click="goProfile(item.username)">
           <img :src="mediaURL(index)" alt="프로필">
           <div id="info-box">
-            <p id="main-info">{{item.userName}}</p>
+            <p id="main-info">{{item.username}}</p>
             <p id="sub-info">{{item.introduce}}</p>
           </div>
         </div>
@@ -39,6 +39,8 @@
 </template>
 
 <script>
+const server = "http://i6b206.p.ssafy.io:8092"
+
 export default {
   name: "SearchDetail",
   data: function() {
@@ -62,11 +64,11 @@ export default {
     },
 
     mediaURL(idx) {
-      return "http://localhost:8092" + this.searchUsers[idx].media_url;
+      return server + this.searchUsers[idx].profile_url;
     },
 
     goProfile(username) {
-      this.$router.push({name: 'UserPage', params: {userName: username }})
+      this.$router.push({name: 'UserPage', params: {username: username }})
     },
 
     showList() {
