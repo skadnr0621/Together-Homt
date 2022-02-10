@@ -33,13 +33,13 @@ public class Feed extends BaseTimeEntity {
 
     private String media_url;
 
+    private Long like_cnt;
+
     @ManyToMany
     @JoinTable(name = "feed_tag",
             joinColumns = @JoinColumn(name = "feed_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags = new ArrayList<Tag>();
-
-    private Long like_cnt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

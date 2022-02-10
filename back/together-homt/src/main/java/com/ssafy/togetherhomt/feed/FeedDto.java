@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,8 +25,14 @@ public class FeedDto {
     @NotNull
     private String content;
 
-    @ApiParam(value = "피드 게시 시각")
+    @ApiParam(value = "태그")
+    private List<String> tags;
+
+    @ApiParam(value = "게시 날짜시간")
     private LocalDateTime created_at;
+
+    @ApiParam(value = "수정 날짜시간")
+    private LocalDateTime updated_at;
 
     @ApiParam(value = "피드 첨부파일")
     private MultipartFile media;
@@ -39,4 +46,6 @@ public class FeedDto {
     @ApiParam(value = "피드 작성자")
     private String userName;
 
+    @ApiParam(value = "좋아요 여부")
+    private Boolean like_status;
 }
