@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -49,6 +50,7 @@ public class FeedService {
         this.likeRepository = likeRepository;
     }
 
+    @Transactional
     public ResponseEntity<?> create(FeedDto feedDto, TagDto tagDto){
 
         MultipartFile multipartFile = feedDto.getMedia();
@@ -425,6 +427,7 @@ public class FeedService {
         return feedDto;
     }
 
+    @Transactional
     public ResponseEntity<?> update(FeedDto feedDto) {
 
         // Get Feed
@@ -456,6 +459,7 @@ public class FeedService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Transactional
     public ResponseEntity<?> feedDelete(Long feed_id) {
 
         // Get Feed
@@ -492,6 +496,7 @@ public class FeedService {
         return result;
     }
 
+    @Transactional
     public ResponseEntity<?> postComment(Long feed_id, CommentDto commentDto) {
 
         // Get User
@@ -514,6 +519,7 @@ public class FeedService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Transactional
     public ResponseEntity<?> deleteComment(Long comment_id) {
 
         commentRepository.deleteById(comment_id);

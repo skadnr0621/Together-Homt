@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class LikeService {
         this.followRepository = followRepository;
     }
 
+    @Transactional
     public ResponseEntity<?> likeFeed(Long feed_id) {
 
         // Get User
@@ -98,6 +100,7 @@ public class LikeService {
         return result;
     }
 
+    @Transactional
     public ResponseEntity<?> undoLikeFeed(Long feed_id) {
 
         // Get Feed
