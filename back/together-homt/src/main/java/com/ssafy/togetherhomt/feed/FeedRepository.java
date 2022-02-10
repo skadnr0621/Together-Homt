@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface FeedRepository extends JpaRepository<Feed, Long> {
+
     List<Feed> findByUser(User user);
 }

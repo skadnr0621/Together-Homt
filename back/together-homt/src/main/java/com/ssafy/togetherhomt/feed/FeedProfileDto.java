@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.gkuer.dto;
+package com.ssafy.togetherhomt.feed;
 
 import io.swagger.annotations.ApiParam;
 import lombok.*;
@@ -11,8 +11,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProfileFeedDto {
-
+public class FeedProfileDto {
     @ApiParam(value = "피드아이디")
     private Long feed_id;
 
@@ -28,6 +27,9 @@ public class ProfileFeedDto {
     @ApiParam(value = "태그")
     private List<String> tags;
 
-    @ApiParam(value = "게시날짜")
+    @ApiParam(value = "게시 날짜시간")
     private LocalDateTime created_at;
+
+    @ApiParam(value = "수정 날짜시간")
+    private LocalDateTime updated_at;
 }

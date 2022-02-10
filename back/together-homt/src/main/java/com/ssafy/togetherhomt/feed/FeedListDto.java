@@ -1,4 +1,4 @@
-package com.ssafy.togetherhomt.gkuer.dto;
+package com.ssafy.togetherhomt.feed;
 
 import io.swagger.annotations.ApiParam;
 import lombok.*;
@@ -19,6 +19,9 @@ public class FeedListDto {
     @ApiParam(value = "유저이름")
     private String username;
 
+    @ApiParam(value = "프로필사진")
+    private String profile_url;
+
     @ApiParam(value = "피드사진")
     private String media_url;
 
@@ -31,6 +34,9 @@ public class FeedListDto {
     @ApiParam(value = "태그")
     private List<String> tags;
 
-    @ApiParam(value = "게시날짜")
+    @ApiParam(value = "게시 날짜시간")
     private LocalDateTime created_at;
+
+    @ApiParam(value = "수정 날짜시간")
+    private LocalDateTime updated_at;
 }

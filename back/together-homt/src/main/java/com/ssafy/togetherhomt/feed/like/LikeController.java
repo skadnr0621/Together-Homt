@@ -5,7 +5,10 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Api("'좋아요' 기능 접근 방법")
 @RestController
@@ -19,24 +22,37 @@ public class LikeController {
         this.likeService = likeService;
     }
 
+    //=========================Like=========================//
 
-    @ApiOperation(value = "피드 좋아요", notes = "피드에 '좋아요' 누르는 기능", response = String.class)
+    @ApiOperation(value = "좋아요 추가", notes = "좋아요 추가")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "피드를 성공적으로 좋아했습니다.")
+            @ApiResponse(code = 200, message = "피드를 성공적으로 조회했습니다."),
+            @ApiResponse(code = 400, message = "이미 좋아요 상태입니다."),
+            @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
     })
     @PostMapping({"/{feed_id}"})
-    public String likeFeed(@PathVariable("feed_id") Long feed_id) {
-        String result = likeService.likeFeed(feed_id);
-        return result;
+    public ResponseEntity likeFeed(@PathVariable Long feed_id) {
+        return likeService.likeFeed(feed_id);
     }
 
-    @ApiOperation(value = "피드 좋아요 취소", notes = "피드에 '좋아요' 누른 것을 취소하는 기능", response = String.class)
+    @ApiOperation(value = "좋아요한 사람들 조회", notes = "좋아요한 사람들 조회")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "피드를 성공적으로 싫어했습니다.")
+            @ApiResponse(code = 200, message = "조회를 성공적으로 실행했습니다."),
+            @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
+    })
+    @GetMapping({"/{feed_id}"})
+    public ResponseEntity<List<LikeUserDto>> getLikeUser(@PathVariable Long feed_id) {
+        return ResponseEntity.ok(likeService.getLikeUser(feed_id));
+    }
+
+    @ApiOperation(value = "좋아요 취소", notes = "좋아요 취소")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "피드를 성공적으로 실행했습니다."),
+            @ApiResponse(code = 400, message = "요청한 피드가 없거나, 좋아요 상태가 아닙니다."),
+            @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
     })
     @DeleteMapping({"/{feed_id}"})
-    public String unlikeFeed(@PathVariable("feed_id") Long feed_id) {
-        String result = likeService.undoLikeFeed(feed_id);
-        return result;
+    public ResponseEntity<?> unlikeFeed(@PathVariable Long feed_id) {
+        return likeService.undoLikeFeed(feed_id);
     }
 }
