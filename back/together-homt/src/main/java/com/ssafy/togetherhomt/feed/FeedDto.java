@@ -45,4 +45,7 @@ public class FeedDto {
 
     @ApiParam(value = "피드 작성자")
     private String userName;
+
+    @ApiParam(value = "좋아요 여부")
+    private Boolean like_status;
 }

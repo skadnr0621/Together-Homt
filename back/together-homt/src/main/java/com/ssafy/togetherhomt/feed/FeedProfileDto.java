@@ -32,4 +32,7 @@ public class FeedProfileDto {
 
     @ApiParam(value = "수정 날짜시간")
     private LocalDateTime updated_at;
+
+    @ApiParam(value = "좋아요 여부")
+    private Boolean like_status;
 }

@@ -6,6 +6,8 @@ import com.ssafy.togetherhomt.feed.comment.Comment;
 import com.ssafy.togetherhomt.feed.comment.CommentDto;
 import com.ssafy.togetherhomt.feed.comment.CommentListDto;
 import com.ssafy.togetherhomt.feed.comment.CommentRepository;
+import com.ssafy.togetherhomt.feed.like.Like;
+import com.ssafy.togetherhomt.feed.like.LikeRepository;
 import com.ssafy.togetherhomt.feed.tag.Tag;
 import com.ssafy.togetherhomt.feed.tag.TagDto;
 import com.ssafy.togetherhomt.feed.tag.TagRepository;
@@ -34,15 +36,17 @@ public class FeedService {
     public FollowRepository followRepository;
     private GlobalConfig config;
     public TagRepository tagRepository;
+    public LikeRepository likeRepository;
 
     @Autowired
-    public FeedService(FeedRepository feedRepository, UserRepository userRepository, CommentRepository commentRepository, FollowRepository followRepository, GlobalConfig config, TagRepository tagRepository) {
+    public FeedService(FeedRepository feedRepository, UserRepository userRepository, CommentRepository commentRepository, FollowRepository followRepository, GlobalConfig config, TagRepository tagRepository, LikeRepository likeRepository) {
         this.feedRepository = feedRepository;
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;
         this.followRepository = followRepository;
         this.config = config;
         this.tagRepository = tagRepository;
+        this.likeRepository = likeRepository;
     }
 
     public ResponseEntity<?> create(FeedDto feedDto, TagDto tagDto){
@@ -119,6 +123,11 @@ public class FeedService {
 
     public List<FeedDto> all() {
 
+        // Get User
+        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userTemp = principalDetails.getUser();
+        User user = userRepository.findByEmail(userTemp.getEmail());
+
         List<FeedDto> result = new ArrayList<>();
 
         for (Feed feed : feedRepository.findAll()) {
@@ -133,6 +142,14 @@ public class FeedService {
             feedDto.setUserName(feed.getUser().getUsername());
             feedDto.setCreated_at(feed.getCreatedAt());
             feedDto.setUpdated_at(feed.getUpdatedAt());
+
+            // Check like_status
+            Like like_flag = likeRepository.findByUserAndFeed(user, feed);
+            if (like_flag != null) {
+                feedDto.setLike_status(true);
+            } else {
+                feedDto.setLike_status(false);
+            }
 
             List<String> tempTags = new ArrayList<>();
             for (Tag tag : feed.getTags()) {
@@ -192,6 +209,14 @@ public class FeedService {
                 feedListDto.setCreated_at(feed.getCreatedAt());
                 feedListDto.setUpdated_at(feed.getUpdatedAt());
 
+                // Check like_status
+                Like like_flag = likeRepository.findByUserAndFeed(user, feed);
+                if (like_flag != null) {
+                    feedListDto.setLike_status(true);
+                } else {
+                    feedListDto.setLike_status(false);
+                }
+
                 result.add(feedListDto);
             }
         }
@@ -216,6 +241,14 @@ public class FeedService {
 
             feedListDto.setCreated_at(feed.getCreatedAt());
             feedListDto.setUpdated_at(feed.getUpdatedAt());
+
+            // Check like_status
+            Like like_flag = likeRepository.findByUserAndFeed(user, feed);
+            if (like_flag != null) {
+                feedListDto.setLike_status(true);
+            } else {
+                feedListDto.setLike_status(false);
+            }
 
             result.add(feedListDto);
         }
@@ -252,6 +285,14 @@ public class FeedService {
             };
             feedDto.setTags(tempTags);
 
+            // Check like_status
+            Like like_flag = likeRepository.findByUserAndFeed(user, feed);
+            if (like_flag != null) {
+                feedDto.setLike_status(true);
+            } else {
+                feedDto.setLike_status(false);
+            }
+
             result.add(feedDto);
         }
 
@@ -266,6 +307,11 @@ public class FeedService {
     }
 
     public List<FeedListDto> feedlist() {
+
+        // Get User
+        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userTemp = principalDetails.getUser();
+        User user = userRepository.findByEmail(userTemp.getEmail());
 
         List<FeedListDto> result = new ArrayList<>();
 
@@ -288,6 +334,14 @@ public class FeedService {
 
             feedListDto.setCreated_at(feed.getCreatedAt());
             feedListDto.setUpdated_at(feed.getUpdatedAt());
+
+            // Check like_status
+            Like like_flag = likeRepository.findByUserAndFeed(user, feed);
+            if (like_flag != null) {
+                feedListDto.setLike_status(true);
+            } else {
+                feedListDto.setLike_status(false);
+            }
 
             result.add(feedListDto);
         }
@@ -324,6 +378,14 @@ public class FeedService {
 
             feedProfileDto.setCreated_at(feed.getCreatedAt());
             feedProfileDto.setUpdated_at(feed.getUpdatedAt());
+
+            // Check like_status
+            Like like_flag = likeRepository.findByUserAndFeed(user, feed);
+            if (like_flag != null) {
+                feedProfileDto.setLike_status(true);
+            } else {
+                feedProfileDto.setLike_status(false);
+            }
 
             result.add(feedProfileDto);
         }
