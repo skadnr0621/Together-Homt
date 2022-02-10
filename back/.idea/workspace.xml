@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="afcb553c-ae6c-403c-ba81-abe4e211e001" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/feed/FeedService.java" beforeDir="false" afterPath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/feed/FeedService.java" afterDir="false" />
-    </list>
+    <list default="true" id="afcb553c-ae6c-403c-ba81-abe4e211e001" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -187,7 +184,7 @@
       <workItem from="1644334199445" duration="631000" />
       <workItem from="1644366279028" duration="7743000" />
       <workItem from="1644381137581" duration="10866000" />
-      <workItem from="1644454374533" duration="12488000" />
+      <workItem from="1644454374533" duration="12766000" />
     </task>
     <servers />
   </component>
