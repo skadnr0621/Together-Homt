@@ -2,17 +2,14 @@ package com.ssafy.togetherhomt.notification;
 
 import com.ssafy.togetherhomt.user.UserDto;
 import io.swagger.annotations.ApiParam;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Data
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
+@Builder
 public class NotificationDto {
 
     private Long notificationId;
@@ -25,12 +22,5 @@ public class NotificationDto {
     private NotificationType notificationType;
     
     private LocalDateTime sentDate;
-
-    public NotificationDto(Notification notification) {
-        this.notificationId = notification.getNotificationId();
-        this.sender = new UserDto(notification.getSender());
-        this.notificationType = notification.getNotificationType();
-        this.sentDate = notification.getSentDate();
-    }
 
 }

@@ -1,13 +1,9 @@
 package com.ssafy.togetherhomt.notification;
 
-import com.ssafy.togetherhomt.common.CommonService;
-import com.ssafy.togetherhomt.user.User;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController()
 @RequestMapping("/notify")
@@ -15,7 +11,6 @@ import java.util.List;
 public class NotificationController {
 
     private NotificationService notificationService;
-    private CommonService commonService;
 
 
     @GetMapping

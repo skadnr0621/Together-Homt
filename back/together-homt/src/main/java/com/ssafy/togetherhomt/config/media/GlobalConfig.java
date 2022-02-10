@@ -52,4 +52,12 @@ public class GlobalConfig {
     public String getResourcePath() {
         return resourcePath;
     }
+
+    public String getUploadFilePath() {
+        return uploadPath;
+    }
+
+    public String getUploadResourcePath() {
+        return resourcePath;
+    }
 }

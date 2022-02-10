@@ -3,6 +3,7 @@ package com.ssafy.togetherhomt.notification;
 import com.ssafy.togetherhomt.common.CommonService;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserRepository;
+import com.ssafy.togetherhomt.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class NotificationService {
 
     private CommonService commonService;
+    private UserService userService;
 
     private NotificationRepository notificationRepository;
     private UserRepository userRepository;
@@ -24,7 +26,7 @@ public class NotificationService {
     public List<NotificationDto> getNotification() {
         List<NotificationDto> notificationList = new ArrayList<>();
         for (Notification notification : notificationRepository.findByReceiver(commonService.getLoginUser()))
-            notificationList.add(new NotificationDto(notification));
+            notificationList.add(this.builder(notification));
         return notificationList;
     }
 
@@ -59,4 +61,17 @@ public class NotificationService {
         notificationRepository.delete(notification);
         return notification;
     }
+
+
+    // --------------------------------------------------
+
+    public NotificationDto builder(Notification notification) {
+        return NotificationDto.builder()
+                .notificationId(notification.getNotificationId())
+                .sender(userService.builder(notification.getSender(), false))
+                .notificationType(notification.getNotificationType())
+                .sentDate(notification.getSentDate())
+                .build();
+    }
+
 }

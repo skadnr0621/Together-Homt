@@ -1,13 +1,11 @@
 package com.ssafy.togetherhomt.user;
 
 import com.ssafy.togetherhomt.common.CommonService;
-import com.ssafy.togetherhomt.config.media.GlobalConfig;
 import com.ssafy.togetherhomt.config.media.MediaService;
-import com.ssafy.togetherhomt.feed.media.MediaRepository;
 import com.ssafy.togetherhomt.user.follow.FollowRepository;
 import com.ssafy.togetherhomt.user.info.SignupDto;
 import com.ssafy.togetherhomt.util.Mailing.MailingService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,27 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-//@AllArgsConstructor
+@AllArgsConstructor
 public class UserService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private final CommonService commonService;
-    private final MediaService mediaService;
     private final MailingService mailingService;
+    private final MediaService mediaService;
 
     private final UserRepository userRepository;
     private final FollowRepository followRepository;
-
-    @Autowired
-    public UserService(BCryptPasswordEncoder bCryptPasswordEncoder, CommonService commonService, MediaService mediaService, MailingService mailingService, UserRepository userRepository, FollowRepository followRepository, MediaRepository mediaRepository) {
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.commonService = commonService;
-        this.mediaService = mediaService;
-        this.mailingService = mailingService;
-        this.userRepository = userRepository;
-        this.followRepository = followRepository;
-    }
 
 
     @Transactional
@@ -84,7 +72,7 @@ public class UserService {
             if (resourcePath == null)
                 return null;
             else
-                user.setPicturePath(resourcePath);
+                user.setImagePath(resourcePath);
         }
         user.setIntroduce(userDto.getIntroduce());
 
@@ -94,7 +82,7 @@ public class UserService {
 
     @Transactional
     public void withdraw(){
-        User user = commonService.getLoginUser();
+        User user = userRepository.findByEmail(commonService.getLoginUser().getEmail());
         userRepository.delete(user);
     }
 
@@ -158,20 +146,20 @@ public class UserService {
 
     // --------------------------------------------------
 
-    private UserDto builder(User user, boolean verbose) {
+    public UserDto builder(User user, boolean verbose) {
         UserDto.UserDtoBuilder userDtoBuilder = UserDto.builder();
         userDtoBuilder
                 .email(user.getEmail())
                 .username(user.getUsername())
-                .picturePath(user.getPicturePath())
+                .imagePath(user.getImagePath())
                 .introduce(user.getIntroduce());
 
         if (verbose) {
             userDtoBuilder
 //                    .followers(txFollowerListToUserDtoList(user.getFollower()))
 //                    .followings(txFollowingListToUserDtoList(user.getFollowing()))
-                    .cntFollower(followRepository.countByFollower(user))
-                    .cntFollowing(followRepository.countByFollowing(user));
+                    .cntFollower(followRepository.countByFollowing(user))
+                    .cntFollowing(followRepository.countByFollower(user));
         }
 
         return userDtoBuilder.build();

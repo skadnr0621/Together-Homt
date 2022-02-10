@@ -9,8 +9,6 @@ import java.util.List;
 
 @Getter @Setter
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class UserDto {
 
     @ApiParam(value = "사용자 계정 주소")
@@ -23,21 +21,17 @@ public class UserDto {
     @Size(min = 3, max = 10)
     private String username;
 
+    @ApiParam(value = "사용자 계정 소개")
     private String introduce;
 
+    @ApiParam(value = "사용자 계정 프로필 사진 경로")
     private String imagePath;
 
+    @ApiParam(value = "사용자 계정을 팔로우하는 사람 수")
     private Long cntFollower;
     private List<UserDto> followers;
+    @ApiParam(value = "사용자 계정이 팔로우하는 사람 수")
     private Long cntFollowing;
     private List<UserDto> followings;
-
-
-    public UserDto(User user) {
-        this.email = user.getEmail();
-        this.username = user.getUsername();
-        this.introduce = user.getIntroduce();
-        this.imagePath = user.getImagePath();
-    }
 
 }

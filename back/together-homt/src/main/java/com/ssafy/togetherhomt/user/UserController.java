@@ -2,7 +2,6 @@ package com.ssafy.togetherhomt.user;
 
 import com.ssafy.togetherhomt.common.CommonService;
 import com.ssafy.togetherhomt.user.info.SignupDto;
-import com.ssafy.togetherhomt.user.info.UpdateDto;
 import com.ssafy.togetherhomt.util.Mailing.MailingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -59,7 +58,6 @@ public class UserController {
     }
 
     @ApiOperation(value = "전체 회원 조회", notes = "전체 회원 정보 조회")
-    @ApiResponse(code = 200, message = "전체 회원 목록을 조회하였습니다.")
     @GetMapping("/all")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);

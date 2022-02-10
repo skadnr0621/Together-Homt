@@ -32,7 +32,7 @@ public class FollowService {
                     UserDto.builder()
                             .email(follower.getEmail())
                             .username(follower.getUsername())
-                            .profileUrl(follower.getProfile_url())
+                            .imagePath(follower.getImagePath())
                             .introduce(follower.getIntroduce())
                             .build()
             );
@@ -51,7 +51,7 @@ public class FollowService {
                     UserDto.builder()
                             .email(following.getEmail())
                             .username(following.getUsername())
-                            .profileUrl(following.getProfile_url())
+                            .imagePath(following.getImagePath())
                             .introduce(following.getIntroduce())
                             .build()
             );

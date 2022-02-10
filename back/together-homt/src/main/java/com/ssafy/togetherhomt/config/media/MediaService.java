@@ -34,7 +34,7 @@ public class MediaService {
         }
 
         // 저장 파일명 생성
-        String ogFilename = file.getName(); // original filename
+        String ogFilename = file.getOriginalFilename(); // original filename
         String ext = ogFilename.substring(ogFilename.lastIndexOf(".") + 1); // 확장자 추출
         String filename = UUID.randomUUID() + "." + ext;
 
