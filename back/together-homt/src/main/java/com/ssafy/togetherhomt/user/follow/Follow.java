@@ -1,18 +1,16 @@
 package com.ssafy.togetherhomt.user.follow;
 
 import com.ssafy.togetherhomt.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "follow")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 @Builder
 public class Follow {
 
@@ -24,11 +22,27 @@ public class Follow {
     // 팔로우를 하는 사람
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "follower")
+    @ToString.Exclude
     private User follower;
 
     // 팔로우를 하는 대상
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "following")
+    @ToString.Exclude
     private User following;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Follow follow = (Follow) o;
+        return follow_id != null && Objects.equals(follow_id, follow.follow_id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 
 }

@@ -14,8 +14,8 @@ import java.util.Properties;
 @Configuration
 public class GlobalConfig {
 
-    private ApplicationContext context;
-    private ResourceLoader resourceLoader;
+    private final ApplicationContext context;
+    private final ResourceLoader resourceLoader;
 
     @Autowired
     public GlobalConfig(ApplicationContext context, ResourceLoader resourceLoader) {
@@ -23,8 +23,8 @@ public class GlobalConfig {
         this.resourceLoader = resourceLoader;
     }
 
-    private String uploadFilePath;
-    private String uploadResourcePath;
+    private String uploadPath;
+    private String resourcePath;
 
     @PostConstruct
     public void init(){
@@ -38,18 +38,26 @@ public class GlobalConfig {
             Resource resource = resourceLoader.getResource(resourcePath);
             Properties properties = PropertiesLoaderUtils.loadProperties(resource);
 
-            this.uploadFilePath = properties.getProperty("uploadFile.path");
-            this.uploadResourcePath = properties.getProperty("uploadFile.resourcePath");
+            this.uploadPath = properties.getProperty("uploadFile.path");
+            this.resourcePath = properties.getProperty("uploadFile.resourcePath");
         }catch (Exception e){
             System.out.println("e = " + e);
         }
     }
 
+    public String getUploadPath() {
+        return uploadPath;
+    }
+
+    public String getResourcePath() {
+        return resourcePath;
+    }
+
     public String getUploadFilePath() {
-        return uploadFilePath;
+        return uploadPath;
     }
 
     public String getUploadResourcePath() {
-        return uploadResourcePath;
+        return resourcePath;
     }
 }

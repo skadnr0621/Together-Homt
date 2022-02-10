@@ -1,36 +1,32 @@
 package com.ssafy.togetherhomt.user;
 
-import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
-import com.ssafy.togetherhomt.user.auth.LoginDto;
+import com.ssafy.togetherhomt.common.CommonService;
 import com.ssafy.togetherhomt.user.info.SignupDto;
-import com.ssafy.togetherhomt.user.info.UpdateDto;
-import com.ssafy.togetherhomt.user.info.UserDto;
 import com.ssafy.togetherhomt.util.Mailing.MailingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Api("사용자(유저) 관련 기능 접근 방법")
 @RestController
 @RequestMapping(value = "/user", produces = "application/json; charset=UTF-8")
+@AllArgsConstructor
 public class UserController {
 
-    private UserService userService;
-    private MailingService mailConfirmService;
+    private final UserService userService;
+    private final CommonService commonService;
+    private final MailingService mailConfirmService;
 
-    @Autowired
-    public UserController(UserService userService, MailingService mailConfirmService) {
-        this.userService = userService;
-        this.mailConfirmService = mailConfirmService;
-    }
+    private final UserRepository userRepository;
 
 
     @ApiOperation(value = "회원 가입", notes = "회원 가입")
@@ -61,18 +57,30 @@ public class UserController {
         return ResponseEntity.ok(mailConfirmService.sendSimpleMessage(email));
     }
 
-    @ApiOperation(value = "회원 정보 조회", notes = "회원 정보 조회")
+    @ApiOperation(value = "전체 회원 조회", notes = "전체 회원 정보 조회")
+    @GetMapping("/all")
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "유저 프로필 정보 조회", notes = "유저 프로필 정보 조회")
     @ApiResponses({
             @ApiResponse(code = 400, message = "잘못된 요청입니다. 존재하지 않는 유저입니다."),
-            @ApiResponse(code = 200, message = "유저 정보 조회에 성공하였습니다.")
+            @ApiResponse(code = 200, message = "유저 프로필 정보 조회에 성공하였습니다.")
     })
-    @GetMapping("/profile/{email}")
+    @GetMapping("/{email}/profile")
     public ResponseEntity<?> getProfile(@PathVariable String email) {
-        UserDto userDto = userService.getProfile(email);
-        if (userDto == null)
+        User user = userRepository.findByEmail(email);
+        if (user == null)
             return new ResponseEntity<>("존재하지 않는 유저입니다.", HttpStatus.BAD_REQUEST);
         else
-            return ResponseEntity.ok(userDto);
+            return ResponseEntity.ok(userService.getProfile(user));
+    }
+    @GetMapping
+    public ResponseEntity<?> getLoginUserInfo() {
+        User user = commonService.getLoginUser();
+        user = userRepository.findByEmail(user.getEmail());
+        return ResponseEntity.ok(userService.getProfile(user));
     }
 
     @ApiOperation(value = "회원 탈퇴", notes = "회원 탈퇴")
@@ -108,12 +116,16 @@ public class UserController {
 
     @ApiOperation(value = "회원 정보 수정", notes = "회원 정보 수정")
     @ApiResponses({
-            @ApiResponse(code = 400, message = "잘못된 요청입니다. 계정을 명시하지 않았거나 로그인 정보와 맞지 않습니다. 또는 존재하지 않는 미디어 파일입니다."),
+            @ApiResponse(code = 404, message = "회원 정보 수정에 실패하였습니다. 잘못된 정보로 요청하였거나, 또는 리소스를 저장하던 중 오류가 발생했을 수 있습니다."),
             @ApiResponse(code = 200, message = "회원 정보 수정에 성공하였습니다.")
     })
     @PutMapping("/profile/update")
-    public String update(@ModelAttribute("file") UpdateDto updateDto){
-        return userService.update(updateDto);
+    public ResponseEntity<?> update(@ModelAttribute UserDto userDto, @ModelAttribute MultipartFile picture){
+        UserDto updatedUserDto = userService.update(userDto, picture);
+        if (updatedUserDto == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else
+            return new ResponseEntity<>(updatedUserDto, HttpStatus.OK);
     }
 
 }
