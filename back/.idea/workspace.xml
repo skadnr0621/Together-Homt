@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="afcb553c-ae6c-403c-ba81-abe4e211e001" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/feed/FeedDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/feed/FeedDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/feed/FeedListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/feed/FeedListDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/feed/FeedProfileDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/feed/FeedProfileDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/feed/FeedService.java" beforeDir="false" afterPath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/feed/FeedService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -190,7 +187,7 @@
       <workItem from="1644334199445" duration="631000" />
       <workItem from="1644366279028" duration="7743000" />
       <workItem from="1644381137581" duration="10866000" />
-      <workItem from="1644454374533" duration="10293000" />
+      <workItem from="1644454374533" duration="12488000" />
     </task>
     <servers />
   </component>

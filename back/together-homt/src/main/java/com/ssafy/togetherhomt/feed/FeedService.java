@@ -432,13 +432,6 @@ public class FeedService {
         Optional<Feed> optFeed = feedRepository.findById(id);
         Feed feed = optFeed.get();
 
-        // Feed Processing
-        for (Tag tag : feed.getTags()) {
-            if (!feedDto.getTags().contains(tag.getName())) {
-                tagRepository.delete(tag);
-            }
-        }
-
         List<Tag> resTags = new ArrayList<>();
 
         for (String tempName : feedDto.getTags()) {
