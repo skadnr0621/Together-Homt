@@ -1,7 +1,7 @@
 package com.ssafy.togetherhomt.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ssafy.togetherhomt.exerciseAll.record.Record;
+import com.ssafy.togetherhomt.exercise.record.Record;
 import com.ssafy.togetherhomt.feed.comment.Comment;
 import com.ssafy.togetherhomt.feed.Feed;
 import com.ssafy.togetherhomt.feed.like.Like;

@@ -3,9 +3,6 @@ package com.ssafy.togetherhomt.user;
 import com.ssafy.togetherhomt.common.CommonService;
 import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
 import com.ssafy.togetherhomt.config.media.GlobalConfig;
-import com.ssafy.togetherhomt.feed.media.Media;
-import com.ssafy.togetherhomt.feed.media.MediaRepository;
-import com.ssafy.togetherhomt.user.auth.LoginDto;
 import com.ssafy.togetherhomt.user.info.SignupDto;
 import com.ssafy.togetherhomt.user.info.UpdateDto;
 import com.ssafy.togetherhomt.user.info.UserDto;
@@ -34,16 +31,14 @@ public class UserService {
     private MailingService mailingService;
 
     private UserRepository userRepository;
-    private MediaRepository mediaRepository;
 
     @Autowired
-    public UserService(BCryptPasswordEncoder bCryptPasswordEncoder, GlobalConfig config, CommonService commonService, MailingService mailingService, UserRepository userRepository, MediaRepository mediaRepository) {
+    public UserService(BCryptPasswordEncoder bCryptPasswordEncoder, GlobalConfig config, CommonService commonService, MailingService mailingService, UserRepository userRepository) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.config = config;
         this.commonService = commonService;
         this.mailingService = mailingService;
         this.userRepository = userRepository;
-        this.mediaRepository = mediaRepository;
     }
 
     @Transactional
@@ -144,12 +139,6 @@ public class UserService {
 
             // 경로
             System.out.println("pathname = " + pathname);
-            Media media = Media.builder()
-                    .fileOriginName(multipartFile.getOriginalFilename())
-                    .videoPath(uploadFilePath)
-                    .videoUrl(pathname)
-                    .build();
-            mediaRepository.save(media);
 
             user.setProfile_url(resourcePathname);
             user.setUsername(updateDto.getUsername());
