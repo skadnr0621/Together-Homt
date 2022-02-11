@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController()
-@RequestMapping("/notify")
+@RequestMapping("/notification/notifications")
 @AllArgsConstructor
 public class NotificationController {
 

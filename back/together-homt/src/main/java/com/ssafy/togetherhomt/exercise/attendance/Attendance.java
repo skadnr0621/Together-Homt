@@ -15,8 +15,9 @@ import javax.persistence.*;
 @Entity
 public class Attendance {
     @Id
+    @Column(name = "attendance_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long attendance_id;
+    private Long attendanceId;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

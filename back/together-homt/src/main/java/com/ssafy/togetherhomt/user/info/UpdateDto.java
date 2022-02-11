@@ -22,6 +22,6 @@ public class UpdateDto {
 
     private MultipartFile media;
 
-    @Column(name = "profile_url")
-    private String profile_url;
+    @Column(name = "image_path")
+    private String imagePath;
 }

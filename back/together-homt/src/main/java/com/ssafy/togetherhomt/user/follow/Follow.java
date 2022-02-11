@@ -17,7 +17,7 @@ public class Follow {
     @Id
     @Column(name = "follow_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long follow_id;
+    private Long followId;
 
     // 팔로우를 하는 사람
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,7 +37,7 @@ public class Follow {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Follow follow = (Follow) o;
-        return follow_id != null && Objects.equals(follow_id, follow.follow_id);
+        return followId != null && Objects.equals(followId, follow.followId);
     }
 
     @Override

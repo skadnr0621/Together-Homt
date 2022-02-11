@@ -12,8 +12,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CommentListDto {
 
+    @ApiParam(value = "댓글 id")
+    private Long commentId;
+
     @ApiParam(value = "프로필사진")
-    private String profile_url;
+    private String profileUrl;
 
     @ApiParam(value = "유저이메일")
     private String email;
@@ -22,8 +25,9 @@ public class CommentListDto {
     private String username;
 
     @ApiParam(value = "댓글내용")
-    private String comment_content;
+    private String content;
 
     @ApiParam(value = "댓글 작성 시각")
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
+
 }

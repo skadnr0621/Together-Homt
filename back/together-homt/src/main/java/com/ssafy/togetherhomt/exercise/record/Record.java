@@ -13,12 +13,13 @@ import javax.persistence.*;
 @Entity
 public class Record {
     @Id
+    @Column(name = "record_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long record_id;
+    private Long recordId;
 
     private String date;
 
-    private String video_url; // ??운동기록 남길거
+    private String videoUrl; // ??운동기록 남길거
 
     private Long countCheck;
 

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Api("'좋아요' 기능 접근 방법")
 @RestController
-@RequestMapping("/like")
+@RequestMapping("/feed")
 public class LikeController {
 
     private LikeService likeService;
@@ -30,7 +30,7 @@ public class LikeController {
             @ApiResponse(code = 400, message = "이미 좋아요 상태입니다."),
             @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
     })
-    @PostMapping({"/{feed_id}"})
+    @PostMapping({"/{feed_id}/likes"})
     public ResponseEntity likeFeed(@PathVariable Long feed_id) {
         return likeService.likeFeed(feed_id);
     }
@@ -40,9 +40,9 @@ public class LikeController {
             @ApiResponse(code = 200, message = "조회를 성공적으로 실행했습니다."),
             @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
     })
-    @GetMapping({"/{feed_id}"})
-    public ResponseEntity<List<LikeUserDto>> getLikeUser(@PathVariable Long feed_id) {
-        return ResponseEntity.ok(likeService.getLikeUser(feed_id));
+    @GetMapping({"/{feed_id}/likes"})
+    public ResponseEntity<List<LikeUserDto>> getLikeUsers(@PathVariable Long feed_id) {
+        return ResponseEntity.ok(likeService.getLikeUsers(feed_id));
     }
 
     @ApiOperation(value = "좋아요 취소", notes = "좋아요 취소")
@@ -51,7 +51,7 @@ public class LikeController {
             @ApiResponse(code = 400, message = "요청한 피드가 없거나, 좋아요 상태가 아닙니다."),
             @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
     })
-    @DeleteMapping({"/{feed_id}"})
+    @DeleteMapping({"/{feed_id}/likes"})
     public ResponseEntity<?> unlikeFeed(@PathVariable Long feed_id) {
         return likeService.undoLikeFeed(feed_id);
     }

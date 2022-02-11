@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class TodayExercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long TodayExercise_id;
+    private Long todayExerciseId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

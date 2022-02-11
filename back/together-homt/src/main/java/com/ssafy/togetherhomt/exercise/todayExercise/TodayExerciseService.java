@@ -5,6 +5,8 @@ import com.ssafy.togetherhomt.common.CommonService;
 import com.ssafy.togetherhomt.exercise.attendance.AttendanceRepository;
 import com.ssafy.togetherhomt.exercise.exercise.Exercise;
 import com.ssafy.togetherhomt.exercise.exercise.ExerciseRepository;
+import com.ssafy.togetherhomt.exercise.record.RecordDto;
+import com.ssafy.togetherhomt.exercise.record.RecordService;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +21,21 @@ import java.util.List;
 @Service
 public class TodayExerciseService {
 
-    UserRepository userRepository;
-    TodayExerciseRepository todayExerciseRepository;
-    AttendanceRepository attendanceRepository;
-    ExerciseRepository exerciseRepository;
-    CommonService commonService;
+    private UserRepository userRepository;
+    private TodayExerciseRepository todayExerciseRepository;
+    private AttendanceRepository attendanceRepository;
+    private ExerciseRepository exerciseRepository;
+    private CommonService commonService;
+    private RecordService recordService;
 
     @Autowired
-    public TodayExerciseService(UserRepository userRepository, TodayExerciseRepository todayExerciseRepository, AttendanceRepository attendanceRepository, ExerciseRepository exerciseRepository, CommonService commonService) {
+    public TodayExerciseService(UserRepository userRepository, TodayExerciseRepository todayExerciseRepository, AttendanceRepository attendanceRepository, ExerciseRepository exerciseRepository, CommonService commonService, RecordService recordService) {
         this.userRepository = userRepository;
         this.todayExerciseRepository = todayExerciseRepository;
         this.attendanceRepository = attendanceRepository;
         this.exerciseRepository = exerciseRepository;
         this.commonService = commonService;
+        this.recordService = recordService;
     }
 
     // 00시가 되면 오늘 운동 목록 삭제!!
@@ -66,8 +70,8 @@ public class TodayExerciseService {
     }
 
     // 개인의 오늘 운동 목록 조회
-    public List<TodayExerciseDto> todayExercises(String email){
-        User user = userRepository.findByEmail(email);
+    public List<TodayExerciseDto> todayExercises(){
+        User user = userRepository.findByEmail(commonService.getLoginUser().getEmail());
         return getTodayExerciseDtos(user);
     }
 
@@ -86,10 +90,10 @@ public class TodayExerciseService {
 
     // 개인 운동 하나 완료하기
     // 출석 체크
-    public List<TodayExerciseDto> exerciseDone(String todayExerciseDone) {
+    public List<TodayExerciseDto> exerciseDone(String exerciseName, Long countCheck) {
 
         User user = userRepository.findByEmail(commonService.getLoginUser().getEmail());
-        Exercise exercise = exerciseRepository.findByName(todayExerciseDone);
+        Exercise exercise = exerciseRepository.findByName(exerciseName);
 
         TodayExercise todayExercise = todayExerciseRepository.findByUserAndExercise(user, exercise).orElse(null);
         if (todayExercise==null){
@@ -101,6 +105,12 @@ public class TodayExerciseService {
         Attendance attendance = attendanceRepository.findByUser(user);
         attendance.setDone(true);
         attendanceRepository.save(attendance);
+
+        RecordDto recordDto = new RecordDto();
+        recordDto.setCountCheck(countCheck);
+        recordDto.setExercise(exerciseName);
+
+        recordService.create(recordDto);
 
         return getTodayExerciseDtos(user);
     }

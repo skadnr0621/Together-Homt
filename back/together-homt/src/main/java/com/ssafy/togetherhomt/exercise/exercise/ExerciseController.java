@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/exercise")
+@RequestMapping("/exercise/exercises")
 public class ExerciseController {
 
     private ExerciseService exerciseService;
@@ -18,9 +18,7 @@ public class ExerciseController {
         this.exerciseService = exerciseService;
     }
 
-
-
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<?> exerciseAdd(@RequestBody ExerciseDto exerciseDto){
         String result = exerciseService.exerciseAdd(exerciseDto);
         if (result.equals("success")){
@@ -30,21 +28,21 @@ public class ExerciseController {
         }
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<?> getExercise(){
         List<ExerciseDto> exercises = exerciseService.getExercise();
         return new ResponseEntity(exercises, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{exercise}")
-    public ResponseEntity<?> deleteExercise(@PathVariable String exercise){
-        String result = exerciseService.deleteExercise(exercise);
+    @DeleteMapping("/{exercise-name}")
+    public ResponseEntity<?> deleteExercise(@PathVariable("exercise-name") String exerciseName){
+        String result = exerciseService.deleteExercise(exerciseName);
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
-    @PutMapping("/{exercise}")
-    public ResponseEntity<?> exerciseUpdate(@PathVariable String exercise, @RequestBody ExerciseDto exerciseDto){
-        String result = exerciseService.exerciseUpdate(exercise, exerciseDto);
+    @PutMapping("/{exercise-name}")
+    public ResponseEntity<?> exerciseUpdate(@PathVariable("exercise-name") String exerciseName, @RequestBody ExerciseDto exerciseDto){
+        String result = exerciseService.exerciseUpdate(exerciseName, exerciseDto);
         if (result.equals("success")){
             return new ResponseEntity(result, HttpStatus.OK);
         }else{

@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Api("'그룹' 기능 접근 방법")
 @RestController
-@RequestMapping("/group")
+@RequestMapping("/group/groups")
 public class GroupController {
 
     private final GroupService groupService;
@@ -26,7 +26,7 @@ public class GroupController {
 
     @ApiOperation(value = "그룹 생성", notes = "그룹 생성")
     @ApiResponse(code = 200, message = "그룹 생성에 성공하였습니다.")
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Void> create(@RequestBody GroupDto groupDto) {
         groupService.create(groupDto);
         return new ResponseEntity<>(HttpStatus.OK);

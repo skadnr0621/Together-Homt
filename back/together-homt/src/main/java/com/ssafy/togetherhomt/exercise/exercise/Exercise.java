@@ -25,8 +25,9 @@ import java.util.List;
 public class Exercise {
 
     @Id
+    @Column(name = "exercise_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long exercise_id;
+    private long exerciseId;
 
     @Column(unique = true, nullable = false)
     @NotNull
@@ -36,11 +37,11 @@ public class Exercise {
 
     private String type;
 
-    private Long exercise_time;
+    private Long exerciseTime;
 
-    private Long exercise_count;
+    private Long exerciseCount;
 
-    private String video_url;
+    private String videoUrl;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"exercise"})

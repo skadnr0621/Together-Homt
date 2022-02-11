@@ -34,9 +34,9 @@ public class FeedController {
             @ApiResponse(code = 400, message = "잘못된 요청입니다. 계정을 명시하지 않았거나 로그인 정보와 맞지 않습니다. 또는 존재하지 않는 미디어 파일입니다."),
             @ApiResponse(code = 500, message = "서버 에러입니다.")
     })
-    @PostMapping("/create")
-    public ResponseEntity<?> create(@ModelAttribute("file") FeedDto feedDto, TagDto tagDto){
-        return feedService.create(feedDto,tagDto);
+    @PostMapping("/feeds")
+    public ResponseEntity<?> postFeed(@ModelAttribute("file") FeedDto feedDto, TagDto tagDto){
+        return feedService.postFeed(feedDto,tagDto);
     }
 
     @ApiOperation(value = "피드 전체 조회", notes = "전체 피드를 조회합니다.")
@@ -44,9 +44,9 @@ public class FeedController {
             @ApiResponse(code = 200, message = "피드 조회에 성공하였습니다."),
             @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
     })
-    @GetMapping("/all")
-    public List<FeedDto> all() {
-        return feedService.all();
+    @GetMapping("/feeds")
+    public List<FeedDto> getAllFeeds() {
+        return feedService.getAllFeeds();
     }
 
     @ApiOperation(value = "팔로우기반 피드 조회(메인)", notes = "로그인 한 사용자가 팔로우 하는 유저의 피드를 조회하여 목록으로 보여줍니다.")
@@ -54,19 +54,19 @@ public class FeedController {
             @ApiResponse(code = 200, message = "팔로우 하는 피드 조회에 성공하였습니다."),
             @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
     })
-    @GetMapping("/main")
-    public List<FeedListDto> main() {
-        return feedService.main();
+    @GetMapping("/feeds/follower")
+    public List<FeedListDto> getFollowerFeeds() {
+        return feedService.getFollowerFeeds();
     }
 
-    @ApiOperation(value = "내 피드 조회", notes = "내가 작성한 피드를 조회합니다.")
+    @ApiOperation(value = "유저 피드 조회(1)", notes = "내가 작성한 피드를 조회합니다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "요청한 사용자의 피드 조회에 성공하였습니다."),
             @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
     })
-    @GetMapping("/personal_feed/{email}")
-    public ResponseEntity<List<FeedDto>> getPersonalFeed(@PathVariable String email) {
-        return ResponseEntity.ok(feedService.getPersonalFeed(email));
+    @GetMapping("/feeds/{email}")
+    public ResponseEntity<List<FeedDto>> getProfileFeeds(@PathVariable String email) {
+        return ResponseEntity.ok(feedService.getProfileFeeds(email));
     }
 
     @ApiOperation(value = "피드리스트 조회(검색)", notes = "전체 피드리스트(검색)")
@@ -74,19 +74,19 @@ public class FeedController {
             @ApiResponse(code = 200, message = "피드리스트 조회 성공"),
             @ApiResponse(code = 500, message = "서버 에러입니다.")
     })
-    @GetMapping("/feedlist")
-    public ResponseEntity<List<FeedListDto>> feedlist() {
-        return ResponseEntity.ok(feedService.feedlist());
+    @GetMapping("/feeds/search")
+    public ResponseEntity<List<FeedListDto>> getSearchFeeds() {
+        return ResponseEntity.ok(feedService.getSearchFeeds());
     }
 
-    @ApiOperation(value = "유저가 작성한 피드 리스트(프로필)", notes = "유저가 작성한 피드 리스트(프로필)")
+    @ApiOperation(value = "유저 피드 조회(2)", notes = "유저가 작성한 피드 리스트(프로필)")
     @ApiResponses({
             @ApiResponse(code = 200, message = "유저가 작성한 피드 리스트 조회 성공"),
             @ApiResponse(code = 500, message = "서버 에러입니다.")
     })
-    @GetMapping("/profilefeed/{email}")
-    public ResponseEntity<List<FeedProfileDto>> profilefeed(@PathVariable String email) {
-        return ResponseEntity.ok(feedService.profilefeed(email));
+    @GetMapping("/feeds/{email}/temp")
+    public ResponseEntity<List<FeedProfileDto>> getProfileFeeds_temp(@PathVariable String email) {
+        return ResponseEntity.ok(feedService.getProfileFeeds_temp(email));
     }
 
     @ApiOperation(value = "피드 수정(조회)", notes = "피드 수정(조회)")
@@ -94,9 +94,9 @@ public class FeedController {
             @ApiResponse(code = 200, message = "피드 수정에 성공하였습니다."),
             @ApiResponse(code = 500, message = "서버 에러입니다.")
     })
-    @GetMapping("/updateinfo/{feed_id}")
-    public ResponseEntity<?> updateinfo(@PathVariable Long feed_id){
-        return ResponseEntity.ok(feedService.updateinfo(feed_id));
+    @GetMapping("/feeds/{feed_id}")
+    public ResponseEntity<?> getUpdateFeedInfo(@PathVariable Long feed_id){
+        return ResponseEntity.ok(feedService.getUpdateFeedInfo(feed_id));
     }
 
     @ApiOperation(value = "피드 수정(실행)", notes = "피드 수정(실행)")
@@ -104,9 +104,9 @@ public class FeedController {
             @ApiResponse(code = 200, message = "피드 수정에 성공하였습니다."),
             @ApiResponse(code = 500, message = "서버 에러입니다.")
     })
-    @PutMapping("/update")
-    public ResponseEntity<?> update(@RequestBody FeedDto feedDto){
-        return feedService.update(feedDto);
+    @PutMapping("/feeds/{feed_id}")
+    public ResponseEntity<?> updateFeed(@PathVariable("feed_id") Long feedId, @RequestBody FeedDto feedDto){
+        return feedService.updateFeed(feedId,feedDto);
     }
 
     @ApiOperation(value = "피드 삭제", notes = "요청한 피드를 삭제합니다.")
@@ -115,9 +115,9 @@ public class FeedController {
             @ApiResponse(code = 400, message = "요청한 피드가 없습니다."),
             @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
     })
-    @DeleteMapping("/{feed_id}")
-    public ResponseEntity<?> feedDelete(@PathVariable("feed_id") Long feed_id){
-        return feedService.feedDelete(feed_id);
+    @DeleteMapping("/feeds/{feed_id}")
+    public ResponseEntity<?> deleteFeed(@PathVariable("feed_id") Long feed_id){
+        return feedService.deleteFeed(feed_id);
     }
 
     //=========================Comment=========================//
@@ -127,7 +127,7 @@ public class FeedController {
             @ApiResponse(code = 200, message = "요청한 피드에 성공적으로 댓글을 작성하였습니다."),
             @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
     })
-    @PostMapping("/{feed_id}/comment")
+    @PostMapping("/{feed_id}/comments")
     public ResponseEntity<?> postComment(@PathVariable("feed_id") Long feed_id, @RequestBody CommentDto commentDto) {
         return feedService.postComment(feed_id, commentDto);
     }
@@ -137,7 +137,7 @@ public class FeedController {
             @ApiResponse(code = 200, message = "요청한 피드의 댓글 조회에 성공하였습니다."),
             @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
     })
-    @GetMapping("/{feed_id}/comment")
+    @GetMapping("/{feed_id}/comments")
     public ResponseEntity<List<CommentListDto>> getComments(@PathVariable Long feed_id) {
         return ResponseEntity.ok(feedService.getComments(feed_id));
     }
@@ -147,7 +147,7 @@ public class FeedController {
             @ApiResponse(code = 200, message = "요청한 댓글의 삭제에 성공하였습니다."),
             @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
     })
-    @DeleteMapping("/comment/{comment_id}")
+    @DeleteMapping("/{feed_id}/comments/{comment_id}")
     public ResponseEntity<?> deleteComment(@PathVariable("comment_id") Long comment_id) {
         return feedService.deleteComment(comment_id);
     }

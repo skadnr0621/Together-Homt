@@ -17,9 +17,9 @@ public class ExerciseDto {
 
     private String type;
 
-    private Long exercise_time;
+    private Long exerciseTime;
 
-    private Long exercise_count;
+    private Long exerciseCount;
 
-    private String video_url;
+    private String videoUrl;
 }

@@ -17,7 +17,7 @@ import java.util.List;
 
 @Api("팔로우 기능 접근 방법")
 @RestController
-@RequestMapping(value = "/follow", produces = "application/json; charset=UTF-8")
+@RequestMapping(value = "/communication/follows", produces = "application/json; charset=UTF-8")
 @AllArgsConstructor
 public class FollowController {
 
@@ -33,7 +33,7 @@ public class FollowController {
             @ApiResponse(code = 400, message = "잘못된 요청입니다. 존재하지 않는 유저를 조회하였습니다."),
             @ApiResponse(code = 200, message = "요청한 유저의 팔로워 목록을 성공적으로 조회하였습니다.")
     })
-    @GetMapping("/{email}/follower")
+    @GetMapping("/{email}/followers")
     public ResponseEntity<?> listFollowers(@PathVariable String email) {
         User user = userRepository.findByEmail(email);
         if (user == null)
@@ -51,7 +51,7 @@ public class FollowController {
             @ApiResponse(code = 400, message = "잘못된 요청입니다. 존재하지 않는 유저를 조회하였습니다."),
             @ApiResponse(code = 200, message = "요청한 유저의 팔로잉 목록을 성공적으로 조회하였습니다.")
     })
-    @GetMapping("/{email}/following")
+    @GetMapping("/{email}/followings")
     public ResponseEntity<?> listFollowings(@PathVariable String email) {
         User user = userRepository.findByEmail(email);
         if (user == null)
@@ -68,7 +68,7 @@ public class FollowController {
             @ApiResponse(code = 400, message = "잘못된 요청입니다. 존재하지 않는 유저를 조회하였습니다."),
             @ApiResponse(code = 200, message = "요청한 유저의 팔로워/팔로잉 목록 전체를 성공적으로 조회하였습니다.")
     })
-    @GetMapping("/{email}/all")
+    @GetMapping("/{email}")
     public ResponseEntity<?> listFollowersAndFollowings(@PathVariable String email) {
         User user = userRepository.findByEmail(email);
         if (user == null)

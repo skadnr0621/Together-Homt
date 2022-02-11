@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/record")
+@RequestMapping("/exercise/records")
 public class RecordController {
 
     private RecordService recordService;
@@ -20,7 +20,7 @@ public class RecordController {
 
 
     // 운동 완료 후 기록 생성
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<?> create(@RequestBody RecordDto recordDto){
 
         String result = recordService.create(recordDto);

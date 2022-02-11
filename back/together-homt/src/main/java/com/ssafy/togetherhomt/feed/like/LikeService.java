@@ -61,13 +61,13 @@ public class LikeService {
         likeRepository.save(like);
 
         // Update Feed's like_cnt
-        feed.setLike_cnt(feed.getLike_cnt()+1);
+        feed.setLikeCnt(feed.getLikeCnt()+1);
         feedRepository.save(feed);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public List<LikeUserDto> getLikeUser(Long feed_id) {
+    public List<LikeUserDto> getLikeUsers(Long feed_id) {
 
         // Get User
         PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -82,16 +82,16 @@ public class LikeService {
         for (Like like : likeRepository.findAllByFeed(feed.get())) {
             LikeUserDto likeUserDto = new LikeUserDto();
 
-            likeUserDto.setProfile_url(like.getUser().getImagePath());
+            likeUserDto.setProfileUrl(like.getUser().getImagePath());
             likeUserDto.setEmail(like.getUser().getImagePath());
-            likeUserDto.setUsernmae(like.getUser().getUsername());
+            likeUserDto.setUsername(like.getUser().getUsername());
             likeUserDto.setIntroduce(like.getUser().getIntroduce());
 
             // Check Following Relation
             if (followRepository.findByFollowerAndFollowing(user, like.getUser()) != null) {
-                likeUserDto.setCheck_following(true);
+                likeUserDto.setCheckFollowing(true);
             } else {
-                likeUserDto.setCheck_following(false);
+                likeUserDto.setCheckFollowing(false);
             }
 
             result.add(likeUserDto);
@@ -122,7 +122,7 @@ public class LikeService {
             likeRepository.delete(like);
 
             // Update Feed's like_cnt
-            feed.setLike_cnt(feed.getLike_cnt() - 1);
+            feed.setLikeCnt(feed.getLikeCnt() - 1);
             feedRepository.save(feed);
 
             return new ResponseEntity<>(HttpStatus.OK);

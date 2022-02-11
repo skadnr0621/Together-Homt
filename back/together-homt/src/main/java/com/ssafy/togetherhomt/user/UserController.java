@@ -28,14 +28,13 @@ public class UserController {
 
     private final UserRepository userRepository;
 
-
     @ApiOperation(value = "회원 가입", notes = "회원 가입")
     @ApiResponses({
             @ApiResponse(code = 500, message = "Internal Server Error"),
             @ApiResponse(code = 409, message = "이미 존재하는 유저입니다. 회원가입에 실패하였습니다."),
             @ApiResponse(code = 200, message = "200 + \"success\". 회원가입에 성공하였습니다.")
     })
-    @PostMapping("/signup")
+    @PostMapping("/users")
     public ResponseEntity<?> signup(@Valid @RequestBody SignupDto signupDto) {
         String result = userService.signup(signupDto);
 
@@ -52,13 +51,13 @@ public class UserController {
             @ApiResponse(code = 500, message = "존재하지 않는 계정입니다."),
             @ApiResponse(code = 200, message = "회원가입 인증 코드가 정상적으로 발송되었습니다.")
     })
-    @PostMapping("/signup/confirm")
+    @PostMapping("/auth/signup/confirm")
     public ResponseEntity<String> confirmMail(@RequestBody String email) throws Exception {
         return ResponseEntity.ok(mailConfirmService.sendSimpleMessage(email));
     }
 
     @ApiOperation(value = "전체 회원 조회", notes = "전체 회원 정보 조회")
-    @GetMapping("/all")
+    @GetMapping("/users")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
@@ -68,7 +67,7 @@ public class UserController {
             @ApiResponse(code = 400, message = "잘못된 요청입니다. 존재하지 않는 유저입니다."),
             @ApiResponse(code = 200, message = "유저 프로필 정보 조회에 성공하였습니다.")
     })
-    @GetMapping("/{email}/profile")
+    @GetMapping("/users/{email}")
     public ResponseEntity<?> getProfile(@PathVariable String email) {
         User user = userRepository.findByEmail(email);
         if (user == null)
@@ -76,19 +75,13 @@ public class UserController {
         else
             return ResponseEntity.ok(userService.getProfile(user));
     }
-    @GetMapping
-    public ResponseEntity<?> getLoginUserInfo() {
-        User user = commonService.getLoginUser();
-        user = userRepository.findByEmail(user.getEmail());
-        return ResponseEntity.ok(userService.getProfile(user));
-    }
 
     @ApiOperation(value = "회원 탈퇴", notes = "회원 탈퇴")
     @ApiResponses({
             @ApiResponse(code = 400, message = "잘못된 요청입니다. 계정을 명시하지 않았거나 로그인 정보와 맞지 않습니다."),
             @ApiResponse(code = 200, message = "회원 탈퇴에 성공하였습니다.")
     })
-    @DeleteMapping
+    @DeleteMapping("/users/{email}")
     public ResponseEntity<?> withdraw(){
         userService.withdraw();
         return new ResponseEntity<>(HttpStatus.OK);
@@ -99,7 +92,7 @@ public class UserController {
             @ApiResponse(code = 400, message = "잘못된 요청입니다. 계정을 명시하지 않았거나 로그인 정보와 맞지 않습니다."),
             @ApiResponse(code = 200, message = "비밀번호 재설정에 성공하였습니다.")
     })
-    @PutMapping("/password")
+    @PutMapping("/auth/password")
     public ResponseEntity<?> updatePassword(@RequestBody String newPassword){
         userService.updatePassword(newPassword);
         return ResponseEntity.ok("passwordUpdate success");
@@ -109,7 +102,7 @@ public class UserController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "임시 재설정 비밀번호를 메일로 전송하는 데 성공하였습니다.")
     })
-    @PostMapping("/passwordFind")
+    @PostMapping("/auth/password/reset")
     public String passwordFind(@RequestBody String email) throws Exception{
         return userService.passwordFind(email);
     }
@@ -119,7 +112,7 @@ public class UserController {
             @ApiResponse(code = 404, message = "회원 정보 수정에 실패하였습니다. 잘못된 정보로 요청하였거나, 또는 리소스를 저장하던 중 오류가 발생했을 수 있습니다."),
             @ApiResponse(code = 200, message = "회원 정보 수정에 성공하였습니다.")
     })
-    @PutMapping("/profile/update")
+    @PutMapping("/users/{email}")
     public ResponseEntity<?> update(@ModelAttribute UserDto userDto, @ModelAttribute MultipartFile picture){
         UserDto updatedUserDto = userService.update(userDto, picture);
         if (updatedUserDto == null)

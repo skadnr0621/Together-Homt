@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CommentDto {
 
-    private Long comment_id;
+    private Long commentId;
 
     @ApiParam(value = "댓글 작성 시각")
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @ApiParam(value = "댓글 내용")
     private String content;
@@ -24,5 +24,5 @@ public class CommentDto {
     private String username;
 
     @ApiParam(value = "댓글 해당 피드ID")
-    private Long feed_id;
+    private Long feedId;
 }

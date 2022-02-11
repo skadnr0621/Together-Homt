@@ -51,7 +51,7 @@ public class FeedService {
     }
 
     @Transactional
-    public ResponseEntity<?> create(FeedDto feedDto, TagDto tagDto){
+    public ResponseEntity<?> postFeed(FeedDto feedDto, TagDto tagDto){
 
         MultipartFile multipartFile = feedDto.getMedia();
 
@@ -113,8 +113,8 @@ public class FeedService {
         Feed feed = Feed.builder()
                 .title(feedDto.getTitle())
                 .content(feedDto.getContent())
-                .like_cnt(0L)
-                .media_url(resourcePathname)
+                .likeCnt(0L)
+                .mediaUrl(resourcePathname)
                 .user(user)
                 .tags(resTags)
                 .build();
@@ -123,7 +123,7 @@ public class FeedService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public List<FeedDto> all() {
+    public List<FeedDto> getAllFeeds() {
 
         // Get User
         PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -136,21 +136,21 @@ public class FeedService {
 
             FeedDto feedDto = new FeedDto();
 
-            feedDto.setId(feed.getFeed_id());
+            feedDto.setFeedId(feed.getFeedId());
             feedDto.setTitle(feed.getTitle());
             feedDto.setContent(feed.getContent());
-            feedDto.setMedia_url(feed.getMedia_url());
-            feedDto.setLike_cnt(feed.getLike_cnt());
-            feedDto.setUserName(feed.getUser().getUsername());
-            feedDto.setCreated_at(feed.getCreatedAt());
-            feedDto.setUpdated_at(feed.getUpdatedAt());
+            feedDto.setMediaUrl(feed.getMediaUrl());
+            feedDto.setLikeCnt(feed.getLikeCnt());
+            feedDto.setUsername(feed.getUser().getUsername());
+            feedDto.setCreatedAt(feed.getCreatedAt());
+            feedDto.setUpdatedAt(feed.getUpdatedAt());
 
             // Check like_status
             Like like_flag = likeRepository.findByUserAndFeed(user, feed);
             if (like_flag != null) {
-                feedDto.setLike_status(true);
+                feedDto.setLikeStatus(true);
             } else {
-                feedDto.setLike_status(false);
+                feedDto.setLikeStatus(false);
             }
 
             List<String> tempTags = new ArrayList<>();
@@ -166,14 +166,14 @@ public class FeedService {
         result.sort(new Comparator<FeedDto>() {
             @Override
             public int compare(FeedDto o1, FeedDto o2) {
-                return o2.getId().intValue() - o1.getId().intValue();
+                return o2.getFeedId().intValue() - o1.getFeedId().intValue();
             }
         });
 
         return result;
     }
 
-    public List<FeedListDto> main() {
+    public List<FeedListDto> getFollowerFeeds() {
 
         // Get User
         PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -195,11 +195,11 @@ public class FeedService {
             for (Feed feed : feeds) {
                 FeedListDto feedListDto = new FeedListDto();
 
-                feedListDto.setFeed_id(feed.getFeed_id());
+                feedListDto.setFeedId(feed.getFeedId());
                 feedListDto.setUsername(feed.getUser().getUsername());
-                feedListDto.setProfile_url(feed.getUser().getImagePath());
-                feedListDto.setMedia_url(feed.getMedia_url());
-                feedListDto.setLike_cnt(feed.getLike_cnt());
+                feedListDto.setProfileUrl(feed.getUser().getImagePath());
+                feedListDto.setMediaUrl(feed.getMediaUrl());
+                feedListDto.setLikeCnt(feed.getLikeCnt());
                 feedListDto.setContent(feed.getContent());
 
                 List<String> tempTags = new ArrayList<>();
@@ -208,15 +208,15 @@ public class FeedService {
                 };
                 feedListDto.setTags(tempTags);
 
-                feedListDto.setCreated_at(feed.getCreatedAt());
-                feedListDto.setUpdated_at(feed.getUpdatedAt());
+                feedListDto.setCreatedAt(feed.getCreatedAt());
+                feedListDto.setUpdatedAt(feed.getUpdatedAt());
 
                 // Check like_status
                 Like like_flag = likeRepository.findByUserAndFeed(user, feed);
                 if (like_flag != null) {
-                    feedListDto.setLike_status(true);
+                    feedListDto.setLikeStatus(true);
                 } else {
-                    feedListDto.setLike_status(false);
+                    feedListDto.setLikeStatus(false);
                 }
 
                 result.add(feedListDto);
@@ -228,11 +228,11 @@ public class FeedService {
         for (Feed feed : feeds) {
             FeedListDto feedListDto = new FeedListDto();
 
-            feedListDto.setFeed_id(feed.getFeed_id());
+            feedListDto.setFeedId(feed.getFeedId());
             feedListDto.setUsername(feed.getUser().getUsername());
-            feedListDto.setProfile_url(feed.getUser().getImagePath());
-            feedListDto.setMedia_url(feed.getMedia_url());
-            feedListDto.setLike_cnt(feed.getLike_cnt());
+            feedListDto.setProfileUrl(feed.getUser().getImagePath());
+            feedListDto.setMediaUrl(feed.getMediaUrl());
+            feedListDto.setLikeCnt(feed.getLikeCnt());
             feedListDto.setContent(feed.getContent());
 
             List<String> tempTags = new ArrayList<>();
@@ -241,15 +241,15 @@ public class FeedService {
             };
             feedListDto.setTags(tempTags);
 
-            feedListDto.setCreated_at(feed.getCreatedAt());
-            feedListDto.setUpdated_at(feed.getUpdatedAt());
+            feedListDto.setCreatedAt(feed.getCreatedAt());
+            feedListDto.setUpdatedAt(feed.getUpdatedAt());
 
             // Check like_status
             Like like_flag = likeRepository.findByUserAndFeed(user, feed);
             if (like_flag != null) {
-                feedListDto.setLike_status(true);
+                feedListDto.setLikeStatus(true);
             } else {
-                feedListDto.setLike_status(false);
+                feedListDto.setLikeStatus(false);
             }
 
             result.add(feedListDto);
@@ -259,14 +259,14 @@ public class FeedService {
         result.sort(new Comparator<FeedListDto>() {
             @Override
             public int compare(FeedListDto o1, FeedListDto o2) {
-                return o2.getFeed_id().intValue() - o1.getFeed_id().intValue();
+                return o2.getFeedId().intValue() - o1.getFeedId().intValue();
             }
         });
 
         return result;
     }
 
-    public List<FeedDto> getPersonalFeed(String email) {
+    public List<FeedDto> getProfileFeeds(String email) {
 
         User user = userRepository.findByEmail(email);
 
@@ -274,12 +274,12 @@ public class FeedService {
         for (Feed feed : feedRepository.findByUser(user)) {
             FeedDto feedDto = new FeedDto();
 
-            feedDto.setId(feed.getFeed_id());
+            feedDto.setFeedId(feed.getFeedId());
             feedDto.setTitle(feed.getTitle());
             feedDto.setContent(feed.getContent());
-            feedDto.setMedia_url(feed.getMedia_url());
-            feedDto.setLike_cnt(feed.getLike_cnt());
-            feedDto.setUserName(feed.getUser().getUsername());
+            feedDto.setMediaUrl(feed.getMediaUrl());
+            feedDto.setLikeCnt(feed.getLikeCnt());
+            feedDto.setUsername(feed.getUser().getUsername());
 
             List<String> tempTags = new ArrayList<>();
             for (Tag tag : feed.getTags()) {
@@ -290,9 +290,9 @@ public class FeedService {
             // Check like_status
             Like like_flag = likeRepository.findByUserAndFeed(user, feed);
             if (like_flag != null) {
-                feedDto.setLike_status(true);
+                feedDto.setLikeStatus(true);
             } else {
-                feedDto.setLike_status(false);
+                feedDto.setLikeStatus(false);
             }
 
             result.add(feedDto);
@@ -302,13 +302,13 @@ public class FeedService {
         result.sort(new Comparator<FeedDto>() {
             @Override
             public int compare(FeedDto o1, FeedDto o2) {
-                return o2.getId().intValue() - o1.getId().intValue();
+                return o2.getFeedId().intValue() - o1.getFeedId().intValue();
             }
         });
         return result;
     }
 
-    public List<FeedListDto> feedlist() {
+    public List<FeedListDto> getSearchFeeds() {
 
         // Get User
         PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -322,10 +322,10 @@ public class FeedService {
         for (Feed feed : allFeed) {
             FeedListDto feedListDto = new FeedListDto();
 
-            feedListDto.setFeed_id(feed.getFeed_id());
+            feedListDto.setFeedId(feed.getFeedId());
             feedListDto.setUsername(feed.getUser().getUsername());
-            feedListDto.setMedia_url(feed.getMedia_url());
-            feedListDto.setLike_cnt(feed.getLike_cnt());
+            feedListDto.setMediaUrl(feed.getMediaUrl());
+            feedListDto.setLikeCnt(feed.getLikeCnt());
             feedListDto.setContent(feed.getContent());
 
             List<String> tempTags = new ArrayList<>();
@@ -334,15 +334,15 @@ public class FeedService {
             };
             feedListDto.setTags(tempTags);
 
-            feedListDto.setCreated_at(feed.getCreatedAt());
-            feedListDto.setUpdated_at(feed.getUpdatedAt());
+            feedListDto.setCreatedAt(feed.getCreatedAt());
+            feedListDto.setUpdatedAt(feed.getUpdatedAt());
 
             // Check like_status
             Like like_flag = likeRepository.findByUserAndFeed(user, feed);
             if (like_flag != null) {
-                feedListDto.setLike_status(true);
+                feedListDto.setLikeStatus(true);
             } else {
-                feedListDto.setLike_status(false);
+                feedListDto.setLikeStatus(false);
             }
 
             result.add(feedListDto);
@@ -352,14 +352,14 @@ public class FeedService {
         result.sort(new Comparator<FeedListDto>() {
             @Override
             public int compare(FeedListDto o1, FeedListDto o2) {
-                return o2.getFeed_id().intValue() - o1.getFeed_id().intValue();
+                return o2.getFeedId().intValue() - o1.getFeedId().intValue();
             }
         });
 
         return result;
     }
 
-    public List<FeedProfileDto> profilefeed(String email) {
+    public List<FeedProfileDto> getProfileFeeds_temp(String email) {
         User user = userRepository.findByEmail(email);
         List<Feed> feeds = feedRepository.findByUser(user);
         List<FeedProfileDto> result= new ArrayList<>();
@@ -367,9 +367,9 @@ public class FeedService {
         for (Feed feed : feeds) {
             FeedProfileDto feedProfileDto = new FeedProfileDto();
 
-            feedProfileDto.setFeed_id(feed.getFeed_id());
-            feedProfileDto.setMedia_url(feed.getMedia_url());
-            feedProfileDto.setLike_cnt(feed.getLike_cnt());
+            feedProfileDto.setFeedId(feed.getFeedId());
+            feedProfileDto.setMediaUrl(feed.getMediaUrl());
+            feedProfileDto.setLikeCnt(feed.getLikeCnt());
             feedProfileDto.setContent(feed.getContent());
 
             List<String> tempTags = new ArrayList<>();
@@ -378,15 +378,15 @@ public class FeedService {
             };
             feedProfileDto.setTags(tempTags);
 
-            feedProfileDto.setCreated_at(feed.getCreatedAt());
-            feedProfileDto.setUpdated_at(feed.getUpdatedAt());
+            feedProfileDto.setCreatedAt(feed.getCreatedAt());
+            feedProfileDto.setUpdatedAt(feed.getUpdatedAt());
 
             // Check like_status
             Like like_flag = likeRepository.findByUserAndFeed(user, feed);
             if (like_flag != null) {
-                feedProfileDto.setLike_status(true);
+                feedProfileDto.setLikeStatus(true);
             } else {
-                feedProfileDto.setLike_status(false);
+                feedProfileDto.setLikeStatus(false);
             }
 
             result.add(feedProfileDto);
@@ -396,13 +396,13 @@ public class FeedService {
         result.sort(new Comparator<FeedProfileDto>() {
             @Override
             public int compare(FeedProfileDto o1, FeedProfileDto o2) {
-                return o2.getFeed_id().intValue() - o1.getFeed_id().intValue();
+                return o2.getFeedId().intValue() - o1.getFeedId().intValue();
             }
         });
         return result;
     }
 
-    public FeedDto updateinfo(Long feed_id) {
+    public FeedDto getUpdateFeedInfo(Long feed_id) {
 
         // Get Feed
         Optional<Feed> optFeed = feedRepository.findById(feed_id);
@@ -410,13 +410,13 @@ public class FeedService {
 
         FeedDto feedDto = new FeedDto();
 
-        feedDto.setId(feed.getFeed_id());
+        feedDto.setFeedId(feed.getFeedId());
         feedDto.setTitle(feed.getTitle());
         feedDto.setContent(feed.getContent());
-        feedDto.setCreated_at(feed.getCreatedAt());
-        feedDto.setUpdated_at(feed.getUpdatedAt());
-        feedDto.setMedia_url(feed.getMedia_url());
-        feedDto.setUserName(feed.getUser().getUsername());
+        feedDto.setCreatedAt(feed.getCreatedAt());
+        feedDto.setUpdatedAt(feed.getUpdatedAt());
+        feedDto.setMediaUrl(feed.getMediaUrl());
+        feedDto.setUsername(feed.getUser().getUsername());
 
         List<String> tempTags = new ArrayList<>();
         for (Tag tag : feed.getTags()) {
@@ -428,11 +428,10 @@ public class FeedService {
     }
 
     @Transactional
-    public ResponseEntity<?> update(FeedDto feedDto) {
+    public ResponseEntity<?> updateFeed(Long feedId, FeedDto feedDto) {
 
         // Get Feed
-        Long id = feedDto.getId();
-        Optional<Feed> optFeed = feedRepository.findById(id);
+        Optional<Feed> optFeed = feedRepository.findById(feedId);
         Feed feed = optFeed.get();
 
         List<Tag> resTags = new ArrayList<>();
@@ -460,7 +459,7 @@ public class FeedService {
     }
 
     @Transactional
-    public ResponseEntity<?> feedDelete(Long feed_id) {
+    public ResponseEntity<?> deleteFeed(Long feed_id) {
 
         // Get Feed
         Optional<Feed> feed = feedRepository.findById(feed_id);
@@ -484,11 +483,12 @@ public class FeedService {
         for (Comment comment : commentRepository.findByFeed(feed.get())) {
             CommentListDto commentListDto = new CommentListDto();
 
-            commentListDto.setProfile_url(comment.getUser().getImagePath());
+            commentListDto.setCommentId(comment.getCommentId());
+            commentListDto.setProfileUrl(comment.getUser().getImagePath());
             commentListDto.setEmail(comment.getUser().getEmail());
             commentListDto.setUsername(comment.getUser().getUsername());
-            commentListDto.setComment_content(comment.getContent());
-            commentListDto.setCreated_at(comment.getCreatedAt());
+            commentListDto.setContent(comment.getContent());
+            commentListDto.setCreatedAt(comment.getCreatedAt());
 
             result.add(commentListDto);
         }

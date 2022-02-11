@@ -21,9 +21,9 @@ public class ExerciseService {
         Exercise exercise = Exercise.builder()
                 .name(exerciseDto.getName())
                 .part(exerciseDto.getPart())
-                .exercise_time(exerciseDto.getExercise_time())
-                .exercise_count(exerciseDto.getExercise_count())
-                .video_url(exerciseDto.getVideo_url())
+                .exerciseTime(exerciseDto.getExerciseTime())
+                .exerciseCount(exerciseDto.getExerciseCount())
+                .videoUrl(exerciseDto.getVideoUrl())
                 .type(exerciseDto.getType())
                 .build();
 
@@ -38,9 +38,9 @@ public class ExerciseService {
             ExerciseDto exerciseDto = ExerciseDto.builder()
                     .name(exercise.getName())
                     .part(exercise.getPart())
-                    .exercise_count(exercise.getExercise_count())
-                    .exercise_time(exercise.getExercise_time())
-                    .video_url(exercise.getVideo_url())
+                    .exerciseCount(exercise.getExerciseCount())
+                    .exerciseTime(exercise.getExerciseTime())
+                    .videoUrl(exercise.getVideoUrl())
                     .type(exercise.getType())
                     .build();
             allExercise.add(exerciseDto);
@@ -58,9 +58,9 @@ public class ExerciseService {
         Exercise newExercise = exerciseRepository.findByName(exercise);
         if(exerciseDto.getName() != null) newExercise.setName(exerciseDto.getName());
         if(exerciseDto.getPart() != null) newExercise.setPart(exerciseDto.getPart());
-        if(exerciseDto.getExercise_count()!= null) newExercise.setExercise_count(exerciseDto.getExercise_count());
-        if(exerciseDto.getExercise_time()!= null) newExercise.setExercise_time(exerciseDto.getExercise_time());
-        if(exerciseDto.getVideo_url() != null) newExercise.setVideo_url(exerciseDto.getVideo_url());
+        if(exerciseDto.getExerciseCount()!= null) newExercise.setExerciseCount(exerciseDto.getExerciseCount());
+        if(exerciseDto.getExerciseTime()!= null) newExercise.setExerciseTime(exerciseDto.getExerciseTime());
+        if(exerciseDto.getVideoUrl() != null) newExercise.setVideoUrl(exerciseDto.getVideoUrl());
         if(exerciseDto.getType() != null) newExercise.setType(exerciseDto.getType());
 
         exerciseRepository.save(newExercise);

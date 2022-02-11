@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/attendance")
+@RequestMapping("/exercise/attendance")
 public class AttendanceController {
 
     private AttendanceService attendanceService;
@@ -21,7 +21,7 @@ public class AttendanceController {
     }
 
     // 오늘 운동 안 한 사람들
-    @GetMapping("/todayAttendance")
+    @GetMapping("/absentees")
     public ResponseEntity<?> todayAttendance(){
         List<AttendanceDto> result = attendanceService.todayAttendance();
         return new ResponseEntity(result, HttpStatus.OK);
