@@ -6,10 +6,16 @@ import com.ssafy.togetherhomt.feed.Feed;
 import com.ssafy.togetherhomt.feed.FeedRepository;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserRepository;
+import com.ssafy.togetherhomt.user.follow.FollowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,19 +25,19 @@ public class LikeService {
     private FeedRepository feedRepository;
     private LikeRepository likeRepository;
     private CommonService commonService;
+    private FollowRepository followRepository;
 
     @Autowired
-    public LikeService(UserRepository userRepository, FeedRepository feedRepository, LikeRepository likeRepository, CommonService commonService) {
+    public LikeService(UserRepository userRepository, FeedRepository feedRepository, LikeRepository likeRepository, CommonService commonService, FollowRepository followRepository) {
         this.userRepository = userRepository;
         this.feedRepository = feedRepository;
         this.likeRepository = likeRepository;
         this.commonService = commonService;
+        this.followRepository = followRepository;
     }
 
-
-    public String likeFeed(Long feed_id) {
-
-        System.out.println("feed_id = " + feed_id);
+    @Transactional
+    public ResponseEntity<?> likeFeed(Long feed_id) {
 
         // Get User
         PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -43,10 +49,10 @@ public class LikeService {
 
         // Check Status Like
         if (likeRepository.findByUserAndFeed(user, feed) != null) {
-            return "이미 사용자가 좋아요 중입니다.";
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        // 좋아요 db 반영
+        // Build & Save Like
         Like like = Like.builder()
                 .user(user)
                 .feed(feed)
@@ -54,30 +60,75 @@ public class LikeService {
 
         likeRepository.save(like);
 
-        // 좋아요 카운트 +1
-        feed.setLike_cnt(feed.getLike_cnt()+1);
+        // Update Feed's like_cnt
+        feed.setLikeCnt(feed.getLikeCnt()+1);
         feedRepository.save(feed);
 
-        return "success";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public String undoLikeFeed(Long feed_id) {
-        Optional<Feed> optFeed = feedRepository.findById(feed_id);
-        if (!optFeed.isPresent())
-            return "error";
+    public List<LikeUserDto> getLikeUsers(Long feed_id) {
 
+        // Get User
+        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userTemp = principalDetails.getUser();
+        User user = userRepository.findByEmail(userTemp.getEmail());
+
+        // Get Feed
+        Optional<Feed> feed = feedRepository.findById(feed_id);
+
+        List<LikeUserDto> result = new ArrayList<>();
+
+        for (Like like : likeRepository.findAllByFeed(feed.get())) {
+            LikeUserDto likeUserDto = new LikeUserDto();
+
+            likeUserDto.setProfileUrl(like.getUser().getImagePath());
+            likeUserDto.setEmail(like.getUser().getImagePath());
+            likeUserDto.setUsername(like.getUser().getUsername());
+            likeUserDto.setIntroduce(like.getUser().getIntroduce());
+
+            // Check Following Relation
+            if (followRepository.findByFollowerAndFollowing(user, like.getUser()) != null) {
+                likeUserDto.setCheckFollowing(true);
+            } else {
+                likeUserDto.setCheckFollowing(false);
+            }
+
+            result.add(likeUserDto);
+        }
+
+        return result;
+    }
+
+    @Transactional
+    public ResponseEntity<?> undoLikeFeed(Long feed_id) {
+
+        // Get Feed
+        Optional<Feed> optFeed = feedRepository.findById(feed_id);
         Feed feed = optFeed.get();
+        // Check Like Status
+        if (!optFeed.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        // Get User
         User me = commonService.getLoginUser();
 
+        // Get Like
         Like like = likeRepository.findByUserAndFeed(me, feed);
+
         if (like != null) {
 
             likeRepository.delete(like);
 
-            // 좋아요 카운트 -1
-            feed.setLike_cnt(feed.getLike_cnt() - 1);
+            // Update Feed's like_cnt
+            feed.setLikeCnt(feed.getLikeCnt() - 1);
             feedRepository.save(feed);
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return "success";
     }
 }

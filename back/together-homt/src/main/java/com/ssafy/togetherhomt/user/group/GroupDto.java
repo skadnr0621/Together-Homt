@@ -10,15 +10,16 @@ import lombok.*;
 @NoArgsConstructor
 public class GroupDto {
 
-    @ApiParam(value = "대분류")
-    private String main_category;
+    @ApiParam(value = "그룹 대분류")
+    private String mainCategory;
 
-    @ApiParam(value = "중분류")
-    private String middle_category;
+    @ApiParam(value = "그룹 중분류")
+    private String middleCategory;
 
-    @ApiParam(value = "소분류")
-    private String sub_category;
+    @ApiParam(value = "그룹 소분류")
+    private String subCategory;
 
-    @ApiParam(value = "이름")
+    @ApiParam(value = "그룹 이름")
     private String name;
+
 }

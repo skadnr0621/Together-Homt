@@ -25,21 +25,21 @@ public class Feed extends BaseTimeEntity {
     @Id
     @Column(name = "feed_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long feed_id;
+    private Long feedId;
 
     private String title;
 
     private String content;
 
-    private String media_url;
+    private String mediaUrl;
+
+    private Long likeCnt;
 
     @ManyToMany
     @JoinTable(name = "feed_tag",
             joinColumns = @JoinColumn(name = "feed_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags = new ArrayList<Tag>();
-
-    private Long like_cnt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

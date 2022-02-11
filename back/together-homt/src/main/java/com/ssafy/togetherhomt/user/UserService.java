@@ -1,97 +1,95 @@
 package com.ssafy.togetherhomt.user;
 
-import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
-import com.ssafy.togetherhomt.config.media.GlobalConfig;
-import com.ssafy.togetherhomt.feed.Feed;
-import com.ssafy.togetherhomt.feed.FeedDto;
-import com.ssafy.togetherhomt.feed.media.Media;
-import com.ssafy.togetherhomt.feed.media.MediaRepository;
-import com.ssafy.togetherhomt.user.auth.LoginDto;
+import com.ssafy.togetherhomt.common.CommonService;
+import com.ssafy.togetherhomt.config.media.MediaService;
+import com.ssafy.togetherhomt.user.follow.FollowRepository;
 import com.ssafy.togetherhomt.user.info.SignupDto;
-import com.ssafy.togetherhomt.user.info.UpdateDto;
 import com.ssafy.togetherhomt.util.Mailing.MailingService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final CommonService commonService;
+    private final MailingService mailingService;
+    private final MediaService mediaService;
 
-    @Autowired
-    private MailingService mailingService;
+    private final UserRepository userRepository;
+    private final FollowRepository followRepository;
 
-    @Autowired
-    private GlobalConfig config;
-
-    @Autowired
-    private MediaRepository mediaRepository;
-
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, MailingService mailingService,
-                       GlobalConfig config, MediaRepository mediaRepository) {
-        this.userRepository = userRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.mailingService = mailingService;
-        this.config = config;
-        this.mediaRepository = mediaRepository;
-    }
 
     @Transactional
-    public String signup(SignupDto userDto) {
-        if (userRepository.findByEmail(userDto.getEmail()) != null)
-            return "failure";
-
+    public String signup(SignupDto signupDto) {
+        if (userRepository.findByEmail(signupDto.getEmail()) != null)
+            return "duplicate";
 
         User user = User.builder()
-                .email(userDto.getEmail())
-                .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
-                .username(userDto.getUsername())
+                .email(signupDto.getEmail())
+                .password(bCryptPasswordEncoder.encode(signupDto.getPassword()))
+                .username(signupDto.getUsername())
                 .role("ROLE_USER")
                 .introduce("")
                 .build();
-
         userRepository.save(user);
 
         return "success";
     }
 
-    public SignupDto login(LoginDto loginDto) {
-        User user = userRepository.findByEmail(loginDto.getEmail());
-        if (user == null)
-            return null;
+    public List<UserDto> getAllUsers() {
+        List<User> users = userRepository.findAll();
 
-        if (!bCryptPasswordEncoder.matches(loginDto.getPassword(), user.getPassword()))
-            return null;
+        List<UserDto> userList = new ArrayList<>();
+        for (User user : users) {
+            userList.add(this.builder(user, false));
+        }
+        return userList;
+    }
 
-        return new SignupDto(user.getEmail(), user.getPassword(), user.getUsername());
+    public UserDto getProfile(User user) {
+        return this.builder(user, true);
     }
 
     @Transactional
-    public void withdraw(String email){
-        User user = userRepository.findByEmail(email);
+    public UserDto update(UserDto userDto, MultipartFile picture) {
+        User user = userRepository.findByEmail(commonService.getLoginUser().getEmail());
+        if (!user.getEmail().equals(userDto.getEmail()) || !user.getUsername().equals(userDto.getUsername())) {
+            return null;
+        }
+
+        // update user
+        if (picture != null) {
+            String resourcePath = mediaService.save(picture);
+            if (resourcePath == null)
+                return null;
+            else
+                user.setImagePath(resourcePath);
+        }
+        user.setIntroduce(userDto.getIntroduce());
+
+        userRepository.save(user);
+        return this.builder(user, true);
+    }
+
+    @Transactional
+    public void withdraw(){
+        User user = userRepository.findByEmail(commonService.getLoginUser().getEmail());
         userRepository.delete(user);
     }
 
     @Transactional
-    public void passwordUpdate(String email,LoginDto loginDto){
-        User user = userRepository.findByEmail(email);
-        user.setPassword(bCryptPasswordEncoder.encode(loginDto.getPassword()));
+    public void updatePassword(String newPassword){
+        User user = userRepository.findByEmail(commonService.getLoginUser().getEmail());
+        user.setPassword(bCryptPasswordEncoder.encode(newPassword));
         userRepository.save(user);
     }
 
@@ -111,69 +109,60 @@ public class UserService {
         return "success";
     }
 
-    public User getProfile(String email) {
-        User user = userRepository.findByEmail(email);
-        return user;
-    }
 
-    public String update(UpdateDto updateDto){
+    // --------------------------------------------------
 
-        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User userTemp = principalDetails.getUser();
-        User user = userRepository.findByEmail(userTemp.getEmail());
+//    private List<UserDto> txFollowerListToUserDtoList(List<Follow> followerList) {
+//        List<UserDto> followers = new ArrayList<>();
+//        for (Follow follow : followerList) {
+//            User follower = follow.getFollower();
+//            followers.add(
+//                    UserDto.builder()
+//                            .email(follower.getEmail())
+//                            .username(follower.getUsername())
+//                            .profileUrl(follower.getProfile_url())
+//                            .introduce(follower.getIntroduce())
+//                            .build()
+//            );
+//        }
+//        return followers;
+//    }
+//
+//    private List<UserDto> txFollowingListToUserDtoList(List<Follow> followingList) {
+//        List<UserDto> followings = new ArrayList<>();
+//        for (Follow follow : followingList) {
+//            User following = follow.getFollowing();
+//            followings.add(
+//                    UserDto.builder()
+//                            .email(following.getEmail())
+//                            .username(following.getUsername())
+//                            .profileUrl(following.getProfile_url())
+//                            .introduce(following.getIntroduce())
+//                            .build()
+//            );
+//        }
+//        return followings;
+//    }
 
-        MultipartFile multipartFile = updateDto.getMedia();
+    // --------------------------------------------------
 
-        if(multipartFile == null || multipartFile.isEmpty()){
-            user.setUsername(updateDto.getUsername());
-            user.setIntroduce(updateDto.getIntroduce());
-            userRepository.save(user);
-            return "success";
+    public UserDto builder(User user, boolean verbose) {
+        UserDto.UserDtoBuilder userDtoBuilder = UserDto.builder();
+        userDtoBuilder
+                .email(user.getEmail())
+                .username(user.getUsername())
+                .imagePath(user.getImagePath())
+                .introduce(user.getIntroduce());
 
-        }else{
-            // 현재 날짜 폴더만들어서 저장
-            String currentDate = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
-            String uploadFilePath = config.getUploadFilePath()+currentDate+"/";
-
-            // 랜덤이름 + . 확장자 가져오기
-            String prefix = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".")+1,multipartFile.getOriginalFilename().length());
-            String filename = UUID.randomUUID().toString()+"."+prefix;
-
-            // 폴더 없으면 만들기
-            File folder = new File(uploadFilePath);
-            if(!folder.isDirectory()){
-                folder.mkdirs();
-            }
-            String pathname = uploadFilePath+filename;
-            String resourcePathname = config.getUploadResourcePath()+currentDate+"/"+filename;
-
-            // url 경로 출력
-            System.out.println("resourcePathname = " + resourcePathname);
-
-            // 새로 파일 만들기
-            File dest = new File(pathname);
-            try {
-                multipartFile.transferTo(dest);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            // 경로
-            System.out.println("pathname = " + pathname);
-            Media media = Media.builder()
-                    .fileOriginName(multipartFile.getOriginalFilename())
-                    .videoPath(uploadFilePath)
-                    .videoUrl(pathname)
-                    .build();
-            mediaRepository.save(media);
-
-            user.setProfile_url(resourcePathname);
-            user.setUsername(updateDto.getUsername());
-            user.setIntroduce(updateDto.getIntroduce());
-            userRepository.save(user);
-
+        if (verbose) {
+            userDtoBuilder
+//                    .followers(txFollowerListToUserDtoList(user.getFollower()))
+//                    .followings(txFollowingListToUserDtoList(user.getFollowing()))
+                    .cntFollower(followRepository.countByFollowing(user))
+                    .cntFollowing(followRepository.countByFollower(user));
         }
 
-        return "success";
+        return userDtoBuilder.build();
     }
+
 }

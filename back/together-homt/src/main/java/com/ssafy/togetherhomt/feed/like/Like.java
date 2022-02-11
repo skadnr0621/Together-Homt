@@ -10,16 +10,16 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "`like`")
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "`like`")
 public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "like_id")
-    private Long like_id;
+    private Long likeId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
