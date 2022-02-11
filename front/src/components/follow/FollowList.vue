@@ -1,53 +1,139 @@
 <template>
   <div id="follow-list">
     <div class="search">
-      <span class="material-icons-outlined"> search </span>
+      <span class="material-icons-outlined"> search</span>
       <input type="text" placeholder="검색" />
     </div>
+    <!-- 나의 팔로우 정보-->
+    <div v-if="this.loginUser == this.email">
+      <!-- 팔로잉 정보 -->
+      <div v-if="viewFollow == 'following'">
+        <div class="default" v-if="myFollowing.length == 0">
+          <span class="material-icons"> person_add </span>
+          <h4>팔로잉</h4>
+          <p>
+            회원님이 다른 사람을 팔로우하면 <br />여기에 회원님이 팔로우한
+            사람이 표시됩니다.
+          </p>
+        </div>
 
-    <div class="default" v-if="false">
-      <span class="material-icons"> person_add </span>
-      <h4>팔로잉</h4>
-      <p>
-        회원님이 다른 사용자를 팔로우하면 <br />여기에 해당 사용자가 표시됩니다.
-      </p>
+        <div class="list" v-else>
+          <div
+            class="follow"
+            v-for="(value, index) in myFollowing"
+            :key="index"
+          >
+            <div class="profile">
+              <img :src="value.profile_url" alt="프로필 사진" />
+            </div>
+            <div class="username">{{ value.username }}</div>
+            <div class="btn">
+              <!-- 모두 다 팔로잉 표시 -->
+              <button>팔로잉</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 팔로워 정보 -->
+      <div v-else>
+        <div class="default" v-if="myFollower.length == 0">
+          <span class="material-icons"> person_add </span>
+          <h4>팔로워</h4>
+          <p>
+            회원님이 다른 사람을 팔로우하면 <br />여기에 회원님이 팔로우한
+            사람이 표시됩니다.
+          </p>
+        </div>
+
+        <div class="list" v-else>
+          <div class="follow" v-for="(value, index) in myFollower" :key="index">
+            <div class="profile">
+              <img :src="value.profile_url" alt="프로필 사진" />
+            </div>
+            <div class="username">{{ value.username }}</div>
+            <div class="btn">
+              <!-- 팔로우 하지 않은 사람 (팔로우 표시)-->
+              <button
+                class="follow-btn"
+                v-if="unfollowList.includes(value.email)"
+              >
+                팔로우
+              </button>
+              <button class="following-btn" v-else>팔로잉</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="list" v-else>
-      <div class="follow">
-        <div class="profile">
-          <img src="@/assets/팬다주니어.jpg" alt="프로필 사진" />
+    <!-- 다른 유저의 팔로우 정보-->
+    <div v-else>
+      <!-- 팔로잉 정보 -->
+      <div v-if="viewFollow == 'following'">
+        <div class="default" v-if="userFollowing.length == 0">
+          <span class="material-icons"> person_add </span>
+          <h4>팔로잉</h4>
+          <p>
+            회원님이 다른 사람을 팔로우하면 <br />여기에 회원님이 팔로우한
+            사람이 표시됩니다.
+          </p>
         </div>
-        <div class="username">penda_jr</div>
-        <div class="btn">
-          <button>삭제</button>
+
+        <div class="list" v-else>
+          <div
+            class="follow"
+            v-for="(value, index) in userFollowing"
+            :key="index"
+          >
+            <div class="profile">
+              <img :src="value.profile_url" alt="프로필 사진" />
+            </div>
+            <div class="username">{{ value.username }}</div>
+            <div class="btn">
+              <!-- 팔로우 하지 않은 사람 (팔로우 표시)-->
+              <button
+                class="follow-btn"
+                v-if="unfollowList.includes(value.email)"
+              >
+                팔로우
+              </button>
+              <button class="following-btn" v-else>팔로잉</button>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="follow">
-        <div class="profile">
-          <img src="@/assets/스카피.jpg" alt="프로필 사진" />
+      <!-- 팔로워 정보 -->
+      <div v-else>
+        <div class="default" v-if="userFollower.length == 0">
+          <span class="material-icons"> person_add </span>
+          <h4>팔로워</h4>
+          <p>
+            회원님이 다른 사람을 팔로우하면 <br />여기에 회원님이 팔로우한
+            사람이 표시됩니다.
+          </p>
         </div>
-        <div class="username">scappy</div>
-        <div class="btn">
-          <button>삭제</button>
-        </div>
-      </div>
-      <div class="follow">
-        <div class="profile">
-          <img src="@/assets/앙몬드.jpg" alt="프로필 사진" />
-        </div>
-        <div class="username">ang_mond</div>
-        <div class="btn">
-          <button>삭제</button>
-        </div>
-      </div>
-      <div class="follow">
-        <div class="profile">
-          <img src="@/assets/콥.jpg" alt="프로필 사진" />
-        </div>
-        <div class="username">cob_</div>
-        <div class="btn">
-          <button>삭제</button>
+
+        <div class="list" v-else>
+          <div
+            class="follow"
+            v-for="(value, index) in userFollower"
+            :key="index"
+          >
+            <div class="profile">
+              <img :src="value.profile_url" alt="프로필 사진" />
+            </div>
+            <div class="username">{{ value.username }}</div>
+            <div class="btn">
+              <!-- 팔로우 하지 않은 사람 (팔로우 표시)-->
+              <button
+                class="follow-btn"
+                v-if="unfollowList.includes(value.email)"
+              >
+                팔로우
+              </button>
+              <button class="following-btn" v-else>팔로잉</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -55,114 +141,105 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
+// 팔로잉 정보 가져오기
+// 팔로우 정보 가져오기
+
 export default {
   name: "FollowList",
+  data() {
+    return {
+      token: sessionStorage.getItem("jwt"),
+      email: this.$route.params.email,
+      viewFollow: this.$route.params.follow,
+      unfollowList: [], // 내가 팔로우 하지 않은 사람 (팔로우 표시)
+      isFollow: null, // 내가 팔로우 한 사람인지 체크
+    };
+  },
+  computed: {
+    // 로그인한 사용자 이메일 가져오기
+    ...mapState({ loginUser: (state) => state.userStore.LoginUser }),
+    // 팔로우 정보 가져오기
+    ...mapState(["myFollowing", "myFollower", "userFollower", "userFollowing"]),
+  },
+  methods: {
+    // 팔로우 정보 조회하기
+    ...mapActions([
+      "setMyFollowing",
+      "setMyFollower",
+      "setUserFollowing",
+      "setUserFollower",
+    ]),
+
+    // 팔로우 했는지 안했는지 체크
+    checkFollow(value) {
+      if (value.email == this.loginUser) {
+        return true;
+      }
+      return false;
+    },
+  },
+  async mounted() {
+    // 나의 팔로잉 정보 조회하기
+    await this.setMyFollowing({
+      email: this.email,
+      token: this.token,
+    });
+    console.log("FollowList에서 나의 팔로잉 정보 get요청함!");
+
+    if (this.loginUser == this.email) {
+      // 팔로워 정보
+      await this.setMyFollower({
+        email: this.email,
+        token: this.token,
+      });
+      console.log("FollowList에서 나의 팔로워 정보 get요청함!");
+
+      // myFollower - myFollowing = 내가 팔로우 하지 않은 사람 (팔로우 표시)
+      this.unfollowList = this.myFollower.filter(
+        (x) => !this.myFollowing.includes(x)
+      );
+    }
+    // 유저 팔로우 정보 조회하기
+    else {
+      // 팔로잉 정보
+      if (this.viewFollow == "following") {
+        await this.setUserFollowing({
+          email: this.email,
+          token: this.token,
+        });
+        console.log("FollowList에서 유저의 팔로잉 정보 get요청함!");
+
+        // userFollowing - myFollowing = 내가 팔로우 하지 않은 사람 (팔로우 표시)
+        this.unfollowList = this.userFollowing.filter(
+          (x) => !this.myFollowing.includes(x)
+        );
+
+        this.isFollow = this.userFollowing.findIndex(this.checkFollow);
+      }
+      // 팔로워 정보
+      else {
+        await this.setUserFollower({
+          email: this.email,
+          token: this.token,
+        });
+        console.log("FollowList에서 유저의 팔로워 정보 get요청함!");
+
+        // userFollower - myFollowing = 내가 팔로우 하지 않은 사람 (팔로우 표시)
+        this.unfollowList = this.userFollower.filter(
+          (x) => !this.myFollowing.includes(x)
+        );
+      }
+
+      this.isFollow = this.userFollower.findIndex(this.checkFollow);
+    }
+
+    this.unfollowList = this.unfollowList.map((x) => x.email);
+    console.log("출력!");
+    console.log(this.unfollowList);
+  },
 };
 </script>
 
-<style>
-/* 다른 사용자가 회원님을 팔로우하면 여기에 해당 사용자가 표시됩니다. */
-#follow-list {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 0 15px;
-}
-
-#follow-list > .search {
-  display: flex;
-  justify-content: center;
-  margin: 10px 0;
-  width: 100%;
-  height: 34px;
-  border-radius: 2px;
-}
-
-#follow-list > .search > input {
-  background-color: rgba(0, 0, 0, 0.05);
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-#follow-list > .search > span {
-  background-color: rgba(0, 0, 0, 0.05);
-  padding: 5px;
-  width: 34px;
-  height: 34px;
-  font-size: 24px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-#follow-list > .default {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
-#follow-list > .default > *:first-child {
-  margin-top: 25%;
-}
-
-#follow-list > .default > * {
-  margin-top: 5px;
-}
-
-#follow-list > .default > span {
-  font-size: 64px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-#follow-list > .default > p {
-  font-size: 12px;
-  color: rgba(0, 0, 0, 0.38);
-}
-
-#follow-list > .default > h4 {
-  color: rgba(0, 0, 0, 0.87);
-}
-
-#follow-list > .list > .follow {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  font-weight: bold;
-  font-size: 15px;
-  color: rgba(0, 0, 0, 0.87);
-  margin: 15px 0;
-}
-
-#follow-list > .list > .follow:first-child {
-  margin: 0;
-}
-
-#follow-list > .list > .follow > .profile {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-#follow-list > .list > .follow > .profile > img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-
-#follow-list > .list > .follow > .username {
-  margin-left: 10px;
-}
-
-#follow-list > .list > .follow > .btn {
-  margin-left: auto;
-}
-
-#follow-list > .list > .follow > .btn > button {
-  padding: 4px 6px;
-  background-color: #ffffff;
-  color: rgba(0, 0, 0, 0.87);
-  font-weight: bold;
-  border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
-</style>
+<style></style>

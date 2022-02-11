@@ -1,0 +1,135 @@
+#profile-edit {
+  position: fixed;
+  top: 45px;
+  left: 0;
+  right: 0;
+  bottom: 45px;
+  overflow: auto;
+}
+
+/* ProfileEditHeader */
+#profile-edit-header {
+  display: flex;
+  height: 40px;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0 10px;
+}
+
+#profile-edit-header > .cancel,
+.done {
+  font-size: 15px;
+}
+
+#profile-edit-header > .done {
+  color: rgba(41, 98, 255, 0.86);
+}
+
+#profile-edit-header > .context {
+  font-weight: bold;
+}
+
+/* ProfileEditMain */
+#profile-edit-main {
+  width: 100%;
+  /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+}
+
+#profile-edit-main > .profile {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2px 0;
+  font-size: 12px;
+  color: rgba(41, 98, 255, 0.86);
+  margin: 8px 0;
+}
+
+#profile-edit-main > .profile > * {
+  margin: 4px;
+}
+
+#profile-edit-main > .profile > .view {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#profile-edit-main > .profile > * {
+  margin: 4px;
+}
+
+#profile-edit-main > .profile > .view > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+#profile-edit-main > .info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#profile-edit-main > .info > div {
+  padding: 5px 0;
+  width: 100%;
+}
+
+#profile-edit-main > .info > div > * {
+  margin: 3px 0;
+}
+
+#profile-edit-main > .info > div > span {
+  width: 80px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#profile-edit-main > .info > div > input,
+textarea {
+  font-size: 14px;
+  width: 100%;
+  height: 30px;
+  display: inline-block;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding-left: 10px;
+  color: rgba(0, 0, 0, 0.87);
+  border-radius: 2px;
+}
+
+#profile-edit-main > .info > div > textarea {
+  line-height: 20px;
+  height: 100%;
+  white-space: pre-line;
+}
+
+/* ProfileEditFooter */
+#profile-edit-footer {
+  position: fixed;
+  bottom: 45px;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin: 10px 0;
+}
+
+#profile-edit-footer > * {
+  margin-right: 10px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.38);
+  /* font-weight: bold; */
+}
+
+#profile-edit-footer > a:first-child {
+  float: left;
+}

@@ -1,7 +1,9 @@
 <template>
   <div class="user" id="signup">
+    <!-- 회원가입 로고 -->
     <div class="logo">회원 가입</div>
 
+    <!-- 닉네임 -->
     <div>
       <div class="input-with-label" id="short">
         <label for="nickname">닉네임</label>
@@ -14,6 +16,7 @@
         />
       </div>
 
+      <!-- 이메일 -->
       <div class="input-with-label" id="short">
         <label for="email">이메일</label>
 
@@ -26,6 +29,7 @@
         />
       </div>
 
+      <!-- 인증번호 -->
       <div class="input-with-label">
         <label for="input-confirmnum">인증번호 입력</label>
         <input
@@ -53,6 +57,7 @@
         </div>
       </div>
 
+      <!-- 비밀번호 -->
       <div class="input-with-label" id="short">
         <input
           class="signup-input-data"
@@ -64,6 +69,7 @@
         <label for="password">비밀번호</label>
       </div>
 
+      <!-- 비밀번호 확인 -->
       <div class="input-with-label">
         <input
           class="signup-input-data"
@@ -75,14 +81,17 @@
         <label for="passwordConfirm">비밀번호 확인</label>
       </div>
     </div>
+
+    <!-- 이용약관 -->
     <div class="checkbox">
       <input type="checkbox" id="checkbox" v-model="checked" />
-      <label for="checkbox"
-        ><strong>이용약관</strong> 및 <strong>개인정보 처리방침</strong>에
-        동의합니다.</label
-      >
+      <label for="checkbox">
+        <strong>이용약관</strong> 및 <strong>개인정보 처리방침</strong>에
+        동의합니다.
+      </label>
     </div>
 
+    <!-- 회원가입 -->
     <div v-if="isSubmit">
       <button class="user-btn" @click="Signup()">가입 하기</button>
     </div>
@@ -90,20 +99,21 @@
       <button class="user-btn-reject">가입 하기</button>
     </div>
 
+    <!-- 로그인 -->
     <div class="end-text-signup">
       <span>이미 계정이 있으신가요?</span>
-      <router-link :to="{ name: 'Login' }" class="link-go-signup"
-        ><strong>로그인</strong></router-link
-      >
+      <router-link :to="{ name: 'Login' }" class="link-go-signup">
+        <strong>로그인</strong>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import "@/components/css/user.css";
 import axios from "axios";
 
 export default {
+  name: "Signup",
   data: function () {
     return {
       user: {
@@ -112,20 +122,21 @@ export default {
         password: "",
       },
       inputConfirmNum: "", // 인증번호 입력
-      emailConfirmNum: "",
+      // emailConfirmNum: "",
       isSendNum: false,
       isConfirm: false,
 
       passwordConfirm: null,
-      ispasswordConfirm: false,
+      // ispasswordConfirm: false,
 
       isSubmit: false, // true: 버튼 활성화
-      passwordType: "password",
+      // passwordType: "password",
       checked: false,
     };
   },
 
   methods: {
+    // 회원가입
     Signup: function () {
       console.log(this.user);
       axios({
@@ -141,6 +152,7 @@ export default {
         });
     },
 
+    // 이메일 인증 발송
     sendConfirm: function () {
       this.isSendNum = true;
       axios({
@@ -160,6 +172,7 @@ export default {
         });
     },
 
+    // 인증번호 확인
     emailConfirm: function () {
       if (this.inputConfirmNum == this.emailConfirmNum) {
         console.log("true");
@@ -176,6 +189,7 @@ export default {
       }
     },
 
+    // 비밀번호와 비밀번호 확인 일치 확인
     checkForm: function () {
       if (this.passwordConfirm === this.user.password) {
         this.ispasswordConfirm = true;

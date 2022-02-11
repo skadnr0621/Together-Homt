@@ -1,0 +1,40 @@
+#navbar {
+  position: fixed;
+  bottom: 0;
+  height: 46px;
+  width: 100%;
+}
+
+#navbar > ul {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#navbar > ul > li {
+  text-align: center;
+  height: 100%;
+  padding: 11px;
+  width: 25%;
+}
+
+#navbar > ul > li > a > span {
+  font-size: 24px;
+}
+
+#navbar > ul > * {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#navbar > ul > * > a > span {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#navbar > ul > .menu-feed {
+  border-top: 1px solid rgba(41, 98, 255, 0.87);
+}
+
+#navbar > ul > .menu-feed > a > span {
+  color: rgba(41, 98, 255, 0.87);
+}

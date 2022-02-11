@@ -1,29 +1,17 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import FindPW from "@/views/user/FindPW";
-
-import FirstPageRouters from "@/router/firstpage"
+import UserRouters from "@/router/user";
 import MainRouters from "@/router/main";
-
-import MotionDetect from "@/views/exercise/MotionDetect";
-
 
 Vue.use(VueRouter);
 
 const routes = [
-  { ...FirstPageRouters},
-  {
-    name: "FindPW",
-    path: "/findpw/",
-    component: FindPW,
-  },
+  // 로그인, 회원가입, 비밀번호 찾기
+  { ...UserRouters },
+
+  // 피드, 검색, 등록, 운동, 프로필
   { ...MainRouters },
-  {
-    name: "MotionDetect",
-    path: "/exercise/",
-    component: MotionDetect,
-  },
 ];
 
 const router = new VueRouter({

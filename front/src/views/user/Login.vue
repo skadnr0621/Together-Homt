@@ -1,7 +1,9 @@
 <template>
   <div class="user" id="login">
+    <!-- 투게더 홈트 로고 -->
     <div class="logo">투게더 홈트</div>
 
+    <!-- 이메일 입력 -->
     <div>
       <input
         class="login-input-data form-control"
@@ -11,6 +13,7 @@
       />
     </div>
 
+    <!-- 비밀번호 입력 -->
     <div>
       <input
         class="login-input-data form-control"
@@ -20,57 +23,68 @@
       />
     </div>
 
+    <!-- 로그인 -->
     <button class="user-btn" @click="Login()">로그인</button>
 
+    <!-- 비밀번호 찾기 -->
     <div class="find-password-box">
-      <router-link :to="{ name: 'FindPW' }" class="link-find-password"
-        >비밀번호 찾기</router-link
-      >
+      <router-link :to="{ name: 'FindPW' }" class="link-find-password">
+        비밀번호 찾기
+      </router-link>
     </div>
 
+    <!-- 소셜 로그인 -->
     <div class="social-login">
-      <FacebookLogin />
-      <kakaoLogin />
-      <GoogleLogin />
+      <Naver />
+      <Kakao />
+      <Google />
     </div>
 
+    <!-- 회원 가입 -->
     <div class="end-text-signup">
       <span>아직 <strong>투게더 홈트</strong> 아이디가 없으신가요?</span>
-      <router-link :to="{ name: 'Signup' }" class="link-go-signup"
-        ><strong>회원가입</strong></router-link
-      >
+      <router-link :to="{ name: 'Signup' }" class="link-go-signup">
+        <strong>회원가입</strong>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import "@/components/css/user.css";
-import FacebookLogin from "@/components/user/snsLogin/Facebook.vue";
-import KakaoLogin from "@/components/user/snsLogin/Kakao.vue";
-import GoogleLogin from "@/components/user/snsLogin/Google.vue";
+import Naver from "@/components/user/Naver.vue";
+import Kakao from "@/components/user/Kakao.vue";
+import Google from "@/components/user/Google.vue";
+
 import axios from "axios";
 
 export default {
+  name: "Login",
   components: {
-    FacebookLogin,
-    KakaoLogin,
-    GoogleLogin,
+    Naver,
+    Kakao,
+    Google,
   },
 
   data: function () {
     return {
       user: {
-        email: 'ohsg97@gmail.com',
-        password: 'aaaddd',
+        email: "",
+        password: "",
       },
       errForm: {
-        email: null,
-        password: null,
+        email: "",
+        password: "",
       },
     };
   },
 
   methods: {
+    // 로그인
+    // get : 데이터 select
+    // post : 데이터 insert
+    // put : 데이터 modify
+    // delete : 데이터 delete
+
     Login: function () {
       axios({
         method: "post",
@@ -88,7 +102,8 @@ export default {
         .catch((err) => {
           // 어떤 에러냐에 따라 문구 변경
           alert(err);
-          this.user = this.errForm;
+          this.user.email = "";
+          this.user.password = "";
         });
     },
   },

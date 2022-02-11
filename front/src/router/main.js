@@ -1,21 +1,20 @@
-import MainPage from "@/views/MainPage";
-import Feed from "@/components/Feed";
-import UserPage from "@/components/UserPage";
-import FollowPage from "@/components/FollowPage";
-import UserEditPage from "@/components/UserEditPage";
-import CalendarPage from "@/components/CalendarPage";
-import RegisterFeedPage from "@/components/RegisterFeedPage";
-import ChangePasswordPage from "@/components/ChangePasswordPage";
-import FeedDetailPage from "@/components/FeedDetailPage";
-import CommentPage from "@/components/CommentPage";
-import LikeListPage from "@/components/LikeListPage";
+import Main from "@/views/Main";
+import Feed from "@/views/main/Feed";
+import Search from "@/views/main/Search";
+import Register from "@/views/main/Register";
+import Exercise from "@/views/main/Exercise";
 
-import ExerciseList from "@/views/exercise/ExerciseList";
-import SearchPage from "@/views/search/SearchPage";
+import Profile from "@/views/main/Profile"; // 프로필 페이지
+import ProfileEdit from "@/views/main/ProfileEdit"; // 프로필 편집 페이지
+import PasswordEdit from "@/views/main/PasswordEdit"; // 비밀번호 변경 페이지
+import ProfileFeedDetail from "@/views/main/ProfileFeedDetail"; // 프로필 피드 상세 페이지
+import Follow from "@/views/main/Follow"; // 팔로우 페이지
 
 export default {
-  path: "/homet",
-  component: MainPage,
+  // MainPage : 피드, 검색, (피드)등록, 운동, 프로필
+  path: "/main",
+  name: "Main",
+  component: Main,
   children: [
     {
       name: "Feed",
@@ -23,84 +22,50 @@ export default {
       component: Feed,
     },
     {
-      name: "UserPage",
-      path: "profile/:userName",
-      component: UserPage,
-      props: {
-        default: true,
-      },
-    },
-    {
-      name: "FollowPage",
-      path: "follow/:userName",
-      component: FollowPage,
-      props: {
-        default: true,
-      },
-    },
-    {
-      name: "UserEditPage",
-      path: "edit/:userName",
-      component: UserEditPage,
-      props: {
-        default: true,
-      },
-    },
-
-    {
-      name: "ExerciseList",
-      path: "exerciselist",
-      component: ExerciseList,
-    },
-    {
-      name: "searchPage",
+      name: "Search",
       path: "search",
-      component: SearchPage,
+      component: Search,
     },
     {
-      name: "CalendarPage",
-      path: "calendar/:userName",
-      component: CalendarPage,
+      name: "Register",
+      path: "register",
+      component: Register,
+    },
+    {
+      name: "Exercise",
+      path: "exercise",
+      component: Exercise,
+    },
+    {
+      name: "Profile",
+      path: "profile/:userName/:email",
+      component: Profile,
       props: {
         default: true,
       },
     },
     {
-      name: "RegisterFeedPage",
-      path: "feed/create/:userName",
-      component: RegisterFeedPage,
+      name: "Follow",
+      path: "profile/:follow/:userName/:email",
+      component: Follow,
       props: {
         default: true,
       },
     },
     {
-      name: "ChangePasswordPage",
-      path: "pw/:userName",
-      component: ChangePasswordPage,
-      props: {
-        default: true,
-      },
+      name: "ProfileEdit",
+      path: "profile/edit",
+      component: ProfileEdit,
     },
     {
-      name: "FeedDetailPage",
-      path: "feed/:userName/:feedId",
-      component: FeedDetailPage,
-      props: {
-        default: true,
-      },
+      name: "PasswordEdit",
+      path: "profile/password",
+      component: PasswordEdit,
     },
     {
-      name: "CommentPage",
-      path: "feed/:userName/:feedId/comments",
-      component: CommentPage,
-      props: {
-        default: true,
-      },
-    },
-    {
-      name: "LikeListPage",
-      path: "feed/:userName/:feedId/like",
-      component: LikeListPage,
+      name: "ProfileFeedDetail",
+      path: "profile/feed/:userName/:email:/:feedId",
+      component: ProfileFeedDetail,
       props: {
         default: true,
       },

@@ -2,13 +2,12 @@ import Vue from "vue";
 import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 
-Vue.use(Vuex);
-
 import State from "@/store/states.js";
 import Mutations from "@/store/mutations.js";
 import Actions from "@/store/actions.js";
+import userStore from "@/store/userStore";
 
-import userStore from '@/store/userStore'
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   ...State,
@@ -20,7 +19,7 @@ export default new Vuex.Store({
   },
   plugins: [
     createPersistedState({
-      paths: ['userStore' ],
-    })
-  ]
+      paths: ["userStore"],
+    }),
+  ],
 });

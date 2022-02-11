@@ -1,0 +1,22 @@
+#header {
+  position: fixed;
+  top: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  height: 45px;
+  width: 100%;
+  padding-top: 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#header > img {
+  height: 100%;
+}
+
+#header > span {
+  font-size: 24px;
+  text-align: center;
+  margin-right: 10px;
+  color: rgba(0, 0, 0, 0.87);
+}

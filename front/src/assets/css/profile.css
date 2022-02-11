@@ -1,0 +1,198 @@
+#profile {
+  position: fixed;
+  top: 45px;
+  left: 0;
+  right: 0;
+  bottom: 45px;
+  overflow: auto;
+}
+
+/* ProfileInfo */
+#profile-info {
+  height: 110px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  /* position: relative; */
+  /* margin-bottom: 4px; */
+}
+
+#profile-info > .profile {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#profile-info > .profile > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+#profile-info > .name {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* ProfileDataCnt */
+#profile-data-cnt {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 10px;
+}
+
+#profile-data-cnt > .data {
+  /* border: 1px solid black; */
+}
+
+#profile-data-cnt > .data > a > .cnt {
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: bold;
+}
+
+#profile-data-cnt > .data > a > .name {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+}
+
+/* ProfileEditControl */
+#profile-edit-control {
+  width: 100%;
+  height: 30px;
+  margin-top: 15px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#profile-edit-control > .edit-btn {
+  height: 100%;
+  width: 40%;
+  padding: 4px 0;
+  /* padding: 4px 46px; */
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+#profile-edit-control > .calendar-btn {
+  margin-left: 5px;
+  height: 100%;
+  width: 30px;
+  padding: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  height: 100%;
+}
+
+#profile-edit-control > .calendar-btn > a > span {
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* ProfileFollowControl */
+#profile-follow-control {
+  width: 100%;
+  height: 30px;
+  margin-top: 15px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#profile-follow-control > .follow-btn {
+  height: 100%;
+  width: 40%;
+  padding: 4px 0;
+  /* padding: 4px 46px; */
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+#profile-follow-control > .follow-btn:nth-child(1) {
+  background-color: rgba(41, 98, 255, 0.87);
+  color: #ffffff;
+}
+
+#profile-follow-control > .follow-btn:nth-child(2) {
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* ProfileIntroduction */
+#profile-introduction {
+  text-align: center;
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 18px 0;
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
+}
+
+/* ProfileFeedNavbar */
+#profile-feed-navbar {
+  height: 36px;
+}
+
+#profile-feed-navbar > ul {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+#profile-feed-navbar > ul > li {
+  width: 50%;
+  padding: 6px 0;
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#profile-feed-navbar > ul > .menu1 {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.38);
+}
+
+#profile-feed-navbar > ul > .menu1 > a > span {
+  font-size: 24px;
+  color: rgb(41, 98, 255, 0.86);
+}
+
+#profile-feed-navbar > ul > .menu2 {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#profile-feed-navbar > ul > .menu2 > a > span {
+  font-size: 24px;
+  color: rgb(0, 0, 0, 0.38);
+}
+
+/* ProfileFeedList */
+#profile-feed-list {
+  margin: 2px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  gap: 1px 1px;
+}
+
+#profile-feed-list > .feed {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  aspect-ratio: 1;
+}
+
+#profile-feed-list > .feed > img {
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,113 @@
+<template>
+  <div id="profile-edit-main">
+    <div class="profile">
+      <div class="view">
+        <img v-if="info.profileUrl" :src="info.profileUrl" alt="프로필 사진" />
+        <img
+          v-else
+          src="https://cdn.pixabay.com/photo/2022/01/29/08/40/basic-6976744_960_720.png"
+          alt="프로필 사진"
+        />
+      </div>
+      <div class="edit">
+        <label for="upload_profile">프로필 사진 바꾸기</label>
+        <input
+          type="file"
+          id="upload_profile"
+          @change="handleFileChange($event)"
+          style="display: none"
+          accept="image/*"
+        />
+      </div>
+    </div>
+
+    <div class="info">
+      <div class="email">
+        <span>이메일</span>
+        <input type="text" v-model="info.email" />
+      </div>
+      <div class="username">
+        <span>닉네임</span>
+
+        <input type="text" v-model="info.username" />
+      </div>
+      <div class="introduction">
+        <span>자기소개</span>
+        <textarea rows="3" v-model="info.introduce" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+import { mapState } from "vuex";
+
+export default {
+  name: "ProfileEditMain",
+  props: ["isEdit"],
+  data() {
+    return {
+      info: {},
+      editProfile: null,
+    };
+  },
+  computed: {
+    // 로그인한 유저 정보
+    ...mapState(["myInfo"]),
+  },
+  methods: {
+    handleFileChange(event) {
+      this.editProfile = event.target.files[0];
+      console.log(this.editProfile);
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.info.profileUrl = e.target.result;
+      };
+      reader.readAsDataURL(this.editProfile);
+    },
+  },
+  mounted() {
+    this.info = this.myInfo;
+  },
+  watch: {
+    async isEdit(value) {
+      if (value) {
+        let formData = new FormData();
+
+        formData.append("username", this.info.username);
+        formData.append("introduce", this.info.introduce);
+
+        if (this.editProfile) {
+          console.log("들어옴");
+          formData.append("media", this.editProfile);
+        }
+
+        // 프로필 편집하기
+        await axios
+          .put(`/user/profile/update`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: sessionStorage.getItem("jwt"),
+            },
+          })
+          .then((res) => {
+            alert("변경 완료");
+            console.log(res);
+          })
+          .catch((err) => {
+            alert("변경 실패");
+            console.log(err.response.data.msg);
+          });
+        this.$router.push({
+          name: "Profile",
+          params: { userName: this.info.username },
+        });
+      }
+    },
+  },
+};
+</script>
+
+<style></style>

@@ -1,0 +1,186 @@
+#profile-feed-detail {
+  position: fixed;
+  top: 45px;
+  left: 0;
+  right: 0;
+  bottom: 45px;
+  overflow: auto;
+}
+
+/* ProfileFeedDetailHeader */
+#profile-feed-detail-header {
+  background-color: #ffffff;
+  display: flex;
+  height: 40px;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0 10px;
+}
+
+#profile-feed-detail-header > .cancel {
+  height: 24px;
+}
+
+#profile-feed-detail-header > .cancel > span {
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#profile-feed-detail-header > .context {
+  font-weight: bold;
+}
+
+/* ProfileFeedDetailMain */
+#profile-feed-detail-main {
+  position: fixed;
+  top: 85px;
+  left: 0;
+  right: 0;
+  bottom: 45px;
+  overflow: scroll;
+}
+
+#profile-feed-detail-main > div > div > .feed-detail-header {
+  display: flex;
+  height: 50px;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+#profile-feed-detail-main > div > div > .feed-detail-header > div:first-child {
+  display: flex;
+  align-items: center;
+}
+
+#profile-feed-detail-main
+  > div
+  > div
+  > .feed-detail-header
+  > div:first-child
+  > div:first-child {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#profile-feed-detail-main > div > div > .feed-detail-img {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#profile-feed-detail-main > div > div > .feed-detail-header > div > div > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+#profile-feed-detail-main
+  > div
+  > div
+  > .feed-detail-header
+  > div
+  > div:nth-child(2) {
+  margin-left: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#profile-feed-detail-main > div > div > .feed-detail-header > div > span {
+  color: rgba(0, 0, 0, 0.38);
+  font-size: 24px;
+}
+
+#profile-feed-detail-main > div > div > .feed-detail-img {
+  /* padding-bo */
+}
+
+#profile-feed-detail-main > div > div > .feed-detail-img > img {
+  width: 100%;
+}
+
+#profile-feed-detail-main > div > div > .feed-detail-menu {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 10px;
+}
+
+#profile-feed-detail-main > div > div > .feed-detail-menu > div {
+  height: 24px;
+  width: 24px;
+  margin-right: 14px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#profile-feed-detail-main > div > div > .feed-detail-content {
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* 좋아요 */
+#profile-feed-detail-main
+  > div
+  > div
+  > .feed-detail-content
+  > div:nth-child(1) {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* 닉네임 내용 */
+#profile-feed-detail-main
+  > div
+  > div
+  > .feed-detail-content
+  > div:nth-child(2) {
+  display: flex;
+}
+
+#profile-feed-detail-main
+  > div
+  > .feed-detail-content
+  > div:nth-child(2)
+  > div {
+  margin-right: 5px;
+}
+
+#profile-feed-detail-main
+  > div
+  > .feed-detail-content
+  > div:nth-child(2)
+  > div:nth-child(1) {
+  font-weight: bold;
+}
+
+#profile-feed-detail-main
+  > div
+  > .feed-detail-content
+  > div:nth-child(2)
+  > div:nth-child(2)
+  > span {
+  color: rgba(0, 0, 0, 0.38);
+}
+
+/* 댓글 */
+#profile-feed-detail-main
+  > div
+  > div
+  > .feed-detail-content
+  > div:nth-child(3) {
+  color: rgba(0, 0, 0, 0.38);
+}
+
+#profile-feed-detail-main > div > div > .feed-detail-date {
+  padding: 10px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.38);
+}
