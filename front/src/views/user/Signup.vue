@@ -135,7 +135,7 @@ export default {
       console.log(this.user);
       axios({
         method: "post",
-        url: `/user/signup`,
+        url: `/user/users`,
         data: this.user,
       })
         .then(() => {
@@ -150,7 +150,7 @@ export default {
       if (this.user.email != null && this.user.email.includes('@')) {
         axios({
           method: "post",
-          url: `/user/signup/confirm`,
+          url: `/user/auth/signup/confirm`,
           data: this.user.email,
           headers: { "Content-Type": "text/plain" },
         })

@@ -13,7 +13,7 @@
     <button class="user-btn " @click="sendPW()">임시 비밀번호 받기</button>
     <div class="end-text-signup">
       <span>임시비밀번호로</span>
-      <router-link :to="{ name: 'Signup' }" class="link-go-signup">
+      <router-link :to="{ name: 'Login' }" class="link-go-signup">
         <strong>로그인</strong></router-link>
       <span>하러가기</span>
     </div>
@@ -35,7 +35,7 @@ export default {
     sendPW: function() {
       axios({
         method: 'post',
-        url: '/user/passwordFind',
+        url: '/user/auth/password/reset',
         data: this.emailFront + '@' + this.emailBack,
         headers: {
           Authorization : sessionStorage.getItem("jwt"),
