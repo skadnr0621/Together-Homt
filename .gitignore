@@ -336,3 +336,6 @@ gradle-app.setting
 # JDT-specific (Eclipse Java Development Tools)
 
 # End of https://www.toptal.com/developers/gitignore/api/vue,vuejs,eclipse,intellij,maven,gradle,java,visualstudiocode,macos,windows
+back/together-homt/.idea/vcs.xml
+back/together-homt/.idea/workspace.xml
+back/together-homt/.idea/

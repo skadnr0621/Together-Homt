@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @Builder
 public class Notification {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "notification_id")
     private Long notificationId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -27,9 +27,11 @@ public class Notification {
     private User receiver;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "notification_type")
     private NotificationType notificationType;
 
     @CreationTimestamp
+    @Column(name = "sent_date")
     private LocalDateTime sentDate;
 
 }

@@ -12,7 +12,6 @@ import javax.validation.constraints.Size;
 public class SignupDto { // 회원가입
 
     @NotNull
-    @Size(max = 50)
     private String email;
 
     @NotNull
