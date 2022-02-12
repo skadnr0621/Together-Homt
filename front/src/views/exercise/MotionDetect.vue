@@ -47,6 +47,7 @@
 <script>
 import * as tmPose from "@teachablemachine/pose";
 import "@/components/css/motiondetect.scss";
+import axios from 'axios';
 
 let ctx, labelContainer, maxPredictions;
 
@@ -74,7 +75,6 @@ export default {
     },
   },
 
-  created() {},
   mounted() {
     // this.ready();
     this.setModel();
@@ -93,18 +93,23 @@ export default {
         this.URL = "https://teachablemachine.withgoogle.com/models/76bwaNQBY/";
       } else if (this.exercise == "neck") {
         // 목 스트레칭
-        this.URL = "https://teachablemachine.withgoogle.com/models/XoVPimrL9/";
+        this.URL = "https://teachablemachine.withgoogle.com/models/GSn9StvR4/";
       } else if (this.exercise == "waist") {
-        // 허리 스트레칭 -> 다시 학습
-        this.URL = "https://teachablemachine.withgoogle.com/models/yKKZxJXRk/";
+        // 허리 스트레칭
+        this.URL = "https://teachablemachine.withgoogle.com/models/mHC8FAGiF/";
       } else if (this.exercise == "arm") {
         // 팔 뻗기
         this.URL = "https://teachablemachine.withgoogle.com/models/CklpGq-46/";
       } else if (this.exercise == "squat") {
         // 스쿼트
-        this.URL = "https://teachablemachine.withgoogle.com/models/lroOtcUBl/";
+        this.URL = "https://teachablemachine.withgoogle.com/models/FePB01NR1/";
+      }else if (this.exercise == "lateral_raise") {
+        // 래터럴 레이즈
+        this.URL = "https://teachablemachine.withgoogle.com/models/gGLZZKc-5/";
+      }else if (this.exercise == "cross_crunches") {
+        // 크로스 사이드 크런치
+        this.URL = "https://teachablemachine.withgoogle.com/models/0mC24nKFc/";
       }
-
       const modelURL = this.URL + "model.json";
       const metadataURL = this.URL + "metadata.json";
 
@@ -139,10 +144,12 @@ export default {
 
         if (this.exercise == "hi") {
           await this.hiPredict();
-        } else if (this.exercise == "neck" || this.exercise == "waist") {
-          await this.neckwaistPredict();
-        } else if (this.exercise == "arm" || this.exercise == "squat") {
-          await this.armsquatPredict();
+        } else if (this.exercise == "neck" || this.exercise == "waist" || this.exercise == "cross_crunches") {
+          await this.leftRightPredict();
+        } else if (this.exercise == "arm") {
+          await this.armPredict();
+        } else if (this.exercise == "squat" || this.exercise == "lateral_raise") {
+          await this.squatraisePredict();
         }
         window.requestAnimationFrame(this.loop);
       }
@@ -168,8 +175,8 @@ export default {
       this.drawPose(pose);
     },
 
-    // 목 스트레칭, 허리 스트레칭
-    async neckwaistPredict() {
+    // 목 스트레칭, 허리 스트레칭, 크로스 크런치
+    async leftRightPredict() {
       const { pose, posenetOutput } = await this.model.estimatePose(
         this.webcam.canvas
       );
@@ -191,10 +198,10 @@ export default {
         this.status = "right";
       }
 
-      if (this.leftCnt == 0 || prediction[1].probability.toFixed(2) > 0.89) {
+      if (this.status == 'default' && (this.leftCnt == 0 || prediction[1].probability.toFixed(2) > 0.89)) {
         labelContainer.innerHTML = "left";
         this.percent = prediction[1].probability.toFixed(2);
-      } else if (this.leftCnt != 0) {
+      } else if (this.leftCnt != 0 || prediction[2].probability.toFixed(2) > 0.90) {
         labelContainer.innerHTML = "right";
         this.percent = prediction[2].probability.toFixed(2);
       }
@@ -202,7 +209,7 @@ export default {
       this.drawPose(pose);
     },
 
-    async armsquatPredict() {
+    async armPredict() {
       const { pose, posenetOutput } = await this.model.estimatePose(
         this.webcam.canvas
       );
@@ -229,6 +236,39 @@ export default {
       this.drawPose(pose);
     },
 
+    // 스쿼트
+    async squatraisePredict() {
+      const { pose, posenetOutput } = await this.model.estimatePose(
+        this.webcam.canvas
+      );
+      const prediction = await this.model.predict(posenetOutput);
+
+      // 0 : defalut, 1: squat
+      // 0 : default, 1: up
+      if (prediction[0].probability.toFixed(2) == 1.0) {
+        if (this.status == "squat" || this.status == "up") {
+          this.success = true;
+        }
+        this.status = "default";
+      } 
+      else if (prediction[1].probability.toFixed(2) == 1.0) {
+        if (this.exercise == "squat") {
+          this.status = "squat";
+        } else if (this.exercise == "lateral_raise") {
+          this.status = "up"
+        }
+      }
+      for (let i = 0; i < maxPredictions; i++) {
+        const classPrediction =
+          prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+        labelContainer.childNodes[i].innerHTML = classPrediction;
+      }
+
+      this.percent = prediction[1].probability.toFixed(2);
+      this.drawPose(pose);
+    },
+    
+
     drawPose(pose) {
       if (this.webcam && this.webcam.canvas) {
         ctx.drawImage(this.webcam.canvas, 0, 0);
@@ -245,6 +285,15 @@ export default {
       // DB로 보내기
       if (this.success) {
         // axisos
+      axios({
+        method: "post",
+        url: `/today/add`,
+        data: {
+          "done": true,
+          "exercise": this.exercise
+        },
+        headers: { Authorization : sessionStorage.getItem("jwt")}
+      })
         console.log(this.exercise);
         this.goOut();
       } else {

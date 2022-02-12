@@ -29,5 +29,11 @@ export default {
 
     // 나의 좋아요 정보
     myLikes: [],
+  
+
+
+    
+    // 전체 유저 정보
+    allUsers: null,
   },
 };

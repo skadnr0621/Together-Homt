@@ -26,5 +26,9 @@ export default {
     SET_MY_LIKES(state, likes) {
       state.myLikes = likes;
     },
+
+    GET_ALL_USERS(state, allUsers) {
+      state.allUsers = allUsers;
+    }
   },
 };
