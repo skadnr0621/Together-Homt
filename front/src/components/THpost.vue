@@ -1,6 +1,7 @@
 <template>
   <div class="th-post">
     <div class="print" v-for="item in tmp" v-bind:key="item.user_id">
+      <!-- 이거지금 user_id 상관없나??? 여기서 key로 넣어주는 게 기준??-->
       <div class="header-level">
         <div class="level-left">
           <div class="pimage">
@@ -36,8 +37,6 @@
         </div>
         <div class="speech">
           <i class="fa-regular fa-comment fa-2x" @click="goComment"></i>
-          <!-- 여기서 댓글 아이콘을 누르면 댓글페이지로 이동해야합니다.
-          @click="goComment" -->
         </div>
         <div class="likes" @click="golikeList">
           좋아요 {{ item.like_cnt }} 개
@@ -47,14 +46,13 @@
           <div class="caption">{{ item.content }}</div>
         </div>
       </div>
-      <div class="comments">댓글을 한개만 출력 + 더보기</div>
-      <div class="Tags">
-        {{ item.tag }} 태그는 서버연결시 + 위치만 조정하면 되니까
+      <div class="comments" @click="goComment">댓글을 한개만 출력</div>
+      <div class="Tags">#{{ item.tags }} 태그</div>
+      <div class="createTime" v-if="item.createdAt != null">
+        {{ item.createdAt[0] }}년 {{ item.createdAt[1] }}월
+        {{ item.createdAt[2] }}일
       </div>
-      <div class="createTime" v-if="item.created_at != null">
-        {{ item.created_at[0] }}년
-        <!-- item.created_at[0] ->?? -->
-      </div>
+      <div class="createTime2" v-else>생성날짜가 없습니다.</div>
     </div>
   </div>
 </template>
@@ -68,7 +66,7 @@ export default {
   methods: {
     //프로필
     goProfile: function () {
-      //유저를 식별할 수 있는 인자?
+      //유저를 식별할 수 있는 인자를 가지고 이동해야하나
       this.$router.push({
         name: "UserPage",
       });
@@ -86,6 +84,10 @@ export default {
     goComment: function () {
       this.$router.push({
         name: "CommentPage",
+        params: {
+          feedId: this.feedId,
+          username: this.username,
+        },
       });
     },
     //좋아요 리스트

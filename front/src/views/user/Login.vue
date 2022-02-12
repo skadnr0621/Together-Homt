@@ -17,6 +17,7 @@
         v-model="user.password"
         placeholder="비밀번호를 입력해주세요."
         type="password"
+        v-on:keyup.enter="Login()"
       />
     </div>
 
@@ -60,8 +61,8 @@ export default {
   data: function () {
     return {
       user: {
-        email: 'ohsg97@gmail.com',
-        password: 'aaaddd',
+        email: "ohsg97@gmail.com",
+        password: "aaaddd",
       },
       errForm: {
         email: null,

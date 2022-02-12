@@ -1,6 +1,5 @@
 <template>
   <div id="feed">
-    <div>feed</div>
     <THpost :tmp="tmp"></THpost>
   </div>
 </template>
@@ -22,7 +21,9 @@ export default {
   created() {
     var vm = this;
     axios
-      .get("/slide1/feedlist", {
+      .get("/feed/feeds/follower", {
+        // 팔로우하고있는 피드만 조회
+        // /slide1/feedlist
         headers: {
           Authorization: sessionStorage.getItem("jwt"),
         },
