@@ -5,7 +5,7 @@ export default {
     // 내 정보 조회해서 저장하기
     async setMyInfo({ commit }, payload) {
       return await axios
-        .get(`/user`, {
+        .get(`/user/users/${payload.email}`, {
           headers: {
             Authorization: payload.token,
           },
@@ -145,6 +145,20 @@ export default {
           console.log(res);
 
           commit("SET_USER_FOLLOWING", res.data);
+        });
+    },
+
+    // 피드 댓글 조회해서 저장하기
+    async setFeedComments({ commit }, payload) {
+      return await axios
+        .get(`/feed/${payload.feedId}/comment`, {
+          headers: {
+            Authorization: payload.token,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          commit("SET_FEED_COMMENTS", res.data);
         });
     },
   },

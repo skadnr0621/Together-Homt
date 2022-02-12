@@ -9,6 +9,7 @@ import ProfileEdit from "@/views/main/ProfileEdit"; // 프로필 편집 페이�
 import PasswordEdit from "@/views/main/PasswordEdit"; // 비밀번호 변경 페이지
 import ProfileFeedDetail from "@/views/main/ProfileFeedDetail"; // 프로필 피드 상세 페이지
 import Follow from "@/views/main/Follow"; // 팔로우 페이지
+import ProfileFeedComment from "@/views/main/ProfileFeedComment"; // 프로필 피드 댓글 페이지
 
 export default {
   // MainPage : 피드, 검색, (피드)등록, 운동, 프로필
@@ -66,6 +67,14 @@ export default {
       name: "ProfileFeedDetail",
       path: "profile/feed/:userName/:email:/:feedId",
       component: ProfileFeedDetail,
+      props: {
+        default: true,
+      },
+    },
+    {
+      name: "ProfileFeedComment",
+      path: "profile/feed/comment/:userName/:email:/:feedId",
+      component: ProfileFeedComment,
       props: {
         default: true,
       },

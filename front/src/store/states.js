@@ -26,5 +26,8 @@ export default {
 
     // 나 or 다른 유저 피드 정보
     userFeeds: [],
+
+    // 피드의 댓글
+    feedComments: [],
   },
 };

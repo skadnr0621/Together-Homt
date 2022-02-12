@@ -3,7 +3,7 @@
     <!-- 내 프로필 -->
     <div v-if="loginUser == email">
       <profile-info
-        :info="{ userName: myInfo.username, profileUrl: myInfo.profileUrl }"
+        :info="{ userName: myInfo.username, profileUrl: myInfo.imagePath }"
       />
 
       <profile-data-cnt

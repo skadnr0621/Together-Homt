@@ -35,11 +35,7 @@ export default {
     // 언팔로우 하기
     async onUnfollow() {
       await axios
-        .delete(`/follow/${this.email}`, {
-          headers: {
-            Authorization: sessionStorage.getItem("jwt"),
-          },
-        })
+        .delete(`/follow/${this.email}`)
         .then((res) => {
           console.log(res);
           alert("언팔로우 성공!");

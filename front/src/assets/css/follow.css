@@ -171,7 +171,7 @@
 }
 
 #follow-list > div > div > .list > .follow > .btn > .follow-btn {
-  padding: 4px 6px;
+  padding: 4px 10px;
   background-color: rgba(41, 98, 255, 0.87);
   color: #ffffff;
   font-weight: bold;
@@ -180,7 +180,7 @@
 }
 
 #follow-list > div > div > .list > .follow > .btn > .following-btn {
-  padding: 4px 6px;
+  padding: 4px 10px;
   background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
   font-weight: bold;

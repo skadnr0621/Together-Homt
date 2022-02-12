@@ -140,7 +140,7 @@ export default {
 
         this.$router.push({
           name: "Profile",
-          params: { userName: userName },
+          params: { userName: this.myInfo.username, email: this.myInfo.email },
         });
       }
     },

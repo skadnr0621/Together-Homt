@@ -27,5 +27,8 @@ export default {
     SET_USER_FOLLOWING(state, userFollowing) {
       state.userFollowing = userFollowing;
     },
+    SET_FEED_COMMENTS(state, feedComments) {
+      state.feedComments = feedComments;
+    },
   },
 };
