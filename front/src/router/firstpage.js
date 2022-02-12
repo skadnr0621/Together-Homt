@@ -1,6 +1,7 @@
 import FirstPage from "@/views/FirstPage";
 import Login from "@/views/user/Login";
 import Signup from "@/views/user/Signup";
+import DoneSignup from "@/views/user/DoneSignup";
 
 export default {
   path: "/",
@@ -16,6 +17,11 @@ export default {
       name: "Signup",
       path: "signup",
       component: Signup,
+    },
+    {
+      name: "DoneSignup",
+      path: "donesignup",
+      component: DoneSignup,
     },
   ],
 };

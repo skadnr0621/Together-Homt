@@ -21,7 +21,7 @@
       />
     </div>
 
-    <button class="user-btn" @click="Login()">로그인</button>
+    <button class="user-btn form-control" @click="Login()">로그인</button>
 
     <div class="find-password-box">
       <router-link :to="{ name: 'FindPW' }" class="link-find-password"
@@ -52,6 +52,7 @@ import GoogleLogin from "@/components/user/snsLogin/Google.vue";
 import axios from "axios";
 
 export default {
+  name: "Login", 
   components: {
     FacebookLogin,
     KakaoLogin,
