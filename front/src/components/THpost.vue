@@ -1,5 +1,6 @@
 <template>
   <div class="th-post">
+    불러오세요.
     <div class="print" v-for="item in tmp" v-bind:key="item.user_id">
       <!-- 이거지금 user_id 상관없나??? 여기서 key로 넣어주는 게 기준??-->
       <div class="header-level">

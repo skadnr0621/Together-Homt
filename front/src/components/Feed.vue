@@ -1,5 +1,7 @@
 <template>
   <div id="feed">
+    피드어딧음
+
     <THpost :tmp="tmp"></THpost>
   </div>
 </template>
