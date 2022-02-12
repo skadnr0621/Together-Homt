@@ -1,16 +1,16 @@
 <template>
   <div id="comment-page">
     <comment-header v-on:goBack="onGoBack" />
-    <comment-detail
+    <!-- <comment-detail
       :feedId="this.$router.params.feedId"
       v-on:registerComment="onRegisterComment"
-    />
+    /> -->
   </div>
 </template>
 
 <script>
 import CommentHeader from "@/components/CommentPage/CommentHeader";
-import CommentDetail from "@/components/CommentPage/CommentDetail";
+// import CommentDetail from "@/components/CommentPage/CommentDetail";
 // import { mapState } from "vuex";
 import axios from "axios";
 
@@ -18,7 +18,7 @@ export default {
   name: "CommentPage",
   components: {
     CommentHeader,
-    CommentDetail,
+    // CommentDetail,
   },
   computed: {
     //   // 로그인한 유저 정보
@@ -26,10 +26,9 @@ export default {
   },
   methods: {
     created() {
-      console.log("오류나는중!");
       //const feedId = this.myInfo.feeds[this.$route.params.feedId].feed_id;
-      const feedId = this.$route.params.feedId;
-      const username = this.$route.params.username;
+      const feedId = this.$route.query.feedId;
+      const username = this.$route.query.username;
       console.log(feedId);
       console.log(username);
 

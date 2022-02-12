@@ -118,12 +118,12 @@ export default {
         formData.append("content", this.postData.content);
         formData.append("nameList", this.postData.tags.join(", "));
         formData.append("media", this.postData.media);
-        formData.append("userName", userName);
+        formData.append("username", userName);
 
         console.log(formData);
 
         await axios
-          .post("/feed/create", formData, {
+          .post("/feed/feeds", formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: sessionStorage.getItem("jwt"),

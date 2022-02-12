@@ -9,7 +9,7 @@
             <!-- <img :src="post.프로필사진" /> -->
             <img
               class="headerimg"
-              src="@/assets/죠르디2.png"
+              src="@/assets/스카피.jpg"
               alt="프로필 사진"
             />
           </div>
@@ -85,9 +85,9 @@ export default {
     goComment: function () {
       this.$router.push({
         name: "CommentPage",
-        params: {
-          feedId: this.feedId,
-          username: this.username,
+        query: {
+          feedId: this.tmp.feedId,
+          username: this.tmp.username,
         },
       });
     },

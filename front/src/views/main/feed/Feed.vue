@@ -1,14 +1,13 @@
 <template>
   <div id="feed">
     피드어딧음
-
     <THpost :tmp="tmp"></THpost>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import THpost from "@/components/THpost";
+import THpost from "@/components/feed/THpost";
 
 export default {
   name: "Feed",

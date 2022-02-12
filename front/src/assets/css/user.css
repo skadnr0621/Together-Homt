@@ -12,12 +12,12 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   width: 242px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  }
+}
 
 .user .logo {
   font-size: 30px;
@@ -42,7 +42,7 @@
   height: 40px;
   font-weight: bold;
   font-size: 15px;
-  color: #FBFBFB;
+  color: #fbfbfb;
   background: rgba(0, 0, 0, 0.38);
   border: none;
   border-radius: 7px;
@@ -53,14 +53,11 @@
   height: 40px;
   font-weight: bold;
   font-size: 15px;
-  color: #FBFBFB;
+  color: #fbfbfb;
   background: rgba(66, 165, 245, 0.87);
   border: none;
   border-radius: 7px;
 }
-
-
-
 
 .font-scale-8 {
   font-size: 10px;
@@ -69,10 +66,9 @@
   margin: 0;
 }
 
-
 /* 로그인 */
 .user#login .login-input-data {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   box-sizing: border-box;
   padding: 10px;
   margin-bottom: 15px;
@@ -106,8 +102,6 @@
   color: rgba(0, 0, 0, 0.87);
 }
 
-
-
 /* 회원가입 */
 
 .user#signup .form-wrap {
@@ -118,8 +112,7 @@
   position: relative;
 }
 
-
-.user#signup .input-with-label label{
+.user#signup .input-with-label label {
   position: absolute;
   left: 3px;
   top: 12px;
@@ -136,7 +129,6 @@
   font-size: 8px;
 }
 
-
 .user#signup .send-confirmNum {
   position: absolute;
   left: 176px;
@@ -151,11 +143,10 @@
 
 .user#signup .send-confirmNum p {
   font-weight: bold;
-  color: #FBFBFB;
+  color: #fbfbfb;
 }
 
-
-.user#signup .signup-input-data{
+.user#signup .signup-input-data {
   box-sizing: border-box;
   height: 35px;
   width: 242px;
@@ -164,8 +155,6 @@
   border: none;
   border-bottom: 2px solid rgba(0, 0, 0, 0.6);
 }
-
-
 
 .user#signup .checkbox {
   display: flex;

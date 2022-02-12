@@ -1,5 +1,7 @@
 import Main from "@/views/Main";
-import Feed from "@/views/main/Feed";
+import Feed from "@/views/main/feed/Feed";
+import CommentPage from "@/views/main/feed/CommentPage";
+import LikeListPage from "@/views/main/feed/LikeListPage";
 import SearchPage from "@/views/main/SearchPage";
 import Register from "@/views/main/Register";
 import ExerciseList from "@/views/main/exercise/ExerciseList";
@@ -22,6 +24,16 @@ export default {
       name: "Feed",
       path: "feed",
       component: Feed,
+    },
+    {
+      name: "CommentPage",
+      path: "feed/comment",
+      component: CommentPage,
+    },
+    {
+      name: "LikeListPage",
+      path: "feed/likelistpage",
+      component: LikeListPage,
     },
     {
       name: "Search",
