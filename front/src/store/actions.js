@@ -161,5 +161,18 @@ export default {
           commit("SET_FEED_COMMENTS", res.data);
         });
     },
+
+    getAllUsers({ commit }) {
+      axios({
+        method: "get",
+        url: "http://i6b206.p.ssafy.io:8092/slide1/userlist",
+      }).then((res) => {
+        console.log(res);
+        res.data.sort((a, b) => {
+          return b.follower_cnt - a.follower_cnt;
+        });
+        commit("GET_ALL_USERS", res.data);
+      });
+    },
   },
 };

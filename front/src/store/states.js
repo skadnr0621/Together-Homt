@@ -29,5 +29,8 @@ export default {
 
     // 피드의 댓글
     feedComments: [],
+
+    // 전체 유저 정보
+    allUsers: null,
   },
 };

@@ -30,5 +30,9 @@ export default {
     SET_FEED_COMMENTS(state, feedComments) {
       state.feedComments = feedComments;
     },
+
+    GET_ALL_USERS(state, allUsers) {
+      state.allUsers = allUsers;
+    }
   },
 };

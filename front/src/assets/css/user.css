@@ -1,13 +1,33 @@
 @charset "utf-8";
 
-#user {
+
+.form-control {
+  border-radius: 7px;
+  border: solid 1.5px #6c757d;
+  outline: 0;
+}
+
+.form-control:focus {
+  color: #212529;
+  background-color: #fff;
+  border-color: #86b7fe;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.form-control::-moz-placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+.firstpage {
   height: 640px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.user {
+#user {
   -webkit-text-size-adjust: none;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -19,25 +39,25 @@
   align-items: center;
 }
 
-.user .logo {
+#user .logo {
   font-size: 30px;
   font-weight: 700;
   height: 50px;
   margin-bottom: 40px;
 }
 
-.user .end-text-signup {
+#user .end-text-signup {
   color: rgba(0, 0, 0, 0.87);
   font-size: 10px;
 }
 
-.user .link-go-signup {
+#user .link-go-signup {
   margin: 5px;
   text-decoration: none;
   color: rgba(66, 165, 245, 0.87);
 }
 
-.user .user-btn-reject {
+#user #user-btn-reject {
   width: 242px;
   height: 40px;
   font-weight: bold;
@@ -48,7 +68,7 @@
   border-radius: 7px;
 }
 
-.user .user-btn {
+#user #user-btn {
   width: 242px;
   height: 40px;
   font-weight: bold;
@@ -59,7 +79,12 @@
   border-radius: 7px;
 }
 
+<<<<<<< HEAD:front/src/assets/css/user.css
 .font-scale-8 {
+=======
+
+#user .font-scale-8 {
+>>>>>>> 90fdc5a962b16c551eac2107fd49b01e2511d4e2:front/src/components/css/user.css
   font-size: 10px;
   -webkit-transform: scale(0.8);
   display: inline-block;
@@ -67,7 +92,7 @@
 }
 
 /* 로그인 */
-.user#login .login-input-data {
+#user#login .login-input-data {
   font-family: "Roboto", sans-serif;
   box-sizing: border-box;
   padding: 10px;
@@ -82,20 +107,20 @@
   border-bottom: 2.2px solid rgba(0, 0, 0, 0.6);
 }
 
-.user#login .social-login {
+#user#login .social-login {
   display: flex;
   justify-content: space-between;
   margin: 40px auto;
   height: 45px;
 }
 
-.user#login .find-password-box {
+#user#login .find-password-box {
   width: 100%;
   display: flex;
   justify-content: flex-end;
 }
 
-.user#login .link-find-password {
+#user#login .link-find-password {
   margin-top: 10px;
   text-decoration: none;
   font-size: 9px;
@@ -104,15 +129,15 @@
 
 /* 회원가입 */
 
-.user#signup .form-wrap {
+#user#signup .form-wrap {
   height: 222px;
 }
 
-.user#signup .input-with-label {
+#user#signup .input-with-label {
   position: relative;
 }
 
-.user#signup .input-with-label label {
+#user#signup .input-with-label label {
   position: absolute;
   left: 3px;
   top: 12px;
@@ -120,16 +145,24 @@
   font-size: 10px;
 }
 
-.user#signup .input-with-label#short input[type="text"] {
+#user#signup .input-with-label#short input[type="text"] {
   padding: 6.5px 0 0 50px;
 }
 
-.user#signup .input-with-label input[type="text"] {
+#user#signup .input-with-label input[type="text"] {
   padding: 5px 0 0 70px;
   font-size: 8px;
 }
 
-.user#signup .send-confirmNum {
+<<<<<<< HEAD:front/src/assets/css/user.css
+=======
+#user#signup .input-with-label input[type="password"] {
+  padding: 5px 0 0 70px;
+  font-size: 8px;
+}
+
+>>>>>>> 90fdc5a962b16c551eac2107fd49b01e2511d4e2:front/src/components/css/user.css
+#user#signup .send-confirmNum {
   position: absolute;
   left: 176px;
   top: 9px;
@@ -141,12 +174,12 @@
   background-color: rgba(66, 165, 245, 0.87);
 }
 
-.user#signup .send-confirmNum p {
+#user#signup .send-confirmNum p {
   font-weight: bold;
   color: #fbfbfb;
 }
 
-.user#signup .signup-input-data {
+#user#signup .signup-input-data {
   box-sizing: border-box;
   height: 35px;
   width: 242px;
@@ -156,7 +189,7 @@
   border-bottom: 2px solid rgba(0, 0, 0, 0.6);
 }
 
-.user#signup .checkbox {
+#user#signup .checkbox {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -164,7 +197,72 @@
   font-size: 9px;
 }
 
-.user#signup .end-text-signup {
+#user .end-text-signup {
   margin-top: 40px;
   font-size: 9px;
 }
+<<<<<<< HEAD:front/src/assets/css/user.css
+=======
+
+/* 회원가입 완료 */
+#user#donesignup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#user#donesignup > svg {
+  margin-bottom: 50px;
+}
+
+#user#donesignup > h1 {
+  margin-bottom: 15px;
+}
+
+#user#donesignup > div {
+  font-size: 15px;
+  margin-bottom: 70px;
+}
+
+/* 비밀번호 찾기 */
+#user#findPW {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
+}
+
+#user#findPW #back-btn {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+#user#findPW > svg {
+  margin: 40px 0;
+}
+#user#findPW > div {
+  font-size: 11px;
+  margin-bottom: 35px;
+}
+
+#user#findPW .email > p {
+  font-size: 17px;
+}
+
+#user#findPW .email {
+  width: 242px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+#user#findPW input {
+  width: 100%;
+  height: 100%;
+  margin: 5px;
+  text-align: center;
+}
+>>>>>>> 90fdc5a962b16c551eac2107fd49b01e2511d4e2:front/src/components/css/user.css
