@@ -17,6 +17,7 @@
         v-model="user.password"
         placeholder="비밀번호를 입력해주세요."
         type="password"
+        v-on:keyup.enter="Login()"
       />
     </div>
 

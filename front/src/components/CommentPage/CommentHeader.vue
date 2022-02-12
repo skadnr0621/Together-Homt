@@ -43,4 +43,8 @@ export default {
 #comment-header > .context {
   font-weight: bold;
 }
+
+#comment-header > .cancel > .material-icons {
+  cursor: pointer;
+}
 </style>

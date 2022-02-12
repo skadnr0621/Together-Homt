@@ -1,16 +1,14 @@
 <template>
   <div id="feed">
-    <div>feed</div>
-    <!-- <FeedList :posts="posts"></FeedList> -->
+    피드어딧음
 
-    <FeedList></FeedList>
+    <THpost :tmp="tmp"></THpost>
   </div>
 </template>
 
 <script>
-//import { mapState } from "vuex";
 import axios from "axios";
-import FeedList from "@/components/FeedList";
+import THpost from "@/components/THpost";
 
 export default {
   name: "Feed",
@@ -20,21 +18,21 @@ export default {
     };
   },
   components: {
-    FeedList,
+    THpost,
   },
-  mounted() {
-    //화살표 생략
+  created() {
+    var vm = this;
     axios
-      .get("/feed/all", {
+      .get("/feed/feeds/follower", {
+        // 팔로우하고있는 피드만 조회
+        // /slide1/feedlist
         headers: {
           Authorization: sessionStorage.getItem("jwt"),
         },
       })
       .then((res) => {
-        this.tmp = res.data;
-        //로그인 응답으로 받은 데이터를 store에 저장
-        //피드화면으로 뿌려줘야합니다.
-        console.log(this.tmp); //기록
+        vm.tmp = res.data;
+        console.log(vm.tmp);
       })
       .catch((error) => {
         console.log(error);

@@ -11,6 +11,8 @@
       <div class="category">
         카테고리 버튼들 <br />
         <!-- 리스트로 운동을 받아오면 리스트 요소로 운동이름을 받아오는데 그 운동이름을 exercise의 매개변수로 넘겨야함. -->
+        <div></div>
+
         <button @click="exercise('hi')">hi운동</button>
         <button @click="exercise('neck')">목 스트레칭</button>
         <button @click="exercise('waist')">허리 스트레칭</button>
@@ -36,6 +38,11 @@ import axios from "axios";
 
 export default {
   name: "ExercisesList",
+  data: () => {
+    return {
+      total_excercises: [],
+    };
+  },
   created: () => {
     /*
       1. exercise 테이블에 접근한다.
@@ -44,6 +51,7 @@ export default {
       일단 제대로 받아오는지 체크하고
       그 데이터를 리스트로 뿌려준다. - 피드와 동일 : 객체로 받아올텐데
     */
+    var vm = this;
     axios
       .get("/exercise/all", {
         header: {
@@ -51,7 +59,8 @@ export default {
         },
       })
       .then((res) => {
-        console.log(res);
+        vm.total_excercises = res.data;
+        console.log(vm.total_excercises);
       })
       .catch((err) => {
         console.log(err);
