@@ -11,9 +11,10 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "today_exercise")
 public class TodayExercise {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "today_exercise_id")
     private Long todayExerciseId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,5 +25,6 @@ public class TodayExercise {
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 
+    @Column(name = "done")
     private boolean done;
 }

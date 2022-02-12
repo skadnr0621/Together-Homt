@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "notification")
 @Data
 @NoArgsConstructor @AllArgsConstructor
 @Builder
@@ -21,9 +22,11 @@ public class Notification {
     private Long notificationId;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sender")
     private User sender;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "receiver")
     private User receiver;
 
     @Enumerated(EnumType.STRING)

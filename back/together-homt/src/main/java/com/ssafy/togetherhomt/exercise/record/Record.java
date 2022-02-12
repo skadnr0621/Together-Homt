@@ -11,16 +11,20 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "record")
 public class Record {
     @Id
     @Column(name = "record_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long recordId;
 
+    @Column(name = "date")
     private String date;
 
+    @Column(name = "video_url")
     private String videoUrl; // ??운동기록 남길거
 
+    @Column(name = "count_check")
     private Long countCheck;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -18,8 +18,9 @@ import java.util.List;
 @Builder
 @Entity
 @Table(
+    name = "exercise",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = "name")
+            @UniqueConstraint(columnNames = "name")
     }
 )
 public class Exercise {
@@ -33,14 +34,19 @@ public class Exercise {
     @NotNull
     private String name;
 
+    @Column(name = "")
     private String part;
 
+    @Column(name = "type")
     private String type;
 
+    @Column(name = "exercise_time")
     private Long exerciseTime;
 
+    @Column(name = "exercise_count")
     private Long exerciseCount;
 
+    @Column(name = "video_url")
     private String videoUrl;
 
     @OneToMany(fetch = FetchType.LAZY)
