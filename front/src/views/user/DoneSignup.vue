@@ -9,10 +9,10 @@
 </template>
 
 <script>
-import "@/components/css/user.css";
+import "@/assets/css/user.css";
 
 export default {
-  name: "DoneSignup", 
+  name: "DoneSignup",
   methods: {
     goLogin() {
       this.$router.push({name : "Login"})

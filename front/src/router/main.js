@@ -1,8 +1,9 @@
 import Main from "@/views/Main";
 import Feed from "@/views/main/Feed";
-import Search from "@/views/main/Search";
+import SearchPage from "@/views/main/SearchPage";
 import Register from "@/views/main/Register";
-import Exercise from "@/views/main/Exercise";
+import ExerciseList from "@/views/main/exercise/ExerciseList";
+import MotionDetect from "@/views/main/exercise/MotionDetect";
 
 import Profile from "@/views/main/Profile"; // 프로필 페이지
 import ProfileEdit from "@/views/main/ProfileEdit"; // 프로필 편집 페이지
@@ -25,7 +26,7 @@ export default {
     {
       name: "Search",
       path: "search",
-      component: Search,
+      component: SearchPage,
     },
     {
       name: "Register",
@@ -35,7 +36,12 @@ export default {
     {
       name: "Exercise",
       path: "exercise",
-      component: Exercise,
+      component: ExerciseList,
+    },
+    {
+      name: "MotionDetect",
+      path: "motiondetect",
+      component: MotionDetect,
     },
     {
       name: "Profile",

@@ -26,7 +26,7 @@
 
       <!-- 운동 -->
       <li class="menu-homt">
-        <router-link :to="{ name: 'ExerciseList' }">
+        <router-link :to="{ name: 'Exercise' }">
           <span class="material-icons-outlined" @click="changeMenu(3)">
             fitness_center
           </span>

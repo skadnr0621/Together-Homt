@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import SearchDetail from './SearchDetail.vue'
-import SearchList from './SearchList.vue'
+import SearchDetail from '@/components/search/SearchDetail.vue'
+import SearchList from '@/components/search/SearchList.vue'
 import { mapState, mapActions } from "vuex";
 
 

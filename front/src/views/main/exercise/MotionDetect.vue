@@ -46,7 +46,7 @@
 
 <script>
 import * as tmPose from "@teachablemachine/pose";
-import "@/components/css/motiondetect.scss";
+import "@/assets/css/motiondetect.scss";
 import axios from 'axios';
 
 let ctx, labelContainer, maxPredictions;
