@@ -11,12 +11,10 @@ server:
 
 ### Logging Configuration
 logging:
-  io:
-    swagger:
-      models:
-        parameters:
-          AbstractSerializableParameter: error
+  level:
+    io.swagger.models.parameters.AbstractSerializableParameter: ERROR
 # https://github.com/springfox/springfox/issues/2776#issuecomment-600405932
+# *** https://blog.karatos.in/a?ID=00950-7a1f5c4c-1e88-40e4-b5bb-5244dc110e2f
 
 
 ### Spring Configuration
