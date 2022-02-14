@@ -214,7 +214,7 @@ export default {
 
       if (
         this.user.username == "" ||
-        this.user.username.length < 4 ||
+        this.user.username.length < 3 ||
         this.isConfirm == false ||
         this.checked == false
       ) {

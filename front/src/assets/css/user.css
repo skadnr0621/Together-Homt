@@ -1,5 +1,25 @@
 @charset "utf-8";
 
+
+.form-control {
+  border-radius: 7px;
+  border: solid 1.5px #6c757d;
+  outline: 0;
+}
+
+.form-control:focus {
+  color: #212529;
+  background-color: #fff;
+  border-color: #86b7fe;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.form-control::-moz-placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
 .firstpage {
   height: 640px;
   display: flex;
@@ -12,12 +32,12 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   width: 242px;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
+  }
 
 .user .logo {
   font-size: 30px;
@@ -42,7 +62,7 @@
   height: 40px;
   font-weight: bold;
   font-size: 15px;
-  color: #fbfbfb;
+  color: #FBFBFB;
   background: rgba(0, 0, 0, 0.38);
   border: none;
   border-radius: 7px;
@@ -53,13 +73,14 @@
   height: 40px;
   font-weight: bold;
   font-size: 15px;
-  color: #fbfbfb;
+  color: #FBFBFB;
   background: rgba(66, 165, 245, 0.87);
   border: none;
   border-radius: 7px;
 }
 
-.font-scale-8 {
+
+.user .font-scale-8 {
   font-size: 10px;
   -webkit-transform: scale(0.8);
   display: inline-block;
@@ -68,7 +89,7 @@
 
 /* 로그인 */
 .user#login .login-input-data {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   box-sizing: border-box;
   padding: 10px;
   margin-bottom: 15px;
@@ -102,6 +123,8 @@
   color: rgba(0, 0, 0, 0.87);
 }
 
+
+
 /* 회원가입 */
 
 .user#signup .form-wrap {
@@ -112,7 +135,8 @@
   position: relative;
 }
 
-.user#signup .input-with-label label {
+
+.user#signup .input-with-label label{
   position: absolute;
   left: 3px;
   top: 12px;
@@ -125,6 +149,11 @@
 }
 
 .user#signup .input-with-label input[type="text"] {
+  padding: 5px 0 0 70px;
+  font-size: 8px;
+}
+
+.user#signup .input-with-label input[type="password"] {
   padding: 5px 0 0 70px;
   font-size: 8px;
 }
@@ -143,10 +172,11 @@
 
 .user#signup .send-confirmNum p {
   font-weight: bold;
-  color: #fbfbfb;
+  color: #FBFBFB;
 }
 
-.user#signup .signup-input-data {
+
+.user#signup .signup-input-data{
   box-sizing: border-box;
   height: 35px;
   width: 242px;
@@ -156,6 +186,8 @@
   border-bottom: 2px solid rgba(0, 0, 0, 0.6);
 }
 
+
+
 .user#signup .checkbox {
   display: flex;
   justify-content: center;
@@ -164,7 +196,69 @@
   font-size: 9px;
 }
 
-.user#signup .end-text-signup {
+.user .end-text-signup {
   margin-top: 40px;
   font-size: 9px;
+}
+
+/* 회원가입 완료 */
+.user#donesignup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user#donesignup > svg {
+  margin-bottom: 50px;
+}
+
+.user#donesignup > h1 {
+  margin-bottom: 15px;
+}
+
+.user#donesignup > div {
+  font-size: 15px;
+  margin-bottom: 70px;
+}
+
+/* 비밀번호 찾기 */
+.user#findPW {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
+}
+
+.user#findPW #back-btn {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.user#findPW > svg {
+  margin: 40px 0;
+}
+.user#findPW > div {
+  font-size: 11px;
+  margin-bottom: 35px;
+}
+
+.user#findPW .email > p {
+  font-size: 17px;
+}
+
+.user#findPW .email {
+  width: 242px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.user#findPW input {
+  width: 100%;
+  height: 100%;
+  margin: 5px;
+  text-align: center;
 }
