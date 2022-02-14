@@ -1,13 +1,7 @@
 import Main from "@/views/Main";
-<<<<<<< HEAD
 import Feed from "@/views/main/feed/Feed"; //뉴스 피드 조회
 import CommentPage from "@/views/main/feed/CommentPage"; //댓글리스트
 import LikeListPage from "@/views/main/feed/LikeListPage"; //좋아요 페이지
-=======
-import Feed from "@/views/main/feed/Feed";
-import CommentPage from "@/views/main/feed/CommentPage";
-import LikeListPage from "@/views/main/feed/LikeListPage";
->>>>>>> user_page
 import SearchPage from "@/views/main/SearchPage";
 import Register from "@/views/main/Register";
 import ExerciseList from "@/views/main/exercise/ExerciseList";
@@ -35,7 +29,6 @@ export default {
     },
     {
       name: "CommentPage",
-<<<<<<< HEAD
       path: "feed/CommentPage/:feedId",
       component: CommentPage,
       props: {
@@ -49,15 +42,6 @@ export default {
       props: {
         default: true,
       },
-=======
-      path: "feed/comment",
-      component: CommentPage,
-    },
-    {
-      name: "LikeListPage",
-      path: "feed/likelistpage",
-      component: LikeListPage,
->>>>>>> user_page
     },
     {
       name: "Search",
