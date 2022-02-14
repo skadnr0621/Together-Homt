@@ -1,10 +1,22 @@
 <template>
   <div id="app">
+    <div class="bg">
+      <div class="circle-blue right-1"></div>
+      <div class="circle-big"></div>
+      <div class="circle-blue left-2"></div>
+      <div class="circle-yellow left-1"></div>
+      <div class="circle-yellow right-4"></div>
+      <div class="circle-green left-3"></div>
+      <div class="circle-green right-2"></div>
+      <div class="circle-pink right-3"></div>
+    </div>
     <router-view />
   </div>
 </template>
 
 <script>
+import "@/assets/css/style.css"
+
 export default {
   name: "App",
 };
@@ -14,12 +26,6 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-#app {
-  display: flex;
-  justify-content: center;
-  height: 640px;
 }
 
 a {

@@ -1,5 +1,5 @@
 <template>
-  <div id="user">
+  <div class="user">
     <!-- 로그인 : Login.vue -->
     <!-- 회원가입 : Singup.vue -->
     <!-- 비밀번호 찾기 -->
