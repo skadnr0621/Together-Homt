@@ -6,6 +6,8 @@ import com.ssafy.togetherhomt.user.follow.FollowRepository;
 import com.ssafy.togetherhomt.user.info.SignupDto;
 import com.ssafy.togetherhomt.util.Mailing.MailingService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +41,7 @@ public class UserService {
                 .username(signupDto.getUsername())
                 .role("ROLE_USER")
                 .introduce("")
+                .imagePath("/home/resources/default/profile.png")
                 .build();
         userRepository.save(user);
 
@@ -78,6 +81,19 @@ public class UserService {
 
         userRepository.save(user);
         return this.builder(user, true);
+    }
+
+    @Transactional
+    public ResponseEntity<?> setDefaultProfile(String email) {
+        User user = userRepository.findByEmail(commonService.getLoginUser().getEmail());
+        if (!user.getEmail().equals(email)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        user.setImagePath("/home/resources/default/profile.png");
+        userRepository.save(user);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Transactional

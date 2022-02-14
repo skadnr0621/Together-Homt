@@ -121,4 +121,13 @@ public class UserController {
             return new ResponseEntity<>(updatedUserDto, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "기본 프로필 변경", notes = "기본 프로필 변경")
+    @ApiResponses({
+            @ApiResponse(code = 404, message = "기본 프로필 변경에 실패하였습니다. 잘못된 정보로 요청하였거나, 또는 리소스를 저장하던 중 오류가 발생했을 수 있습니다."),
+            @ApiResponse(code = 200, message = "기본 프로필 변경에 성공하였습니다.")
+    })
+    @PutMapping("/users/{email}/default")
+    public ResponseEntity<?> setDefaultProfile(@PathVariable String email) {
+        return userService.setDefaultProfile(email);
+    }
 }
