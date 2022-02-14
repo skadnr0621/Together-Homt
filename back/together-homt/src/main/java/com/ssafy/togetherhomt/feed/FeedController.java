@@ -69,6 +69,16 @@ public class FeedController {
         return ResponseEntity.ok(feedService.getProfileFeeds(email));
     }
 
+    @ApiOperation(value = "피드 개별 조회", notes = "개별 피드를 조회합니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "피드 조회에 성공하였습니다."),
+            @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
+    })
+    @GetMapping("/feeds/{feed_id}")
+    public FeedListDto getFeed(@PathVariable Long feedId) {
+        return feedService.getFeed(feedId);
+    }
+
     @ApiOperation(value = "피드리스트 조회(검색)", notes = "전체 피드리스트(검색)")
     @ApiResponses({
             @ApiResponse(code = 200, message = "피드리스트 조회 성공"),
