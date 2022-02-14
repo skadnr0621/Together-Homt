@@ -13,5 +13,5 @@ import java.util.List;
 public class TagDto {
 
     @ApiParam(value = "태그 이름")
-    private List<String> nameList;
+    private List<String> tagList;
 }

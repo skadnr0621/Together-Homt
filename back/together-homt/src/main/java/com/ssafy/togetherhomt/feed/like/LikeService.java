@@ -83,7 +83,7 @@ public class LikeService {
             LikeUserDto likeUserDto = new LikeUserDto();
 
             likeUserDto.setProfileUrl(like.getUser().getImagePath());
-            likeUserDto.setEmail(like.getUser().getImagePath());
+            likeUserDto.setEmail(like.getUser().getEmail());
             likeUserDto.setUsername(like.getUser().getUsername());
             likeUserDto.setIntroduce(like.getUser().getIntroduce());
 

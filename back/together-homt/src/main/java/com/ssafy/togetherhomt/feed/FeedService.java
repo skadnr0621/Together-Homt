@@ -96,7 +96,7 @@ public class FeedService {
         // Tag
         List<Tag> resTags = new ArrayList<>();
 
-        for (String tempName : tagDto.getNameList()) {
+        for (String tempName : tagDto.getTagList()) {
             Tag tempTag = tagRepository.findByName(tempName);
             if (tempTag != null) {
                 resTags.add(tempTag);
