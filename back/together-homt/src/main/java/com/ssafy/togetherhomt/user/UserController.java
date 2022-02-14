@@ -1,8 +1,5 @@
 package com.ssafy.togetherhomt.user;
 
-import com.ssafy.togetherhomt.common.CommonService;
-import com.ssafy.togetherhomt.user.info.SignupDto;
-import com.ssafy.togetherhomt.util.Mailing.MailingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -13,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Api("사용자(유저) 관련 기능 접근 방법")

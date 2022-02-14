@@ -56,24 +56,22 @@ public class MailingService {
     }
 
     public static String createKey() {
-        StringBuffer key = new StringBuffer();
-        Random rnd = new Random();
+        Random random = new Random();
+
+        StringBuilder key = new StringBuilder();
+
+        final char[] UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+        final char[] LOWER = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        final char[] DIGIT = "0123456789".toCharArray();
+        final char[] SPECIAL = "~!@#$%^&*()_=".toCharArray();
 
         for (int i = 0; i < 8; i++) { // 인증코드 8자리
-            int index = rnd.nextInt(3); // 0~2 까지 랜덤
-
-            switch (index) {
-                case 0:
-                    key.append((char) ((int) (rnd.nextInt(26)) + 'a'));
-                    //  a~z  (ex. 1+97=98 => (char)98 = 'b')
+            switch (random.nextInt(3)) {
+                case 0: key.append(UPPER[random.nextInt(UPPER.length)]);
                     break;
-                case 1:
-                    key.append((char) ((int) (rnd.nextInt(26)) + 'A'));
-                    //  A~Z
+                case 1: key.append(LOWER[random.nextInt(LOWER.length)]);
                     break;
-                case 2:
-                    key.append((rnd.nextInt(10)));
-                    // 0~9
+                case 2: key.append(DIGIT[random.nextInt(DIGIT.length)]);
                     break;
             }
         }
