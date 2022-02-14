@@ -2,48 +2,35 @@
   <div class="th-post">
     불러오세요.
     <div class="print" v-for="item in tmp" v-bind:key="item.user_id">
-      <!-- 이거지금 user_id 상관없나??? 여기서 key로 넣어주는 게 기준??-->
+      <!-- re:사용자 프로필, 삭제 버튼 -->
       <div class="header-level">
-        <div class="level-left">
-          <div class="pimage">
-            <!-- <img :src="post.프로필사진" /> -->
-            <img
-              class="headerimg"
-              src="@/assets/스카피.jpg"
-              alt="프로필 사진"
-            />
-          </div>
-          <div class="username">{{ item.username }}</div>
+        <div>
+          <div><img :src="프로필url" alt="프로필 사진" /></div>
+          <div>{{ item.username }}</div>
+        </div>
+        <div v-if="isDelete">
+          <span class="material-icons" @click="deleteFeed(item.feedId)">
+            delete
+          </span>
         </div>
       </div>
-      <div class="image-container" @dblclick="Like">
-        이미지/비디오
-        <!-- <div
-          v-if="
-            mediaURL(index).slice(-3) == 'jpg' ||
-            mediaURL(index).slice(-3) == 'png'
-          "
-        >
-          <img :src="mediaURL(index)" />
+
+      <!-- re: 피드 이미지 -->
+      <div class="feed-image-container">
+        <!-- 피드컨텐츠url 없을 경우 -->
+        <img :src="피드컨텐츠url" alt="피드 기본 이미지" />
+      </div>
+
+      <!-- re: 피드 컨텐츠 - 좋아요 개수, 피드 내용, 댓글 -->
+
+      <div class="feed-content">
+        <!-- 좋아요 -->
+        <div class="heart" v-if="좋아요상태따라서분기">
+          <i class="fa-regular fa-heart fa-2x" @click="Like()"></i>
         </div>
         <div v-else>
-          <video :src="mediaURL(index)" controls autoplay></video>
-        </div> -->
-      </div>
-      <div class="content">
-        <div class="heart">
-          <!-- <i class="fa-regular fa-heart"></i> -->
-          <i class="fa-regular fa-heart fa-2x" @click="Like()"></i>
-          <!-- <i class="fa-solid fa-heart fa-2x @click="UnLike"></i> -->
+          <i class="fa-solid fa-heart fa-2x" @click="UnLike()"></i>
         </div>
-
-        <div class="speech">
-          <i
-            class="fa-regular fa-comment fa-2x"
-            @click="goComment(item.feedId)"
-          ></i>
-        </div>
-
         <div class="likes">
           <div v-if="item.likeCnt == 0" @click="golikeList(item.feedId)">
             좋아요를 눌러보세요.
@@ -51,6 +38,15 @@
           <div v-else @click="golikeList()">좋아요 {{ item.likeCnt }} 개</div>
         </div>
 
+        <!-- 댓글 말풍선 -->
+        <div class="speech">
+          <i
+            class="fa-regular fa-comment fa-2x"
+            @click="goComment(item.feedId)"
+          ></i>
+        </div>
+
+        <!-- 피드 내용 -->
         <div class="caption">
           <div class="username">{{ item.username }}</div>
           <div class="caption">{{ item.content }}</div>
@@ -60,6 +56,8 @@
         댓글한개만출력가능한가
       </div>
       <div class="Tags">#{{ item.tags }} 태그</div>
+
+      <!--피드 게시 날짜 -->
       <div class="createTime" v-if="item.createdAt != null">
         {{ item.createdAt[0] }}년 {{ item.createdAt[1] }}월
         {{ item.createdAt[2] }}일
@@ -141,105 +139,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.th-post {
-  border: 1px solid black;
-  margin: 10px;
-  padding: 1px;
-}
-.th-post > .print {
-  border: 2px solid blue;
-  margin: 10px;
-  padding: 2px;
-}
-.th-post > .print > .image-container {
-  text-align: center;
-  cursor: pointer;
-}
-.th-post > .print > .header-level > .level-left {
-  border: 1px solid black;
-  margin: 2px;
-  display: flex;
-}
-.th-post > .print > .header-level > .level-left > .pimage {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  margin: 2px;
-}
-.th-post > .print > .header-level > .level-left > .pimage > .headerimg {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  cursor: pointer;
-}
-.th-post > .print > .header-level > .level-left > .username {
-  border: 1px solid black;
-  margin: 2px;
-  text-align: center;
-  cursor: pointer;
-}
-.th-post > .print > .content > .heart {
-  width: 35px;
-  height: 35px;
-  border: 1px solid black;
-  margin: 1px;
-  display: inline-block;
-  cursor: pointer;
-}
-.th-post > .print > .content > .speech {
-  width: 35px;
-  height: 35px;
-  border: 1px solid black;
-  margin: 1px;
-  display: inline-block;
-  cursor: pointer;
-}
-.th-post > .print > .content > .likes {
-  border: 1px solid black;
-  margin: 2px;
-  cursor: pointer;
-}
-.th-post > .print > .content > .username {
-  width: 30px;
-  height: 30px;
-  border: 1px solid black;
-  margin: 5px;
-  display: inline;
-  text-align: center;
-  cursor: pointer;
-}
-.th-post > .print > .content > .caption {
-  border: 1px solid black;
-  margin: 2px;
-  cursor: pointer;
-}
-.th-post > .print > .header > .level-left {
-  border: 1px solid black;
-  display: flex;
-  margin: 2px;
-}
-.th-post > .print > .comments {
-  border: 1px solid black;
-  margin: 2px;
-  cursor: pointer;
-}
-.th-post > .print > .createTime {
-  border: 1px solid black;
-  margin: 2px;
-}
-.th-post > .print > .Tags {
-  border: 1px solid black;
-  margin: 2px;
-}
-.th-post > .print > .image-container {
-  border: 1px solid black;
-  margin: 2px;
-}
-.th-post > .print > .content > .profile-image {
-  display: flex;
-  border: 1px solid black;
-  margin: 2px;
-}
-</style>
+<style lang="scss" scoped></style>
