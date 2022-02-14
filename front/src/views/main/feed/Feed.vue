@@ -1,6 +1,5 @@
 <template>
   <div id="feed">
-    피드어딧음
     <THpost :tmp="tmp"></THpost>
   </div>
 </template>
@@ -24,7 +23,6 @@ export default {
     axios
       .get("/feed/feeds/follower", {
         // 팔로우하고있는 피드만 조회
-        // /slide1/feedlist
         headers: {
           Authorization: sessionStorage.getItem("jwt"),
         },
