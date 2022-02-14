@@ -2,7 +2,7 @@
   <div id="profile-edit-main">
     <div class="profile">
       <div class="view">
-        <img v-if="info.profileUrl" :src="info.profileUrl" alt="프로필 사진" />
+        <img v-if="info.imagePath" :src="info.imagePath" alt="프로필 사진" />
         <img
           v-else
           src="https://cdn.pixabay.com/photo/2022/01/29/08/40/basic-6976744_960_720.png"
@@ -24,7 +24,7 @@
     <div class="info">
       <div class="email">
         <span>이메일</span>
-        <input type="text" v-model="info.email" />
+        <input type="text" v-model="info.email" disabled />
       </div>
       <div class="username">
         <span>닉네임</span>
@@ -50,11 +50,15 @@ export default {
     return {
       info: {},
       editProfile: null,
+      token: sessionStorage.getItem("jwt"),
     };
   },
   computed: {
-    // 로그인한 유저 정보
-    ...mapState(["myInfo"]),
+    // 로그인한 사용자 이메일 가져오기
+    ...mapState({ loginUser: (state) => state.userStore.LoginUser }),
+
+    // 내 정보
+    ...mapState({ myInfo: (state) => state.myStore.myInfo }),
   },
   methods: {
     handleFileChange(event) {
@@ -63,7 +67,7 @@ export default {
 
       const reader = new FileReader();
       reader.onload = (e) => {
-        this.info.profileUrl = e.target.result;
+        this.info.imagePath = e.target.result;
       };
       reader.readAsDataURL(this.editProfile);
     },
@@ -81,12 +85,12 @@ export default {
 
         if (this.editProfile) {
           console.log("들어옴");
-          formData.append("media", this.editProfile);
+          formData.append("picture", this.editProfile);
         }
 
         // 프로필 편집하기
         await axios
-          .put(`/user/profile/update`, formData, {
+          .put(`/user/users/${this.info.email}`, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: sessionStorage.getItem("jwt"),
@@ -100,9 +104,16 @@ export default {
             alert("변경 실패");
             console.log(err.response.data.msg);
           });
-        this.$router.push({
+
+        // 내 프로필 정보 가져오기
+        await this.$store.dispatch("myStore/setMyInfo", {
+          email: this.loginUser,
+          token: this.token,
+        });
+
+        await this.$router.push({
           name: "Profile",
-          params: { userName: this.info.username },
+          params: { userName: this.info.username, email: this.info.email },
         });
       }
     },

@@ -33,6 +33,6 @@ export default {
 
     GET_ALL_USERS(state, allUsers) {
       state.allUsers = allUsers;
-    }
+    },
   },
 };

@@ -52,7 +52,6 @@
 
 <script>
 import "@/assets/css/navbar.css";
-import { mapState } from "vuex";
 
 export default {
   name: "Navbar",
@@ -61,10 +60,7 @@ export default {
       menu: ["menu-feed", "menu-search", "menu-add", "menu-homt", "menu-my"],
     };
   },
-  computed: {
-    // 내 정보
-    ...mapState(["myInfo"]),
-  },
+  props: ["myInfo"],
   methods: {
     // 메뉴 아이콘 색깔 바꾸기
     changeMenu(num) {

@@ -2,24 +2,32 @@ import Vue from "vue";
 import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 
-import State from "@/store/states.js";
+// import State from "@/store/states.js";
+// import Getters from "@/store/getters.js";
 import Mutations from "@/store/mutations.js";
 import Actions from "@/store/actions.js";
 import userStore from "@/store/userStore";
 
+import myStore from "@/store/myStore";
+import otherStore from "@/store/otherStore";
+import feedStore from "@/store/feedStore";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  ...State,
   ...Mutations,
   ...Actions,
 
   modules: {
     userStore: userStore,
+    myStore: myStore,
+    otherStore: otherStore,
+    feedStore: feedStore,
   },
+
   plugins: [
     createPersistedState({
-      paths: ["userStore"],
+      paths: ["userStore", "myStore", "otherStore", "feedStore"],
     }),
   ],
 });

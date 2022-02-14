@@ -1,0 +1,76 @@
+#profile-feed-like {
+  position: fixed;
+  top: 45px;
+  left: 0;
+  right: 0;
+  bottom: 45px;
+  overflow: auto;
+}
+
+/* ProfileFeedLikeHeader */
+#profile-feed-like-header {
+  background-color: #ffffff;
+  display: flex;
+  height: 40px;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0 10px;
+}
+
+#profile-feed-like-header > .cancel {
+  height: 24px;
+}
+
+#profile-feed-like-header > .cancel > span {
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#profile-feed-like-header > .context {
+  font-weight: bold;
+}
+
+/* ProfileFeedLikeMain */
+#profile-feed-like-main {
+  width: 100%;
+  padding: 10px 15px;
+  position: fixed;
+  top: 85px;
+  left: 0;
+  right: 0;
+  bottom: 45px;
+  overflow: scroll;
+}
+
+#profile-feed-like-main > .like {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: bold;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.87);
+  margin: 15px 0;
+}
+
+#profile-feed-like-main > .like:first-child {
+  margin: 0;
+}
+
+#profile-feed-like-main > .like > .profile {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#profile-feed-like-main > .like > .profile > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+#profile-feed-like-main > .like > .username {
+  margin-left: 10px;
+}

@@ -20,12 +20,12 @@
   opacity: 1;
 }
 
-.firstpage {
+/* .firstpage {
   height: 640px;
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
 .user {
   -webkit-text-size-adjust: none;

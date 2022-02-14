@@ -60,7 +60,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
@@ -74,6 +73,8 @@ export default {
   },
   data() {
     return {
+      token: sessionStorage.getItem("jwt"),
+
       viewImg: null,
       tag: null,
 
@@ -85,8 +86,10 @@ export default {
     };
   },
   computed: {
+    ...mapState({ loginUser: (state) => state.userStore.LoginUser }),
+
     // 내 정보
-    ...mapState(["myInfo"]),
+    ...mapState({ myInfo: (state) => state.myStore.myInfo }),
   },
   methods: {
     addTag() {
@@ -138,7 +141,7 @@ export default {
             console.log(err);
           });
 
-        this.$router.push({
+        await this.$router.push({
           name: "Profile",
           params: { userName: this.myInfo.username, email: this.myInfo.email },
         });

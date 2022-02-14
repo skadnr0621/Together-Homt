@@ -3,7 +3,7 @@
     <div class="follow-btn" v-show="isFollow == -1" @click="onFollow">
       팔로우
     </div>
-    <div class="follow-btn" v-show="isFollow != -1" @click="onUnfollow">
+    <div class="follow-btn" v-show="isFollow != -1" @click="onUnFollow">
       팔로잉
     </div>
   </div>
@@ -20,31 +20,31 @@ export default {
     // 팔로우 하기
     async onFollow() {
       await axios
-        .post(`/follow/${this.email}`)
+        .post(`/communication/follows/${this.email}`)
         .then((res) => {
           console.log(res);
           alert("팔로우 성공!");
+          this.$router.go();
         })
         .catch((err) => {
           console.log(err);
           alert("팔로우 실패!");
         });
-      this.$router.go();
     },
 
     // 언팔로우 하기
-    async onUnfollow() {
+    async onUnFollow() {
       await axios
-        .delete(`/follow/${this.email}`)
+        .delete(`/communication/follows/${this.email}`)
         .then((res) => {
           console.log(res);
           alert("언팔로우 성공!");
+          this.$router.go();
         })
         .catch((err) => {
           console.log(err);
           alert("언팔로우 실패!");
         });
-      this.$router.go();
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <div id="comment-register">
-    <div><img :src="myInfo.profileUrl" alt="사용자프로필" /></div>
+    <div><img :src="myInfo.imagePath" alt="사용자프로필" /></div>
     <div>
       <input
         type="text"
@@ -19,8 +19,6 @@
 import axios from "axios";
 axios.defaults.headers.common["Authorization"] = sessionStorage.getItem("jwt");
 
-import { mapState, mapActions } from "vuex";
-
 export default {
   name: "CommentRegister",
   data() {
@@ -29,17 +27,11 @@ export default {
       comment: "",
     };
   },
-  computed: {
-    ...mapState({ loginUser: (state) => state.userStore.LoginUser }),
-
-    ...mapState(["myInfo"]),
-  },
+  props: ["myInfo"],
   methods: {
-    ...mapActions(["setMyInfo"]),
-
     async registerComment() {
       await axios
-        .post(`/feed/${this.$route.params.feedId}/comment`, {
+        .post(`/feed/${this.$route.params.feedId}/comments`, {
           content: this.comment,
         })
         .then((res) => {
@@ -50,14 +42,8 @@ export default {
           alert("댓글 등록 실패!");
           console.log(err);
         });
-      this.$router.go();
+      await this.$router.go();
     },
-  },
-  async mounted() {
-    await this.setMyInfo({
-      token: this.token,
-      email: this.loginUser,
-    });
   },
 };
 </script>

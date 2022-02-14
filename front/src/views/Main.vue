@@ -13,7 +13,7 @@
       <router-view />
 
       <!-- 메뉴바 -->
-      <Navbar />
+      <Navbar :myInfo="myInfo" />
     </div>
 
     <!-- jwt 토큰을 가지고 있지 않을 경우 -->
@@ -26,8 +26,7 @@ import Header from "@/components/common/Header";
 import Navbar from "@/components/common/Navbar";
 
 import "@/assets/css/main.css";
-
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "Main",
@@ -43,10 +42,19 @@ export default {
   computed: {
     // 로그인한 사용자 이메일 가져오기
     ...mapState({ loginUser: (state) => state.userStore.LoginUser }),
+
+    ...mapState({ myInfo: (state) => state.myStore.myInfo }),
+  },
+  async mounted() {
+    // 내 정보 가져오기
+    await this.$store.dispatch("myStore/setMyInfo", {
+      email: this.loginUser,
+      token: this.token,
+    });
   },
   methods: {
     // 내 정보 조회
-    // ...mapActions(["setMyInfo"]),
+    ...mapActions(["setMyInfo", "setMyFollow", "setMyFeeds"]),
 
     // 로그아웃
     logout() {

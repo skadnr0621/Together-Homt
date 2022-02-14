@@ -1,6 +1,5 @@
 <template>
   <div id="feed">
-    피드어딧음
     <THpost :tmp="tmp"></THpost>
   </div>
 </template>
@@ -37,9 +36,7 @@ export default {
         console.log(error);
       });
   },
-  computed: {
-    //...mapState(["myInfo"]),
-  },
+  computed: {},
   methods: {},
 };
 </script>

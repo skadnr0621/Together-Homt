@@ -1,16 +1,11 @@
 <template>
   <div id="profile-feed-list">
-    <div v-if="feedList.feedCnt == 0">피드 없음</div>
-    <div
-      v-else
-      v-for="(feed, index) in feedList.feeds"
-      :key="index"
-      class="feed"
-    >
+    <div v-if="feedList.length == 0">피드 없음</div>
+    <div v-else v-for="(feed, index) in feedList" :key="index" class="feed">
       <img
-        :src="feed.media_url"
+        :src="feed.mediaUrl"
         alt="피드사진"
-        @click="viewDetailFeed(index, feed.feed_id)"
+        @click="viewDetailFeed(index, feed.feedId)"
       />
     </div>
   </div>
