@@ -104,7 +104,7 @@ public class FeedController {
             @ApiResponse(code = 200, message = "피드 수정에 성공하였습니다."),
             @ApiResponse(code = 500, message = "서버 에러입니다.")
     })
-    @GetMapping("/feeds/{feed_id}")
+    @GetMapping("/feeds/{feed_id}/temp")
     public ResponseEntity<?> getUpdateFeedInfo(@PathVariable Long feed_id){
         return ResponseEntity.ok(feedService.getUpdateFeedInfo(feed_id));
     }
