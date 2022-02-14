@@ -2,11 +2,12 @@ package com.ssafy.togetherhomt.config.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
 import com.ssafy.togetherhomt.user.User;
+import jdk.nashorn.internal.runtime.logging.Logger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -18,35 +19,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Map;
 
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
+@Logger
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-        setFilterProcessesUrl("/**/login");
-    }
-
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        if (!"POST".equals(request.getMethod())) {
-            try {
-                response.sendError(404, "Bad Request");
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                return null;
-            }
-        }
+        if (!"POST".equals(request.getMethod()))
+            throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
 
-        System.out.println("Attempting Login . . .");
+        logger.info("Attempting Login . . .");
         try {
-            // JSON으로 요청을 받을 경우
-            ObjectMapper om = new ObjectMapper();
-            User user = om.readValue(request.getInputStream(), User.class);
+            Map<String, String[]> reqParams = request.getParameterMap();
+
+            User user = new User();
+            user.setEmail(reqParams.containsKey("email")
+                    ? reqParams.get("email")[0]
+                    : reqParams.get("username")[0]);
+            user.setPassword(reqParams.get("password")[0]);
+
+            logger.info("Got login attempting user :: " + user.getEmail());
 
             // 로그인 시도 - 토큰 생성
             UsernamePasswordAuthenticationToken authenticationToken =
@@ -55,8 +52,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
             return authentication;
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        catch (AuthenticationException e) {
+            try {
+                this.unsuccessfulAuthentication(request, response, e);
+            }
+            catch (Exception ee) {
+                ee.printStackTrace();
+            }
         }
 
         return null;
@@ -65,7 +67,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         PrincipalDetails principalDetails = (PrincipalDetails)authResult.getPrincipal();
-        System.out.println("Login authenticated :: " + principalDetails.getUsername());
 
         String jwtToken = JWT.create()
                 .withSubject("THT's JWT")
@@ -74,7 +75,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withClaim("username", principalDetails.getUser().getUsername())
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
+        logger.info(String.format("----- JWT published ----- [ %s (%s) ]", principalDetails.getUser().getEmail(), principalDetails.getUser().getUsername()));
         response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
     }
 
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        logger.info("Login Failed          " + failed.getMessage());
+        super.unsuccessfulAuthentication(request, response, failed);
+    }
 }

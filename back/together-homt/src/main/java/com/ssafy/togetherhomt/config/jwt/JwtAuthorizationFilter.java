@@ -5,6 +5,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserRepository;
+import jdk.nashorn.internal.runtime.logging.Logger;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Logger
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private UserRepository userRepository;
@@ -31,9 +34,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String jwtHeader = request.getHeader("Authorization");
         if (jwtHeader == null || !jwtHeader.startsWith("Bearer")) {
-//            response.sendError(400, "Bad Request : No Authorization header || JWT 토큰을 확인하세요.");
-            chain.doFilter(request, response);
-            return;
+            logger.info("Invalid or missing authorization");
+            response.sendError(405, "Method Not Allowed : No Authorization header || JWT 토큰을 확인하세요.");
+            return; // return문 없을 시 후속 로직 계속 실행되어 오류 유발함
         }
 
         String jwtToken = request.getHeader(JwtProperties.HEADER_STRING).replace(JwtProperties.TOKEN_PREFIX, "");
@@ -46,7 +49,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         // 서명이 정상적으로 되었음.
         if (email != null) {    // username != null --> email != null
-            System.out.println("email : " + email + "      [정상 서명됨]");
+            logger.info("Login User  ::  " + email + "      [정상 서명됨]");
             User userEntity = userRepository.findByEmail(email);    // findByEmail(username) --> findByEmail(email)
 
             PrincipalDetails principalDetails = new PrincipalDetails(userEntity);
