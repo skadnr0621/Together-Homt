@@ -64,7 +64,7 @@ public class FeedController {
             @ApiResponse(code = 200, message = "요청한 사용자의 피드 조회에 성공하였습니다."),
             @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
     })
-    @GetMapping("/feeds/{email}")
+    @GetMapping("/feeds/profiles/{email}")
     public ResponseEntity<List<FeedDto>> getProfileFeeds(@PathVariable String email) {
         return ResponseEntity.ok(feedService.getProfileFeeds(email));
     }
@@ -75,7 +75,7 @@ public class FeedController {
             @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
     })
     @GetMapping("/feeds/{feed_id}")
-    public FeedListDto getFeed(@PathVariable Long feedId) {
+    public FeedListDto getFeed(@PathVariable("feed_id") Long feedId) {
         return feedService.getFeed(feedId);
     }
 
@@ -94,7 +94,7 @@ public class FeedController {
             @ApiResponse(code = 200, message = "유저가 작성한 피드 리스트 조회 성공"),
             @ApiResponse(code = 500, message = "서버 에러입니다.")
     })
-    @GetMapping("/feeds/{email}/temp")
+    @GetMapping("/feeds/profiles/{email}/temp")
     public ResponseEntity<List<FeedProfileDto>> getProfileFeeds_temp(@PathVariable String email) {
         return ResponseEntity.ok(feedService.getProfileFeeds_temp(email));
     }
