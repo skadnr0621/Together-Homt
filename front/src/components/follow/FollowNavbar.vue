@@ -1,20 +1,30 @@
 <template>
   <div id="follow-navbar">
-    <ul>
+    <ul v-if="isMe">
       <li class="following" @click="goFollowing">
-        {{ info.cntFollowing }} 팔로잉
+        {{ myInfo.cntFollowing }} 팔로잉
       </li>
       <li class="follower" @click="goFollower">
-        {{ info.cntFollower }} 팔로워
+        {{ myInfo.cntFollower }} 팔로워
+      </li>
+    </ul>
+    <ul v-else>
+      <li class="following" @click="goFollowing">
+        {{ otherInfo.cntFollowing }} 팔로잉
+      </li>
+      <li class="follower" @click="goFollower">
+        {{ otherInfo.cntFollower }} 팔로워
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "FollowNavbar",
-  props: ["info"],
+  props: ["isMe"],
   methods: {
     goFollowing() {
       this.$emit("goFollowing");
@@ -22,6 +32,13 @@ export default {
     goFollower() {
       this.$emit("goFollower");
     },
+  },
+  computed: {
+    // 나의 정보
+    ...mapState({ myInfo: (state) => state.myStore.myInfo }),
+
+    // 다른 사람의 정보
+    ...mapState({ otherInfo: (state) => state.otherStore.otherInfo }),
   },
   async mounted() {
     // 스타일 적용

@@ -1,0 +1,25 @@
+<template>
+  <div id="profile-feed-like-main">
+    <div class="like" v-for="(value, index) in likeInfo" :key="index">
+      <div class="profile" @click="goProfile(value.username, value.email)">
+        <img :src="value.profileUrl" alt="프로필 사진" />
+      </div>
+      <div class="username" @click="goProfile(value.username, value.email)">
+        {{ value.username }}
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapState } from "vuex";
+
+export default {
+  name: "ProfileFeedLikeMain",
+  computed: {
+    ...mapState({ likeInfo: (state) => state.feedStore.likeInfo }),
+  },
+};
+</script>
+
+<style></style>

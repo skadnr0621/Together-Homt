@@ -1,38 +1,34 @@
 <template>
   <div class="th-post">
+    불러오세요.
     <div class="print" v-for="item in tmp" v-bind:key="item.user_id">
       <!-- 이거지금 user_id 상관없나??? 여기서 key로 넣어주는 게 기준??-->
       <div class="header-level">
         <div class="level-left">
-          <div class="pimage" v-if="item.profileUrl == null">
+          <div class="pimage">
             <!-- <img :src="post.프로필사진" /> -->
-            <!-- 유저테이블에선 image_path고
-            feed에선 profileUrl?-->
             <img
               class="headerimg"
               src="@/assets/스카피.jpg"
               alt="프로필 사진"
             />
           </div>
-          <div v-else>
-            <img class="pimgae2" :src="item.profileUrl" />
-          </div>
-          <div class="username" @click="goProfile(item.username, email)">
-            {{ item.username }}
-          </div>
+          <div class="username">{{ item.username }}</div>
         </div>
       </div>
       <div class="image-container" @dblclick="Like">
-        <div
+        이미지/비디오
+        <!-- <div
           v-if="
-            item.mediaUrl.slice(-3) == 'jpg' || item.mediaUrl.slice(-3) == 'png'
+            mediaURL(index).slice(-3) == 'jpg' ||
+            mediaURL(index).slice(-3) == 'png'
           "
         >
-          <img :src="item.mediaUrl" style="width: 500px; height: 500px" />
+          <img :src="mediaURL(index)" />
         </div>
         <div v-else>
-          <video :src="item.mediaUrl" controls autoplay></video>
-        </div>
+          <video :src="mediaURL(index)" controls autoplay></video>
+        </div> -->
       </div>
       <div class="content">
         <div class="heart">
@@ -166,13 +162,6 @@ export default {
   display: flex;
 }
 .th-post > .print > .header-level > .level-left > .pimage {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  margin: 2px;
-}
-.th-post > .print > .header-level > .level-left > .pimage2 {
   width: 30px;
   height: 30px;
   border-radius: 50%;

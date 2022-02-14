@@ -4,11 +4,12 @@
       <span class="material-icons-outlined"> search</span>
       <input type="text" placeholder="검색" />
     </div>
+
     <!-- 나의 팔로우 정보-->
-    <div v-if="loginUser == this.email">
+    <div v-if="isMe">
       <!-- 팔로잉 정보 -->
       <div v-if="viewFollow == 'following'">
-        <div class="default" v-if="myFollowing.length == 0">
+        <div class="default" v-if="myFollows.followings.length == 0">
           <span class="material-icons"> person_add </span>
           <h4>팔로잉</h4>
           <p>
@@ -20,14 +21,14 @@
         <div class="list" v-else>
           <div
             class="follow"
-            v-for="(value, index) in myFollowing"
+            v-for="(value, index) in myFollows.followings"
             :key="index"
           >
             <div
               class="profile"
               @click="goProfile(value.username, value.email)"
             >
-              <img :src="value.profile_url" alt="프로필 사진" />
+              <img :src="value.imagePath" alt="프로필 사진" />
             </div>
             <div
               class="username"
@@ -44,9 +45,10 @@
           </div>
         </div>
       </div>
+
       <!-- 팔로워 정보 -->
       <div v-else>
-        <div class="default" v-if="myFollower.length == 0">
+        <div class="default" v-if="myFollows.followers.length == 0">
           <span class="material-icons"> person_add </span>
           <h4>팔로워</h4>
           <p>
@@ -56,12 +58,16 @@
         </div>
 
         <div class="list" v-else>
-          <div class="follow" v-for="(value, index) in myFollower" :key="index">
+          <div
+            class="follow"
+            v-for="(value, index) in myFollows.followers"
+            :key="index"
+          >
             <div
               class="profile"
               @click="goProfile(value.username, value.email)"
             >
-              <img :src="value.profile_url" alt="프로필 사진" />
+              <img :src="value.imagePath" alt="프로필 사진" />
             </div>
             <div
               class="username"
@@ -91,7 +97,7 @@
     <div v-else>
       <!-- 팔로잉 정보 -->
       <div v-if="viewFollow == 'following'">
-        <div class="default" v-if="userFollowing.length == 0">
+        <div class="default" v-if="otherFollows.followings.length == 0">
           <span class="material-icons"> person_add </span>
           <h4>팔로잉</h4>
           <p>
@@ -103,14 +109,14 @@
         <div class="list" v-else>
           <div
             class="follow"
-            v-for="(value, index) in userFollowing"
+            v-for="(value, index) in otherFollows.followings"
             :key="index"
           >
             <div
               class="profile"
               @click="goProfile(value.username, value.email)"
             >
-              <img :src="value.profile_url" alt="프로필 사진" />
+              <img :src="value.imagePath" alt="프로필 사진" />
             </div>
             <div
               class="username"
@@ -137,7 +143,7 @@
       </div>
       <!-- 팔로워 정보 -->
       <div v-else>
-        <div class="default" v-if="userFollower.length == 0">
+        <div class="default" v-if="otherFollows.followers.length == 0">
           <span class="material-icons"> person_add </span>
           <h4>팔로워</h4>
           <p>
@@ -149,14 +155,14 @@
         <div class="list" v-else>
           <div
             class="follow"
-            v-for="(value, index) in userFollower"
+            v-for="(value, index) in otherFollows.followers"
             :key="index"
           >
             <div
               class="profile"
               @click="goProfile(value.username, value.email)"
             >
-              <img :src="value.profile_url" alt="프로필 사진" />
+              <img :src="value.imagePath" alt="프로필 사진" />
             </div>
             <div
               class="username"
@@ -189,7 +195,7 @@
 import axios from "axios";
 axios.defaults.headers.common["Authorization"] = sessionStorage.getItem("jwt");
 
-import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "FollowList",
@@ -201,21 +207,18 @@ export default {
       myFollowingList: [], // 내가 팔로우한 유저의 이메일
     };
   },
+  props: ["isMe"],
   computed: {
     // 로그인한 사용자 이메일 가져오기
     ...mapState({ loginUser: (state) => state.userStore.LoginUser }),
-    // 팔로우 정보 가져오기
-    ...mapState(["myFollowing", "myFollower", "userFollower", "userFollowing"]),
+
+    // 나의 팔로우 정보
+    ...mapState({ myFollows: (state) => state.myStore.myFollows }),
+
+    // 다른 사람의 팔로우 정보
+    ...mapState({ otherFollows: (state) => state.otherStore.otherFollows }),
   },
   methods: {
-    // 팔로우 정보 조회하기
-    ...mapActions([
-      "setMyFollowing",
-      "setMyFollower",
-      "setUserFollowing",
-      "setUserFollower",
-    ]),
-
     // 프로필 페이지 이동하기
     goProfile(name, email) {
       this.$router.push({
@@ -227,7 +230,7 @@ export default {
     // 팔로우 하기
     async onFollow(email) {
       await axios
-        .post(`/follow/${email}`)
+        .post(`/communication/follows/${email}`)
         .then((res) => {
           console.log(res);
           alert("팔로우 성공!");
@@ -236,13 +239,14 @@ export default {
           console.log(err);
           alert("팔로우 실패!");
         });
+
       this.$router.go();
     },
 
     // 언팔로우 하기
     async onUnfollow(email) {
       await axios
-        .delete(`/follow/${email}`)
+        .delete(`/communication/follows/${email}`)
         .then((res) => {
           console.log(res);
           alert("언팔로우 성공!");
@@ -251,47 +255,30 @@ export default {
           console.log(err);
           alert("언팔로우 실패!");
         });
+
       this.$router.go();
     },
   },
   async mounted() {
-    // 나의 팔로잉 정보 조회하기
-    await this.setMyFollowing({
+    // 나의 팔로우 정보 조회하기
+    await this.$store.dispatch("myStore/setMyFollows", {
       email: this.loginUser,
       token: this.token,
     });
-    console.log("FollowList에서 나의 팔로잉 정보 get요청함!");
+    console.log("Follow에서 나의 팔로우 정보 get요청함!");
 
-    this.myFollowingList = this.myFollowing.map((x) => x.email); // 객체 배열 중 email만 뽑아서 배열 생성하기
-    console.log(this.myFollowingList);
-
-    if (this.loginUser == this.email) {
-      // 팔로워 정보
-      await this.setMyFollower({
-        email: this.loginUser,
+    // 다른 유저의 팔로우 정보 조회하기
+    if (!this.isMe) {
+      await this.$store.dispatch("otherStore/setOtherFollows", {
+        email: this.email,
         token: this.token,
       });
-      console.log("FollowList에서 나의 팔로워 정보 get요청함!");
+      console.log("Follow에서 유저 팔로워 정보 get요청함!");
     }
-    // 유저 팔로우 정보 조회하기
-    else {
-      // 팔로잉 정보
-      if (this.viewFollow == "following") {
-        await this.setUserFollowing({
-          email: this.email,
-          token: this.token,
-        });
-        console.log("FollowList에서 유저의 팔로잉 정보 get요청함!");
-      }
-      // 팔로워 정보
-      else {
-        await this.setUserFollower({
-          email: this.email,
-          token: this.token,
-        });
-        console.log("FollowList에서 유저의 팔로워 정보 get요청함!");
-      }
-    }
+
+    // 나의 팔로잉 정보 조회하기
+    this.myFollowingList = this.myFollows.followings.map((x) => x.email); // 객체 배열 중 email만 뽑아서 배열 생성하기
+    console.log(this.myFollowingList);
   },
 };
 </script>

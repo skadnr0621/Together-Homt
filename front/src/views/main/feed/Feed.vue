@@ -23,6 +23,7 @@ export default {
     axios
       .get("/feed/feeds/follower", {
         // 팔로우하고있는 피드만 조회
+        // /slide1/feedlist
         headers: {
           Authorization: sessionStorage.getItem("jwt"),
         },
@@ -35,9 +36,7 @@ export default {
         console.log(error);
       });
   },
-  computed: {
-    //...mapState(["myInfo"]),
-  },
+  computed: {},
   methods: {},
 };
 </script>

@@ -5,7 +5,13 @@
     </div>
     <div class="calendar-btn">
       <router-link
-        :to="{ name: 'CalendarPage', params: { userName: `유저네임` } }"
+        :to="{
+          name: 'Calendar',
+          params: {
+            userName: $route.params.userName,
+            email: $route.params.email,
+          },
+        }"
       >
         <span class="material-icons"> event_available </span>
       </router-link>

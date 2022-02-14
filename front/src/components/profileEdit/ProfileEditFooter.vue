@@ -9,14 +9,20 @@
 <script>
 import axios from "axios";
 
+import { mapState } from "vuex";
 export default {
   name: "ProfileEditFooter",
+  computed: {
+    // 로그인한 사용자 이메일 가져오기
+    ...mapState({ loginUser: (state) => state.userStore.LoginUser }),
+  },
   methods: {
     // 로그아웃
     logout() {
       if (confirm("로그아웃 하시겠습니까?")) {
         sessionStorage.clear();
         this.$store.dispatch("userStore/getLoginUser", null);
+        // this.$store.replaceState(null);
         this.$router.push({ name: "Login" });
       }
     },
@@ -25,7 +31,7 @@ export default {
       console.log(sessionStorage.getItem("jwt"));
       if (confirm("정말 탈퇴하시겠습니까?")) {
         await axios
-          .delete(`/user`, {
+          .delete(`/user/users/${this.loginUser}`, {
             headers: {
               Authorization: sessionStorage.getItem("jwt"),
             },
@@ -35,7 +41,11 @@ export default {
             console.log(res);
 
             sessionStorage.clear(); // 토큰 삭제
-            this.$store.dispatch("userStore/getLoginUser", null); // LocalStorage 초기화
+            this.$store.clear();
+            // this.$store.dispatch("userStore/getLoginUser", null); // LocalStorage 초기화
+            // this.$store.dispatch("userStore/getLoginUser", null); // LocalStorage 초기화
+            // this.$store.dispatch("userStore/getLoginUser", null); // LocalStorage 초기화
+            // this.$store.dispatch("userStore/getLoginUser", null); // LocalStorage 초기화
 
             this.$router.push({ name: "Login" });
           })
