@@ -29,9 +29,10 @@ public class UserDto {
 
     @ApiParam(value = "사용자 계정을 팔로우하는 사람 수")
     private Long cntFollower;
-    private List<UserDto> followers;
     @ApiParam(value = "사용자 계정이 팔로우하는 사람 수")
     private Long cntFollowing;
-    private List<UserDto> followings;
+
+    @ApiParam(value = "로그인 유저가 팔로우 했는지 여부")
+    private boolean followed;
 
 }
