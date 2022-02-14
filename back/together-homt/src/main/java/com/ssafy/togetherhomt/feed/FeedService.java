@@ -268,6 +268,11 @@ public class FeedService {
 
     public List<FeedDto> getProfileFeeds(String email) {
 
+        // Get User
+        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userTemp = principalDetails.getUser();
+        User loginUser = userRepository.findByEmail(userTemp.getEmail());
+
         User user = userRepository.findByEmail(email);
 
         List<FeedDto> result = new ArrayList<>();
@@ -288,7 +293,7 @@ public class FeedService {
             feedDto.setTags(tempTags);
 
             // Check like_status
-            Like like_flag = likeRepository.findByUserAndFeed(user, feed);
+            Like like_flag = likeRepository.findByUserAndFeed(loginUser, feed);
             if (like_flag != null) {
                 feedDto.setLikeStatus(true);
             } else {
@@ -360,6 +365,12 @@ public class FeedService {
     }
 
     public List<FeedProfileDto> getProfileFeeds_temp(String email) {
+
+        // Get User
+        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userTemp = principalDetails.getUser();
+        User loginUser = userRepository.findByEmail(userTemp.getEmail());
+
         User user = userRepository.findByEmail(email);
         List<Feed> feeds = feedRepository.findByUser(user);
         List<FeedProfileDto> result= new ArrayList<>();
@@ -382,7 +393,7 @@ public class FeedService {
             feedProfileDto.setUpdatedAt(feed.getUpdatedAt());
 
             // Check like_status
-            Like like_flag = likeRepository.findByUserAndFeed(user, feed);
+            Like like_flag = likeRepository.findByUserAndFeed(loginUser, feed);
             if (like_flag != null) {
                 feedProfileDto.setLikeStatus(true);
             } else {
