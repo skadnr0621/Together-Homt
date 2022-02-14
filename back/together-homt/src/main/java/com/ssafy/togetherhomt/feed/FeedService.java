@@ -266,6 +266,44 @@ public class FeedService {
         return result;
     }
 
+    public FeedListDto getFeed(Long feedId) {
+
+        // Get User
+        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userTemp = principalDetails.getUser();
+        User user = userRepository.findByEmail(userTemp.getEmail());
+
+        // Get Feed
+        Optional<Feed> optFeed = feedRepository.findById(feedId);
+        Feed feed = optFeed.get();
+
+        FeedListDto result = new FeedListDto();
+
+        result.setFeedId(feed.getFeedId());
+        result.setContent(feed.getContent());
+        result.setMediaUrl(feed.getMediaUrl());
+        result.setLikeCnt(feed.getLikeCnt());
+        result.setUsername(feed.getUser().getUsername());
+        result.setCreatedAt(feed.getCreatedAt());
+        result.setUpdatedAt(feed.getUpdatedAt());
+
+        // Check like_status
+        Like like_flag = likeRepository.findByUserAndFeed(user, feed);
+        if (like_flag != null) {
+            result.setLikeStatus(true);
+        } else {
+            result.setLikeStatus(false);
+        }
+
+        List<String> tempTags = new ArrayList<>();
+        for (Tag tag : feed.getTags()) {
+            tempTags.add(tag.getName());
+        };
+        result.setTags(tempTags);
+
+        return result;
+    }
+
     public List<FeedDto> getProfileFeeds(String email) {
 
         // Get User
