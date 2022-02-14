@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-#user {
+.firstpage {
   height: 640px;
   display: flex;
   justify-content: center;

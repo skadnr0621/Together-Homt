@@ -20,11 +20,11 @@
         v-model="user.password"
         placeholder="비밀번호를 입력해주세요."
         type="password"
+        v-on:keyup.enter="Login()"
       />
     </div>
 
-    <!-- 로그인 -->
-    <button class="user-btn" @click="Login()">로그인</button>
+    <button class="user-btn form-control" @click="Login()">로그인</button>
 
     <!-- 비밀번호 찾기 -->
     <div class="find-password-box">
