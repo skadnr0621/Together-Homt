@@ -64,11 +64,11 @@ public class MailingService {
 
             switch (index) {
                 case 0:
-                    key.append((char) ((int) (rnd.nextInt(26)) + 97));
+                    key.append((char) ((int) (rnd.nextInt(26)) + 'a'));
                     //  a~z  (ex. 1+97=98 => (char)98 = 'b')
                     break;
                 case 1:
-                    key.append((char) ((int) (rnd.nextInt(26)) + 65));
+                    key.append((char) ((int) (rnd.nextInt(26)) + 'A'));
                     //  A~Z
                     break;
                 case 2:
