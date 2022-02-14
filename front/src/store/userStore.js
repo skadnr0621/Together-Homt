@@ -2,7 +2,7 @@ export default {
   namespaced: true,
 
   state: {
-    LoginUser: null, //username
+    LoginUser: null, //username -> 이메일
   },
 
   mutations: {
