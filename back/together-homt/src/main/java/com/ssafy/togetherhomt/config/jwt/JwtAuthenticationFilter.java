@@ -2,6 +2,7 @@ package com.ssafy.togetherhomt.config.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
 import com.ssafy.togetherhomt.user.User;
 import jdk.nashorn.internal.runtime.logging.Logger;
@@ -21,11 +22,15 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
-@RequiredArgsConstructor
 @Logger
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
+
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+        setFilterProcessesUrl("/**/login");
+    }
 
 
     @Override
@@ -35,13 +40,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         logger.info("Attempting Login . . .");
         try {
-            Map<String, String[]> reqParams = request.getParameterMap();
-
-            User user = new User();
-            user.setEmail(reqParams.containsKey("email")
-                    ? reqParams.get("email")[0]
-                    : reqParams.get("username")[0]);
-            user.setPassword(reqParams.get("password")[0]);
+//            Map<String, String[]> reqParams = request.getParameterMap();
+//
+//            User user = new User();
+//            user.setEmail(reqParams.containsKey("email")
+//                    ? reqParams.get("email")[0]
+//                    : reqParams.get("username")[0]);
+//            user.setPassword(reqParams.get("password")[0]);
+            ObjectMapper om = new ObjectMapper();
+            User user = om.readValue(request.getInputStream(), User.class);
 
             logger.info("Got login attempting user :: " + user.getEmail());
 
@@ -51,6 +58,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
             return authentication;
+        }
+        catch (IOException e) {
+            e.printStackTrace();
         }
         catch (AuthenticationException e) {
             try {

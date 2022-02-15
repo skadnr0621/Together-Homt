@@ -51,6 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
             .authorizeRequests()
+                .antMatchers("/user/account/sign-up/**").permitAll()
+                .antMatchers("/user/account/reset-password").permitAll()
                 .anyRequest().access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .and()
             .formLogin()
@@ -73,7 +75,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/configuration/security",
                 "/swagger-ui/**",
                 "/swagger-ui.html",
-                "/webjars/**");
+                "/webjars/**",
+                "/user/account/sign-up/**",
+                "/user/account/reset-password"
+        );
         // ref: https://stackoverflow.com/a/37683455
     }
 
