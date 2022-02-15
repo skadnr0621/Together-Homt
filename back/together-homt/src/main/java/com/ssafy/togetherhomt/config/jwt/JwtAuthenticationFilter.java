@@ -27,7 +27,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
-        setFilterProcessesUrl("/**/login");
+        setFilterProcessesUrl("/user/**/login");
     }
 
 
@@ -90,6 +90,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         logger.info("Login Failed          " + failed.getMessage());
-        super.unsuccessfulAuthentication(request, response, failed);
+//        super.unsuccessfulAuthentication(request, response, failed);
     }
 }
