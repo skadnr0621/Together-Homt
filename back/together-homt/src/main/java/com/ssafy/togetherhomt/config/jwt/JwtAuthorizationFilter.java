@@ -5,8 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserRepository;
-import jdk.nashorn.internal.runtime.logging.Logger;
-import org.springframework.http.HttpStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,10 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Logger
+@Slf4j
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserRepository userRepository) {
         super(authenticationManager);
@@ -34,7 +33,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String jwtHeader = request.getHeader("Authorization");
         if (jwtHeader == null || !jwtHeader.startsWith("Bearer")) {
-            logger.info("Invalid or missing authorization");
+            log.info("Invalid or missing authorization");
             response.sendError(405, "Method Not Allowed : No Authorization header || JWT 토큰을 확인하세요.");
             return; // return문 없을 시 후속 로직 계속 실행되어 오류 유발함
         }
@@ -44,13 +43,13 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         String email =
                 JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build()
                         .verify(jwtToken)
-                        .getClaim("email")  // getClaim("username") --> getClaim("email")
+                        .getClaim("email")
                         .asString();
 
         // 서명이 정상적으로 되었음.
-        if (email != null) {    // username != null --> email != null
-            logger.info("Login User  ::  " + email + "      [정상 서명됨]");
-            User userEntity = userRepository.findByEmail(email);    // findByEmail(username) --> findByEmail(email)
+        if (email != null) {
+            log.info("Login User  ::  " + email + "      [정상 서명됨]");
+            User userEntity = userRepository.findByEmail(email);
 
             PrincipalDetails principalDetails = new PrincipalDetails(userEntity);
 
@@ -58,7 +57,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             Authentication authentication =
                     new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
 
-            // SecurityContextHolder.getContext() = security를 저장할 수 있는 session 획득
             // 강제로 시큐리티의 세션에 접근하여 Authentication 객체 저장.
             SecurityContextHolder.getContext().setAuthentication(authentication);
             SecurityContextHolder.getContext().getAuthentication().getPrincipal();
