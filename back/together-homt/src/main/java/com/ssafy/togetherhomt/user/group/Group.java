@@ -36,6 +36,6 @@ public class Group {
 
     @OneToMany(mappedBy = "group")
     @JsonIgnoreProperties({"group"})
-    private List<User> users;
+    private List<User> members;
 
 }
