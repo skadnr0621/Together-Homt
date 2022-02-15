@@ -107,7 +107,7 @@ export default {
       this.$emit("goBack");
     },
 
-    // 피드 삭제 bbbb
+    // 피드 삭제
     async deleteFeed(feedId) {
       if (confirm("정말 삭제하시겠습니까?")) {
         await axios

@@ -119,7 +119,7 @@ export default {
         let formData = new FormData();
 
         formData.append("content", this.postData.content);
-        formData.append("nameList", this.postData.tags.join(", "));
+        formData.append("tagList", this.postData.tags.join(", "));
         formData.append("media", this.postData.media);
         formData.append("username", userName);
 

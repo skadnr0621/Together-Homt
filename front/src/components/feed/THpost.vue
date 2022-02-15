@@ -1,92 +1,104 @@
 <template>
   <div class="th-post">
-    불러오세요.
-    <div class="print" v-for="item in tmp" v-bind:key="item.user_id">
+    <div class="print" v-for="(item, index) in tmp" v-bind:key="index">
       <!-- re:사용자 프로필, 삭제 버튼 -->
       <div class="header-level">
         <div>
-          <div><img :src="프로필url" alt="프로필 사진" /></div>
-          <div>{{ item.username }}</div>
-        </div>
-        <div v-if="isDelete">
-          <span class="material-icons" @click="deleteFeed(item.feedId)">
-            delete
-          </span>
+          <div id="img"><img :src="item.profileUrl" alt="프로필 사진" /></div>
+          <div id="usrnm">{{ item.username }}</div>
         </div>
       </div>
 
       <!-- re: 피드 이미지 -->
-      <div class="feed-image-container">
-        <!-- 피드컨텐츠url 없을 경우 -->
-        <img :src="피드컨텐츠url" alt="피드 기본 이미지" />
+      <div class="feed-image">
+        <div class="feed-image-container" v-if="item.mediaUrl == null">
+          <img :src="item.mediaUrl" alt="피드 기본 이미지" />
+        </div>
+        <div class="feed-image-container2" v-else>
+          <img :src="item.mediaUrl" alt="피드 저장 이미지" />
+        </div>
       </div>
-
       <!-- re: 피드 컨텐츠 - 좋아요 개수, 피드 내용, 댓글 -->
-
       <div class="feed-content">
-        <!-- 좋아요 -->
-        <div class="heart" v-if="좋아요상태따라서분기">
-          <i class="fa-regular fa-heart fa-2x" @click="Like()"></i>
-        </div>
-        <div v-else>
-          <i class="fa-solid fa-heart fa-2x" @click="UnLike()"></i>
-        </div>
-        <div class="likes">
-          <div v-if="item.likeCnt == 0" @click="golikeList(item.feedId)">
-            좋아요를 눌러보세요.
+        <div class="imoticon">
+          <!-- 좋아요 이모티콘-->
+          <div class="heart" v-if="item.likeStatus">
+            <i class="fa-solid fa-heart fa-2x" @click="Like(item.feedId)"></i>
           </div>
-          <div v-else @click="golikeList()">좋아요 {{ item.likeCnt }} 개</div>
+          <div class="heart2" v-else>
+            <i
+              class="fa-regular fa-heart fa-2x"
+              @click="UnLike(item.feedId)"
+            ></i>
+          </div>
+          <!-- 댓글 이모티콘 -->
+          <div class="speech">
+            <i
+              class="fa-regular fa-comment fa-2x"
+              @click="goComment(item.feedId)"
+            ></i>
+          </div>
         </div>
 
-        <!-- 댓글 말풍선 -->
-        <div class="speech">
-          <i
-            class="fa-regular fa-comment fa-2x"
-            @click="goComment(item.feedId)"
-          ></i>
+        <!-- 좋아요 -->
+        <div class="likes">
+          <div
+            id="click-likes"
+            v-if="item.likeCnt == null"
+            @click="golikeList(item.feedId)"
+          >
+            제일 먼저 좋아요를 눌러보세요.
+          </div>
+          <div id="click-likes" v-else @click="golikeList(item.feedId)">
+            좋아요 {{ item.likeCnt }} 개
+          </div>
         </div>
 
         <!-- 피드 내용 -->
         <div class="caption">
           <div class="username">{{ item.username }}</div>
-          <div class="caption">{{ item.content }}</div>
+          <div class="caption-content" v-if="item.content.length > 15">
+            {{ item.content.substring(0, 15) }}
+            <span class="detail" @click="goContentDetail()">...더보기</span>
+          </div>
+          <div class="caption-content2" v-else>
+            {{ item.content }}
+          </div>
         </div>
       </div>
-      <div class="comments" @click="goComment(item.feedId)">
-        댓글한개만출력가능한가
-      </div>
-      <div class="Tags">#{{ item.tags }} 태그</div>
+      <div class="comments" @click="goComment(item.feedId)">전체 댓글 보기</div>
+      <div class="Tags">태그 #{{ item.tags }}</div>
 
       <!--피드 게시 날짜 -->
       <div class="createTime" v-if="item.createdAt != null">
         {{ item.createdAt[0] }}년 {{ item.createdAt[1] }}월
         {{ item.createdAt[2] }}일
       </div>
-      <div class="createTime2" v-else>생성날짜가 없습니다.</div>
+      <div class="createTime2" v-else>
+        <font id="font">생성날짜가 없습니다.</font>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import axios from "axios";
+axios.defaults.headers.common["Authorization"] = sessionStorage.getItem("jwt");
 
 export default {
   name: "Thpost",
   data() {
     return {
-      //이메일을 가져오는 방법을 잘 모르겠는데, 이 방법이 맞는지
       token: sessionStorage.getItem("jwt"),
       email: this.$route.params.email,
-      //이 부분 틀린것 같음 이메일을 받는 방법을 찾아야함
+      //여기서 likes를 넘겨줘야 아래에서 받는 것 같아.
+      //feed: tmp,
     };
   },
   props: {
     tmp: Array,
   },
-  computed: {
-    ...mapState({ loginUser: (state) => state.userStore.LoginUser }),
-    //로그인유저는 유저네임을 말하는 것 같음 이런식으로 선언하면 안됨
-  },
+  computed: {},
   methods: {
     //프로필(유저네임과 이메일)
     goProfile(username, email) {
@@ -100,12 +112,29 @@ export default {
     },
 
     //좋아요
-    Like: () => {
-      console.log("click!");
-      //1. 좋아요 상태 체크
-      //체크되어있으면 좋아요 취소,
-      //체크안되어있으면 좋아요 체크,
-      //그에 따른 좋아요 개수 --, ++
+    Like(feedId) {
+      axios
+        .post(`/feed/${feedId}/likes`)
+        .then((res) => {
+          //likestatus 변경
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    //좋아요 취소
+    unLike(feedId) {
+      axios
+        .delete(`/feed/${feedId}/likes`)
+        .then((res) => {
+          //likestatus 변경
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     //댓글상세페이지
@@ -139,4 +168,114 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.print {
+  border: 1px solid black;
+  margin: 20px;
+}
+.print > .header-level > div {
+  display: flex;
+}
+.th-post > .print > .header-level > div > #img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.th-post > .print > .header-level > div > #usrnm {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.th-post > .print > .header-level > div > div > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.th-post > .print > .feed-image > .feed-image-container {
+  margin-left: 5px;
+}
+.th-post > .print > .feed-image > .feed-image-container > .img {
+  width: 100%;
+  height: 100%;
+}
+.th-post > .print > .feed-image > .feed-image-container2 {
+  margin-left: 5px;
+}
+.th-post > .print > .feed-image > .feed-image-container2 > .img {
+  width: 100%;
+  height: 100%;
+}
+.print > .header-level > div > div {
+  margin: 5px;
+}
+.print > .header-level > div > div {
+  margin: 5px;
+}
+.th-post > .print > .feed-content > .imoticon {
+  display: flex;
+  margin: 5px;
+}
+.th-post > .print > .feed-content > .imoticon > .heart {
+  display: flex;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  margin: 3px;
+  margin-right: 15px;
+}
+.th-post > .print > .feed-content > .imoticon > .heart2 {
+  display: flex;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  margin: 3px;
+  margin-right: 15px;
+}
+.th-post > .print > .feed-content > .imoticon > .speech {
+  display: flex;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  margin: 3px;
+}
+.th-post > .print > .feed-content > .likes > #click-likes {
+  margin: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.th-post > .print > .feed-content > .caption > .username {
+  margin-left: 5px;
+  cursor: pointer;
+}
+.th-post > .print > .feed-content > .caption > .caption-content > .detail {
+  margin-left: 5px;
+  cursor: pointer;
+}
+.th-post > .print > .feed-content > .caption > .caption-content {
+  margin-left: 5px;
+  cursor: pointer;
+}
+.th-post > .print > .feed-content > .caption > .caption-content2 {
+  margin-left: 5px;
+  cursor: pointer;
+}
+.th-post > .print > .comments {
+  margin-left: 5px;
+  cursor: pointer;
+}
+.th-post > .print > .Tags {
+  margin-left: 5px;
+}
+.th-post > .print > .createTime {
+  margin-left: 5px;
+  font-size: 0.8em;
+  color: grey;
+}
+.th-post > .print > .createTime2 > #font {
+  margin-left: 5px;
+  font-size: 0.8em;
+  color: grey;
+}
+</style>

@@ -1,43 +1,15 @@
 <template>
   <div id="comment-page">
     <comment-header v-on:goBack="onGoBack" />
-    <div class="show-comment">
-      <comment-detail :comments="comments" />
-    </div>
-
-    <div class="comment-input">
-      <!-- <div class="pimage" v-if="item.profileUrl == null">
-        <img class="headerimg" src="@/assets/스카피.jpg" alt="프로필 사진" />
-      </div>
-      <div v-else>
-        <img class="pimgae2" :src="item.profileUrl" />
-      </div> -->
-
-      <div class="text">
-        <!-- <div class="text-pimage" v-if="item.profileUrl == null">
-          <img class="headerimg" src="@/assets/스카피.jpg" alt="프로필 사진" />
-        </div>
-        <div v-else>
-          <img class="text-pimgae2" :src="item.profileUrl" />
-        </div> -->
-        <div>이미지들어가야하는곳</div>
-        <input
-          type="text"
-          placeholder="댓글을 입력해주세요."
-          v-model="comment"
-          v-on:keyup.enter="createComment()"
-        />
-        <div class="submit">
-          <button type="button" v-on:click="createComment()">등록</button>
-        </div>
-      </div>
-    </div>
+    <comment-detail :comments="comments"></comment-detail>
+    <comment-register v-bind:feedId="feedId"></comment-register>
   </div>
 </template>
 
 <script>
 import CommentHeader from "@/components/CommentPage/CommentHeader";
 import CommentDetail from "@/components/CommentPage/CommentDetail";
+import CommentRegister from "@/components/CommentPage/CommentRegister";
 import axios from "axios";
 
 export default {
@@ -47,11 +19,13 @@ export default {
       comments: [],
       comment: "",
       feedId: this.$route.query.feedId,
+      //사용자 정보를 넘겨줘야하는데..
     };
   },
   components: {
     CommentHeader,
     CommentDetail,
+    CommentRegister,
   },
   created() {
     const feedId = this.$route.query.feedId;

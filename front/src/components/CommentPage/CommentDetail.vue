@@ -1,107 +1,86 @@
 <template>
   <div class="comment-detail">
-    <!-- <comment-header v-on:goBack="onGoBack" /> -->
-    <div class="inputComment">
-      <!-- 왜 profile url 만 넣으면 지랄나는거야?? -->
-      <div class="print" v-for="item in comments" v-bind:key="item.commendId">
-        <div class="pimage" v-if="item.profileUrl == null">
-          <img class="headerimg" src="@/assets/스카피.jpg" alt="프로필 사진" />
-        </div>
-        <div v-else>
-          <img class="pimgae2" :src="item.profileUrl" />
+    <!-- 피드 게시글  -->
+    <!-- 피드, 유저정보를 물려줘야할 것 같은데 / 불러오기 구현중 -->
+
+    <!-- 피드 댓글 -->
+    <div class="repeat" v-for="(item, index) in comments" :key="index">
+      <div class="CommentUserInfo">
+        <div class="userimage">
+          <img :src="item.profileUrl" alt="댓글 작성자 프로필" />
         </div>
         <div class="username">{{ item.username }}</div>
-        <div class="comment_content" v-if="item.content.length == 0">
-          <!-- 댓글이 없을 경우 -->
-          아직 댓글이 없습니다. 댓글을 써보세요.
-        </div>
-        <div class="comment_content2" v-else>
-          {{ item.content }}
-        </div>
-        <div class="UnD">
-          <!-- <div class="update">
-            <i class="fa-solid fa-pen fa-2x"></i>
-          </div> -->
-          <div class="delete">
-            <i
-              class="fa-solid fa-trash fa-2x"
-              @click="deleteComment(item.commentdId, feedId)"
-            ></i>
-            {{ item.commentdId }}
-          </div>
-        </div>
+        <div class="comment-content">{{ item.content }}</div>
       </div>
+      <!-- <div v-if="comment.email == loginUser">
+          <span
+            class="material-icons"
+            @click="deleteComment(feed.feedId, comment.commentId)"
+          >
+            delete
+          </span>
+        </div> 
+      <div v-else></div>-->
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-// import CommentHeader from "@/components/CommentPage/CommentHeader";
+axios.defaults.headers.common["Authorization"] = sessionStorage.getItem("jwt");
 
 export default {
-  name: "FrontCommentdetail",
+  name: "Commentdetail",
   props: {
     comments: Array,
-    feedId: String,
   },
-  components: {
-    // CommentHeader,
-  },
+  components: {},
   methods: {
     //댓글삭제
-    deleteComment(commentid, feedId) {
-      const commentId = commentid;
-      console.log("삭제 요청");
-      console.log(commentId);
-      console.log(feedId);
-      axios
-        .delete(`/feed/${feedId}/comments/${commentId}`)
-        .then((res) => {
-          alert("댓글 삭제");
-          console.log(res);
-        })
-        .catch((err) => {
-          alert("댓글 안삭제");
-          console.log(err);
-        });
-    },
+    // deleteComment(commentid, feedId) {
+    //   const commentId = commentid;
+    //   console.log("삭제 요청");
+    //   console.log(commentId);
+    //   console.log(feedId);
+    //   axios
+    //     .delete(`/feed/${feedId}/comments/${commentId}`)
+    //     .then((res) => {
+    //       alert("댓글 삭제");
+    //       console.log(res);
+    //     })
+    //     .catch((err) => {
+    //       alert("댓글 안삭제");
+    //       console.log(err);
+    //     });
+    // },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.comment-detail {
+.comment-detail > .repeat > .CommentUserInfo {
   border: 1px solid black;
+  display: flex;
   margin: 10px;
-  padding: 1px;
 }
-.comment-detail > .inputComment {
-  border: 1px solid black;
-  margin: 10px;
-  padding: 1px;
-}
-.comment-detail > .inputComment > .print > .pimage {
-  width: 30px;
-  height: 30px;
+.comment-detail > .repeat > .CommentUserInfo > .userimage {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  margin: 2px;
-  display: flex;
+  margin-left: 5px;
 }
-.comment-detail > .inputComment > .print > .pimage > .headerimg {
+.comment-detail > .repeat > .CommentUserInfo > .userimage > img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  cursor: pointer;
-  display: flex;
 }
-.comment-detail > .inputComment > .print > .pimage2 {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  margin: 2px;
-  display: flex;
+.comment-detail > .repeat > .CommentUserInfo > .username {
+  margin-left: 10px;
+  text-align: center;
+}
+.comment-detail > .repeat > .CommentUserInfo > .comment-content {
+  margin-left: 10px;
+  text-align: center;
 }
 </style>

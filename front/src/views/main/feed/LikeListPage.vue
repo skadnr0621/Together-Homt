@@ -1,8 +1,7 @@
 <template>
-  <div id="like-list-page">
-    LikeListPage
+  <div id="likelist-page">
     <!-- <likelist-header v-on:goBack="onGoBack" /> -->
-    <like-list :likes="likes" />
+    <like-list :likes="likes"></like-list>
   </div>
 </template>
 
@@ -13,9 +12,10 @@ import axios from "axios";
 
 export default {
   name: "LikeListPage",
-  data: () => {
+  data() {
     return {
       likes: [],
+      token: sessionStorage.getItem("jwt"),
     };
   },
   components: {
@@ -33,7 +33,7 @@ export default {
       })
       .then((res) => {
         this.likes = res.data;
-        console.log(this.comments);
+        console.log(this.likes);
       })
       .catch((error) => {
         console.log(error);
