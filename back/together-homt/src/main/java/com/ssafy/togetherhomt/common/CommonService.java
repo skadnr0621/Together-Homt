@@ -8,14 +8,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommonService {
 
-    public boolean isLoginUser(User user) {
-        User sUser = ((PrincipalDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal())
-                .getUser();
-
-        return user.getEmail().equals(sUser.getEmail());
-    }
-
     public User getLoginUser() {
-        return ((PrincipalDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof PrincipalDetails)
+            return ((PrincipalDetails)principal).getUser();
+        else
+            return new User();
     }
 }

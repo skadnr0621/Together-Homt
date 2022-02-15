@@ -12,8 +12,17 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.CorsFilter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
@@ -29,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -41,12 +51,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
             .authorizeRequests()
-                .antMatchers("/user/admin").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/user/main").access("hasRole('ROLE_USER')")
-                .antMatchers("/article/**").permitAll()
-                .anyRequest().permitAll()
+                .anyRequest().access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .and()
             .formLogin()
+//                .loginPage("http://i6b206.p.ssafy.io/")
+                .permitAll()
                 .and()
             .httpBasic().disable()
             .addFilter(corsFilter)
@@ -62,6 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/configuration/ui",
                 "/swagger-resources/**",
                 "/configuration/security",
+                "/swagger-ui/**",
                 "/swagger-ui.html",
                 "/webjars/**");
         // ref: https://stackoverflow.com/a/37683455
