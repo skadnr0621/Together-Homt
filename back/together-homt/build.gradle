@@ -29,6 +29,8 @@ dependencies {
 
 	// ---------- JWT ----------
 	implementation("com.auth0:java-jwt:3.16.0")
+	// ---------- Oauth2 -------
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
 	// ---------- Swagger ----------
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
