@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="afcb553c-ae6c-403c-ba81-abe4e211e001" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/feed/FeedController.java" beforeDir="false" afterPath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/feed/FeedController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/feed/Feed.java" beforeDir="false" afterPath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/feed/Feed.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/feed/tag/Tag.java" beforeDir="false" afterPath="$PROJECT_DIR$/together-homt/src/main/java/com/ssafy/togetherhomt/feed/tag/Tag.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +102,7 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="show.run.dashboard.notification" value="false" />
   </component>
-  <component name="RunManager" selected="Spring Boot.TogetherHomtApplication (1)">
+  <component name="RunManager" selected="Gradle.together-homt [build]">
     <configuration name="together-homt [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />

@@ -25,6 +25,6 @@ public class Tag {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "tags")
+    @ManyToMany(mappedBy = "tags",cascade = CascadeType.ALL)
     private List<Feed> feeds = new ArrayList<>();
 }

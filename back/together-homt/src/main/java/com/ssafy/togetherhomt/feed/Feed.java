@@ -49,11 +49,11 @@ public class Feed extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "feed")
+    @OneToMany(mappedBy = "feed",cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"feed"})
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "feed")
+    @OneToMany(mappedBy = "feed",cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"feed"})
     private List<Like> likes = new ArrayList<>();
 }
