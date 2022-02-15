@@ -84,6 +84,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         log.info(String.format("----- JWT published ----- [ %s (%s) ]", principalDetails.getUser().getEmail(), principalDetails.getUser().getUsername()));
         response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
+        response.getWriter().write(JwtProperties.TOKEN_PREFIX + jwtToken);
     }
 
     @Override
