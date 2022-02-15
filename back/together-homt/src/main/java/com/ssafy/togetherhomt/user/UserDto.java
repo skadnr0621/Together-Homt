@@ -32,6 +32,6 @@ public class UserDto {
     private Long cntFollowing;
 
     @ApiParam(value = "로그인 유저가 팔로우 했는지 여부")
-    private boolean followed;
+    private Boolean followed;
 
 }
