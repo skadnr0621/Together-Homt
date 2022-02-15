@@ -286,6 +286,7 @@ public class FeedService {
         result.setUsername(feed.getUser().getUsername());
         result.setCreatedAt(feed.getCreatedAt());
         result.setUpdatedAt(feed.getUpdatedAt());
+        result.setProfileUrl(feed.getUser().getImagePath());
 
         // Check like_status
         Like like_flag = likeRepository.findByUserAndFeed(user, feed);
@@ -379,6 +380,7 @@ public class FeedService {
 
             feedListDto.setCreatedAt(feed.getCreatedAt());
             feedListDto.setUpdatedAt(feed.getUpdatedAt());
+            feedListDto.setProfileUrl(feed.getUser().getImagePath());
 
             // Check like_status
             Like like_flag = likeRepository.findByUserAndFeed(user, feed);
