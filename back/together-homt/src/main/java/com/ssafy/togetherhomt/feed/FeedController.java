@@ -35,7 +35,7 @@ public class FeedController {
             @ApiResponse(code = 500, message = "서버 에러입니다.")
     })
     @PostMapping("/feeds")
-    public ResponseEntity<?> postFeed(@ModelAttribute("file") FeedDto feedDto, TagDto tagDto){
+    public ResponseEntity<?> postFeed(@ModelAttribute FeedDto feedDto, TagDto tagDto){
         return feedService.postFeed(feedDto,tagDto);
     }
 
