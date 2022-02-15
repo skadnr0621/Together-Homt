@@ -22,8 +22,14 @@ public class AttendanceController {
 
     // 오늘 운동 안 한 사람들
     @GetMapping("/absentees")
-    public ResponseEntity<?> todayAttendance(){
+    public ResponseEntity<List<AttendanceDto>> todayAttendance(){
         List<AttendanceDto> result = attendanceService.todayAttendance();
+        return new ResponseEntity(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/folloings/absentees")
+    public ResponseEntity<List<AttendanceDto>> todayFollowersAttendance(){
+        List<AttendanceDto> result = attendanceService.todayFollowingsAttendance();
         return new ResponseEntity(result, HttpStatus.OK);
     }
 }
