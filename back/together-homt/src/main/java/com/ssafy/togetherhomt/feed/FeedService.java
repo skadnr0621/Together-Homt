@@ -144,6 +144,7 @@ public class FeedService {
             feedDto.setUsername(feed.getUser().getUsername());
             feedDto.setCreatedAt(feed.getCreatedAt());
             feedDto.setUpdatedAt(feed.getUpdatedAt());
+            feedDto.setEmail(feed.getUser().getEmail());
 
             // Check like_status
             Like like_flag = likeRepository.findByUserAndFeed(user, feed);
@@ -201,6 +202,7 @@ public class FeedService {
                 feedListDto.setMediaUrl(feed.getMediaUrl());
                 feedListDto.setLikeCnt(feed.getLikeCnt());
                 feedListDto.setContent(feed.getContent());
+                feedListDto.setEmail(feed.getUser().getEmail());
 
                 List<String> tempTags = new ArrayList<>();
                 for (Tag tag : feed.getTags()) {
@@ -234,6 +236,7 @@ public class FeedService {
             feedListDto.setMediaUrl(feed.getMediaUrl());
             feedListDto.setLikeCnt(feed.getLikeCnt());
             feedListDto.setContent(feed.getContent());
+            feedListDto.setEmail(feed.getUser().getEmail());
 
             List<String> tempTags = new ArrayList<>();
             for (Tag tag : feed.getTags()) {
@@ -287,6 +290,7 @@ public class FeedService {
         result.setCreatedAt(feed.getCreatedAt());
         result.setUpdatedAt(feed.getUpdatedAt());
         result.setProfileUrl(feed.getUser().getImagePath());
+        result.setEmail(feed.getUser().getEmail());
 
         // Check like_status
         Like like_flag = likeRepository.findByUserAndFeed(user, feed);
@@ -324,6 +328,7 @@ public class FeedService {
             feedDto.setMediaUrl(feed.getMediaUrl());
             feedDto.setLikeCnt(feed.getLikeCnt());
             feedDto.setUsername(feed.getUser().getUsername());
+            feedDto.setEmail(feed.getUser().getEmail());
 
             List<String> tempTags = new ArrayList<>();
             for (Tag tag : feed.getTags()) {
@@ -381,6 +386,7 @@ public class FeedService {
             feedListDto.setCreatedAt(feed.getCreatedAt());
             feedListDto.setUpdatedAt(feed.getUpdatedAt());
             feedListDto.setProfileUrl(feed.getUser().getImagePath());
+            feedListDto.setEmail(feed.getUser().getEmail());
 
             // Check like_status
             Like like_flag = likeRepository.findByUserAndFeed(user, feed);
@@ -422,6 +428,7 @@ public class FeedService {
             feedProfileDto.setMediaUrl(feed.getMediaUrl());
             feedProfileDto.setLikeCnt(feed.getLikeCnt());
             feedProfileDto.setContent(feed.getContent());
+            feedProfileDto.setEmail(feed.getUser().getEmail());
 
             List<String> tempTags = new ArrayList<>();
             for (Tag tag : feed.getTags()) {
@@ -468,6 +475,7 @@ public class FeedService {
         feedDto.setUpdatedAt(feed.getUpdatedAt());
         feedDto.setMediaUrl(feed.getMediaUrl());
         feedDto.setUsername(feed.getUser().getUsername());
+        feedDto.setEmail(feed.getUser().getEmail());
 
         List<String> tempTags = new ArrayList<>();
         for (Tag tag : feed.getTags()) {
