@@ -42,7 +42,6 @@ spring:
   servlet:
     multipart:
       max-file-size: 1000MB
-      maxFileSize: 1000MB
       maxRequestSize: 1000MB
   mvc:
     static-path-pattern: /files/**
