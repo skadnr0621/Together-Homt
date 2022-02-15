@@ -104,6 +104,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/user/account/sign-up/**").permitAll()
                 .antMatchers("/user/account/reset-password").permitAll()
+                .antMatchers("/upload/**").permitAll()
                 .anyRequest().access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .and()
             .formLogin()
@@ -128,7 +129,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/swagger-ui.html",
                 "/webjars/**",
                 "/user/account/sign-up/**",
-                "/user/account/reset-password"
+                "/user/account/reset-password",
+                "/upload/**"
         );
         // ref: https://stackoverflow.com/a/37683455
     }
