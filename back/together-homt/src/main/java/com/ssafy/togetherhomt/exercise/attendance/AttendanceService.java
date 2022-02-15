@@ -1,7 +1,10 @@
 package com.ssafy.togetherhomt.exercise.attendance;
 
+import com.ssafy.togetherhomt.common.CommonService;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserRepository;
+import com.ssafy.togetherhomt.user.follow.Follow;
+import com.ssafy.togetherhomt.user.follow.FollowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -14,11 +17,15 @@ public class AttendanceService {
 
     private AttendanceRepository attendanceRepository;
     private UserRepository userRepository;
+    private CommonService commonService;
+    private FollowRepository followRepository;
 
     @Autowired
-    public AttendanceService(AttendanceRepository attendanceRepository, UserRepository userRepository) {
+    public AttendanceService(AttendanceRepository attendanceRepository, UserRepository userRepository, CommonService commonService, FollowRepository followRepository) {
         this.attendanceRepository = attendanceRepository;
         this.userRepository = userRepository;
+        this.commonService = commonService;
+        this.followRepository = followRepository;
     }
 
     // 00시가 되면 초기화
@@ -50,4 +57,26 @@ public class AttendanceService {
         }
         return attendees;
     }
+
+    // 팔로우 한 사람 중 불참러
+    public List<AttendanceDto> todayFollowingsAttendance(){
+        User userTemp = commonService.getLoginUser();
+        User user = userRepository.findByEmail(userTemp.getEmail());
+        List<Follow> follows = followRepository.findByFollower(user);
+
+        List<AttendanceDto> attendees = new ArrayList<>();
+        for(Follow follow:follows){
+            Attendance followAttendance = attendanceRepository.findByUser(follow.getFollowing());
+            if(!followAttendance.getDone()){
+                AttendanceDto attendanceDto = AttendanceDto.builder()
+                        .username(follow.getFollowing().getUsername())
+                        .image(follow.getFollowing().getImagePath())
+                        .done(followAttendance.getDone())
+                        .build();
+                attendees.add(attendanceDto);
+            }
+        }
+        return attendees;
+    }
+
 }
