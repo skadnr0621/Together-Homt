@@ -33,8 +33,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String jwtHeader = request.getHeader("Authorization");
         if (jwtHeader == null || !jwtHeader.startsWith("Bearer")) {
-            log.info("Invalid or missing authorization");
+            log.info("!!! Invalid or missing authorization !!!");
             response.sendError(405, "Method Not Allowed : No Authorization header || JWT 토큰을 확인하세요.");
+//            response.setStatus(405);
+//            chain.doFilter(request, response);
             return; // return문 없을 시 후속 로직 계속 실행되어 오류 유발함
         }
 

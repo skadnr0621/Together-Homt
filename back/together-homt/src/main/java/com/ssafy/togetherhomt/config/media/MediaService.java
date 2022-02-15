@@ -2,6 +2,7 @@ package com.ssafy.togetherhomt.config.media;
 
 import jdk.nashorn.internal.runtime.logging.Logger;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,7 +14,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-@Logger
+@Slf4j
 public class MediaService {
 
     private GlobalConfig config;
@@ -46,7 +47,7 @@ public class MediaService {
             file.transferTo(savedFile);
         }
         catch (IOException e) {
-            logger.fatal("IOException", e);
+            log.error("IOException", e);
         }
 
         // 리소스 경로 생성
