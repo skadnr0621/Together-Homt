@@ -19,7 +19,7 @@ public class MailingService {
     @Autowired
     JavaMailSender emailSender;
 
-    private String ePw = createKey();
+    private String ePw = "";
 
     @Value("${AdminMail.id}")
     private String ADMIN_ADDRESS;
@@ -80,6 +80,7 @@ public class MailingService {
     }
 
     public String sendSimpleMessage(String to) throws Exception {
+        ePw = createKey();
         MimeMessage message = createMessage(to);
         try{
             emailSender.send(message);
