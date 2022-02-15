@@ -67,14 +67,12 @@ public class AttendanceService {
         List<AttendanceDto> attendees = new ArrayList<>();
         for(Follow follow:follows){
             Attendance followAttendance = attendanceRepository.findByUser(follow.getFollowing());
-            if(!followAttendance.getDone()){
-                AttendanceDto attendanceDto = AttendanceDto.builder()
-                        .username(follow.getFollowing().getUsername())
-                        .image(follow.getFollowing().getImagePath())
-                        .done(followAttendance.getDone())
-                        .build();
-                attendees.add(attendanceDto);
-            }
+            AttendanceDto attendanceDto = AttendanceDto.builder()
+                    .username(follow.getFollowing().getUsername())
+                    .image(follow.getFollowing().getImagePath())
+                    .done(followAttendance.getDone())
+                    .build();
+            attendees.add(attendanceDto);
         }
         return attendees;
     }
