@@ -5,7 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
 import com.ssafy.togetherhomt.user.User;
-import jdk.nashorn.internal.runtime.logging.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,14 +20,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
-@Logger
+@Slf4j
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
-        setFilterProcessesUrl("/**/login");
+        setFilterProcessesUrl("/user/**/login");
     }
 
 
@@ -36,7 +36,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         if (!"POST".equals(request.getMethod()))
             throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
 
-        logger.info("Attempting Login . . .");
+        log.info("Attempting Login . . .");
         try {
 //            Map<String, String[]> reqParams = request.getParameterMap();
 //
@@ -48,14 +48,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             ObjectMapper om = new ObjectMapper();
             User user = om.readValue(request.getInputStream(), User.class);
 
-            logger.info("Got login attempting user :: " + user.getEmail());
+            log.info("Got login attempting user :: " + user.getEmail());
 
             // 로그인 시도 - 토큰 생성
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
 
-            Authentication authentication = authenticationManager.authenticate(authenticationToken);
-            return authentication;
+            return authenticationManager.authenticate(authenticationToken);
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -73,7 +72,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
         PrincipalDetails principalDetails = (PrincipalDetails)authResult.getPrincipal();
 
         String jwtToken = JWT.create()
@@ -83,13 +82,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withClaim("username", principalDetails.getUser().getUsername())
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
-        logger.info(String.format("----- JWT published ----- [ %s (%s) ]", principalDetails.getUser().getEmail(), principalDetails.getUser().getUsername()));
+        log.info(String.format("----- JWT published ----- [ %s (%s) ]", principalDetails.getUser().getEmail(), principalDetails.getUser().getUsername()));
         response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
+        response.getWriter().write(JwtProperties.TOKEN_PREFIX + jwtToken);
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        logger.info("Login Failed          " + failed.getMessage());
+        log.info("Login Failed          " + failed.getMessage());
         super.unsuccessfulAuthentication(request, response, failed);
     }
 }

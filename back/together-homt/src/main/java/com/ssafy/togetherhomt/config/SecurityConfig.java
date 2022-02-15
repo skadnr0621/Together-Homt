@@ -109,6 +109,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .formLogin()
 //                .loginPage("http://i6b206.p.ssafy.io/")
+//                .successForwardUrl("/user/users")
                 .permitAll()
                 .and()
             .httpBasic().disable()

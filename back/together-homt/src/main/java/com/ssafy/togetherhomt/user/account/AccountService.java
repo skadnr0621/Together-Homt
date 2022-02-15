@@ -2,8 +2,6 @@ package com.ssafy.togetherhomt.user.account;
 
 import com.ssafy.togetherhomt.common.CommonService;
 import com.ssafy.togetherhomt.config.media.GlobalConfig;
-import com.ssafy.togetherhomt.exercise.attendance.Attendance;
-import com.ssafy.togetherhomt.exercise.attendance.AttendanceRepository;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserRepository;
 import com.ssafy.togetherhomt.user.UserService;
@@ -26,7 +24,6 @@ public class AccountService {
     private final UserService userService;
     /*** Repository ***/
     private final UserRepository userRepository;
-    private final AttendanceRepository attendanceRepository;
 
 
     @Transactional
@@ -43,12 +40,6 @@ public class AccountService {
                 .imagePath(globalConfig.getResourcePath() + "/default/exercise.png")
                 .build();
         userRepository.save(user);
-
-        Attendance attendance = Attendance.builder()
-                .user(user)
-                .done(false)
-                .build();
-        attendanceRepository.save(attendance);
 
         return "success";
     }
