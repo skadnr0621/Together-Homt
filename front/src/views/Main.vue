@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <!-- jwt 토큰을 가지고 있을 경우 -->
-    <div v-if="token">
+    <div v-if="token" id="main-form">
       <!-- 헤더 -->
       <Header />
 

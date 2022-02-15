@@ -5,7 +5,7 @@ export default {
     // 내 정보 조회해서 저장하기
     async setMyInfo({ commit }, payload) {
       return await axios
-        .get(`/user/users/${payload.email}`, {
+        .get(`/user/users/${payload.email}`,{
           headers: {
             Authorization: payload.token,
           },
@@ -13,7 +13,7 @@ export default {
         .then((res) => {
           console.log(res);
           commit("SET_MY_INFO", res.data);
-        });
+        })
     },
 
     // 다른 유저 정보 조회해서 저장하기
@@ -27,7 +27,7 @@ export default {
         .then((res) => {
           console.log(res);
           commit("SET_USER_INFO", res.data);
-        });
+        })
     },
 
     // 나 or 유지 피드 조회해서 저장하기
@@ -47,7 +47,7 @@ export default {
           };
 
           commit("SET_USER_FEEDS", resData);
-        });
+        })
     },
 
     // 나의 팔로워 + 팔로잉 조회해서 저장하기
@@ -62,7 +62,7 @@ export default {
           console.log(res);
 
           commit("SET_MY_FOLLOW", res);
-        });
+        })
     },
 
     // 나의 팔로워 조회해서 저장하기
@@ -77,7 +77,7 @@ export default {
           console.log(res);
 
           commit("SET_MY_FOLLOWER", res.data);
-        });
+        })
     },
 
     // 나의 팔로잉 조회해서 저장하기
@@ -92,7 +92,8 @@ export default {
           console.log(res);
 
           commit("SET_MY_FOLLOWING", res.data);
-        });
+        })
+        
     },
 
     // 다른 유저의 팔로워 + 팔로잉 조회해서 저장하기
@@ -107,7 +108,7 @@ export default {
           console.log(res);
 
           commit("SET_USER_FOLLOW", res);
-        });
+        })
     },
 
     // 다른 유저의 팔로워 조회해서 저장하기
@@ -122,7 +123,10 @@ export default {
           console.log(res);
 
           commit("SET_USER_FOLLOWER", res.data);
-        });
+        })
+        .catch((err)=> {
+          alert(err)
+        })
     },
 
     // 다른 유저의 팔로잉 조회해서 저장하기
@@ -137,7 +141,10 @@ export default {
           console.log(res);
 
           commit("SET_USER_FOLLOWING", res.data);
-        });
+        })
+        .catch((err)=> {
+          alert(err)
+        })
     },
 
     // 피드 댓글 조회해서 저장하기
@@ -145,7 +152,7 @@ export default {
       return await axios
         .get(`/feed/${payload.feedId}/comment`, {
           headers: {
-            Authorization: payload.token,
+            Authorization: sessionStorage.getItem("jwt"),
           },
         })
         .then((res) => {
@@ -157,7 +164,10 @@ export default {
     getAllUsers({ commit }) {
       axios({
         method: "get",
-        url: "http://i6b206.p.ssafy.io:8092/slide1/userlist",
+        url: "/user/users",
+        headers: {
+          Authorization: sessionStorage.getItem("jwt"),
+        },
       }).then((res) => {
         console.log(res);
         res.data.sort((a, b) => {

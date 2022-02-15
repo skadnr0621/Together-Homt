@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div style="width: 100%;">
     <div class="bg">
       <div class="circle-blue right-1"></div>
       <div class="circle-big"></div>
@@ -10,7 +10,9 @@
       <div class="circle-green right-2"></div>
       <div class="circle-pink right-3"></div>
     </div>
-    <router-view />
+    <div id="app">
+      <router-view />
+    </div>
   </div>
 </template>
 

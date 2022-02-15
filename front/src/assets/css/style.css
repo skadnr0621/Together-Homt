@@ -1,19 +1,30 @@
 /* 모바일 전용 - 기본적용*/
 body {
-  
   background: #ebf2ff;
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .bg {
   position: relative;
-  left: 50%;
-  top: 50%; 
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+  z-index: -3;
 }
 
 .circle-big {
-  z-index: -2;
   position: absolute;
   width: 324px;
   height: 324px;
@@ -26,7 +37,6 @@ body {
 }
 
 .circle-blue {
-  z-index: -2;
   position: absolute;
   border-radius: 70%;
   background: linear-gradient(327.24deg, #739AFF 18.76%, rgba(173, 196, 255, 0.15) 77.34%);
@@ -35,7 +45,6 @@ body {
 }
  
 .circle-yellow {
-  z-index: -2;
   position: absolute;
   border-radius: 70%;
   background: linear-gradient(327.24deg, #FFD43D 18.76%, #FFF5DC 77.34%);
@@ -44,7 +53,7 @@ body {
 }
 
 .circle-green {
-  z-index: -2;
+  z-index: -1;
   position: absolute;
   border-radius: 70%;
   background: conic-gradient(from -32.76deg at 65.71% 43.1%, #31D0F3 0deg, #5CEAE1 197.7deg, #31D0F3 360deg);
@@ -52,7 +61,6 @@ body {
 }
 
 .circle-pink {
-  z-index: -2;
   position: absolute;
   border-radius: 70%;
   background: linear-gradient(327.24deg, #DB74FF 18.76%, #F5DCFF 77.34%);

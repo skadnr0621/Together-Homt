@@ -82,7 +82,7 @@ export default {
 
   methods: {
     goOut() {
-      this.$router.push({ name: "ExerciseList" });
+      this.$router.push({ name: "Exercise" });
       this.webcam.stop();
       this.webcam = null;
     },
