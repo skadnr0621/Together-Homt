@@ -36,7 +36,7 @@ public class NotificationService {
         if (receiver == null)
             return null;
 
-        User sender = commonService.getLoginUser();
+        User sender = userRepository.findByEmail(commonService.getLoginUser().getEmail());
 
         Notification notification = Notification.builder()
                 .sender(sender)
