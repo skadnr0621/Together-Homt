@@ -101,7 +101,7 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="show.run.dashboard.notification" value="false" />
   </component>
-  <component name="RunManager" selected="Gradle.together-homt [build]">
+  <component name="RunManager" selected="Gradle.together-homt">
     <configuration name="together-homt [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -193,7 +193,7 @@
       <workItem from="1644639027940" duration="2667000" />
       <workItem from="1644796373768" duration="1319000" />
       <workItem from="1644852083215" duration="1943000" />
-      <workItem from="1644971570048" duration="1145000" />
+      <workItem from="1644971570048" duration="3487000" />
     </task>
     <servers />
   </component>

@@ -96,19 +96,22 @@ public class FeedService {
         // Tag
         List<Tag> resTags = new ArrayList<>();
 
-        for (String tempName : tagDto.getTagList()) {
-            Tag tempTag = tagRepository.findByName(tempName);
-            if (tempTag != null) {
-                resTags.add(tempTag);
-            } else {
-                Tag newTag = Tag.builder()
-                        .name(tempName)
-                        .build();
-                tagRepository.save(newTag);
-                resTags.add(newTag);
+
+        if (tagDto != null) {
+            for (String tempName : tagDto.getTagList()) {
+                Tag tempTag = tagRepository.findByName(tempName);
+                if (tempTag != null) {
+                    resTags.add(tempTag);
+                } else {
+                    Tag newTag = Tag.builder()
+                            .name(tempName)
+                            .build();
+                    tagRepository.save(newTag);
+                    resTags.add(newTag);
+                }
             }
         }
-
+        
         // Create Feed
         Feed feed = Feed.builder()
                 .title(feedDto.getTitle())
