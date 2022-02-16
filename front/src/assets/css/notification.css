@@ -1,0 +1,72 @@
+#notification {
+  position: fixed;
+  top: 45px;
+  left: 0;
+  right: 0;
+  bottom: 45px;
+  overflow: auto;
+}
+
+/* NotificationHeader */
+#notification-header {
+  background-color: #ffffff;
+  display: flex;
+  height: 40px;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0 10px;
+}
+
+#notification-header > .cancel {
+  height: 24px;
+}
+
+#notification-header > .cancel > span {
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#notification-header > .context {
+  font-weight: bold;
+}
+
+/* NotificationList */
+#notification-list {
+  position: fixed;
+  top: 85px;
+  left: 0;
+  right: 0;
+  bottom: 45px;
+  overflow: auto;
+}
+
+#notification-list > div > .container {
+  display: flex;
+  margin: 10px 15px;
+}
+
+#notification-list > div > .container > .profile {
+  width: 45px;
+  height: 45px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+#notification-list > div > .container > .profile > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+#notification-list > div > .container > .content {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+#notification-list > div > .container > .content > span {
+  font-weight: bold;
+}

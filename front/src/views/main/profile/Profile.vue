@@ -8,7 +8,7 @@
 
       <profile-data-cnt
         :info="{
-          feedCnt: feedInfo.length,
+          feedCnt: feedsInfo.length,
           followerCnt: myInfo.cntFollower,
           followingCnt: myInfo.cntFollowing,
           userName: myInfo.username,
@@ -23,7 +23,7 @@
       <profile-feed-navbar />
 
       <profile-feed-list
-        :feedList="feedInfo"
+        :feedList="feedsInfo"
         :userName="myInfo.username"
         :email="loginUser"
       />
@@ -40,7 +40,7 @@
 
       <profile-data-cnt
         :info="{
-          feedCnt: feedInfo.length,
+          feedCnt: feedsInfo.length,
           followerCnt: otherInfo.cntFollower,
           followingCnt: otherInfo.cntFollowing,
           userName: otherInfo.username,
@@ -55,7 +55,7 @@
       <profile-feed-navbar />
 
       <profile-feed-list
-        :feedList="feedInfo"
+        :feedList="feedsInfo"
         :userName="otherInfo.username"
         :email="otherInfo.email"
       />
@@ -101,10 +101,12 @@ export default {
     // 내 정보
     ...mapState({ myInfo: (state) => state.myStore.myInfo }),
 
+    // 다른 유저 정보
     ...mapState({ otherInfo: (state) => state.otherStore.otherInfo }),
     ...mapState({ otherFollowers: (state) => state.otherStore.otherFollowers }),
 
-    ...mapState({ feedInfo: (state) => state.feedStore.feedInfo }),
+    // 피드 정보
+    ...mapState({ feedsInfo: (state) => state.feedStore.feedsInfo }),
   },
   methods: {
     // 팔로우 했는지 안했는지 체크
@@ -137,10 +139,16 @@ export default {
       if (typeof this.otherFollowers != "string") {
         this.isFollow = this.otherFollowers.findIndex(this.checkFollow);
       }
+    } else {
+      // 내 정보 가져오기
+      await this.$store.dispatch("myStore/setMyInfo", {
+        email: this.email,
+        token: this.token,
+      });
     }
 
     //피드 리스트 가져오기
-    await this.$store.dispatch("feedStore/setFeedInfo", {
+    await this.$store.dispatch("feedStore/setFeedsInfo", {
       email: this.email,
       token: this.token,
     });

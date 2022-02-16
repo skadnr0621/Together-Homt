@@ -2,7 +2,7 @@
   <div id="profile-feed-detail">
     <profile-feed-detail-header v-on:goBack="onGoBack" />
     <profile-feed-detail-main
-      v-if="loginUser == $route.params.email"
+      v-if="loginUser == email"
       v-on:goBack="onGoBack"
       :isDelete="true"
       :info="myInfo"
@@ -31,6 +31,13 @@ export default {
     ProfileFeedDetailHeader,
     ProfileFeedDetailMain,
   },
+  data() {
+    return {
+      token: sessionStorage.getItem("jwt"),
+      email: this.$route.params.email,
+      feedId: this.$route.params.feedId,
+    };
+  },
   methods: {
     onGoBack() {
       this.$router.back();
@@ -46,9 +53,9 @@ export default {
     ...mapState({ feedInfo: (state) => state.feedStore.feedInfo }),
   },
   async mounted() {
-    // 내 피드 리스트 가져오기
+    // 상세 피드 가져오기
     await this.$store.dispatch("feedStore/setFeedInfo", {
-      email: this.$route.params.email,
+      feedId: this.feedId,
       token: this.token,
     });
   },

@@ -1,0 +1,119 @@
+#check-who-exercise {
+  position: fixed;
+  top: 45px;
+  left: 0;
+  right: 0;
+  bottom: 45px;
+  overflow: auto;
+}
+
+/* CheckWhoExerciseHeader */
+#check-who-exercise-header {
+  background-color: #ffffff;
+  display: flex;
+  height: 40px;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0 10px;
+}
+
+#check-who-exercise-header > .cancel {
+  height: 24px;
+}
+
+#check-who-exercise-header > .cancel > span {
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#check-who-exercise-header > .context {
+  font-weight: bold;
+}
+
+/* CheckWhoExerciseList */
+#check-who-exercise-list {
+  position: fixed;
+  top: 85px;
+  left: 0;
+  right: 0;
+  bottom: 45px;
+  overflow: auto;
+}
+#check-who-exercise-list > div > .container {
+  display: flex;
+  margin: 10px 15px;
+}
+
+#check-who-exercise-list > div > .container > .profile {
+  width: 70px;
+  height: 70px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+#check-who-exercise-list > div > .container > .profile > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+#check-who-exercise-list > div > .container > .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#check-who-exercise-list > div > .container > .content > .name {
+  font-weight: bold;
+  color: rgba(1, 1, 1, 0.87);
+  font-size: 15px;
+}
+
+#check-who-exercise-list > div > .container > .content > .check {
+  color: rgba(41, 98, 255, 0.6);
+  font-size: 12px;
+}
+
+#check-who-exercise-list > div > .container > .content > .not-check {
+  color: rgba(255, 0, 0, 0.87);
+  font-size: 12px;
+}
+
+#check-who-exercise-list > div > .container > .content > div {
+  margin: 4px 0;
+}
+
+#check-who-exercise-list > div > .container > .send-yes {
+  margin-left: auto;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(1, 1, 1, 0.1);
+  background-color: rgba(41, 98, 255);
+  border-radius: 5px;
+}
+
+#check-who-exercise-list > div > .container > .send-no {
+  margin-left: auto;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(1, 1, 1, 0.01);
+  background-color: rgba(41, 98, 255, 0.38);
+  border-radius: 5px;
+}
+
+#check-who-exercise-list > div > .container > * > span {
+  color: white;
+  width: 24px;
+  height: 24px;
+}

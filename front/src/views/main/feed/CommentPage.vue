@@ -1,43 +1,15 @@
 <template>
   <div id="comment-page">
     <comment-header v-on:goBack="onGoBack" />
-    <div class="show-comment">
-      <comment-detail :comments="comments" />
-    </div>
-
-    <div class="comment-input">
-      <!-- <div class="pimage" v-if="item.profileUrl == null">
-        <img class="headerimg" src="@/assets/스카피.jpg" alt="프로필 사진" />
-      </div>
-      <div v-else>
-        <img class="pimgae2" :src="item.profileUrl" />
-      </div> -->
-
-      <div class="text">
-        <!-- <div class="text-pimage" v-if="item.profileUrl == null">
-          <img class="headerimg" src="@/assets/스카피.jpg" alt="프로필 사진" />
-        </div>
-        <div v-else>
-          <img class="text-pimgae2" :src="item.profileUrl" />
-        </div> -->
-        <div>이미지들어가야하는곳</div>
-        <input
-          type="text"
-          placeholder="댓글을 입력해주세요."
-          v-model="comment"
-          v-on:keyup.enter="createComment()"
-        />
-        <div class="submit">
-          <button type="button" v-on:click="createComment()">등록</button>
-        </div>
-      </div>
-    </div>
+    <comment-detail :comments="comments"></comment-detail>
+    <comment-register v-bind:feedId="feedId"></comment-register>
   </div>
 </template>
 
 <script>
 import CommentHeader from "@/components/CommentPage/CommentHeader";
 import CommentDetail from "@/components/CommentPage/CommentDetail";
+import CommentRegister from "@/components/CommentPage/CommentRegister";
 import axios from "axios";
 
 export default {
@@ -47,11 +19,13 @@ export default {
       comments: [],
       comment: "",
       feedId: this.$route.query.feedId,
+      //사용자 정보를 넘겨줘야하는데..
     };
   },
   components: {
     CommentHeader,
     CommentDetail,
+    CommentRegister,
   },
   created() {
     const feedId = this.$route.query.feedId;
@@ -75,30 +49,52 @@ export default {
     //   ...mapState(["myInfo"]),
   },
   methods: {
-    //뒤로가기
-    onGoBack() {
-      this.$router.back();
-    },
-
-    //댓글 등록
-    createComment() {
+    created() {
+      //const feedId = this.myInfo.feeds[this.$route.params.feedId].feed_id;
       const feedId = this.$route.query.feedId;
+      const username = this.$route.query.username;
       console.log(feedId);
+      console.log(username);
+
       axios
-        .post(`/feed/${feedId}/comments`, {
-          content: this.comment,
+        .get(`/feed/${feedId}/comments`, {
+          headers: {
+            Authorization: sessionStorage.getItem("jwt"),
+          },
         })
         .then((res) => {
-          alert("댓글 등록");
           console.log(res);
         })
         .catch((err) => {
-          alert("댓글 안등록");
           console.log(err);
         });
     },
-    //새로고침
-    //댓글등록하고나서 새로고침하면 토큰이 없어져서 로그아웃되나?
+    onGoBack() {
+      this.$router.back();
+    },
+    async onRegisterComment(value) {
+      const feedId = this.myInfo.feeds[this.$route.params.feedId].feed_id;
+      await axios
+        .post(
+          `/feed/${feedId}/comments`,
+          { content: value, feed_id: feedId, username: this.myInfo.username },
+          {
+            headers: {
+              Authorization: sessionStorage.getItem("jwt"),
+            },
+          }
+        )
+        .then((res) => {
+          alert("댓글 등록 완료!");
+          console.log(res);
+        })
+        .catch((err) => {
+          alert("댓글 등록 실패!");
+          console.log(err);
+        });
+
+      this.$router.go(this.$router.currentRoute);
+    },
   },
 };
 </script>
@@ -112,37 +108,5 @@ export default {
   bottom: 45px;
   overflow: auto;
   /* background-color: rgba(0, 0, 0, 0.025); */
-}
-#comment-page > .show-comment {
-  border: 1px solid black;
-  margin: 10px;
-  padding: 1px;
-}
-#comment-page > .comment-input {
-  border: 1px solid black;
-  margin: 10px;
-  padding: 1px;
-  text-align: center;
-}
-#comment-page > .comment-input > .profileImg {
-  border: 1px solid black;
-  margin: 10px;
-  padding: 5px;
-  text-align: center;
-  display: flex;
-}
-#comment-page > .comment-input > .submit {
-  border: 1px solid black;
-  margin: 10px;
-  padding: 5px;
-  text-align: center;
-  display: flex;
-}
-#comment-page > .comment-input > .text {
-  border: 1px solid black;
-  margin: 10px;
-  padding: 5px;
-  text-align: center;
-  display: flex;
 }
 </style>

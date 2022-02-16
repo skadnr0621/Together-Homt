@@ -11,6 +11,7 @@ import userStore from "@/store/userStore";
 import myStore from "@/store/myStore";
 import otherStore from "@/store/otherStore";
 import feedStore from "@/store/feedStore";
+import exerciseStore from "@/store/exerciseStore";
 import groupStore from "@/store/groupStore";
 
 Vue.use(Vuex);
@@ -24,12 +25,20 @@ export default new Vuex.Store({
     myStore: myStore,
     otherStore: otherStore,
     feedStore: feedStore,
+    exerciseStore: exerciseStore,
     groupStore: groupStore,
   },
 
   plugins: [
     createPersistedState({
-      paths: ["userStore", "myStore", "otherStore", "feedStore", "groupStore"],
+      paths: [
+        "userStore",
+        "myStore",
+        "otherStore",
+        "feedStore",
+        "exerciseStore",
+        "groupStore",
+      ],
     }),
   ],
 });

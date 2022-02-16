@@ -105,12 +105,6 @@ export default {
             console.log(err.response.data.msg);
           });
 
-        // 내 프로필 정보 가져오기
-        await this.$store.dispatch("myStore/setMyInfo", {
-          email: this.loginUser,
-          token: this.token,
-        });
-
         await this.$router.push({
           name: "Profile",
           params: { userName: this.info.username, email: this.info.email },
