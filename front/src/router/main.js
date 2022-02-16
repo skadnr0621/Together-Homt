@@ -18,6 +18,7 @@ import ProfileFeedComment from "@/views/main/profile/ProfileFeedComment"; // 프
 import ProfileFeedLike from "@/views/main/profile/ProfileFeedLike"; // 프로필 피드 좋아요 페이지
 import AdminPage from "@/views/admin/AdminPage";
 import Group from "@/views/admin/Group";
+import AdminRegister from "@/views/admin/AdminRegister"
 export default {
   // MainPage : 피드, 검색, (피드)등록, 운동, 프로필
   path: "/main",
@@ -132,6 +133,11 @@ export default {
       name: "AdminPage",
       path: "admin",
       component: AdminPage,
+    },
+    {
+      name: "AdminRegister",
+      path: "admin/register",
+      component: AdminRegister,
     },
     {
       name: "Group",

@@ -33,7 +33,7 @@ export default {
     // 나 or 유지 피드 조회해서 저장하기
     async setUserFeeds({ commit }, payload) {
       return await axios
-        .get(`/feed/feeds/${payload.email}/temp`, {
+        .get(`/feed/feeds/profiles/${payload.email}/temp`, {
           headers: {
             Authorization: payload.token,
           },

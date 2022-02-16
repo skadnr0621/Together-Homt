@@ -21,8 +21,8 @@
       <div class="information">운동 리스트에서 원하는 운동을 클릭해보세요.</div>
       <div class="TDexercises">
         <TodayExercise></TodayExercise>
-        <button @click="exercise('hi')">hi운동</button>
-        <button @click="exercise('neck')">목 스트레칭</button>
+        <button @click="exercise('하이')">hi운동</button>
+        <button @click="exercise('목 스트레칭')">목 스트레칭</button>
         <button @click="exercise('waist')">허리 스트레칭</button>
         <button @click="exercise('arm')">팔 뻗기</button>
         <button @click="exercise('squat')">스쿼트</button>
