@@ -11,17 +11,11 @@ import CommentHeader from "@/components/CommentPage/CommentHeader";
 import CommentDetail from "@/components/CommentPage/CommentDetail";
 import CommentRegister from "@/components/CommentPage/CommentRegister";
 import axios from "axios";
+import "@/assets/css/CommentPage.css";
 
 export default {
   name: "CommentPage",
-  data() {
-    return {
-      comments: [],
-      comment: "",
-      feedId: this.$route.query.feedId,
-      //사용자 정보를 넘겨줘야하는데..
-    };
-  },
+
   components: {
     CommentHeader,
     CommentDetail,
@@ -99,14 +93,4 @@ export default {
 };
 </script>
 
-<style>
-#comment-page {
-  position: fixed;
-  top: 45px;
-  left: 0;
-  right: 0;
-  bottom: 45px;
-  overflow: auto;
-  /* background-color: rgba(0, 0, 0, 0.025); */
-}
-</style>
+<style></style>
