@@ -1,52 +1,54 @@
 <template>
   <div id="navbar">
-    <ul>
-      <!-- 피드 -->
-      <li class="menu-feed">
-        <router-link :to="{ name: 'Feed' }">
-          <span class="material-icons" @click="changeMenu(0)"> home </span>
-        </router-link>
-      </li>
+    <div>
+      <ul>
+        <!-- 피드 -->
+        <li class="menu-feed">
+          <router-link :to="{ name: 'Feed' }">
+            <span class="material-icons" @click="changeMenu(0)"> home </span>
+          </router-link>
+        </li>
 
-      <!-- 검색 -->
-      <li class="menu-search">
-        <router-link :to="{ name: 'Search' }">
-          <span class="material-icons" @click="changeMenu(1)"> search </span>
-        </router-link>
-      </li>
+        <!-- 검색 -->
+        <li class="menu-search">
+          <router-link :to="{ name: 'Search' }">
+            <span class="material-icons" @click="changeMenu(1)"> search </span>
+          </router-link>
+        </li>
 
-      <!-- (피드) 등록 -->
-      <li class="menu-add">
-        <router-link :to="{ name: 'Register' }">
-          <span class="material-icons-outlined" @click="changeMenu(2)">
-            add_box
-          </span>
-        </router-link>
-      </li>
+        <!-- (피드) 등록 -->
+        <li class="menu-add">
+          <router-link :to="{ name: 'Register' }">
+            <span class="material-icons-outlined" @click="changeMenu(2)">
+              add_box
+            </span>
+          </router-link>
+        </li>
 
-      <!-- 운동 -->
-      <li class="menu-homt">
-        <router-link :to="{ name: 'Exercise' }">
-          <span class="material-icons-outlined" @click="changeMenu(3)">
-            fitness_center
-          </span>
-        </router-link>
-      </li>
+        <!-- 운동 -->
+        <li class="menu-homt">
+          <router-link :to="{ name: 'Exercise' }">
+            <span class="material-icons-outlined" @click="changeMenu(3)">
+              fitness_center
+            </span>
+          </router-link>
+        </li>
 
-      <!-- 프로필 -->
-      <li class="menu-my">
-        <router-link
-          :to="{
-            name: 'Profile',
-            params: { userName: myInfo.username, email: myInfo.email },
-          }"
-        >
-          <span class="material-icons" @click="changeMenu(4)">
-            account_circle
-          </span>
-        </router-link>
-      </li>
-    </ul>
+        <!-- 프로필 -->
+        <li class="menu-my">
+          <router-link
+            :to="{
+              name: 'Profile',
+              params: { userName: myInfo.username, email: myInfo.email },
+            }"
+          >
+            <span class="material-icons" @click="changeMenu(4)">
+              account_circle
+            </span>
+          </router-link>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
