@@ -76,7 +76,9 @@ public class LikeService {
 
         // Get Feed
         Optional<Feed> feed = feedRepository.findById(feed_id);
-
+        if (!feed.isPresent()) {
+            return null;
+        }
         List<LikeUserDto> result = new ArrayList<>();
 
         for (Like like : likeRepository.findAllByFeed(feed.get())) {
@@ -104,12 +106,12 @@ public class LikeService {
     public ResponseEntity<?> undoLikeFeed(Long feed_id) {
 
         // Get Feed
-        Optional<Feed> optFeed = feedRepository.findById(feed_id);
-        Feed feed = optFeed.get();
-        // Check Like Status
+        Optional<Feed> optFeed = feedRepository.findById(feed_id);// Check Like Status
         if (!optFeed.isPresent()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
+        Feed feed = optFeed.get();
 
         // Get User
         User me = commonService.getLoginUser();
