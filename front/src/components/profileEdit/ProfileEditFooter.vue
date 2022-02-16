@@ -21,8 +21,9 @@ export default {
     logout() {
       if (confirm("로그아웃 하시겠습니까?")) {
         sessionStorage.clear();
-        this.$store.dispatch("userStore/getLoginUser", null);
-        // this.$store.replaceState(null);
+        localStorage.clear();
+        // this.$store.dispatch("userStore/getLoginUser", null);
+
         this.$router.push({ name: "Login" });
       }
     },
@@ -31,15 +32,17 @@ export default {
       console.log(sessionStorage.getItem("jwt"));
       if (confirm("정말 탈퇴하시겠습니까?")) {
         await axios
-          .delete(`/user/users/${this.loginUser}`, {
+          .delete(`/user/account/withdrawal`, {
             headers: {
-              Authorization: sessionStorage.getItem("jwt"),
+              // Authorization: sessionStorage.getItem("jwt"),
+              Authorization: localStorage.setItem("jwt"),
             },
           })
           .then((res) => {
             alert("그동안 서비스를 이용해주셔서 감사합니다.");
             console.log(res);
 
+            localStorage.clear();
             sessionStorage.clear(); // 토큰 삭제
             this.$store.clear();
             // this.$store.dispatch("userStore/getLoginUser", null); // LocalStorage 초기화

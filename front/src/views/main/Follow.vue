@@ -1,7 +1,5 @@
 <template>
   <div id="follow">
-    <!-- {{ $route.params.userName }}
-    {{ $route.params.email }} -->
     <div>
       <follow-header v-on:goBack="onGoBack" />
 

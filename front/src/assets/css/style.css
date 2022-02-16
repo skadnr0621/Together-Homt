@@ -1,6 +1,15 @@
-/* 모바일 전용 - 기본적용*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
+<<<<<<< HEAD
   background: #ebf2ff;
+=======
+  margin: 0 auto;
+>>>>>>> d4ec2ad45352eab5395913b5a57599eaff1882d3
   width: 100%;
   height: 100%;
   display: flex;
@@ -14,6 +23,7 @@ body {
   align-items: center;
 }
 
+<<<<<<< HEAD
 .bg {
   position: relative;
   width: 360px;
@@ -135,13 +145,37 @@ body {
     transition: top 2s ease 0s;
   } */
 
+=======
+a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.87);
 }
 
-/* 데스크탑 */
+a:visited {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+ul {
+  list-style: none;
+}
+
+#app {
+  background: #77a1d3;
+  background: -webkit-linear-gradient(to right, #e684ae, #79cbca, #77a1d3);
+  background: linear-gradient(to right, #e684ae, #79cbca, #77a1d3);
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+}
+
+/* 736px 이상일 경우 적용되는 코드 */
+@media (min-width: 736px) {
+>>>>>>> d4ec2ad45352eab5395913b5a57599eaff1882d3
+}
+
 /* 1024px 이상일 경우 적용되는 코드 */
 @media (min-width: 1024px) {
-  
-
-
-
 }

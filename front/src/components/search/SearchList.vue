@@ -2,14 +2,23 @@
   <div class="search-list">
     <div id="feed-container">
       <div
+      id="search-thumbnail"
       v-for="(feed, index) in showList"
-      :key="index">
-        <div v-if="mediaURL(index).slice(-3) == 'jpg' || mediaURL(index).slice(-3) == 'png'">
+      :key="index"
+      @click="goFeeds(index)"
+      >
+        <div 
+        id="thumbnail-detail"
+        v-if="mediaURL(index).slice(-3) == 'jpg' || mediaURL(index).slice(-3) == 'png'">
           <img
+          id="thumbnail-media"
           :src="mediaURL(index)">
         </div>
-        <div v-else>
+        <div
+        id="thumbnail-detail" 
+        v-else>
           <video
+          id="thumbnail-media"
           :src="mediaURL(index)"
           controls autoplay></video>
         </div>
@@ -20,12 +29,14 @@
 
 <script>
 import axios from 'axios'
+const server = "http://localhost:8092"
 
-const server = "http://i6b206.p.ssafy.io:8092"
 export default {
   name: "SearchList",
   props: {
+    searchKeyword: String,
     showFeedList: Array,
+    searchFeedDetailList: Array,
   },
   data: function() {
     return {
@@ -35,17 +46,29 @@ export default {
   },
   methods: {
     mediaURL(idx) {
-      return server + this.showList[idx].media_url;
+      return server + this.showList[idx].mediaUrl;
+    },
+
+    goFeeds(idx) {
+      console.log(idx)
+    if (this.showList != null) {
+        this.$store.dispatch("feedStore/setSearchFeeds", this.showList.slice(idx))
+        this.$router.push({ name: "SearchFeedsDetail", query: { searchKeywordDetail : this.searchKeyword}})
+      } else {
+        this.$store.dispatch("feedStore/setSearchFeeds", this.allFeeds.slice(idx))
+        this.$router.push({ name: "SearchFeedsDetail", query: { searchKeywordDetail: this.searchKeyword}})
+      }
     }
   },
   mounted() {
     axios({
       method: 'get',
-      url: `/slide1/feedlist`,
+      url: `/feed/feeds/search`,
+      headers: {
+        Authorization: sessionStorage.getItem("jwt")
+      }
     })
     .then((res)=> {
-      console.log(res)
-
       this.allFeeds = res.data
       this.$emit('all-feeds', this.allFeeds)
       
@@ -55,29 +78,36 @@ export default {
         this.showList = this.showFeedList
       }
     })
+    .catch((err)=>{
+      alert(err)
+    })
   },
 }
 </script>
 
 <style>
 #feed-container {
-  width: 360px;
   display: grid;
-  grid-gap: 1px;
-  background-color: white;
+  gap: 1px 1px;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr;
 }
 
-#feed-container img {
-  width: 119.3px;
-  height: 119.3px;
+#thumbnail-detail {
+  width: 100%;
+  height: 100%;
 }
 
-#feed-container video {
+#feed-container #search-thumbnail {
+  aspect-ratio: 1;
+}
+
+#thumbnail-media {
   background: black;
-  width: 119.3px;
-  height: 119.3px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  object-fit: fill;
 }
+
 
 </style>

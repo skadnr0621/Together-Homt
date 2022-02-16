@@ -100,6 +100,10 @@
   /* padding-bo */
 }
 
+#profile-feed-detail-main > div > div > .feed-detail-img > video {
+  width: 100%;
+}
+
 #profile-feed-detail-main > div > div > .feed-detail-img > img {
   width: 100%;
 }

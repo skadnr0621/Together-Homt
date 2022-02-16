@@ -11,16 +11,24 @@
 
 <script>
 import axios from "axios";
-axios.defaults.headers.common["Authorization"] = sessionStorage.getItem("jwt");
 
 export default {
   name: "ProfileFollowControl",
   props: ["email", "isFollow"],
+  data() {
+    return {
+      token: sessionStorage.getItem("jwt"),
+    };
+  },
   methods: {
     // 팔로우 하기
     async onFollow() {
       await axios
-        .post(`/communication/follows/${this.email}`)
+        .post(`/communication/follows/${this.email}`, null, {
+          headers: {
+            Authorization: this.token,
+          },
+        })
         .then((res) => {
           console.log(res);
           alert("팔로우 성공!");
@@ -35,7 +43,11 @@ export default {
     // 언팔로우 하기
     async onUnFollow() {
       await axios
-        .delete(`/communication/follows/${this.email}`)
+        .delete(`/communication/follows/${this.email}`, {
+          headers: {
+            Authorization: this.token,
+          },
+        })
         .then((res) => {
           console.log(res);
           alert("언팔로우 성공!");

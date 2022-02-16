@@ -32,5 +32,6 @@ export default {
 
     // 전체 유저 정보
     allUsers: null,
+
   },
 };

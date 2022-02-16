@@ -23,7 +23,6 @@ export default {
   data() {
     return {
       isRegister: false,
-      nickname: this.$route.params.userName,
     };
   },
   methods: {

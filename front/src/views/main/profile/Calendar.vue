@@ -17,6 +17,7 @@ export default {
     CalendarHeader,
     CalendarMain,
   },
+
   methods: {
     // 뒤로 가기
     onGoBack() {

@@ -54,6 +54,11 @@ export default {
         .post(`/user/login`, {
           email: this.loginUser,
           password: this.currentPassword,
+        },
+        {
+          headers: {
+            Authorization: sessionStorage.getItem("jwt"),
+          },
         })
         .then((res) => {
           const token = res.headers.authorization;
@@ -63,15 +68,11 @@ export default {
           if (this.newPassword == this.confirmPassword) {
             // 비밀번호 변경하기
             axios
-              .put(
-                `/user/auth/password`,
-                { newPassword: this.confirmPassword },
-                {
-                  headers: {
-                    Authorization: sessionStorage.getItem("jwt"),
-                  },
-                }
-              )
+              .put(`/user/account/change-password`, this.confirmPassword, {
+                headers: {
+                  Authorization: sessionStorage.getItem("jwt"),
+                },
+              })
               .then((res) => {
                 console.log(this.confirmPassword);
                 console.log(res);
