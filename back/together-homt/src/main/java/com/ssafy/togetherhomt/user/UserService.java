@@ -4,6 +4,7 @@ import com.ssafy.togetherhomt.common.CommonService;
 import com.ssafy.togetherhomt.config.media.GlobalConfig;
 import com.ssafy.togetherhomt.config.media.MediaService;
 import com.ssafy.togetherhomt.user.follow.FollowRepository;
+import com.ssafy.togetherhomt.user.group.GroupService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ public class UserService {
     /*** Service ***/
     private final CommonService commonService;
     private final MediaService mediaService;
+    private final GroupService groupService;
     /*** Repository ***/
     private final UserRepository userRepository;
     private final FollowRepository followRepository;
@@ -93,8 +95,10 @@ public class UserService {
         userDtoBuilder
                 .email(user.getEmail())
                 .username(user.getUsername())
+                .role(user.getRole())
                 .imagePath(user.getImagePath())
-                .introduce(user.getIntroduce());
+                .introduce(user.getIntroduce())
+                .group(groupService.builder(user.getGroup()));
 
         User loginUser = commonService.getLoginUser();
         if (followRepository.findByFollowerAndFollowing(loginUser, user) != null || user.getEmail().equals(loginUser.getEmail()))
