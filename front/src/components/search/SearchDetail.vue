@@ -49,7 +49,7 @@
 </template>
 
 <script>
-const server = "http://i6b206.p.ssafy.io:8092";
+const server = "http://localhost:8092"
 
 export default {
   name: "SearchDetail",
@@ -76,7 +76,7 @@ export default {
     },
 
     mediaURL(idx) {
-      return server + this.searchUsers[idx].profile_url;
+      return server + this.searchUsers[idx].imagePath;
     },
 
     goProfile(username, email) {

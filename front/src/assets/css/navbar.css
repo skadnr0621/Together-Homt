@@ -1,40 +1,59 @@
 #navbar {
   position: fixed;
   bottom: 0;
-  height: 46px;
   width: 100%;
+  height: 60px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#navbar > ul {
+#navbar > div {
+  width: 100%;
+  height: 45px;
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-sizing: border-box;
+  box-shadow: 0px -8px 32px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(80px);
+  border-radius: 12px;
+  margin: 0px 16px;
+}
+
+#navbar > div > ul {
   height: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
-#navbar > ul > li {
-  text-align: center;
-  height: 100%;
-  padding: 11px;
-  width: 25%;
+#navbar > div > ul > li {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#navbar > ul > li > a > span {
+#navbar > div > ul > li > a {
+  display: flex;
+}
+
+#navbar > div > ul > li > a > span {
+  color: rgba(0, 0, 0, 0.6); /* 비활성화 */
   font-size: 24px;
 }
 
-#navbar > ul > * {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+/* 736px 이상일 경우 적용되는 코드 */
+@media (min-width: 736px) {
 }
 
-#navbar > ul > * > a > span {
-  color: rgba(0, 0, 0, 0.87);
-}
-
-#navbar > ul > .menu-feed {
-  border-top: 1px solid rgba(41, 98, 255, 0.87);
-}
-
-#navbar > ul > .menu-feed > a > span {
-  color: rgba(41, 98, 255, 0.87);
+/* 1024px 이상일 경우 적용되는 코드 */
+@media (min-width: 1024px) {
+  #navbar {
+    width: 1024px;
+  }
 }
