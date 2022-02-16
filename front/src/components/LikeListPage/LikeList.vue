@@ -1,15 +1,22 @@
 <template>
   <div id="like-list">
-    <div>
-      아직은 좋아요 리스트 구현 전입니다. 데이터 넘어오는거 확인하고 v-bind로
-      키정해서 찍겠습니다.
-      <!-- v-for="item in likes" -->
-      <!-- 프로필 사진 원형, 옆에 아이디, 아이디 밑에 자기소개, 팔로우/팔로잉인지 확인하는 버튼 -->
+    <div class="repeat" v-for="(item, index) in likes" v-bind:key="index">
+      <div class="LikeUserInfo">
+        <div class="userimage">
+          <img :src="item.profileUrl" alt="좋아요 누른 사람 프로필" />
+        </div>
+        <div class="username">{{ item.username }}</div>
+        <!-- 사진과 아이디를 누르면 프로필로 이동할 수 잇어야함 -->
+        <div class="userintro">{{ item.introduce }}</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+axios.defaults.headers.common["Authorization"] = sessionStorage.getItem("jwt");
+
 export default {
   name: "LikeList",
   props: {
@@ -20,4 +27,30 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#like-list > .repeat > .LikeUserInfo {
+  border: 1px solid black;
+  display: flex;
+  margin: 10px;
+}
+#like-list > .repeat > .LikeUserInfo > .userimage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-left: 5px;
+}
+#like-list > .repeat > .LikeUserInfo > .userimage > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+#like-list > .repeat > .LikeUserInfo > .username {
+  margin-left: 10px;
+  text-align: center;
+}
+#like-list > .repeat > .LikeUserInfo > .userintro {
+  margin-left: 10px;
+  text-align: center;
+}
+</style>

@@ -30,7 +30,7 @@ export default {
     // 피드 조회해서 저장하기
     async setFeedInfo({ commit }, payload) {
       return await axios
-        .get(`/feed/feeds/${payload.email}/temp`, {
+        .get(`/feed/feeds/${payload.email}/temp`, null, {
           headers: {
             Authorization: payload.token,
           },
