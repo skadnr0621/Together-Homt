@@ -25,7 +25,6 @@ public class UserService {
     private final MediaService mediaService;
     /*** Repository ***/
     private final UserRepository userRepository;
-    private final FollowRepository followRepository;
 
 
     public List<UserDto> getAllUsers() {
@@ -33,13 +32,13 @@ public class UserService {
 
         List<UserDto> userList = new ArrayList<>();
         for (User user : users) {
-            userList.add(this.builder(user, false));
+            userList.add(commonService.builder(user, false));
         }
         return userList;
     }
 
     public UserDto getProfile(User user) {
-        return this.builder(user, true);
+        return commonService.builder(user, true);
     }
 
     @Transactional
@@ -68,7 +67,7 @@ public class UserService {
         }
 
         userRepository.save(user);
-        return this.builder(user, true);
+        return commonService.builder(user, true);
     }
 
     @Transactional
@@ -82,34 +81,6 @@ public class UserService {
         userRepository.save(user);
 
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-
-    // --------------------------------------------------
-
-    public UserDto builder(User user, boolean verbose) {
-        UserDto.UserDtoBuilder userDtoBuilder = UserDto.builder();
-        userDtoBuilder
-                .email(user.getEmail())
-                .username(user.getUsername())
-                .role(user.getRole())
-                .imagePath(user.getImagePath())
-                .introduce(user.getIntroduce());
-
-        if (user.getGroup() != null)
-            userDtoBuilder.group(commonService.builder(user.getGroup()));
-
-        User loginUser = commonService.getLoginUser();
-        if (followRepository.findByFollowerAndFollowing(loginUser, user) != null || user.getEmail().equals(loginUser.getEmail()))
-            userDtoBuilder.followed(true);
-
-        if (verbose) {
-            userDtoBuilder
-                    .cntFollower(followRepository.countByFollowing(user))
-                    .cntFollowing(followRepository.countByFollower(user));
-        }
-
-        return userDtoBuilder.build();
     }
 
 }

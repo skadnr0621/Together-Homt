@@ -4,6 +4,8 @@ import com.ssafy.togetherhomt.config.auth.PrincipalDetails;
 import com.ssafy.togetherhomt.feed.Feed;
 import com.ssafy.togetherhomt.feed.like.LikeRepository;
 import com.ssafy.togetherhomt.feed.tag.Tag;
+import com.ssafy.togetherhomt.notification.Notification;
+import com.ssafy.togetherhomt.notification.NotificationDto;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserDto;
 import com.ssafy.togetherhomt.user.UserRepository;
@@ -38,6 +40,7 @@ public class CommonService {
 
     // --------------------------------------------------
 
+    /** User Entity --> DTO builder **/
     public UserDto builder(User user, boolean verbose) {
         UserDto.UserDtoBuilder userDtoBuilder = UserDto.builder();
         userDtoBuilder
@@ -63,6 +66,7 @@ public class CommonService {
         return userDtoBuilder.build();
     }
 
+    /** Group Entity --> DTO builder **/
     public GroupDto builder(Group group) {
         GroupDto.GroupDtoBuilder groupDtoBuilder = GroupDto.builder();
         groupDtoBuilder
@@ -72,6 +76,7 @@ public class CommonService {
         return groupDtoBuilder.build();
     }
 
+    /** Feed Entity --> DTO builder **/
     public FeedDto builder(Feed feed) {
         FeedDto.FeedDtoBuilder feedDtoBuilder = FeedDto.builder();
         feedDtoBuilder
@@ -88,12 +93,21 @@ public class CommonService {
                         .map(Tag::getName)
                         .collect(Collectors.toList()));
 
-        feedDtoBuilder
-                .likeStatus(
-                        likeRepository.findByUserAndFeed(userRepository.findByEmail(this.getLoginUser().getEmail()), feed)
-                                != null
-                );
+        feedDtoBuilder.likeStatus(
+                likeRepository.findByUserAndFeed(userRepository.findByEmail(this.getLoginUser().getEmail()), feed) != null
+        );
 
         return feedDtoBuilder.build();
     }
+
+    /** Notification Entity --> DTO builder **/
+    public NotificationDto builder(Notification notification) {
+        return NotificationDto.builder()
+                .notificationId(notification.getNotificationId())
+                .sender(this.builder(notification.getSender(), false))
+                .notificationType(notification.getNotificationType())
+                .sentDate(notification.getSentDate())
+                .build();
+    }
+
 }
