@@ -15,6 +15,9 @@ export default {
 
     // 나의 팔로잉 정보
     myFollowings: [],
+
+    // 나의 알람 정보
+    myAlarms: [],
   },
 
   mutations: {
@@ -29,6 +32,9 @@ export default {
     },
     SET_MY_FOLLOWINGS(state, myFollowings) {
       state.myFollowings = myFollowings;
+    },
+    SET_MY_ALARMS(state, myAlarms) {
+      state.myAlarms = myAlarms;
     },
   },
 
@@ -89,6 +95,21 @@ export default {
           console.log(res);
 
           commit("SET_MY_FOLLOWINGS", res.data);
+        });
+    },
+
+    // 나의 알람 조회하기
+    async setMyAlarms({ commit }, payload) {
+      return await axios
+        .get(`/notification/notifications`, {
+          headers: {
+            Authorization: payload.token,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+
+          commit("SET_MY_ALARMS", res.data);
         });
     },
   },

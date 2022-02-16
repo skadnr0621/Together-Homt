@@ -19,6 +19,15 @@ export default {
   computed: {
     ...mapState({ likeInfo: (state) => state.feedStore.likeInfo }),
   },
+  methods: {
+    // 프로필 페이지 이동하기
+    goProfile(name, email) {
+      this.$router.push({
+        name: "Profile",
+        params: { userName: name, email: email },
+      });
+    },
+  },
 };
 </script>
 

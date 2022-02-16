@@ -193,7 +193,6 @@
 
 <script>
 import axios from "axios";
-axios.defaults.headers.common["Authorization"] = sessionStorage.getItem("jwt");
 
 import { mapState } from "vuex";
 
@@ -230,7 +229,11 @@ export default {
     // 팔로우 하기
     async onFollow(email) {
       await axios
-        .post(`/communication/follows/${email}`)
+        .post(`/communication/follows/${email}`, null, {
+          headers: {
+            Authorization: this.token,
+          },
+        })
         .then((res) => {
           console.log(res);
           alert("팔로우 성공!");
@@ -246,7 +249,11 @@ export default {
     // 언팔로우 하기
     async onUnfollow(email) {
       await axios
-        .delete(`/communication/follows/${email}`)
+        .delete(`/communication/follows/${email}`, {
+          headers: {
+            Authorization: this.token,
+          },
+        })
         .then((res) => {
           console.log(res);
           alert("언팔로우 성공!");

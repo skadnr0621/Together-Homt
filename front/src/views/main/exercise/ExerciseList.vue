@@ -1,36 +1,34 @@
 <template>
   <div class="excerciselist">
+    <router-link :to="{ name: 'ExerciseDemo' }"> 운동 시연 </router-link>
     <div class="notice">
-      <input id="notice" type="button" value="알림" style="float: right" />
-      <input id="spy" type="button" value="염탐" style="float: right" />
+      이게 왜 위로 붙어?
+      <input type="button" value="알림" style="float: right" />
+      <input type="button" value="염탐" style="float: right" />
     </div>
     <!-- <div class="username">{{ username }}</div> -->
     <div class="exercises_list">
       운동리스트
       <div class="category">
-        <button @click="gotoexample()">시연 영상</button>
+        카테고리 버튼들 <br />
+        <!-- 리스트로 운동을 받아오면 리스트 요소로 운동이름을 받아오는데 그 운동이름을 exercise의 매개변수로 넘겨야함. -->
+        <div></div>
+
+        <button @click="exercise('hi')">hi운동</button>
+        <button @click="exercise('neck')">목 스트레칭</button>
+        <button @click="exercise('waist')">허리 스트레칭</button>
+        <button @click="exercise('arm')">팔 스트레칭</button>
+        <button @click="exercise('squat')">스쿼트</button>
       </div>
       <!-- v-dragscroll.x -->
-    </div>
-    <div class="basket_exercise">
-      운동 장바구니
-      <ExerciseBasket></ExerciseBasket>
+      <div class="exercises">
+        <div class="circle">원그리기</div>
+        <div class="circle2">하나더?</div>
+      </div>
     </div>
     <div class="today_exercise">
       오늘의 운동
       <div class="information">운동 리스트에서 원하는 운동을 클릭해보세요.</div>
-      <div class="TDexercises">
-        <TodayExercise></TodayExercise>
-        <button @click="exercise('hi')">hi운동</button>
-        <button @click="exercise('neck')">목 스트레칭</button>
-        <button @click="exercise('waist')">허리 스트레칭</button>
-        <button @click="exercise('arm')">팔 뻗기</button>
-        <button @click="exercise('squat')">스쿼트</button>
-        <button @click="exercise('ateral_raise')">레터럴 레이즈</button>
-        <button @click="exercise('cross_crunches')">
-          크로스 사이드 크런치
-        </button>
-      </div>
       <div class="gage-bar">오늘의 운동을 시작해보세요.</div>
     </div>
   </div>
@@ -38,8 +36,6 @@
 
 <script>
 import axios from "axios";
-import TodayExercise from "@/components/exercise/TodayExercise";
-import ExerciseBasket from "@/components/exercise/ExerciseBasket";
 
 export default {
   name: "ExercisesList",
@@ -48,14 +44,17 @@ export default {
       total_excercises: [],
     };
   },
-  components: {
-    TodayExercise,
-    ExerciseBasket,
-  },
   created: () => {
+    /*
+      1. exercise 테이블에 접근한다.
+      2. 테이블의 '부위', '이름'을 가져온다.
+      3. 배열 형태로 가져와서 뿌려준다.
+      일단 제대로 받아오는지 체크하고
+      그 데이터를 리스트로 뿌려준다. - 피드와 동일 : 객체로 받아올텐데
+    */
     var vm = this;
     axios
-      .get("/exercise/exercises", {
+      .get("/exercise/all", {
         header: {
           Authorization: sessionStorage.getItem("jwt"),
         },
@@ -69,18 +68,10 @@ export default {
       });
   },
   methods: {
-    //모션디텍트로 연결
     exercise: function (exercise) {
       this.$router.push({
         name: "MotionDetect",
         query: { exercise: exercise },
-      });
-    },
-    //시연영상으로 연결
-    gotoexample() {
-      this.$router.push({
-        // name: "MotionDetect",
-        // query: { exercise: exercise },
       });
     },
   },

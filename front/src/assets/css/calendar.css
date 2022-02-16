@@ -32,3 +32,32 @@
 #calendar-header > .context {
   font-weight: bold;
 }
+
+/* CalendarMain */
+#calendar-main {
+  position: fixed;
+  top: 85px;
+  left: 0;
+  right: 0;
+  bottom: 45px;
+  overflow: auto;
+  padding: 25px 10%;
+}
+
+#calendar-main > .record {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#calendar-main > .record > .date {
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#calendar-main > .record > .context {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}

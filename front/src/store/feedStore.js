@@ -5,7 +5,10 @@ export default {
 
   state: {
     // 피드 정보
-    feedInfo: [],
+    feedsInfo: [],
+
+    // 피드 상세 정보
+    feedInfo: {},
 
     // 댓글 정보
     commentInfo: [],
@@ -15,6 +18,9 @@ export default {
   },
 
   mutations: {
+    SET_FEEDS_INFO(state, feedsInfo) {
+      state.feedsInfo = feedsInfo;
+    },
     SET_FEED_INFO(state, feedInfo) {
       state.feedInfo = feedInfo;
     },
@@ -28,9 +34,23 @@ export default {
 
   actions: {
     // 피드 조회해서 저장하기
+    async setFeedsInfo({ commit }, payload) {
+      return await axios
+        .get(`/feed/feeds/profiles/${payload.email}/temp`, {
+          headers: {
+            Authorization: payload.token,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          commit("SET_FEEDS_INFO", res.data);
+        });
+    },
+
+    // 상세 피드 조회해서 저장하기
     async setFeedInfo({ commit }, payload) {
       return await axios
-        .get(`/feed/feeds/${payload.email}/temp`, {
+        .get(`/feed/feeds/${payload.feedId}`, {
           headers: {
             Authorization: payload.token,
           },

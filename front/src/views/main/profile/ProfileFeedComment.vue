@@ -6,14 +6,14 @@
       v-if="loginUser == $route.params.email"
       :info="myInfo"
       :commentInfo="commentInfo"
-      :feed="feedInfo[$route.params.index]"
+      :feedInfo="feedInfo"
       :loginUser="loginUser"
     />
     <comment-main
       v-else
       :info="otherInfo"
       :commentInfo="commentInfo"
-      :feed="feedInfo[$route.params.index]"
+      :feedInfo="feedInfo"
       :loginUser="loginUser"
     />
   </div>
@@ -30,6 +30,12 @@ import "@/assets/css/profileFeedComment.css";
 
 export default {
   name: "ProfileFeedComment",
+  data() {
+    return {
+      token: sessionStorage.getItem("jwt"),
+      feedId: this.$route.params.feedId,
+    };
+  },
   components: {
     CommentHeader,
     CommentRegister,
@@ -52,7 +58,7 @@ export default {
   async mounted() {
     // 피드 댓글 리스트 가져오기
     await this.$store.dispatch("feedStore/setCommentInfo", {
-      feedId: this.$route.params.feedId,
+      feedId: this.feedId,
       token: this.token,
     });
   },

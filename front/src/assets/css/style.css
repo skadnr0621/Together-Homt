@@ -1,143 +1,44 @@
-/* 모바일 전용 - 기본적용*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  
-  background: #ebf2ff;
+  margin: 0 auto;
   width: 100%;
   height: 100%;
 }
 
-.bg {
-  position: relative;
-  left: 50%;
-  top: 50%; 
+a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.87);
 }
 
-.circle-big {
-  z-index: -2;
-  position: absolute;
-  width: 324px;
-  height: 324px;
-  left: 0px;
-  top: 91px;
-  border-radius: 70%;
-  background: radial-gradient(50% 50% at 50% 50%, #AAC2FF 19.58%, rgba(135, 176, 255, 0.37) 76.35%, rgba(183, 212, 255, 0.28) 100%);
-  filter: blur(11px);
-  transition: top 2s ease 0s;
+a:visited {
+  color: rgba(0, 0, 0, 0.87);
 }
 
-.circle-blue {
-  z-index: -2;
-  position: absolute;
-  border-radius: 70%;
-  background: linear-gradient(327.24deg, #739AFF 18.76%, rgba(173, 196, 255, 0.15) 77.34%);
-  filter: blur(4px);
-  transform: rotate(-0.27deg);
-}
- 
-.circle-yellow {
-  z-index: -2;
-  position: absolute;
-  border-radius: 70%;
-  background: linear-gradient(327.24deg, #FFD43D 18.76%, #FFF5DC 77.34%);
-  filter: blur(4px);
-  transform: rotate(-30deg);
+ul {
+  list-style: none;
 }
 
-.circle-green {
-  z-index: -2;
-  position: absolute;
-  border-radius: 70%;
-  background: conic-gradient(from -32.76deg at 65.71% 43.1%, #31D0F3 0deg, #5CEAE1 197.7deg, #31D0F3 360deg);
-  transform: rotate(141.52deg);
+#app {
+  background: #77a1d3;
+  background: -webkit-linear-gradient(to right, #e684ae, #79cbca, #77a1d3);
+  background: linear-gradient(to right, #e684ae, #79cbca, #77a1d3);
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
 }
 
-.circle-pink {
-  z-index: -2;
-  position: absolute;
-  border-radius: 70%;
-  background: linear-gradient(327.24deg, #DB74FF 18.76%, #F5DCFF 77.34%);
-  filter: blur(5px);
-  transform: rotate(-25.65deg);
-}
-
-.right-1 {
-  width: 105px;
-  height: 105px;
-  left: 249px;
-  top: 123.49px;
-}
-
-.right-2 {
-  position: absolute;
-  width: 33.87px;
-  height: 33.87px;
-  left: 272.6px;
-  top: 215.52px;
-  filter: blur(4px);
-}
-
-.right-3 {
-  position: absolute;
-  width: 129.1px;
-  height: 129.1px;
-  left: 233px;
-  top: 318.88px;
-}
-
-.right-4 {
-  position: absolute;
-  width: 78.47px;
-  height: 78.47px;
-  left: 185px;
-  top: 394.17px;
-}
-
-.left-1 {
-  width: 43.2px;
-  height: 43.2px;
-  left: 0px;
-  top: 112.6px;
-}
-
-.left-2 {
-  width: 80px;
-  height: 80px;
-  left: -37px;
-  top: 308.26px;
-}
-
-.left-3 {
-  position: absolute;
-  width: 140px;
-  height: 140px;
-  left: 4.95px;
-  top: 348.49px;
-  filter: blur(10px);
-}
-
-/* 태블릿 */
 /* 736px 이상일 경우 적용되는 코드 */
 @media (min-width: 736px) {
-  .circle-big {
-    position: absolute;
-    width: 324px;
-    height: 324px;
-    left: 0px;
-    top: 150px;
-    z-index: -2;
-    border-radius: 70%;
-    background: radial-gradient(50% 50% at 50% 50%, #AAC2FF 19.58%, rgba(135, 176, 255, 0.37) 76.35%, rgba(183, 212, 255, 0.28) 100%);
-    filter: blur(11px);
-    transition: top 2s ease 0s;
-  }
-
 }
 
-/* 데스크탑 */
 /* 1024px 이상일 경우 적용되는 코드 */
 @media (min-width: 1024px) {
-  
-
-
-
 }

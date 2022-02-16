@@ -1,43 +1,51 @@
 <template>
   <div id="feed">
-    <THpost :tmp="tmp"></THpost>
+    <router-link
+      :to="{
+        name: 'Profile',
+        params: { userName: `aaa`, email: `aaa@aaa.com` },
+      }"
+    >
+      aaa
+    </router-link>
+    <router-link
+      :to="{
+        name: 'Profile',
+        params: { userName: `bbb`, email: `bbb@bbb.com` },
+      }"
+    >
+      bbb
+    </router-link>
+    <router-link
+      :to="{
+        name: 'Profile',
+        params: { userName: `ccc`, email: `ccc@ccc.com` },
+      }"
+    >
+      ccc
+    </router-link>
+    <router-link
+      :to="{
+        name: 'Profile',
+        params: { userName: `ddd`, email: `ddd@ddd.com` },
+      }"
+    >
+      ddd
+    </router-link>
+    <router-link
+      :to="{
+        name: 'Profile',
+        params: { userName: `eee`, email: `eee@eee.com` },
+      }"
+    >
+      eee
+    </router-link>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import THpost from "@/components/feed/THpost";
-
 export default {
   name: "Feed",
-  data: () => {
-    return {
-      tmp: [],
-    };
-  },
-  components: {
-    THpost,
-  },
-  created() {
-    var vm = this;
-    axios
-      .get("/feed/feeds/follower", {
-        // 팔로우하고있는 피드만 조회
-        // /slide1/feedlist
-        headers: {
-          Authorization: sessionStorage.getItem("jwt"),
-        },
-      })
-      .then((res) => {
-        vm.tmp = res.data;
-        console.log(vm.tmp);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  },
-  computed: {},
-  methods: {},
 };
 </script>
 
