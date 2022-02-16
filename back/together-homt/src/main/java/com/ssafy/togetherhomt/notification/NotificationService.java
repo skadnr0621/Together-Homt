@@ -5,14 +5,18 @@ import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserRepository;
 import com.ssafy.togetherhomt.user.UserService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class NotificationService {
 
     private CommonService commonService;
@@ -60,6 +64,17 @@ public class NotificationService {
 
         notificationRepository.delete(notification);
         return notification;
+    }
+
+    /*** 재촉 알림 초기화 ***/
+    @Transactional
+    @Scheduled(cron = "0 0 0 * * ?")    // 0초 0분 0시 매일 매월 아무 요일
+    public void clearPushNotification() {
+        List<Notification> pushList = notificationRepository.findByNotificationTypeLike(NotificationType.PUSH);
+        log.info("--------------- Clear [PUSH] Notifications ---------------");
+//        for (Notification push : pushList)
+//            System.out.println(push.getSender().getEmail() + " -----> " + push.getReceiver().getEmail());
+        notificationRepository.deleteAll(pushList);
     }
 
 
