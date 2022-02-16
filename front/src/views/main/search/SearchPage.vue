@@ -29,9 +29,10 @@
       ></search-detail>
     </div>
 
-    <div v-else>
+    <div v-else id="search-list">
       <search-list
       @all-feeds="getAllFeeds"
+      :searchKeyword="searchKeyword"
       :showFeedList="showFeedList"
       ></search-list>
     </div>
@@ -183,6 +184,10 @@ export default {
 }
 
 .search-page #search-detail {
+  width: 100%;
+}
+
+.search-page #search-list {
   width: 100%;
 }
 </style>

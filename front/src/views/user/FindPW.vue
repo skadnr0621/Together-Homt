@@ -42,7 +42,8 @@ export default {
           "Content-Type": "text/plain"
           },
       })
-      .then(() => {
+      .then((res) => {
+        console.log(res)
         this.emailFront = ""
         this.emailBack = ""
         alert('임시 비밀번호가 성공적으로 발송되었습니다.')

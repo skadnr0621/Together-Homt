@@ -1,6 +1,6 @@
 <template>
   <div id="profile-feed-list">
-    <div v-if="feedList.length == 0">피드 없음</div>
+    <div v-if="feedList == null">피드 없음</div>
     <div v-else v-for="(feed, index) in feedList" :key="index" class="feed">
       <img
         :src="feed.mediaUrl"

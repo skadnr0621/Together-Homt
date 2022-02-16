@@ -54,6 +54,11 @@ export default {
         .post(`/user/login`, {
           email: this.loginUser,
           password: this.currentPassword,
+        },
+        {
+          headers: {
+            Authorization: sessionStorage.getItem("jwt"),
+          },
         })
         .then((res) => {
           const token = res.headers.authorization;

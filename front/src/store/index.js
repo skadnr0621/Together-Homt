@@ -12,6 +12,7 @@ import myStore from "@/store/myStore";
 import otherStore from "@/store/otherStore";
 import feedStore from "@/store/feedStore";
 import exerciseStore from "@/store/exerciseStore";
+import groupStore from "@/store/groupStore";
 
 Vue.use(Vuex);
 
@@ -25,6 +26,7 @@ export default new Vuex.Store({
     otherStore: otherStore,
     feedStore: feedStore,
     exerciseStore: exerciseStore,
+    groupStore: groupStore,
   },
 
   plugins: [
@@ -35,6 +37,7 @@ export default new Vuex.Store({
         "otherStore",
         "feedStore",
         "exerciseStore",
+        "groupStore",
       ],
     }),
   ],

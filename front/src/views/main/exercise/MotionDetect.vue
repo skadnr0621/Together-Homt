@@ -88,26 +88,19 @@ export default {
     },
 
     async setModel() {
-      if (this.exercise == "hi") {
-        // hi
+      if (this.exercise == "하이") {
         this.URL = "https://teachablemachine.withgoogle.com/models/76bwaNQBY/";
       } else if (this.exercise == "목 스트레칭") {
-        // 목 스트레칭
         this.URL = "https://teachablemachine.withgoogle.com/models/GSn9StvR4/";
       } else if (this.exercise == "허리 스트레칭") {
-        // 허리 스트레칭
         this.URL = "https://teachablemachine.withgoogle.com/models/mHC8FAGiF/";
       } else if (this.exercise == "팔 스트레칭") {
-        // 팔 뻗기
         this.URL = "https://teachablemachine.withgoogle.com/models/CklpGq-46/";
       } else if (this.exercise == "스쿼트") {
-        // 스쿼트
         this.URL = "https://teachablemachine.withgoogle.com/models/FePB01NR1/";
       } else if (this.exercise == "레터럴 레이즈") {
-        // 래터럴 레이즈
         this.URL = "https://teachablemachine.withgoogle.com/models/gGLZZKc-5/";
       } else if (this.exercise == "크로스 사이드 크런치") {
-        // 크로스 사이드 크런치
         this.URL = "https://teachablemachine.withgoogle.com/models/0mC24nKFc/";
       }
       const modelURL = this.URL + "model.json";
@@ -142,7 +135,7 @@ export default {
       if (this.webcam) {
         this.webcam.update();
 
-        if (this.exercise == "hi") {
+        if (this.exercise == "하이") {
           await this.hiPredict();
         } else if (
           this.exercise == "목 스트레칭" ||
@@ -293,19 +286,12 @@ export default {
     },
 
     doneExercise() {
-      // DB로 보내기
-      //db로 보내려면 위에서 한 운동 데이터를 여기에 url 수정해서 보내야할거같은데 맞나?
       if (this.success) {
-        // axios
-        // axios({
-        //   method: "post",
-        //   url: `/today/add`,
-        //   data: {
-        //     done: true,
-        //     exercise: this.exercise,
-        //   },
-        //   headers: { Authorization: sessionStorage.getItem("jwt") },
-        // });
+        axios({
+          method: "put",
+          url: `/exercise/today-exercises/${this.exercise}?count-check=1`,
+          header: { Authorization: sessionStorage.getItem("jwt") },
+        });
         console.log(this.exercise);
         this.goOut();
       } else {
