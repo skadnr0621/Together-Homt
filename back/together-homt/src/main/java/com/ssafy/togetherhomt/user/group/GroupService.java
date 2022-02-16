@@ -1,5 +1,10 @@
 package com.ssafy.togetherhomt.user.group;
 
+import com.ssafy.togetherhomt.common.CommonService;
+import com.ssafy.togetherhomt.feed.Feed;
+import com.ssafy.togetherhomt.feed.FeedRepository;
+import com.ssafy.togetherhomt.feed.like.LikeRepository;
+import com.ssafy.togetherhomt.feed.tag.Tag;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserDto;
 import com.ssafy.togetherhomt.user.UserRepository;
@@ -12,15 +17,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class GroupService {
 
+    /*** Service ***/
+    private final CommonService commonService;
     private final UserService userService;
-
+    /*** Repository ***/
     private final GroupRepository groupRepository;
     private final UserRepository userRepository;
+    private final FeedRepository feedRepository;
+    private final LikeRepository likeRepository;
 
 
     @Transactional
@@ -29,7 +39,7 @@ public class GroupService {
                 .mainCategory(groupDto.getMainCategory())
                 .middleCategory(groupDto.getMiddleCategory())
                 .subCategory(groupDto.getSubCategory())
-                .name(groupDto.getName())
+                .name(groupDto.getGroupName())
                 .build();
         groupRepository.save(group);
     }
@@ -48,7 +58,6 @@ public class GroupService {
 
     public GroupDto search(String name) {
         Group group = groupRepository.findByName(name);
-        group.getGroupId();
         return null;
     }
 
@@ -117,6 +126,59 @@ public class GroupService {
             return "success";
         else
             return String.valueOf(nNonEjected);
+    }
+
+
+    public List<FeedDto> getGroupFeeds(Long groupId) {
+        Optional<Group> optGroup = groupRepository.findById(groupId);
+        if (!optGroup.isPresent())
+            return null;
+
+        Group group = optGroup.get();
+
+        User groupAdmin = userRepository.findByGroupAndRole(group, "ROLE_ADMIN");
+
+        List<FeedDto> groupFeedList = new ArrayList<>();
+        for (Feed feed : feedRepository.findByUser(groupAdmin))
+            groupFeedList.add(this.builder(feed));
+        return groupFeedList;
+    }
+
+
+    // --------------------------------------------------
+
+    public GroupDto builder(Group group) {
+        GroupDto.GroupDtoBuilder groupDtoBuilder = GroupDto.builder();
+        groupDtoBuilder
+                .groupId(group.getGroupId())
+                .groupName(group.getName());
+
+        return groupDtoBuilder.build();
+    }
+
+    public FeedDto builder(Feed feed) {
+        FeedDto.FeedDtoBuilder feedDtoBuilder = FeedDto.builder();
+        feedDtoBuilder
+                .feedId(feed.getFeedId())
+                .writer(userService.builder(feed.getUser(), false))
+                .title(feed.getTitle())
+                .content(feed.getContent())
+                .mediaUrl(feed.getMediaUrl())
+                .createdAt(feed.getCreatedAt());
+
+        feedDtoBuilder
+                .likeCnt(feed.getLikeCnt())
+                .tags(feed.getTags().stream()
+                        .map(Tag::getName)
+                        .collect(Collectors.toList()));
+
+        feedDtoBuilder
+                .likeStatus(
+                        likeRepository.findByUserAndFeed(userRepository.findByEmail(commonService.getLoginUser().getEmail()), feed)
+                                != null
+                );
+
+        return feedDtoBuilder.build();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.ssafy.togetherhomt.user.group;
 
+import com.ssafy.togetherhomt.feed.Feed;
 import com.ssafy.togetherhomt.user.UserDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -88,8 +89,22 @@ public class GroupController {
     })
     @PutMapping("/groups/{group-id}/members")
     public ResponseEntity<?> ejectMembers(@PathVariable("group-id") Long groupId, @RequestBody List<UserDto> members) {
-        groupService.ejectMembers(groupId, members);
-        return null;
+        String result = groupService.ejectMembers(groupId, members);
+        if (result == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else if ("success".equals(result))
+            return new ResponseEntity<>(0, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/groups/{group-id}/feeds")
+    public ResponseEntity<?> getGroupFeeds(@PathVariable("group-id") Long groupId) {
+        List<FeedDto> groupFeedList = groupService.getGroupFeeds(groupId);
+        if (groupFeedList == null)
+            return new ResponseEntity<>("No such group with requested ID", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(groupFeedList, HttpStatus.OK);
     }
 
 }
