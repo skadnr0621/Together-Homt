@@ -1,9 +1,12 @@
 package com.ssafy.togetherhomt.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ssafy.togetherhomt.exercise.attendance.Attendance;
+import com.ssafy.togetherhomt.exercise.record.Record;
 import com.ssafy.togetherhomt.feed.Feed;
 import com.ssafy.togetherhomt.feed.comment.Comment;
 import com.ssafy.togetherhomt.feed.like.Like;
+import com.ssafy.togetherhomt.notification.Notification;
 import com.ssafy.togetherhomt.user.follow.Follow;
 import com.ssafy.togetherhomt.user.group.Group;
 import lombok.*;
@@ -26,6 +29,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+    /*** Account Information ***/
     @Column(name = "email", length = 50)
     private String email;
 
@@ -38,23 +42,31 @@ public class User {
     @Column(name = "username")
     private String username;
 
+    /*** User Information ***/
     @Column(name = "introduce")
     private String introduce;
 
     @Column(name = "image_path")
     private String imagePath;
 
+    /*** Follow Information ***/
     // 나를 팔로우 하고 있는 사람들
-    @OneToMany(mappedBy = "following")
+    @OneToMany(mappedBy = "following", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private List<Follow> follower;
 
     // 내가 팔로우 하고 있는 사람들
-    @OneToMany(mappedBy = "follower")
+    @OneToMany(mappedBy = "follower", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private List<Follow> following;
 
+    /*** Notification Information ***/
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.REMOVE)
+    @ToString.Exclude
+    private List<Notification> sentNotification;
 
+
+    /*** Feed Information ***/
     @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties({"user"})
     @ToString.Exclude
@@ -70,19 +82,23 @@ public class User {
     @ToString.Exclude
     private List<Like> likes = new ArrayList<>();
 
+    /*** Group Information ***/
     @ManyToOne
     @JoinColumn(name = "group_id")
     private Group group;
 
-//    @OneToMany(mappedBy = "user")
-//    @JsonIgnoreProperties({"user"})
-//    @ToString.Exclude
-//    private List<Record> records = new ArrayList<>();
+    /*** Exercise Information ***/
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties({"user"})
+    @ToString.Exclude
+    private List<Record> records = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "user")
-//    @JsonIgnoreProperties({"user"})
-//    private List<Attendance> attendances = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties({"user"})
+    private List<Attendance> attendances = new ArrayList<>();
 
+
+    // --------------------------------------------------
 
     @Override
     public boolean equals(Object o) {
