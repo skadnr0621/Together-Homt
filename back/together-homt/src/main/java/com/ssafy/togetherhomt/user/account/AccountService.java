@@ -40,7 +40,7 @@ public class AccountService {
                 .username(account.getUsername())
                 .role("ROLE_USER")
                 .introduce("")
-                .imagePath(globalConfig.getResourcePath() + "/default/exercise.png")
+                .imagePath(globalConfig.getResourcePath() + "default/exercise.png")
                 .build();
         userRepository.save(user);
 
