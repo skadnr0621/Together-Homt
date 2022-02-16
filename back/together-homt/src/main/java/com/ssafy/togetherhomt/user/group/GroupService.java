@@ -8,8 +8,8 @@ import com.ssafy.togetherhomt.feed.tag.Tag;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserDto;
 import com.ssafy.togetherhomt.user.UserRepository;
-import com.ssafy.togetherhomt.user.UserService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,12 +20,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Slf4j
 public class GroupService {
 
     /*** Service ***/
     private final CommonService commonService;
-    private final UserService userService;
     /*** Repository ***/
     private final GroupRepository groupRepository;
     private final UserRepository userRepository;
@@ -97,7 +97,7 @@ public class GroupService {
 
         List<UserDto> members = new ArrayList<>();
         for (User member : group.getMembers()) {
-            members.add(userService.builder(member, false));
+            members.add(commonService.builder(member, false));
         }
 
         return members;
@@ -160,7 +160,7 @@ public class GroupService {
         FeedDto.FeedDtoBuilder feedDtoBuilder = FeedDto.builder();
         feedDtoBuilder
                 .feedId(feed.getFeedId())
-                .writer(userService.builder(feed.getUser(), false))
+                .writer(commonService.builder(feed.getUser(), false))
                 .title(feed.getTitle())
                 .content(feed.getContent())
                 .mediaUrl(feed.getMediaUrl())

@@ -4,11 +4,9 @@ import com.ssafy.togetherhomt.common.CommonService;
 import com.ssafy.togetherhomt.config.media.GlobalConfig;
 import com.ssafy.togetherhomt.config.media.MediaService;
 import com.ssafy.togetherhomt.user.follow.FollowRepository;
-import com.ssafy.togetherhomt.user.group.GroupService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserService {
 
     private final GlobalConfig globalConfig;
@@ -25,7 +23,6 @@ public class UserService {
     /*** Service ***/
     private final CommonService commonService;
     private final MediaService mediaService;
-    private final GroupService groupService;
     /*** Repository ***/
     private final UserRepository userRepository;
     private final FollowRepository followRepository;
@@ -97,8 +94,10 @@ public class UserService {
                 .username(user.getUsername())
                 .role(user.getRole())
                 .imagePath(user.getImagePath())
-                .introduce(user.getIntroduce())
-                .group(groupService.builder(user.getGroup()));
+                .introduce(user.getIntroduce());
+
+        if (user.getGroup() != null)
+            userDtoBuilder.group(commonService.builder(user.getGroup()));
 
         User loginUser = commonService.getLoginUser();
         if (followRepository.findByFollowerAndFollowing(loginUser, user) != null || user.getEmail().equals(loginUser.getEmail()))
