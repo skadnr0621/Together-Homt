@@ -49,30 +49,52 @@ export default {
     //   ...mapState(["myInfo"]),
   },
   methods: {
-    //뒤로가기
-    onGoBack() {
-      this.$router.back();
-    },
-
-    //댓글 등록
-    createComment() {
+    created() {
+      //const feedId = this.myInfo.feeds[this.$route.params.feedId].feed_id;
       const feedId = this.$route.query.feedId;
+      const username = this.$route.query.username;
       console.log(feedId);
+      console.log(username);
+
       axios
-        .post(`/feed/${feedId}/comments`, {
-          content: this.comment,
+        .get(`/feed/${feedId}/comments`, {
+          headers: {
+            Authorization: sessionStorage.getItem("jwt"),
+          },
         })
         .then((res) => {
-          alert("댓글 등록");
           console.log(res);
         })
         .catch((err) => {
-          alert("댓글 안등록");
           console.log(err);
         });
     },
-    //새로고침
-    //댓글등록하고나서 새로고침하면 토큰이 없어져서 로그아웃되나?
+    onGoBack() {
+      this.$router.back();
+    },
+    async onRegisterComment(value) {
+      const feedId = this.myInfo.feeds[this.$route.params.feedId].feed_id;
+      await axios
+        .post(
+          `/feed/${feedId}/comments`,
+          { content: value, feed_id: feedId, username: this.myInfo.username },
+          {
+            headers: {
+              Authorization: sessionStorage.getItem("jwt"),
+            },
+          }
+        )
+        .then((res) => {
+          alert("댓글 등록 완료!");
+          console.log(res);
+        })
+        .catch((err) => {
+          alert("댓글 등록 실패!");
+          console.log(err);
+        });
+
+      this.$router.go(this.$router.currentRoute);
+    },
   },
 };
 </script>
@@ -86,37 +108,5 @@ export default {
   bottom: 45px;
   overflow: auto;
   /* background-color: rgba(0, 0, 0, 0.025); */
-}
-#comment-page > .show-comment {
-  border: 1px solid black;
-  margin: 10px;
-  padding: 1px;
-}
-#comment-page > .comment-input {
-  border: 1px solid black;
-  margin: 10px;
-  padding: 1px;
-  text-align: center;
-}
-#comment-page > .comment-input > .profileImg {
-  border: 1px solid black;
-  margin: 10px;
-  padding: 5px;
-  text-align: center;
-  display: flex;
-}
-#comment-page > .comment-input > .submit {
-  border: 1px solid black;
-  margin: 10px;
-  padding: 5px;
-  text-align: center;
-  display: flex;
-}
-#comment-page > .comment-input > .text {
-  border: 1px solid black;
-  margin: 10px;
-  padding: 5px;
-  text-align: center;
-  display: flex;
 }
 </style>

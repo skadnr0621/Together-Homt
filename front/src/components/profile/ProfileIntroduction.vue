@@ -1,6 +1,8 @@
 <template>
   <div id="profile-introduction">
-    {{ introduction }}
+    <div>
+      {{ introduction }}
+    </div>
   </div>
 </template>
 

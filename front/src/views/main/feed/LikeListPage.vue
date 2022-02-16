@@ -8,7 +8,6 @@
 <script>
 // import LikeListHeader from "@/components/LikeListPage/LikeListHeader";
 import LikeList from "@/components/LikeListPage/LikeList";
-import axios from "axios";
 
 export default {
   name: "LikeListPage",

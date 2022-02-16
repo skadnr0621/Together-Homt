@@ -19,11 +19,6 @@ axios.defaults.headers.common["Authorization"] = sessionStorage.getItem("jwt");
 
 export default {
   name: "LikeList",
-  props: {
-    likes: Array,
-  },
-  components: {},
-  methods: {},
 };
 </script>
 

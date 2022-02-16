@@ -1,19 +1,21 @@
 <template>
   <div id="profile-feed-navbar">
-    <ul>
-      <li class="menu1">
-        <router-link :to="{ name: '' }">
-          <span class="material-icons" @click="changeMenu(0)"> grid_on </span>
-        </router-link>
-      </li>
-      <li class="menu2">
-        <router-link :to="{ name: '' }">
-          <span class="material-icons" @click="changeMenu(1)">
-            assignment_ind
-          </span>
-        </router-link>
-      </li>
-    </ul>
+    <div>
+      <ul>
+        <li class="menu1">
+          <router-link :to="{ name: '' }">
+            <span class="material-icons" @click="changeMenu(0)"> grid_on </span>
+          </router-link>
+        </li>
+        <li class="menu2">
+          <router-link :to="{ name: '' }">
+            <span class="material-icons" @click="changeMenu(1)">
+              assignment_ind
+            </span>
+          </router-link>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 

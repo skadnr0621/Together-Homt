@@ -17,7 +17,6 @@
 
 <script>
 import axios from "axios";
-axios.defaults.headers.common["Authorization"] = sessionStorage.getItem("jwt");
 
 export default {
   name: "CommentRegister",
@@ -31,9 +30,15 @@ export default {
   methods: {
     async registerComment() {
       await axios
-        .post(`/feed/${this.$route.params.feedId}/comments`, {
-          content: this.comment,
-        })
+        .post(
+          `/feed/${this.$route.params.feedId}/comments`,
+          { content: this.comment },
+          {
+            headers: {
+              Authorization: this.token,
+            },
+          }
+        )
         .then((res) => {
           alert("댓글 등록 성공!");
           console.log(res);

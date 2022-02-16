@@ -85,19 +85,18 @@ export default {
     // put : 데이터 modify
     // delete : 데이터 delete
 
-    Login: function () {
-      axios({
+    Login: async function () {
+      await axios({
         method: "post",
-        url: `/user/login`,
+        url: `/user/account/login`,
         data: this.user,
       })
         .then((res) => {
           const token = res.headers.authorization;
 
           sessionStorage.setItem("jwt", token);
-          this.$store.dispatch("userStore/getLoginUser", this.user.email); //로그인 응답으로 username 받음
 
-          // this.$store.dispatch("setMyInfo");
+          this.$store.dispatch("userStore/getLoginUser", this.user.email); //로그인 응답으로 username 받음
           this.$router.push({ name: "Feed" });
         })
         .catch((err) => {

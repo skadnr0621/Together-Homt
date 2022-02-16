@@ -100,17 +100,13 @@ export default {
   },
   computed: {},
   methods: {
-    //프로필(유저네임과 이메일)
-    goProfile(username, email) {
+    //프로필
+    goProfile: function () {
+      //유저를 식별할 수 있는 인자를 가지고 이동해야하나
       this.$router.push({
-        name: "Profile",
-        query: {
-          userName: username,
-          email: email,
-        },
+        name: "UserPage",
       });
     },
-
     //좋아요
     Like(feedId) {
       axios
@@ -136,33 +132,25 @@ export default {
           console.log(err);
         });
     },
-
-    //댓글상세페이지
-    goComment(id) {
+    //댓글모양 클릭하면 피드게시물의 번호만 가지고 댓글 페이지로 이동
+    goComment: function () {
       this.$router.push({
         name: "CommentPage",
-        query: { feedId: id },
-      });
-    },
-
-    //좋아요 리스트(피드 아이디)
-    golikeList(id) {
-      this.$router.push({
-        name: "LikeListPage",
-        query: { feedId: id },
-      });
-    },
-
-    //피드 상세페이지(유저네임, 이메일, 피드아이디)
-    goCaptionDetail(username, email, id) {
-      this.$router.push({
-        name: "ProfileFeedDetail",
         query: {
-          userName: username,
-          email: email,
-          feedId: id,
+          feedId: this.tmp.feedId,
+          username: this.tmp.username,
         },
       });
+    },
+    //좋아요 리스트
+    golikeList: function () {
+      this.$router.push({
+        name: "LikeListPage",
+      });
+    },
+    //피드 상세페이지
+    goCaptionDetail: function () {
+      //해당 피드 아이디를 가지고 이동??
     },
   },
 };

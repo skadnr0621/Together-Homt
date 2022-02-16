@@ -8,16 +8,27 @@
           id="upload_file"
           @change="handleFileChange($event)"
           style="display: none"
-          accept="image/*"
+          accept="image/*, video/*"
         />
         <label for="upload_file">
-          <img v-if="viewImg" :src="viewImg" alt="피드 사진" id="upload_file" />
-          <img
-            v-else
-            src="https://cdn.pixabay.com/photo/2017/02/25/22/55/color-2098963_960_720.png"
-            alt="기본 이미지"
-            id="upload_file"
-          />
+          <div v-if="viewImg">
+            <video
+              v-if="isVideo"
+              :src="viewImg"
+              alt="피드 동영상"
+              id="upload_file"
+              autoplay
+              controls
+            />
+            <img v-else :src="viewImg" alt="피드 사진" id="upload_file" />
+          </div>
+          <div v-else>
+            <img
+              src="https://cdn.pixabay.com/photo/2017/02/25/22/55/color-2098963_960_720.png"
+              alt="기본 이미지"
+              id="upload_file"
+            />
+          </div>
         </label>
       </div>
       <div class="feed-content">
@@ -60,8 +71,10 @@
     </div>
   </div>
 </template>
+
 <script>
 import axios from "axios";
+
 import { mapState } from "vuex";
 
 export default {
@@ -77,6 +90,7 @@ export default {
 
       viewImg: null,
       tag: null,
+      isVideo: null,
 
       postData: {
         content: null,
@@ -86,6 +100,7 @@ export default {
     };
   },
   computed: {
+    // 로그인 유저 아이디
     ...mapState({ loginUser: (state) => state.userStore.LoginUser }),
 
     // 내 정보
@@ -100,14 +115,25 @@ export default {
       this.postData.tags.splice(index, 1);
     },
     handleFileChange(event) {
-      this.postData.media = event.target.files[0];
-      console.log(this.postData.media);
+      const file = event.target.files[0];
 
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.viewImg = e.target.result;
-      };
-      reader.readAsDataURL(this.postData.media);
+      // 확장자 확인
+      this.isVideo = file.type.startsWith("video");
+
+      // 파일 읽기
+      if (this.isVideo) {
+        this.viewImg = URL.createObjectURL(file);
+      } else {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        // 로드 한 후
+        reader.onload = (e) => {
+          this.viewImg = e.target.result;
+        };
+      }
+
+      this.postData.media = file;
     },
   },
   watch: {
