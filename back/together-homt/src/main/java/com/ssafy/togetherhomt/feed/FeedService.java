@@ -278,6 +278,9 @@ public class FeedService {
 
         // Get Feed
         Optional<Feed> optFeed = feedRepository.findById(feedId);
+        if (!optFeed.isPresent()) {
+            return null;
+        }
         Feed feed = optFeed.get();
 
         FeedListDto result = new FeedListDto();
@@ -464,6 +467,9 @@ public class FeedService {
 
         // Get Feed
         Optional<Feed> optFeed = feedRepository.findById(feed_id);
+        if (!optFeed.isPresent()) {
+            return null;
+        }
         Feed feed = optFeed.get();
 
         FeedDto feedDto = new FeedDto();
@@ -491,6 +497,9 @@ public class FeedService {
 
         // Get Feed
         Optional<Feed> optFeed = feedRepository.findById(feedId);
+        if (!optFeed.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         Feed feed = optFeed.get();
 
         List<Tag> resTags = new ArrayList<>();
@@ -522,7 +531,9 @@ public class FeedService {
 
         // Get Feed
         Optional<Feed> feed = feedRepository.findById(feed_id);
-
+        if (!feed.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         // Check Existence
         if (!feed.isPresent()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -536,7 +547,9 @@ public class FeedService {
 
         // Get Feed
         Optional<Feed> feed = feedRepository.findById(feed_id);
-
+        if (!feed.isPresent()) {
+            return null;
+        }
         List<CommentListDto> result = new ArrayList<>();
 
         for (Comment comment : commentRepository.findByFeed(feed.get())) {
@@ -565,7 +578,9 @@ public class FeedService {
 
         // Get Feed
         Optional<Feed> feed = feedRepository.findById(feed_id);
-
+        if (!feed.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         // Build & Save Comment
         Comment comment = Comment.builder()
                 .content(commentDto.getContent())
