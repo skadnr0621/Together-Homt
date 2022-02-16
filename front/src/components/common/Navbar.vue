@@ -38,7 +38,10 @@
         <li class="menu-my" @click="changeMenu(4)">
           <div v-if="myInfo.username != 'admin'">
             <router-link
-              :to="{ name: 'UserPage', params: { userName: myInfo.username } }"
+              :to="{
+                name: 'Profile',
+                params: { userName: myInfo.username, email: myInfo.email },
+              }"
             >
               <span class="material-icons"> account_circle </span>
             </router-link>
