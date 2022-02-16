@@ -35,9 +35,9 @@
 
     <!-- 소셜 로그인 -->
     <div class="social-login">
-      <div @click="socialLogin('naver')"><Naver/></div>
+      <div><Naver/></div>
       <Kakao />
-      <Google @click="socialLogin('google')"/>
+      <Google />
     </div>
 
     <!-- 회원 가입 -->
@@ -108,15 +108,15 @@ export default {
         });
     },
 
-    socialLogin: function () {
-      axios({
-        method:'get',
-        url:`/oauth2/authorization/google`,
-      })
-      .then((res) => {
-        console.log(res)
-      })
-    },
+    // socialLogin: function () {
+    //   axios({
+    //     method:'get',
+    //     url:`/oauth2/authorization/google`,
+    //   })
+    //   .then((res) => {
+    //     console.log(res)
+    //   })
+    // },
   },
 };
 </script>
