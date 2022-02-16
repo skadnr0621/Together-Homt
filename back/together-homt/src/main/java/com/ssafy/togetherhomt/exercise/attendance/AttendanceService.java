@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -69,11 +70,16 @@ public class AttendanceService {
             Attendance followAttendance = attendanceRepository.findByUser(follow.getFollowing());
             AttendanceDto attendanceDto = AttendanceDto.builder()
                     .username(follow.getFollowing().getUsername())
+                    .email(follow.getFollowing().getEmail())
                     .image(follow.getFollowing().getImagePath())
                     .done(followAttendance.getDone())
                     .build();
             attendees.add(attendanceDto);
         }
+        Collections.sort(attendees,(a,b)->{
+            if(a.getDone()) return 1;
+            else return -1;
+        });
         return attendees;
     }
 

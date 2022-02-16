@@ -27,7 +27,7 @@ public class AttendanceController {
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
-    @GetMapping("/folloings/absentees")
+    @GetMapping("/followings/absentees")
     public ResponseEntity<List<AttendanceDto>> todayFollowersAttendance(){
         List<AttendanceDto> result = attendanceService.todayFollowingsAttendance();
         return new ResponseEntity(result, HttpStatus.OK);
