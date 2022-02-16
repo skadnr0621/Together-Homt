@@ -50,7 +50,7 @@ public class UserController {
             @ApiResponse(code = 200, message = "회원 정보 수정에 성공하였습니다.")
     })
     @PutMapping("/users/{email}")
-    public ResponseEntity<?> update(@ModelAttribute UserDto userDto, @RequestBody @RequestPart MultipartFile picture){
+    public ResponseEntity<?> update(@ModelAttribute UserDto userDto, @RequestPart MultipartFile picture){
         UserDto updatedUserDto = userService.update(userDto, picture);
         if (updatedUserDto == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
