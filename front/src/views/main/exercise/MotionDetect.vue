@@ -99,7 +99,7 @@ export default {
       const metadataURL = this.URL + "metadata.json";
 
       this.model = await tmPose.load(modelURL, metadataURL);
-      await this.init();
+      this.init();
     },
 
     async init() {
@@ -109,10 +109,11 @@ export default {
 
       console.log("1");
       console.log(this.webcam);
-      this.webcam.setup(); // request access to the webcam
-      this.webcam.play();
-
+      await this.webcam.setup(); // request access to the webcam
       console.log("2");
+      await this.webcam.play();
+
+      console.log("3");
       window.requestAnimationFrame(this.loop);
 
       const canvas = document.getElementById("canvas");
@@ -120,7 +121,7 @@ export default {
       canvas.height = size;
       ctx = canvas.getContext("2d");
       labelContainer = document.getElementById("label-container");
-      console.log("3");
+
       maxPredictions = this.model.getTotalClasses();
       for (let i = 0; i < maxPredictions; i++) {
         labelContainer.appendChild(document.createElement("div"));
