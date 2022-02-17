@@ -88,9 +88,11 @@ export default {
         data: this.user,
       })
         .then((res) => {
-          const token = res.headers.authorization;
 
+          const token = res.headers.authorization;
+          console.log(token);
           sessionStorage.setItem("jwt", token);
+          console.log(sessionStorage.getItem("jwt"));
 
           this.$store.dispatch("userStore/getLoginUser", this.user.email); //로그인 응답으로 username 받음
           this.$router.push({ name: "Feed" });
