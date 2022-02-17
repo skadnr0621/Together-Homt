@@ -1,24 +1,48 @@
 <template>
   <div id="comment-page">
     <comment-header v-on:goBack="onGoBack" />
-    <!-- <comment-detail
-      :feedId="this.$router.params.feedId"
-      v-on:registerComment="onRegisterComment"
-    /> -->
+    <comment-detail :comments="comments"></comment-detail>
+    <comment-register v-bind:feedId="feedId"></comment-register>
   </div>
 </template>
 
 <script>
 import CommentHeader from "@/components/CommentPage/CommentHeader";
-// import CommentDetail from "@/components/CommentPage/CommentDetail";
-// import { mapState } from "vuex";
+import CommentDetail from "@/components/CommentPage/CommentDetail";
+import CommentRegister from "@/components/CommentPage/CommentRegister";
 import axios from "axios";
 
 export default {
   name: "CommentPage",
+  data() {
+    return {
+      comments: [],
+      comment: "",
+      feedId: this.$route.query.feedId,
+      //사용자 정보를 넘겨줘야하는데..
+    };
+  },
   components: {
     CommentHeader,
-    // CommentDetail,
+    CommentDetail,
+    CommentRegister,
+  },
+  created() {
+    const feedId = this.$route.query.feedId;
+    console.log(feedId);
+    axios
+      .get(`/feed/${feedId}/comments`, {
+        headers: {
+          Authorization: sessionStorage.getItem("jwt"),
+        },
+      })
+      .then((res) => {
+        this.comments = res.data;
+        console.log(this.comments);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   computed: {
     //   // 로그인한 유저 정보

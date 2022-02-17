@@ -1,19 +1,21 @@
 <template>
   <div id="profile-feed-list">
-    <div v-if="feedList.length == 0">피드 없음</div>
-    <div v-else v-for="(feed, index) in feedList" :key="index" class="feed">
-      <video
-        v-if="isVideo(feed.mediaUrl)"
-        :src="feed.mediaUrl"
-        @click="viewDetailFeed(index, feed.feedId)"
-        alt="피드동영상"
-      />
-      <img
-        v-else
-        :src="feed.mediaUrl"
-        alt="피드사진"
-        @click="viewDetailFeed(index, feed.feedId)"
-      />
+    <div>
+      <div v-if="feedList == null">피드 없음</div>
+      <div v-else v-for="(feed, index) in feedList" :key="index" class="feed">
+        <video
+          v-if="isVideo(feed.mediaUrl)"
+          :src="feed.mediaUrl"
+          @click="viewDetailFeed(index, feed.feedId)"
+          alt="피드동영상"
+        />
+        <img
+          v-else
+          :src="feed.mediaUrl"
+          alt="피드사진"
+          @click="viewDetailFeed(index, feed.feedId)"
+        />
+      </div>
     </div>
   </div>
 </template>

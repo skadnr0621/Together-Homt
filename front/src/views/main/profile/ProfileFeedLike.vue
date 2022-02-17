@@ -1,7 +1,11 @@
 <template>
   <div id="profile-feed-like">
-    <profile-feed-like-header v-on:goBack="onGoBack" />
-    <profile-feed-like-main />
+    <div>
+      <div>
+        <profile-feed-like-header v-on:goBack="onGoBack" />
+        <profile-feed-like-main />
+      </div>
+    </div>
   </div>
 </template>
 

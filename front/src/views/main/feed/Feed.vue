@@ -1,6 +1,7 @@
 <template>
   <div id="feed">
-    <router-link
+    <THpost :tmp="tmp"></THpost>
+    <!-- <router-link
       :to="{
         name: 'Profile',
         params: { userName: `aaa`, email: `aaa@aaa.com` },
@@ -39,13 +40,42 @@
       }"
     >
       eee
-    </router-link>
+    </router-link> -->
   </div>
 </template>
 
 <script>
+import axios from "axios";
+import THpost from "@/components/feed/THpost";
+
 export default {
   name: "Feed",
+  data: () => {
+    return {
+      tmp: [],
+    };
+  },
+  components: {
+    THpost,
+  },
+  created() {
+    var vm = this;
+    axios
+      .get("/feed/feeds/follower", {
+        headers: {
+          Authorization: sessionStorage.getItem("jwt"),
+        },
+      })
+      .then((res) => {
+        vm.tmp = res.data;
+        console.log(vm.tmp);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  computed: {},
+  methods: {},
 };
 </script>
 

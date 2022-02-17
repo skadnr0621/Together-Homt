@@ -1,24 +1,48 @@
 <template>
-  <div id="like-list-page">
-    LikeListPage
-    <!-- <like-list-header /> -->
-    <like-list />
+  <div id="likelist-page">
+    <!-- <likelist-header v-on:goBack="onGoBack" /> -->
+    <like-list :likes="likes"></like-list>
   </div>
 </template>
 
 <script>
 // import LikeListHeader from "@/components/LikeListPage/LikeListHeader";
 import LikeList from "@/components/LikeListPage/LikeList";
+import axios from "axios";
 
 export default {
   name: "LikeListPage",
-  // created: function () {
-  //   //여기서 데이터를 가져와서 상태 확인하고 리스트로 아래로 넘겨주면 likelist에서 받아서 뿌려주세요.
-  //   axios.get("/feed/${feed-id}/likes", {}).then().catch();
-  // },
+  data() {
+    return {
+      likes: [],
+      token: sessionStorage.getItem("jwt"),
+    };
+  },
   components: {
     // LikeListHeader,
     LikeList,
+  },
+  created() {
+    const feedId = this.$route.query.feedId;
+    console.log(feedId);
+    axios
+      .get(`/feed/${feedId}/likes`, {
+        headers: {
+          Authorization: sessionStorage.getItem("jwt"),
+        },
+      })
+      .then((res) => {
+        this.likes = res.data;
+        console.log(this.likes);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  methods: {
+    onGoBack() {
+      this.$router.back();
+    },
   },
 };
 </script>

@@ -1,8 +1,9 @@
 import Main from "@/views/Main";
-import Feed from "@/views/main/feed/Feed";
-import CommentPage from "@/views/main/feed/CommentPage";
-import LikeListPage from "@/views/main/feed/LikeListPage";
-import SearchPage from "@/views/main/SearchPage";
+import Feed from "@/views/main/feed/Feed"; //뉴스 피드 조회
+import CommentPage from "@/views/main/feed/CommentPage"; //댓글리스트
+import LikeListPage from "@/views/main/feed/LikeListPage"; //좋아요 페이지
+import SearchPage from "@/views/main/search/SearchPage";
+import SearchFeedsDetail from "@/views/main/search/SearchFeedsDetail";
 import Register from "@/views/main/Register";
 import ExerciseList from "@/views/main/exercise/ExerciseList";
 import MotionDetect from "@/views/main/exercise/MotionDetect";
@@ -16,6 +17,9 @@ import ProfileFeedDetail from "@/views/main/profile/ProfileFeedDetail"; // 프�
 import Follow from "@/views/main/Follow"; // 팔로우 페이지
 import ProfileFeedComment from "@/views/main/profile/ProfileFeedComment"; // 프로필 피드 댓글 페이지
 import ProfileFeedLike from "@/views/main/profile/ProfileFeedLike"; // 프로필 피드 좋아요 페이지
+import AdminPage from "@/views/admin/AdminPage";
+import Group from "@/views/admin/Group";
+import AdminRegister from "@/views/admin/AdminRegister";
 
 import Notification from "@/views/main/alarm/Notification"; // 알람 확인 페이지
 import CheckWhoExercise from "@/views/main/alarm/CheckWhoExercise"; // 팔로우한 유저 퇴실 확인 페이지
@@ -45,6 +49,11 @@ export default {
       name: "Search",
       path: "search",
       component: SearchPage,
+    },
+    {
+      name: "SearchFeedsDetail",
+      path: "search/feeds",
+      component: SearchFeedsDetail,
     },
     {
       name: "Register",
@@ -123,6 +132,21 @@ export default {
       props: {
         default: true,
       },
+    },
+    {
+      name: "AdminPage",
+      path: "admin",
+      component: AdminPage,
+    },
+    {
+      name: "AdminRegister",
+      path: "admin/register",
+      component: AdminRegister,
+    },
+    {
+      name: "Group",
+      path: "admin/group",
+      component: Group,
     },
     {
       name: "Notification",

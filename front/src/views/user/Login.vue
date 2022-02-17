@@ -35,9 +35,9 @@
 
     <!-- 소셜 로그인 -->
     <div class="social-login">
-      <Naver />
+      <div @click="socialLogin('naver')"><Naver/></div>
       <Kakao />
-      <Google />
+      <Google @click="socialLogin('google')"/>
     </div>
 
     <!-- 회원 가입 -->
@@ -105,6 +105,16 @@ export default {
           this.user.email = "";
           this.user.password = "";
         });
+    },
+
+    socialLogin: function () {
+      axios({
+        method:'get',
+        url:`/oauth2/authorization/google`,
+      })
+      .then((res) => {
+        console.log(res)
+      })
     },
   },
 };

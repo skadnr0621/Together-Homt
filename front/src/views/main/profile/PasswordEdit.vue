@@ -6,18 +6,22 @@
       <div class="done" v-on:click="changePassword()">완료</div>
     </div>
 
-    <div class="info">
-      <div class="current-pw">
-        <label>현재 비밀번호</label>
-        <input type="text" v-model="currentPassword" />
-      </div>
-      <div class="new-pw">
-        <label>새 비밀번호</label>
-        <input type="text" v-model="newPassword" />
-      </div>
-      <div class="confirm-pw">
-        <label>새 비밀번호 확인</label>
-        <input type="text" v-model="confirmPassword" />
+    <div class="container">
+      <div>
+        <div class="info">
+          <div class="current-pw">
+            <label>현재 비밀번호</label>
+            <input type="text" v-model="currentPassword" />
+          </div>
+          <div class="new-pw">
+            <label>새 비밀번호</label>
+            <input type="text" v-model="newPassword" />
+          </div>
+          <div class="confirm-pw">
+            <label>새 비밀번호 확인</label>
+            <input type="text" v-model="confirmPassword" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -51,10 +55,18 @@ export default {
     // 비밀번호 변경
     async changePassword() {
       await axios
-        .post(`/user/login`, {
-          email: this.loginUser,
-          password: this.currentPassword,
-        })
+        .post(
+          `/user/login`,
+          {
+            email: this.loginUser,
+            password: this.currentPassword,
+          },
+          {
+            headers: {
+              Authorization: sessionStorage.getItem("jwt"),
+            },
+          }
+        )
         .then((res) => {
           const token = res.headers.authorization;
           sessionStorage.setItem("jwt", token);

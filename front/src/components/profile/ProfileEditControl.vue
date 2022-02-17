@@ -3,7 +3,7 @@
     <div class="edit-btn">
       <router-link :to="{ name: 'ProfileEdit' }">프로필 편집 </router-link>
     </div>
-    <div class="calendar-btn">
+    <div class="calendar-btn" v-if="myInfo.username.slice(0, 5) != 'admin'">
       <router-link
         :to="{
           name: 'Calendar',
@@ -20,8 +20,12 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "ProfileEditControl",
+  computed: {
+    ...mapState({ myInfo: (state) => state.myStore.myInfo }),
+  },
 };
 </script>
 

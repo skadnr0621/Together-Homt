@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <!-- jwt 토큰을 가지고 있을 경우 -->
-    <div v-if="token">
+    <div v-if="token" id="main-form">
       <!-- 헤더 -->
       <Header />
 
@@ -10,7 +10,7 @@
       <!-- (피드)등록 : Register.vue -->
       <!-- 운동 : Exercise.vue -->
       <!-- 프로필 : Profile.vue -->
-      <router-view />
+      <div><router-view /></div>
 
       <!-- 메뉴바 -->
       <Navbar :myInfo="myInfo" />

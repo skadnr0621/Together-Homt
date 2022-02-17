@@ -13,6 +13,9 @@ export default {
   props: ["exerciseType"],
   data() {
     return {
+      currentIndex: 0,
+      type: ["전체", "상체", "하체", "스트레칭", "근력운동"],
+
       viewExercise: [
         "목 스트레칭",
         "허리 스트레칭",
@@ -56,6 +59,23 @@ export default {
   },
   watch: {
     async exerciseType(value) {
+      document.querySelector(
+        `#exercise-demo-menu > div:nth-child(${this.currentIndex + 1}`
+      ).style.color = "rgba(1, 1, 1, 0.38)";
+      document.querySelector(
+        `#exercise-demo-menu > div:nth-child(${this.currentIndex + 1}`
+      ).style.fontWeight = "normal";
+
+      let index = this.type.indexOf(value);
+      this.currentIndex = index;
+
+      document.querySelector(
+        `#exercise-demo-menu > div:nth-child(${this.currentIndex + 1})`
+      ).style.color = "rgba(1, 1, 1, 0.86)";
+      document.querySelector(
+        `#exercise-demo-menu > div:nth-child(${this.currentIndex + 1})`
+      ).style.fontWeight = "bold";
+
       this.viewExercise = this.exercises[value];
     },
   },

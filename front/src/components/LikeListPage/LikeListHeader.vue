@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style>
-#comment-header {
+/* #comment-header {
   background-color: #ffffff;
   display: flex;
   height: 40px;
@@ -46,5 +46,5 @@ export default {
 
 #comment-header > .cancel > .material-icons {
   cursor: pointer;
-}
+} */
 </style>

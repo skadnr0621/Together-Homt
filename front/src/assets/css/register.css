@@ -1,8 +1,158 @@
 #register {
-  position: fixed;
-  top: 45px;
-  left: 0;
-  right: 0;
-  bottom: 45px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+#register-header {
+  display: flex;
+  height: 40px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+#register-header > .cancel,
+.done {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#register-header > .done {
+  color: rgba(41, 98, 255, 0.86);
+}
+
+#register-header > .context {
+  font-weight: bold;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* Container */
+#register-container {
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  padding-bottom: 150px;
+
+  overflow: scroll;
+}
+
+#register-container > div {
+  width: 100%;
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(80px);
+  border-radius: 12px;
+}
+
+/* Main */
+#register-feed {
+  padding: 15px;
+  display: flex;
+  height: 120px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#register-feed > .feed-img {
+  width: 90px;
+  height: 90px;
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(80px);
+  border-radius: 5px;
+}
+
+#register-feed > .feed-img > label {
+  width: 100%;
+  height: 100%;
+}
+#register-feed > .feed-img > label > div {
+  width: 100%;
+  height: 100%;
+}
+
+#register-feed > .feed-img > label > div > img {
+  width: 100%;
+  height: 100%;
+}
+
+#register-feed > .feed-img > label > div > video {
+  width: 100%;
+  height: 100%;
+}
+
+#register-feed > .feed-content {
+  flex: 1 1;
+  height: 90px;
+  margin-left: 10px;
+}
+
+#register-feed > .feed-content > textarea {
+  padding: 0px;
+  border: none;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* 태그하기 스타일 */
+#register-feed-tag {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  /* height: 120px; */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#register-feed-tag > .feed-tag-input {
+  display: flex;
+  height: 24px;
+  padding: 0 5px;
+  margin-bottom: 10px;
+  align-items: center;
+  border-radius: 5px;
+}
+
+#register-feed-tag > .feed-tag-input > span {
+  font-size: 18px;
+}
+
+#register-feed-tag > .feed-tag-input > input {
+  border: none;
+  padding: 0 5px;
+  flex: 1 1 auto;
+}
+
+#register-feed-tag > .feed-tag-list {
+  height: 24px;
+  align-items: center;
+  display: flex;
+  white-space: nowrap;
   overflow: auto;
+}
+
+#register-feed-tag > .feed-tag-list > div {
+  display: flex;
+  align-items: center;
+  padding: 2px 8px;
+  margin-right: 10px;
+  background-color: #ebf7ff;
+  /* background-color: rgba(0, 0, 0, 0.025); */
+  border-radius: 10px;
+}
+
+#register-feed-tag > .feed-tag-list > div > span {
+  display: inline-block;
+  font-size: 14px;
+  margin-left: 4px;
 }

@@ -1,23 +1,20 @@
 <template>
   <div id="follow">
     <div>
-      <follow-header v-on:goBack="onGoBack" />
+      <div>
+        <follow-header
+          v-on:goBack="onGoBack"
+          :menu="this.$route.params.follow"
+        />
 
-      <!-- 나의 팔로우 정보 -->
-      <follow-navbar
-        :isMe="loginUser == email"
-        v-on:goFollowing="onGoFollowing"
-        v-on:goFollower="onGoFollower"
-      />
-
-      <follow-list :isMe="loginUser == email" />
+        <follow-list :isMe="loginUser == email" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import FollowHeader from "@/components/follow/FollowHeader";
-import FollowNavbar from "@/components/follow/FollowNavbar";
 import FollowList from "@/components/follow/FollowList";
 
 import { mapState } from "vuex";
@@ -27,7 +24,7 @@ export default {
   name: "Follow",
   components: {
     FollowHeader,
-    FollowNavbar,
+    // FollowNavbar,
     FollowList,
   },
   data() {

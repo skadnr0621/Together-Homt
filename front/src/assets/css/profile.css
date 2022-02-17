@@ -40,10 +40,6 @@
   align-items: center;
 }
 
-#profile-data-cnt > .data {
-  /* border: 1px solid black; */
-}
-
 #profile-data-cnt > .data > a > .cnt {
   color: rgba(0, 0, 0, 0.87);
   font-weight: bold;
@@ -69,17 +65,23 @@
   height: 30px;
   width: 40%;
   padding: 4px 0;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
+  border-radius: 7px;
   font-size: 14px;
   margin-right: 10px;
+
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(80px);
 }
 
 #profile-edit-control > .calendar-btn {
   height: 30px;
   width: 30px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
+  border-radius: 7px;
+
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(80px);
 }
 
 #profile-edit-control > .calendar-btn > a {
@@ -99,33 +101,34 @@
 /* ProfileFollowControl */
 #profile-follow-control {
   width: 100%;
-  height: 30px;
-  margin-top: 15px;
+  height: 50px;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: rgba(0, 0, 0, 0.87);
 }
 
 #profile-follow-control > .follow-btn {
-  height: 100%;
+  height: 30px;
   width: 40%;
   padding: 4px 0;
-  /* padding: 4px 46px; */
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
+  border-radius: 7px;
   font-size: 14px;
-  margin-right: 5px;
+  color: rgba(0, 0, 0, 0.87);
 }
 
 #profile-follow-control > .follow-btn:nth-child(1) {
-  background-color: rgba(41, 98, 255, 0.87);
+  background: rgba(41, 98, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(80px);
   color: #ffffff;
 }
 
 #profile-follow-control > .follow-btn:nth-child(2) {
-  background-color: #ffffff;
-  color: rgba(0, 0, 0, 0.87);
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(80px);
 }
 
 /* ProfileIntroduction */
@@ -133,7 +136,7 @@
   color: rgba(0, 0, 0, 0.87);
   font-size: 12px;
   line-height: 1.6;
-  padding: 18px 0;
+  padding: 8px 0 16px 0;
   width: 100%;
 
   display: flex;
@@ -194,31 +197,45 @@
 
 /* ProfileFeedList */
 #profile-feed-list {
-  margin: 10px 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+
+  margin-top: 15px;
+  padding-bottom: 60px;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
-  /* gap: 1px 1px; */
-  /* aspect-ratio: 1; */
 }
 
-#profile-feed-list > .feed {
+#profile-feed-list > div {
   width: 100%;
+  height: 100%;
+
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#profile-feed-list > div > .feed {
   aspect-ratio: 1;
-  background-color: rgba(1, 1, 1, 0.1);
+
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(80px);
   border-radius: 7px;
+
+  /* background-color: rgba(1, 1, 1, 0.1);
+  border-radius: 7px; */
 }
 
-#profile-feed-list > .feed > img {
+#profile-feed-list > div > .feed > img {
   width: 100%;
   height: 100%;
 
+  border-radius: 7px;
   object-fit: contain;
 }
 
-#profile-feed-list > .feed > video {
+#profile-feed-list > div > .feed > video {
   width: 100%;
   height: 100%;
 }
@@ -229,11 +246,49 @@
     margin-right: 20px;
     width: 300px;
   }
+
+  #profile-follow-control > .follow-btn {
+    width: 300px;
+  }
+
+  #profile-feed-list {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  #profile-feed-list > div {
+    row-gap: 15px;
+    column-gap: 15px;
+  }
 }
 
 /* 1024px 이상일 경우 적용되는 코드 */
 @media (min-width: 1024px) {
   #profile {
     width: 1024px;
+  }
+  #profile-info {
+    height: 140px;
+  }
+
+  #profile-info > .profile {
+    width: 115px;
+    height: 115px;
+  }
+
+  #profile-data-cnt {
+    height: 100px;
+  }
+
+  #profile-edit-control {
+    height: 80px;
+  }
+
+  #profile-introduction {
+    padding: 20px 0 40px 0;
+  }
+
+  #profile-feed-list {
+    margin-top: 30px;
   }
 }

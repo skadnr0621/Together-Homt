@@ -35,17 +35,24 @@
         </li>
 
         <!-- 프로필 -->
-        <li class="menu-my">
-          <router-link
-            :to="{
-              name: 'Profile',
-              params: { userName: myInfo.username, email: myInfo.email },
-            }"
-          >
-            <span class="material-icons" @click="changeMenu(4)">
-              account_circle
-            </span>
-          </router-link>
+        <li class="menu-my" @click="changeMenu(4)">
+          <div v-if="myInfo.username != 'admin'">
+            <router-link
+              :to="{
+                name: 'Profile',
+                params: { userName: myInfo.username, email: myInfo.email },
+              }"
+            >
+              <span class="material-icons"> account_circle </span>
+            </router-link>
+          </div>
+          <div v-else>
+            <router-link
+              :to="{ name: 'AdminPage', params: { userName: 'admin' } }"
+            >
+              <span class="material-icons"> account_circle </span>
+            </router-link>
+          </div>
         </li>
       </ul>
     </div>
@@ -65,27 +72,27 @@ export default {
   props: ["myInfo"],
   methods: {
     // 메뉴 아이콘 색깔 바꾸기
-    changeMenu(num) {
-      for (let i = 0; i < 5; i++) {
-        // 활성화색으로 바꾸기
-        if (num == i) {
-          document.querySelector(
-            `#navbar > ul > .${this.menu[i]}`
-          ).style.borderTopColor = "rgba(41, 98, 255, 0.87)";
-          document.querySelector(
-            `#navbar > ul > .${this.menu[i]} > a > span`
-          ).style.color = "rgba(41, 98, 255, 0.87)";
-        }
-        // 비활성화색으로 바꾸기
-        else {
-          document.querySelector(
-            `#navbar > ul > .${this.menu[i]}`
-          ).style.borderTopColor = "rgba(0, 0, 0, 0.1)";
-          document.querySelector(
-            `#navbar > ul > .${this.menu[i]} > a > span`
-          ).style.color = "rgba(0, 0, 0, 0.87)";
-        }
-      }
+    changeMenu() {
+      // for (let i = 0; i < 5; i++) {
+      //   // 활성화색으로 바꾸기
+      //   if (num == i) {
+      //     document.querySelector(
+      //       `#navbar .${this.menu[i]}`
+      //     ).style.borderTopColor = "rgba(41, 98, 255, 0.87)";
+      //     document.querySelector(
+      //       `#navbar > ul > .${this.menu[i]} > a > span`
+      //     ).style.color = "rgba(41, 98, 255, 0.87)";
+      //   }
+      //   // 비활성화색으로 바꾸기
+      //   else {
+      //     document.querySelector(
+      //       `#navbar > ul > .${this.menu[i]}`
+      //     ).style.borderTopColor = "rgba(0, 0, 0, 0.1)";
+      //     document.querySelector(
+      //       `#navbar > ul > .${this.menu[i]} > a > span`
+      //     ).style.color = "rgba(0, 0, 0, 0.87)";
+      //   }
+      // }
     },
   },
 };

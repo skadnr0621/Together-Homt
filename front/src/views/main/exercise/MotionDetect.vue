@@ -47,7 +47,7 @@
 <script>
 import * as tmPose from "@teachablemachine/pose";
 import "@/assets/css/motiondetect.scss";
-import axios from 'axios';
+import axios from "axios";
 
 let ctx, labelContainer, maxPredictions;
 
@@ -82,32 +82,25 @@ export default {
 
   methods: {
     goOut() {
-      this.$router.push({ name: "ExerciseList" });
+      this.$router.push({ name: "Exercise" });
       this.webcam.stop();
       this.webcam = null;
     },
 
     async setModel() {
-      if (this.exercise == "hi") {
-        // hi
+      if (this.exercise == "하이") {
         this.URL = "https://teachablemachine.withgoogle.com/models/76bwaNQBY/";
-      } else if (this.exercise == "neck") {
-        // 목 스트레칭
+      } else if (this.exercise == "목 스트레칭") {
         this.URL = "https://teachablemachine.withgoogle.com/models/GSn9StvR4/";
-      } else if (this.exercise == "waist") {
-        // 허리 스트레칭
+      } else if (this.exercise == "허리 스트레칭") {
         this.URL = "https://teachablemachine.withgoogle.com/models/mHC8FAGiF/";
-      } else if (this.exercise == "arm") {
-        // 팔 뻗기
+      } else if (this.exercise == "팔 스트레칭") {
         this.URL = "https://teachablemachine.withgoogle.com/models/CklpGq-46/";
-      } else if (this.exercise == "squat") {
-        // 스쿼트
+      } else if (this.exercise == "스쿼트") {
         this.URL = "https://teachablemachine.withgoogle.com/models/FePB01NR1/";
-      }else if (this.exercise == "lateral_raise") {
-        // 래터럴 레이즈
+      } else if (this.exercise == "레터럴 레이즈") {
         this.URL = "https://teachablemachine.withgoogle.com/models/gGLZZKc-5/";
-      }else if (this.exercise == "cross_crunches") {
-        // 크로스 사이드 크런치
+      } else if (this.exercise == "크로스 사이드 크런치") {
         this.URL = "https://teachablemachine.withgoogle.com/models/0mC24nKFc/";
       }
       const modelURL = this.URL + "model.json";
@@ -142,13 +135,20 @@ export default {
       if (this.webcam) {
         this.webcam.update();
 
-        if (this.exercise == "hi") {
+        if (this.exercise == "하이") {
           await this.hiPredict();
-        } else if (this.exercise == "neck" || this.exercise == "waist" || this.exercise == "cross_crunches") {
+        } else if (
+          this.exercise == "목 스트레칭" ||
+          this.exercise == "허리 스트레칭" ||
+          this.exercise == "크로스 사이드 크런치"
+        ) {
           await this.leftRightPredict();
-        } else if (this.exercise == "arm") {
+        } else if (this.exercise == "팔 스트레칭") {
           await this.armPredict();
-        } else if (this.exercise == "squat" || this.exercise == "lateral_raise") {
+        } else if (
+          this.exercise == "스쿼트" ||
+          this.exercise == "레터럴 레이즈"
+        ) {
           await this.squatraisePredict();
         }
         window.requestAnimationFrame(this.loop);
@@ -198,10 +198,16 @@ export default {
         this.status = "right";
       }
 
-      if (this.status == 'default' && (this.leftCnt == 0 || prediction[1].probability.toFixed(2) > 0.89)) {
+      if (
+        this.status == "default" &&
+        (this.leftCnt == 0 || prediction[1].probability.toFixed(2) > 0.89)
+      ) {
         labelContainer.innerHTML = "left";
         this.percent = prediction[1].probability.toFixed(2);
-      } else if (this.leftCnt != 0 || prediction[2].probability.toFixed(2) > 0.90) {
+      } else if (
+        this.leftCnt != 0 ||
+        prediction[2].probability.toFixed(2) > 0.9
+      ) {
         labelContainer.innerHTML = "right";
         this.percent = prediction[2].probability.toFixed(2);
       }
@@ -250,12 +256,11 @@ export default {
           this.success = true;
         }
         this.status = "default";
-      } 
-      else if (prediction[1].probability.toFixed(2) == 1.0) {
+      } else if (prediction[1].probability.toFixed(2) == 1.0) {
         if (this.exercise == "squat") {
           this.status = "squat";
         } else if (this.exercise == "lateral_raise") {
-          this.status = "up"
+          this.status = "up";
         }
       }
       for (let i = 0; i < maxPredictions; i++) {
@@ -267,7 +272,6 @@ export default {
       this.percent = prediction[1].probability.toFixed(2);
       this.drawPose(pose);
     },
-    
 
     drawPose(pose) {
       if (this.webcam && this.webcam.canvas) {
@@ -282,18 +286,12 @@ export default {
     },
 
     doneExercise() {
-      // DB로 보내기
       if (this.success) {
-        // axisos
-      axios({
-        method: "post",
-        url: `/today/add`,
-        data: {
-          "done": true,
-          "exercise": this.exercise
-        },
-        headers: { Authorization : sessionStorage.getItem("jwt")}
-      })
+        axios({
+          method: "put",
+          url: `/exercise/today-exercises/${this.exercise}?count-check=1`,
+          header: { Authorization: sessionStorage.getItem("jwt") },
+        });
         console.log(this.exercise);
         this.goOut();
       } else {
