@@ -6,7 +6,7 @@
         <div id="user" @click="activeCategory('user')">계정</div>
         <div id="tag" @click="activeCategory('tag')">태그</div>
       </div>
-      
+
       <div id="search-items">
         <div
           id="tag-box"
@@ -21,9 +21,15 @@
             width="100%"
             fill="#000000"
           >
-            <g><circle cx="25" fill="#ffffff" cy="25" r="25" stroke="#E5E5E5" /></g>
-            <g><path transform="translate(13 13)"
-                d="M20,10V8h-4V4h-2v4h-4V4H8v4H4v2h4v4H4v2h4v4h2v-4h4v4h2v-4h4v-2h-4v-4H20z M14,14h-4v-4h4V14z"/></g>
+            <g>
+              <circle cx="25" fill="#ffffff" cy="25" r="25" stroke="#E5E5E5" />
+            </g>
+            <g>
+              <path
+                transform="translate(13 13)"
+                d="M20,10V8h-4V4h-2v4h-4V4H8v4H4v2h4v4H4v2h4v4h2v-4h4v4h2v-4h4v-2h-4v-4H20z M14,14h-4v-4h4V14z"
+              />
+            </g>
           </svg>
           <div id="info-box">
             <p id="main-info">{{ searchKeyword }}</p>
@@ -48,7 +54,7 @@
 </template>
 
 <script>
-const server = "http://localhost:8092"
+const server = "http://3.38.103.222:8092";
 
 export default {
   name: "SearchDetail",
@@ -95,6 +101,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

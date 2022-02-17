@@ -2,10 +2,8 @@
   <div id="profile-edit-main">
     <div class="profile">
       <div class="view">
-        <img v-if="info.imagePath" :src="info.imagePath" alt="프로필 사진" />
         <img
-          v-else
-          src="https://cdn.pixabay.com/photo/2022/01/29/08/40/basic-6976744_960_720.png"
+          :src="'http://3.38.103.222:8092' + info.imagePath"
           alt="프로필 사진"
         />
       </div>

@@ -6,7 +6,12 @@
         <!-- 사용자 프로필, 삭제 버튼-->
         <div class="feed-detail-header">
           <div>
-            <div><img :src="info.imagePath" alt="내프로필" /></div>
+            <div>
+              <img
+                :src="'http://3.38.103.222:8092' + info.imagePath"
+                alt="내프로필"
+              />
+            </div>
             <div>{{ info.username }}</div>
           </div>
           <div v-if="isDelete">
@@ -20,12 +25,16 @@
         <div class="feed-detail-img">
           <video
             v-if="isVideo(feedInfo.mediaUrl)"
-            :src="feedInfo.mediaUrl"
+            :src="'http://3.38.103.222:8092' + feedInfo.mediaUrl"
             alt=""
             autoplay
             controls
           />
-          <img v-else :src="feedInfo.mediaUrl" alt="" />
+          <img
+            v-else
+            :src="'http://3.38.103.222:8092' + feedInfo.mediaUrl"
+            alt=""
+          />
         </div>
 
         <!-- 피드 메뉴바 (좋아요, 댓글, 스크랩) -->

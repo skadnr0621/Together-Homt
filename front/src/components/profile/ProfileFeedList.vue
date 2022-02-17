@@ -5,13 +5,13 @@
       <div v-else v-for="(feed, index) in feedList" :key="index" class="feed">
         <video
           v-if="isVideo(feed.mediaUrl)"
-          :src="feed.mediaUrl"
+          :src="'http://3.38.103.222:8092' + feed.mediaUrl"
           @click="viewDetailFeed(index, feed.feedId)"
           alt="피드동영상"
         />
         <img
           v-else
-          :src="feed.mediaUrl"
+          :src="'http://3.38.103.222:8092' + feed.mediaUrl"
           alt="피드사진"
           @click="viewDetailFeed(index, feed.feedId)"
         />

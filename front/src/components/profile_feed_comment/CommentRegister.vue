@@ -2,7 +2,12 @@
   <div id="comment-register">
     <div>
       <div>
-        <div><img :src="myInfo.imagePath" alt="사용자프로필" /></div>
+        <div>
+          <img
+            :src="'http://3.38.103.222:8092' + myInfo.imagePath"
+            alt="사용자프로필"
+          />
+        </div>
         <div>
           <input
             type="text"

@@ -2,7 +2,10 @@
   <div id="profile-feed-like-main">
     <div class="like" v-for="(value, index) in likeInfo" :key="index">
       <div class="profile" @click="goProfile(value.username, value.email)">
-        <img :src="value.profileUrl" alt="프로필 사진" />
+        <img
+          :src="'http://3.38.103.222:8092' + value.profileUrl"
+          alt="프로필 사진"
+        />
       </div>
       <div class="username" @click="goProfile(value.username, value.email)">
         {{ value.username }}

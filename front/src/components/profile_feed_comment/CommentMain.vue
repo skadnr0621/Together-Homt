@@ -4,7 +4,12 @@
     <div class="feed-content">
       <div>
         <div>
-          <div><img :src="info.imagePath" alt="피드작성자프로필" /></div>
+          <div>
+            <img
+              :src="'http://3.38.103.222:8092' + info.imagePath"
+              alt="피드작성자프로필"
+            />
+          </div>
           <div>{{ info.username }}</div>
         </div>
         <div>{{ feedInfo.content }}</div>
@@ -25,7 +30,10 @@
       <div v-for="(comment, index) in commentInfo" :key="index">
         <div>
           <div>
-            <img :src="comment.profileUrl" alt="댓글 작성자 프로필" />
+            <img
+              :src="'http://3.38.103.222:8092' + comment.profileUrl"
+              alt="댓글 작성자 프로필"
+            />
           </div>
           <div>{{ comment.username }}</div>
           <div>{{ comment.content }}</div>
