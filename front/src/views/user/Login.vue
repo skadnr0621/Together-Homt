@@ -31,7 +31,7 @@
 
     <!-- 소셜 로그인 -->
     <div class="social-login">
-      <a href="https://nid.naver.com/oauth2.0/authorize?response_type=token&client_id=hO0yDac2E736Nw_kl6m6&redirect_uri=http://3.38.103.222/main/feed&state=bd119d1b-8c29-4c12-b4dd-7402dad8af1b">a</a>
+      <href="http://http://i6b206.p.ssafy.io:8092/oauth2/authorization/naver"">a</a>
       <div><Naver /></div>
       <div><Kakao /></div>
       <div><Google /></div>
