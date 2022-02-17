@@ -39,7 +39,7 @@ https://www.notion.so/API-SNS-030cbdc0fef44900a31e4d78a57518a6
 
 
 
-
+## ✨ 구동화면
 
 <table style="table-layout: fixed; overflow-wrap: break-word;">
   <tbody>
@@ -54,7 +54,7 @@ https://www.notion.so/API-SNS-030cbdc0fef44900a31e4d78a57518a6
   </tbody>
 </table>
 <h6 align="center">
-  www.prismfilmstudio.com <a href="#"></a>
+  <a href="#"></a>
 </h6>
 
 
