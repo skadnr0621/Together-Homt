@@ -84,7 +84,7 @@ export default {
     Login: async function () {
       await axios({
         method: "post",
-        url: `http://localhost:8092/user/account/login`,
+        url: `http://localhost:80/user/account/login`,
         data: this.user,
       })
         .then((res) => {
