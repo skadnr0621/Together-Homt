@@ -1,30 +1,26 @@
 <template>
   <div class="user" id="login">
     <!-- 투게더 홈트 로고 -->
-    <div class="logo">투게더 홈트</div>
+    <div id="logo">투게더 홈트</div>
 
     <!-- 이메일 입력 -->
-    <div>
-      <input
-        class="login-input-data form-control"
-        v-model="user.email"
-        placeholder="이메일을 입력해주세요."
-        type="text"
-      />
-    </div>
+    <input
+      class="login-input-data form-style"
+      v-model="user.email"
+      placeholder="이메일을 입력해주세요."
+      type="text"
+    />
 
     <!-- 비밀번호 입력 -->
-    <div>
-      <input
-        class="login-input-data form-control"
-        v-model="user.password"
-        placeholder="비밀번호를 입력해주세요."
-        type="password"
-        v-on:keyup.enter="Login()"
-      />
-    </div>
+    <input
+      class="login-input-data form-style"
+      v-model="user.password"
+      placeholder="비밀번호를 입력해주세요."
+      type="password"
+      v-on:keyup.enter="Login()"
+    />
 
-    <button class="user-btn form-control" @click="Login()">로그인</button>
+    <button class="user-btn form-style" @click="Login()">로그인</button>
 
     <!-- 비밀번호 찾기 -->
     <div class="find-password-box">
@@ -36,8 +32,8 @@
     <!-- 소셜 로그인 -->
     <div class="social-login">
       <div><Naver/></div>
-      <Kakao />
-      <Google />
+      <div><Kakao /></div>
+      <div><Google /></div>
     </div>
 
     <!-- 회원 가입 -->
@@ -119,5 +115,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

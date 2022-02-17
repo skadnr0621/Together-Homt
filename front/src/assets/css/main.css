@@ -26,10 +26,6 @@
   display: none;
 }
 
-#main > div > div:nth-child(2) > div {
-  width: 100%;
-  height: 100%;
-}
 
 /* 736px 이상일 경우 적용되는 코드 */
 @media (min-width: 736px) {

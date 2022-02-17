@@ -166,11 +166,17 @@ export default {
             alert("게시글 등록 실패");
             console.log(err);
           });
-
-        await this.$router.push({
-          name: "Profile",
-          params: { userName: this.myInfo.username, email: this.myInfo.email },
-        });
+        if (this.myInfo.username != 'admin') {
+          await this.$router.push({
+            name: "Profile",
+            params: { userName: this.myInfo.username, email: this.myInfo.email },
+          });
+        } else {
+          await this.$router.push({
+            name: "AdminPage",
+            params: { userName: this.myInfo.username, email: this.myInfo.email },
+          });
+        }
       }
     },
   },
