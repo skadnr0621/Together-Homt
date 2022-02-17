@@ -99,7 +99,7 @@ export default {
       const metadataURL = this.URL + "metadata.json";
 
       this.model = await tmPose.load(modelURL, metadataURL);
-      this.init();
+      await this.init();
     },
 
     async init() {
@@ -109,8 +109,8 @@ export default {
 
       console.log("1");
       console.log(this.webcam);
-      await this.webcam.setup(); // request access to the webcam
-      await this.webcam.play();
+      this.webcam.setup(); // request access to the webcam
+      this.webcam.play();
 
       console.log("2");
       window.requestAnimationFrame(this.loop);
