@@ -1,6 +1,6 @@
 <template>
   <div id="exercise-list-basket-header">
-    {{ timestamp }} 엔 이 운동들을 할거에요!
+    {{ timestamp }} 운동 장바구니
     <div>
       <button v-on:click="DeleteStorage()">운동 전체삭제</button>
       <button v-on:click="QuitExercise()">운동 종료</button>
@@ -23,6 +23,7 @@ export default {
     DeleteStorage() {
       this.$emit("DeleteStorage");
     },
+
     QuitExercise() {
       this.$router.push({
         path: "/main/feed",
@@ -45,7 +46,7 @@ export default {
       "토요일"
     );
     const week = weekList[now.getDay()];
-    this.timestamp = `${month}/${date} ${week}`;
+    this.timestamp = `${month} 월 ${date} 일 ${week}`;
   },
 };
 </script>

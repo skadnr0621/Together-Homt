@@ -1,0 +1,114 @@
+.print {
+  border: 1px solid black;
+  margin: 20px;
+}
+.print > .header-level > div {
+  display: flex;
+}
+.th-post > .print > .header-level > div > #img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.th-post > .print > .header-level > div > #usrnm {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+.th-post > .print > .header-level > div > div > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.th-post > .print > .feed-image > .feed-image-container {
+  margin-left: 5px;
+  width: 100%;
+  height: 100%;
+}
+.th-post > .print > .feed-image > .feed-image-container > .img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.th-post > .print > .feed-image > .feed-image-container2 {
+  margin-left: 5px;
+}
+.th-post > .print > .feed-image > .feed-image-container2 > .img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.print > .header-level > div > div {
+  margin: 5px;
+}
+.print > .header-level > div > div {
+  margin: 5px;
+}
+.th-post > .print > .feed-content > .imoticon {
+  display: flex;
+  margin: 5px;
+}
+.th-post > .print > .feed-content > .imoticon > .heart {
+  display: flex;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  margin: 3px;
+  margin-right: 15px;
+}
+.th-post > .print > .feed-content > .imoticon > .heart2 {
+  display: flex;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  margin: 3px;
+  margin-right: 15px;
+}
+.th-post > .print > .feed-content > .imoticon > .speech {
+  display: flex;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  margin: 3px;
+}
+.th-post > .print > .feed-content > .likes > #click-likes {
+  margin: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.th-post > .print > .feed-content > .caption > .username {
+  margin-left: 5px;
+  cursor: pointer;
+}
+.th-post > .print > .feed-content > .caption > .caption-content > .detail {
+  margin-left: 5px;
+  cursor: pointer;
+}
+.th-post > .print > .feed-content > .caption > .caption-content {
+  margin-left: 5px;
+  cursor: pointer;
+}
+.th-post > .print > .feed-content > .caption > .caption-content2 {
+  margin-left: 5px;
+  cursor: pointer;
+}
+.th-post > .print > .comments {
+  margin-left: 5px;
+  cursor: pointer;
+}
+.th-post > .print > .Tags {
+  margin-left: 5px;
+}
+.th-post > .print > .createTime {
+  margin-left: 5px;
+  font-size: 0.8em;
+  color: grey;
+}
+.th-post > .print > .createTime2 > #font {
+  margin-left: 5px;
+  font-size: 0.8em;
+  color: grey;
+}
