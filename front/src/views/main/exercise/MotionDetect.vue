@@ -1,37 +1,41 @@
 <template>
-  <div class="motion-detect">
-    <div class="container">
-      <div id="exercise-header">
-        <div @click="goOut()">
-          <span class="back-btn material-icons-outlined"
-            >keyboard_arrow_left</span
-          >
+  <div>
+    <div class="motion-detect">
+      <div class="container">
+        <!-- header -->
+        <div id="exercise-header">
+          <div @click="goOut()">
+            <span class="back-btn material-icons-outlined"
+              >keyboard_arrow_left</span
+            >
+          </div>
+          <p class="exercise-title">{{ exercise }}</p>
+          <button class="is-exercise fail-btn" @click="doneExercise()">
+            미완료
+          </button>
         </div>
-        <p class="exercise-title">{{ exercise }}</p>
-        <button class="is-exercise fail-btn" @click="doneExercise()">
-          미완료
-        </button>
-      </div>
 
-      <div v-if="webcam != null && model != null">
-        <canvas id="canvas"></canvas>
-        <div id="all-progress" v-if="percent2 != null">
-          <progress id="percent" :value="percent2" max="1.00"></progress>
+        <!-- webcam -->
+        <div v-if="webcam != null && model != null">
+          <canvas id="canvas"></canvas>
+
+          <!-- progress -->
+          <!-- <div id="all-progress" v-if="percent2 != null">
+            <progress id="percent" :value="percent2" max="1.00"></progress>
+          </div> -->
         </div>
-      </div>
-      <div id="exercise-gage">
-        <div id="label-container"></div>
-        <progress id="percent" :value="percent" max="1.00"></progress>
+        <div id="exercise-gage">
+          <div id="label-container"></div>
+          <div><progress id="percent" :value="percent" max="1.00"></progress></div>
+        </div>
       </div>
     </div>
-
-   
   </div>
 </template>
 
 <script>
 import * as tmPose from "@teachablemachine/pose";
-import "@/assets/css/motiondetect.scss";
+import "@/assets/css/exercise/motiondetect.scss";
 import axios from "axios";
 
 let ctx, labelContainer, maxPredictions;
@@ -71,6 +75,8 @@ export default {
       this.webcam.stop();
       this.webcam = null;
     },
+
+    
 
     async setModel() {
       if (this.exercise == "하이") {

@@ -30,9 +30,11 @@ export default {
       let fileLength = fileName.length;
       let lastDot = fileName.lastIndexOf(".");
 
-      console.log(fileName.substring(lastDot + 1, fileLength) == "mp4");
-      if (fileName.substring(lastDot + 1, fileLength) == "mp4") return true;
-      else return false;
+      const name = fileName.substring(lastDot + 1, fileLength).toLowerCase();
+
+      if (name == "png" || name == "jpg" || name == "gif" || name == "jpeg")
+        return false;
+      else return true;
     },
 
     viewDetailFeed(index, feedId) {

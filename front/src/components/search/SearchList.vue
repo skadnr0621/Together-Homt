@@ -11,7 +11,8 @@
           id="thumbnail-detail"
           v-if="
             mediaURL(index).slice(-3) == 'jpg' ||
-            mediaURL(index).slice(-3) == 'png'
+            mediaURL(index).slice(-3) == 'png' ||
+            mediaURL(index).slice(-3) == 'gif'
           "
         >
           <img id="thumbnail-media" :src="mediaURL(index)" />
@@ -20,8 +21,8 @@
           <video
             id="thumbnail-media"
             :src="mediaURL(index)"
-            controls
             autoplay
+            muted
           ></video>
         </div>
       </div>

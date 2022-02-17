@@ -1,12 +1,16 @@
 <template>
   <div id="exercise-list-main">
     <div v-for="(exercise, index) in viewExercise" :key="index">
-      <span class="basket" @click="sendLocal(exercise)">{{ exercise }}</span>
+      <div id="exercise-circle" @click="sendLocal(exercise)">
+        <div>{{ exercise }}</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "ExerciseListMain",
   props: ["exerciseType"],
@@ -59,13 +63,37 @@ export default {
     },
   },
   methods: {
-    sendLocal(todayExercise) {
-      this.todayExercise = todayExercise;
-      localStorage.setItem(this.todayExercise, this.todayExercise);
-      if (localStorage.length > 0) {
-        // alert("장바구니에 운동을 담았습니다.");
-        this.$router.go();
-      }
+    sendLocal(todayExer) {
+      console.log(todayExer);
+      this.todayExercise = todayExer;
+      console.log(this.todayExercise);
+      axios
+        .post(
+          "/exercise/today-exercises",
+          {
+            exercise: this.todayExercise,
+          },
+          {
+            headers: {
+              Authorization: sessionStorage.getItem("jwt"),
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          // alert("장바구니담기성공");
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("장바구니담기실패");
+        });
+
+      //  localStorage.setItem(this.todayExercise, this.todayExercise);
+      //   if (localStorage.length > 0) {
+      //     // alert("장바구니에 운동을 담았습니다.");
+      //     this.$router.go();
+      //   }
+      this.$router.go();
     },
   },
 };

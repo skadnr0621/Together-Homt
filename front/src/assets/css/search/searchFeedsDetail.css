@@ -83,6 +83,9 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
+  background: #FFFFFF;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
 }
 
 #search-feed-detail-main
@@ -102,34 +105,52 @@
   font-size: 24px;
 }
 
-#search-feed-detail-main > div > div > .feed-detail-img {
+#search-feed-detail-main #feed-detail-img {
   /* padding-bo */
 }
 
-#search-feed-detail-main > div > div > .feed-detail-img > img {
+#search-feed-detail-main #feed-detail-img > img, video {
   width: 100%;
 }
 
 #search-feed-detail-main > div > div > .feed-detail-menu {
+  height: 40px;
   display: flex;
+  justify-content: flex-start;
   align-items: center;
-  height: 44px;
-  padding: 0 10px;
 }
 
-#search-feed-detail-main > div > div > .feed-detail-menu > div {
-  height: 24px;
-  width: 24px;
-  margin-right: 14px;
-  color: rgba(0, 0, 0, 0.87);
-}
+#search-feed-detail-main > div > div > .feed-detail-menu 
+#comment-btn {
+  margin-top: -2px;
+  margin-left: 8px;
+} 
+
+#search-feed-detail-main > div > div > .feed-detail-menu 
+#like-status-btn, #unlike-status-btn,
+#comment-btn{
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-items: flex-start;
+  margin-left: 10px;
+} 
 
 #search-feed-detail-main > div > div > .feed-detail-content {
   padding: 0 10px;
   display: flex;
   flex-direction: column;
-  font-size: 15px;
+  font-size: 13px;
   color: rgba(0, 0, 0, 0.87);
+}
+
+#search-feed-detail-main > div > div > .feed-detail-content #feed-detail-content-box{
+  width: 70%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-sizing: border-box;
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
 }
 
 /* 좋아요 */
@@ -139,16 +160,25 @@
   > .feed-detail-content
   > div:nth-child(1) {
   font-weight: bold;
-  margin-bottom: 10px;
 }
 
 /* 닉네임 내용 */
-#search-feed-detail-main
-  > div
-  > div
-  > .feed-detail-content
-  > div:nth-child(2) {
+#search-feed-detail-main .feed-detail-content #feed-one-content {
+  font-size: 13px;
+  align-items: center;
   display: flex;
+  margin: 10px 0;
+}
+
+#search-feed-detail-main .feed-detail-content #feed-one-content
+ > p{
+  font-size: 13px;
+}
+
+#search-feed-detail-main .feed-detail-content #feed-one-content
+ > p:nth-child(1){
+  font-weight: bold;
+  margin-right: 10px;
 }
 
 #search-feed-detail-main
@@ -176,7 +206,7 @@
   color: rgba(0, 0, 0, 0.38);
 }
 
-/* 댓글 */
+/* 더보기 */
 #search-feed-detail-main
   > div
   > div
@@ -185,9 +215,10 @@
   color: rgba(0, 0, 0, 0.38);
 }
 
+/* 게시 날짜 */
 #search-feed-detail-main > div > div > .feed-detail-date {
   padding: 10px;
-  font-size: 12px;
+  font-size: 11px;
   color: rgba(0, 0, 0, 0.38);
 }
 
@@ -195,9 +226,9 @@
 
 @media (min-width: 736px) {
   #search-keyword-feedlist #search-one-feed{
-    margin: 50px 20px;
+    margin: 50px 25px;
     border: 2px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.4);
   }
 
   #search-feed-detail-main > div > div > .feed-detail-header {
@@ -217,31 +248,69 @@
   }
 
   #search-feed-detail-main > div > div > .feed-detail-menu {
+    height: 60px;
     display: flex;
+    justify-content: flex-start;
     align-items: center;
-    height: 44px;
-    padding: 0 10px;
+    padding-left: 10px;
   }
 
+  #search-feed-detail-main > div > div > .feed-detail-menu 
+  #comment-btn {
+    margin-left: 10px;
+  } 
 
-  #search-feed-detail-main > div > div > .feed-detail-menu > div{
-    height: 35px;
-    width: 35px;
-  }
+  #search-feed-detail-main > div > div > .feed-detail-menu 
+  #like-status-btn, #unlike-status-btn,
+  #comment-btn{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-items: flex-start;
+  } 
 
 
-  #search-feed-detail-main > div > div > .feed-detail-menu span{
-    height: 100%;
-    width: 100%;
-    margin-right: 14px;
-    color: rgba(0, 0, 0, 0.87);
-  }
-  
   #search-feed-detail-main > div > div > .feed-detail-content {
-    padding: 0 10px;
+    padding: 0 20px;
     display: flex;
     flex-direction: column;
     font-size: 15px;
     color: rgba(0, 0, 0, 0.87);
+  }
+
+  /* 닉네임 내용 */
+  #search-feed-detail-main .feed-detail-content #feed-one-content {
+    font-size: 18px;
+    align-items: center;
+    display: flex;
+    margin: 20px 5px;
+  }
+
+  #search-feed-detail-main .feed-detail-content #feed-one-content
+  > p{
+    font-size: 18px;
+  }
+
+  #search-feed-detail-main .feed-detail-content #feed-one-content
+  > p:nth-child(1){
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  /* 더보기 */
+  #search-feed-detail-main
+  > div
+  > div
+  > .feed-detail-content
+  > div:nth-child(3) {
+  color: rgba(0, 0, 0, 0.38);
+  font-size: 14px;
+  padding-left: 5px;
+  }
+
+  /* 게시 날짜 */
+  #search-feed-detail-main > div > div > .feed-detail-date {
+    font-size: 13px;
+    padding: 20px 20px;
   }
 }

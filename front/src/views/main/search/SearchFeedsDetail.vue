@@ -41,36 +41,36 @@
           </div>
 
           <!-- 피드 사진-->
-          <div class="feed-detail-img">
-            <img :src="feed.mediaUrl" alt="" />
+          <div
+            id="feed-detail-img"
+            v-if="
+              feed.mediaUrl.slice(-3) == 'jpg' ||
+              feed.mediaUrl.slice(-3) == 'png' ||
+              feed.mediaUrl.slice(-3) == 'gif'
+            ">
+            <img  :src="feed.mediaUrl" />
+          </div>
+          <div v-else id="feed-detail-img">
+            <video
+              :src="feed.mediaUrl"
+              controls
+              autoplay></video>
           </div>
 
           <!-- 피드 메뉴바 (좋아요, 댓글, 스크랩) -->
           <div class="feed-detail-menu">
-            <div>
-              <span
-                v-if="feed.likeStatus"
-                class="material-icons-outlined"
-                @click="unlikeFeed(feed.feedId, index)"
-                >favorite</span
-              >
-              <span
-                v-else
-                class="material-icons-outlined"
+            <div id="like-btn">
+                <img 
+                  v-if="feed.likeStatus" id="like-status-btn"
+                  @click="unlikeFeed(feed.feedId, index)"
+                  src="@/assets/icon/full-heart.png" alt="">
+                <img 
+                v-else id="unlike-status-btn"
                 @click="likeFeed(feed.feedId, index)"
-                >favorite_border</span
-              >
+                src="@/assets/icon/empty-heart.png" alt="">
             </div>
-            <div>
-              <span
-                class="material-icons-outlined"
-                @click="
-                  goComment(myInfo.username, myInfo.email, feed.feedId, index)
-                "
-              >
-                comment
-              </span>
-            </div>
+            <img id="comment-btn" src="@/assets/icon/comment-btn.png" alt="" @click="
+              goComment(myInfo.username, myInfo.email, feed.feedId, index)">
           </div>
 
           <!-- 피드 내용 (좋아요 개수, 피드 내용, 댓글) -->
@@ -89,14 +89,14 @@
                 {{ feed.content.substring(0, 15) }}
                 <span @click="goContentDetail()">...더보기</span>
               </div>
-              <div v-else>
-                {{ feed.content }}
+              <div v-else id="feed-one-content">
+                <p>{{ feed.username }}</p><p>{{ feed.content }}</p>
               </div>
             </div>
             <div
               @click="goComment(feed.username, feed.email, feed.feedId, index)"
             >
-              댓글 ???개 모두 보기
+              ...더보기
             </div>
           </div>
 
