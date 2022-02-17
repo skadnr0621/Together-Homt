@@ -43,7 +43,7 @@ export default {
     //시연영상으로 연결
     gotoexample() {
       this.$router.push({
-        //시연영상으로 연겨루
+        //시연영상으로 연결
       });
     },
 
@@ -51,9 +51,14 @@ export default {
     removeExercise(exercise) {
       this.exercise = exercise;
       localStorage.removeItem(this.exercise);
+      alert("운동을 삭제했습니다.");
+      this.$router.go();
     },
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#exercise-list-basket > div > span {
+}
+</style>

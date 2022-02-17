@@ -67,9 +67,17 @@
         <!-- 피드 내용 -->
         <div class="caption">
           <div class="username">{{ item.username }}</div>
-          <div class="caption-content" v-if="item.content.length > 15">
+          <div
+            class="caption-content"
+            v-if="item.content.length > 15"
+            @click="goCaptionDetail(item.username, item.email, item.feedId)"
+          >
             {{ item.content.substring(0, 15) }}
-            <span class="detail" @click="goContentDetail()">...더보기</span>
+            <span
+              class="detail"
+              @click="goCaptionDetail(item.username, item.email, item.feedId)"
+              >...더보기</span
+            >
           </div>
           <div class="caption-content2" v-else>
             {{ item.content }}
@@ -114,13 +122,7 @@ export default {
   props: ["info", "feedInfo", "isDelete", "tmp"],
   computed: {},
   methods: {
-    //프로필
-    // goProfile: function () {
-    //   //유저를 식별할 수 있는 인자를 가지고 이동해야하나
-    //   this.$router.push({
-    //     name: "UserPage",
-    //   });
-    // },
+    //프로필 이동
     goProfile(name, email) {
       this.$router.push({
         name: "Profile",
@@ -183,14 +185,10 @@ export default {
         name: "ProfileFeedComment",
         params: { userName: name, email: email, feedId: id },
       });
+      this.$router.go();
     },
 
-    //좋아요 리스트
-    // golikeList: function () {
-    //   this.$router.push({
-    //     name: "LikeListPage",
-    //   });
-    // },
+    //좋아요 리스트 조회
     goLikeList(name, email, id) {
       this.$router.push({
         name: "ProfileFeedLike",
@@ -199,8 +197,11 @@ export default {
     },
 
     //피드 상세페이지
-    goCaptionDetail: function () {
-      //해당 피드 아이디를 가지고 이동??
+    goCaptionDetail(name, email, id) {
+      this.$router.push({
+        name: "ProfileFeedDetail",
+        params: { userName: name, email: email, feedId: id },
+      });
     },
   },
 };
