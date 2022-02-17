@@ -1,6 +1,6 @@
 <h1 align="center" style="max-width: 100%;">
   <img width="550" alt="Logo" src="README.assets/Logo.png" style="max-width: 100%;" /><br/>
-  <a href="http://3.38.103.222.com">www.togetherhomt.com</a>
+  <a href="http://3.38.103.222">www.togetherhomt.com</a>
 </h1>
 
 
