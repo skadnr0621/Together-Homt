@@ -6,6 +6,6 @@
 module.exports = {
   devServer: {
     //proxy: "http://i6b206.p.ssafy.io:8092",
-    proxy: "http://3.38.103.222:8092",
+    proxy: "http://3.38.103.222:8092/api",
   },
 };
