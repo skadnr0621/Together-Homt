@@ -1,22 +1,38 @@
 #check-who-exercise {
-  position: fixed;
-  top: 45px;
-  left: 0;
-  right: 0;
-  bottom: 45px;
-  overflow: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Container */
+#check-who-exercise > div {
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  padding-bottom: 60px;
+
+  overflow: scroll;
+}
+
+#check-who-exercise > div > div {
+  width: 100%;
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(80px);
+  border-radius: 12px;
 }
 
 /* CheckWhoExerciseHeader */
 #check-who-exercise-header {
-  background-color: #ffffff;
   display: flex;
   height: 40px;
   text-align: center;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 0 10px;
+  padding: 0 16px;
 }
 
 #check-who-exercise-header > .cancel {
@@ -34,24 +50,23 @@
 
 /* CheckWhoExerciseList */
 #check-who-exercise-list {
-  position: fixed;
-  top: 85px;
-  left: 0;
-  right: 0;
-  bottom: 45px;
-  overflow: auto;
+  width: 100%;
+  padding: 0 16px;
 }
+
 #check-who-exercise-list > div > .container {
   display: flex;
-  margin: 10px 15px;
+  margin: 15px 0px;
 }
 
 #check-who-exercise-list > div > .container > .profile {
-  width: 70px;
-  height: 70px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
+  width: 50px;
+  height: 50px;
   margin-right: 10px;
+
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
 }
 
 #check-who-exercise-list > div > .container > .profile > img {
@@ -94,8 +109,10 @@
   align-self: center;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(1, 1, 1, 0.1);
-  background-color: rgba(41, 98, 255);
+
+  background: rgba(41, 98, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(80px);
   border-radius: 5px;
 }
 
@@ -107,13 +124,72 @@
   align-self: center;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(1, 1, 1, 0.01);
-  background-color: rgba(41, 98, 255, 0.38);
+
+  background: rgba(41, 98, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(80px);
   border-radius: 5px;
 }
 
-#check-who-exercise-list > div > .container > * > span {
-  color: white;
+#check-who-exercise-list > div > .container > .send-yes > span {
+  color: rgb(255, 255, 255);
   width: 24px;
   height: 24px;
+}
+
+#check-who-exercise-list > div > .container > .send-no > span {
+  color: rgba(255, 255, 255, 0.6);
+  width: 24px;
+  height: 24px;
+}
+
+/* 736px 이상일 경우 적용되는 코드 */
+@media (min-width: 736px) {
+  #check-who-exercise-header {
+    margin-top: 16px;
+    padding: 0 32px;
+  }
+
+  #check-who-exercise-list {
+    padding: 0 32px;
+  }
+
+  #check-who-exercise-list > div > .container {
+    margin: 20px 0;
+  }
+
+  /* #profile-feed-like-main > .like > .username {
+    margin-left: 15px;
+  } */
+}
+
+/* 1024px 이상일 경우 적용되는 코드 */
+@media (min-width: 1024px) {
+  #check-who-exercise-list > div > .container > .profile {
+    width: 70px;
+    height: 70px;
+  }
+
+  #check-who-exercise-list > div > .container > .send-yes {
+    width: 46px;
+    height: 46px;
+    padding: 8px 0px 0px 6px;
+  }
+
+  #check-who-exercise-list > div > .container > .send-no {
+    width: 46px;
+    height: 46px;
+    padding: 8px 0px 0px 8px;
+  }
+
+  #check-who-exercise-list > div > .container > .send-yes > span {
+    font-size: 28px;
+    width: 36px;
+    height: 36px;
+  }
+
+  #check-who-exercise-list > div > .container > .send-no > span {
+    width: 36px;
+    height: 36px;
+  }
 }

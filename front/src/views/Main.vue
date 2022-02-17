@@ -10,7 +10,7 @@
       <!-- (피드)등록 : Register.vue -->
       <!-- 운동 : Exercise.vue -->
       <!-- 프로필 : Profile.vue -->
-      <router-view />
+      <div><router-view /></div>
 
       <!-- 메뉴바 -->
       <Navbar :myInfo="myInfo" />

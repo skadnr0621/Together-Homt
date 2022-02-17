@@ -3,16 +3,20 @@
     <!-- 피드 게시글 -->
     <div class="feed-content">
       <div>
-        <div><img :src="info.imagePath" alt="피드작성자프로필" /></div>
-        <div>{{ info.username }}</div>
-      </div>
-      <div>{{ feedInfo.content }}</div>
-      <div class="tag">
-        <div v-for="(tag, index) in feedInfo.tags" :key="index">#{{ tag }}</div>
-      </div>
-      <div>
-        {{ feedInfo.createdAt[0] }}년 {{ feedInfo.createdAt[1] }}월
-        {{ feedInfo.createdAt[2] }}일
+        <div>
+          <div><img :src="info.imagePath" alt="피드작성자프로필" /></div>
+          <div>{{ info.username }}</div>
+        </div>
+        <div>{{ feedInfo.content }}</div>
+        <div class="tag">
+          <div v-for="(tag, index) in feedInfo.tags" :key="index">
+            #{{ tag }}
+          </div>
+        </div>
+        <div>
+          {{ feedInfo.createdAt[0] }}년 {{ feedInfo.createdAt[1] }}월
+          {{ feedInfo.createdAt[2] }}일
+        </div>
       </div>
     </div>
 

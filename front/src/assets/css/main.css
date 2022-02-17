@@ -15,21 +15,9 @@
   right: 0;
   bottom: 0;
   overflow: scroll;
-
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-
   margin: 0 auto;
 }
 
-#main > div > div:nth-child(2)::-webkit-scrollbar {
-  display: none;
-}
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 6f8e89ace7b630c350bff9406ef7dab6275db318
 /* 736px 이상일 경우 적용되는 코드 */
 @media (min-width: 736px) {
 }

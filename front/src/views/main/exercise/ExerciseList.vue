@@ -42,6 +42,7 @@ export default {
     },
     onDeleteStorage() {
       //조건에 맞는 키 값들만 삭제하기
+      // localStorage.clear();
       if (localStorage.length > 0) {
         //if (
         // localStorage.key(i) !== "loglevel:webpack-dev-server" &&

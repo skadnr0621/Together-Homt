@@ -58,29 +58,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.comment-detail > .repeat > .CommentUserInfo {
-  border: 1px solid black;
-  display: flex;
-  margin: 10px;
-}
-.comment-detail > .repeat > .CommentUserInfo > .userimage {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  margin-left: 5px;
-}
-.comment-detail > .repeat > .CommentUserInfo > .userimage > img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-.comment-detail > .repeat > .CommentUserInfo > .username {
-  margin-left: 10px;
-  text-align: center;
-}
-.comment-detail > .repeat > .CommentUserInfo > .comment-content {
-  margin-left: 10px;
-  text-align: center;
-}
+// .comment-detail > .repeat > .CommentUserInfo {
+//   border: 1px solid black;
+//   display: flex;
+//   margin: 10px;
+// }
+// .comment-detail > .repeat > .CommentUserInfo > .userimage {
+//   width: 40px;
+//   height: 40px;
+//   border-radius: 50%;
+//   border: 1px solid rgba(0, 0, 0, 0.1);
+//   margin-left: 5px;
+// }
+// .comment-detail > .repeat > .CommentUserInfo > .userimage > img {
+//   width: 100%;
+//   height: 100%;
+//   border-radius: 50%;
+// }
+// .comment-detail > .repeat > .CommentUserInfo > .username {
+//   margin-left: 10px;
+//   text-align: center;
+// }
+// .comment-detail > .repeat > .CommentUserInfo > .comment-content {
+//   margin-left: 10px;
+//   text-align: center;
+// }
 </style>

@@ -31,7 +31,7 @@
 
     <!-- 소셜 로그인 -->
     <div class="social-login">
-      <div><Naver/></div>
+      <div><Naver /></div>
       <div><Kakao /></div>
       <div><Google /></div>
     </div>

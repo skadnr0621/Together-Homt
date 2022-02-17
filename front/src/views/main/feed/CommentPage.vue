@@ -15,7 +15,6 @@ import "@/assets/css/CommentPage.css";
 
 export default {
   name: "CommentPage",
-
   components: {
     CommentHeader,
     CommentDetail,

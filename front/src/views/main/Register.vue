@@ -4,7 +4,9 @@
       v-on:goBack="onGoBack"
       v-on:registerFeed="onRegisterFeed"
     />
-    <register-main :isRegister="isRegister" />
+    <div id="register-container">
+      <register-main :isRegister="isRegister" />
+    </div>
   </div>
 </template>
 

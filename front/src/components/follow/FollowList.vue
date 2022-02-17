@@ -1,10 +1,5 @@
 <template>
   <div id="follow-list">
-    <div class="search">
-      <span class="material-icons-outlined"> search</span>
-      <input type="text" placeholder="검색" />
-    </div>
-
     <!-- 나의 팔로우 정보-->
     <div v-if="isMe">
       <!-- 팔로잉 정보 -->

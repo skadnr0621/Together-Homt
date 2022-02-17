@@ -1,7 +1,11 @@
 <template>
   <div id="notification">
-    <notification-header v-on:goBack="onGoBack" />
-    <notification-list />
+    <div>
+      <div>
+        <notification-header v-on:goBack="onGoBack" />
+        <notification-list />
+      </div>
+    </div>
   </div>
 </template>
 

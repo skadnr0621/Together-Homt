@@ -1,7 +1,11 @@
 <template>
   <div id="check-who-exercise">
-    <check-who-exercise-header v-on:goBack="onGoBack" />
-    <check-who-exercise-list />
+    <div>
+      <div>
+        <check-who-exercise-header v-on:goBack="onGoBack" />
+        <check-who-exercise-list />
+      </div>
+    </div>
   </div>
 </template>
 

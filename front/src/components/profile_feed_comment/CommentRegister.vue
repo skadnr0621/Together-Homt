@@ -1,16 +1,20 @@
 <template>
   <div id="comment-register">
-    <div><img :src="myInfo.imagePath" alt="사용자프로필" /></div>
     <div>
-      <input
-        type="text"
-        placeholder="댓글 달기..."
-        v-model="comment"
-        @keyup.enter="registerComment()"
-      />
-      <span class="material-icons" @click="registerComment()">
-        play_circle_filled
-      </span>
+      <div>
+        <div><img :src="myInfo.imagePath" alt="사용자프로필" /></div>
+        <div>
+          <input
+            type="text"
+            placeholder="댓글 달기..."
+            v-model="comment"
+            @keyup.enter="registerComment()"
+          />
+          <span class="material-icons" @click="registerComment()">
+            play_circle_filled
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </template>

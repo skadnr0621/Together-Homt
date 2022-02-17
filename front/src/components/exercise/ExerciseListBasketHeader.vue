@@ -23,7 +23,6 @@ export default {
     DeleteStorage() {
       this.$emit("DeleteStorage");
     },
-
     QuitExercise() {
       this.$router.push({
         path: "/main/feed",

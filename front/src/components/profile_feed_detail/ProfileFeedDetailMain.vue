@@ -66,11 +66,7 @@
             좋아요 {{ feedInfo.likeCnt }}개
           </div>
           <div>
-            <div v-if="feedInfo.content.length > 15">
-              {{ feedInfo.content.substring(0, 15) }}
-              <span @click="goContentDetail()">...더보기</span>
-            </div>
-            <div v-else>
+            <div>
               {{ feedInfo.content }}
             </div>
           </div>
