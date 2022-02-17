@@ -11,7 +11,10 @@
           class="profile"
           @click.stop="goProfile(user.sender.username, user.sender.email)"
         >
-          <img :src="user.sender.imagePath" alt="프로필사진" />
+          <img
+            :src="'http://3.38.103.222:8092' + user.sender.imagePath"
+            alt="프로필사진"
+          />
         </div>
         <div class="content">
           <span @click.stop="goProfile(user.sender.username, user.sender.email)"

@@ -3,7 +3,10 @@
     <div v-if="viewList.length != 0">
       <div class="container" v-for="(user, index) in viewList" :key="index">
         <div class="profile">
-          <img :src="user.image" alt="프로필사진" />
+          <img
+            :src="'http://3.38.103.222:8092' + user.image"
+            alt="프로필사진"
+          />
         </div>
         <div class="content">
           <div class="name">{{ user.username }}</div>
