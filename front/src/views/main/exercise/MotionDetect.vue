@@ -16,6 +16,8 @@
         </div>
 
         <!-- webcam -->
+        <vue-webrtc ref="webrtc" width="100%" roomId="sample-room">
+        </vue-webrtc>
         <div v-if="webcam != null && model != null">
           <canvas id="canvas"></canvas>
 
@@ -41,9 +43,14 @@ import * as tmPose from "@teachablemachine/pose";
 import api from "@/api/api.js";
 import "@/assets/css/exercise/motiondetect.scss";
 
+import { VueWebRTC } from "vue-webrtc";
+
 let ctx, labelContainer, maxPredictions;
 
 export default {
+  components: {
+    VueWebRTC,
+  },
   data() {
     return {
       exercise: this.$route.query.exercise,
