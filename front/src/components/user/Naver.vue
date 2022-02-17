@@ -5,8 +5,8 @@
       <img
         style="
           box-sizing: border-box;
-          width: 45px;
-          height: 45px;
+          width: 100%;
+          height: 100%;
           border: 0.85px solid #eee;
           border-radius: 30px;
         "

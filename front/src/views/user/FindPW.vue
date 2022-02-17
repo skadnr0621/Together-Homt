@@ -3,8 +3,8 @@
     <svg
       xmlns="http://www.w3.org/2000/svg"
       enable-background="new 0 0 20 20"
-      height="110px"
-      width="110px"
+      height="100%"
+      width="100%"
       viewBox="0 0 20 20"
       fill="#000000"
     >
@@ -16,9 +16,9 @@
 
     <div>이메일로 임시 비밀번호를 발송해드립니다.</div>
     <div class="email">
-      <input v-model="emailFront" type="text" class="form-control" />
+      <input v-model="emailFront" type="text" class="form-style" />
       <p>@</p>
-      <input v-model="emailBack" type="text" class="form-control" />
+      <input v-model="emailBack" type="text" class="form-style" />
     </div>
     <button class="user-btn" @click="sendPW()">임시 비밀번호 받기</button>
     <div class="end-text-signup">

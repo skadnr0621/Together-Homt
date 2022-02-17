@@ -84,30 +84,3 @@ export default {
   },
 }
 </script>
-
-<style>
-#feed-container {
-  display: grid;
-  gap: 1px 1px;
-  grid-template-columns: repeat(3, 1fr);
-}
-
-#thumbnail-detail {
-  width: 100%;
-  height: 100%;
-}
-
-#feed-container #search-thumbnail {
-  aspect-ratio: 1;
-}
-
-#thumbnail-media {
-  background: black;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  object-fit: fill;
-}
-
-
-</style>

@@ -1,23 +1,23 @@
 <template>
   <div class="search-page">
-    <div id="search-bar-label">
-      <label for="search-bar">
+    <div id="search-bar-box">
+      <div id="input-box">
         <svg xmlns="http://www.w3.org/2000/svg" 
-        height="27px" viewBox="-7 -3 29 29" width="27px" fill="#B2B2B2"><path d="M0 0h24v24H0V0z" fill="none"/>
+        height="27px" viewBox="-7 -3 29 29" width="27px" fill="#404040"><path d="M0 0h24v24H0V0z" fill="none"/>
         <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-      </label>
-      <div v-if="searchMode">
+        <input
+        id="search-bar"
+        class="no-search-mode-input"
+        @click="search()"
+        @input="autoComplete" 
+        placeholder="검색"
+        type="text"
+        />
+      </div>
+      <div v-if="searchMode" id="btn-standard">
         <button @click="noSearch()">취소</button>
       </div>
-      
-      <input
-      id="search-bar"
-      class="no-search-mode-input"
-      @click="search()"
-      @input="autoComplete" 
-      placeholder="검색"
-      type="text"
-      />
+
     </div>
 
     <div v-if="searchMode" id="search-detail">
@@ -40,6 +40,9 @@
 </template>
 
 <script>
+import '@/assets/css/search/searchPage.css'
+import '@/assets/css/search/searchDetail.css'
+import '@/assets/css/search/searchList.css'
 import SearchDetail from '@/components/search/SearchDetail.vue'
 import SearchList from '@/components/search/SearchList.vue'
 import { mapState, mapActions } from "vuex";
@@ -120,74 +123,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.search-page {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  top: 45px;
-  left: 0;
-  right: 0;
-  bottom: 45px;
-  overflow: auto;
-}
-
-
-.search-page .no-search-mode-input {
-  width: 250px;
-  height: 29px;
-  border: none;
-  border-radius: 7px;
-  background: rgba(0, 0, 0, 0.05);
-  transition-duration: 1s;
-}
-
-.search-page .search-mode-input {
-  width: 230px;
-  height: 29px;
-  border: none;
-  border-radius: 7px;
-  background: rgba(0, 0, 0, 0.05); 
-  transition-duration: 1s;
-}
-
-.search-page #search-bar-label{
-  width: 250px;
-  height: 29px;
-  margin-top: 20px;
-  margin-bottom: 12px;
-  position: relative;
-}
-
-.search-page #search-bar-label button {
-  position: absolute;
-  width: 40px;
-  top: 4px;
-  left: 235px;
-  border: 0;
-  background-color: transparent;
-  -webkit-animation: fadein 1s;
-}
-
-@keyframes fadein {
-  from { opacity: 0;}
-  to { opacity: 1;}
-}
-
-.search-page label {
-  position: absolute;
-}
-.search-page input[type="text"] {
-  padding: 0 30px;
-}
-
-.search-page #search-detail {
-  width: 100%;
-}
-
-.search-page #search-list {
-  width: 100%;
-}
-</style>
