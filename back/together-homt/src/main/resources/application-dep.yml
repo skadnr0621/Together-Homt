@@ -29,7 +29,7 @@ spring:
           naver:
             clientId: hO0yDac2E736Nw_kl6m6
             clientSecret: AffQGYyFfg
-            redirectUri: '{baseUrl}/login/oauth2/code/{registrationId}'
+            redirectUri: 'http://i6b206.p.ssafy.io:80/main/feed'
             authorizationGrantType: authorization_code
             clientName: naver
         provider:
