@@ -51,7 +51,7 @@ import Naver from "@/components/user/Naver.vue";
 import Kakao from "@/components/user/Kakao.vue";
 import Google from "@/components/user/Google.vue";
 
-import axios from "axios";
+import api from "@/api/api.js";
 
 export default {
   name: "Login",
@@ -82,13 +82,12 @@ export default {
     // delete : 데이터 delete
 
     Login: async function () {
-      await axios({
+      await api({
         method: "post",
-        url: `http://3.38.103.222:8092/user/account/login`,
+        // url: `http://3.38.103.222:8092/user/account/login`,
         data: this.user,
       })
         .then((res) => {
-
           const token = res.data;
           console.log(res);
           console.log(token);
