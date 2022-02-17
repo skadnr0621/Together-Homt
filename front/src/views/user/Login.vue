@@ -89,7 +89,7 @@ export default {
       })
         .then((res) => {
 
-          const token = res.headers.authorization;
+          const token = res.data;
           console.log(res);
           console.log(token);
           sessionStorage.setItem("jwt", token);
