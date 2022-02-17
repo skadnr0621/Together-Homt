@@ -31,7 +31,6 @@
 
     <!-- 소셜 로그인 -->
     <div class="social-login">
-      <href="http://http://i6b206.p.ssafy.io:8092/oauth2/authorization/naver"">a</a>
       <div><Naver /></div>
       <div><Kakao /></div>
       <div><Google /></div>
