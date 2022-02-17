@@ -100,24 +100,30 @@ https://www.notion.so/API-SNS-030cbdc0fef44900a31e4d78a57518a6
 #### 이름
 
 - ##### 김남욱 (팀장, FE)
+
   - 발표,
   - 뉴스피드
 
 - ##### 이호열 (부팀장, BE)
+
   - 서버
 
 - ##### 오수경 (FE)
+
   - UCC,
   - 디자인,
 
 - ##### 임채은 (FE)
+
   - notion,
   - 뉴스피드, 디자인,
 
 - ##### 정명수 (BE)
+
   - jira
 
 - #####  이건희 (BE)
+
   - gitlab
   - 피드, 댓글, 좋아요, 태그
 
@@ -146,7 +152,6 @@ https://www.notion.so/API-SNS-030cbdc0fef44900a31e4d78a57518a6
 > 개인별 구현 기술과 경험에 대한 회고
 
 
-
 ## 🏃 Sub 1-1, 김남욱
 
 > 
@@ -158,6 +163,21 @@ https://www.notion.so/API-SNS-030cbdc0fef44900a31e4d78a57518a6
 ## 🏃 Sub 1-3, 이건희
 
 > 처음 접하는 Java, SpringBoot, JPA
+
+
+## 🏃 Sub 1-4, 정명수
+
+> 
+
+## 🏃 Sub 1-5, 오수경
+
+> 
+
+## 🏃 Sub 1-6, 임채은
+
+> 
+
+
 
 ## Feed
 
@@ -1091,19 +1111,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     List<Comment> findByFeed(Feed feed);
 ```
-
-## 🏃 Sub 1-4, 정명수
-
-> 
-
-## 🏃 Sub 1-5, 오수경
-
-> 
-
-## 🏃 Sub 1-6, 임채은
-
-> 
-
 
 
 ## 🏃 Part 2, 공통
