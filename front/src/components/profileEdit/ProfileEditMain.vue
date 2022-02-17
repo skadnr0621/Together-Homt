@@ -69,7 +69,10 @@ export default {
   },
   created() {
     this.info = this.myInfo;
-    this.info.imagePath = "http://3.38.103.222:8092" + this.info.imagePath;
+    this.info.imagePath = "http://3.38.103.222:8092".concat(
+      this.info.imagePath
+    );
+    console.log("이미지 url 확인하기");
     console.log(this.info.imagePath);
   },
   watch: {
