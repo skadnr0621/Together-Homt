@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/api/api.js";
 import "@/assets/css/admin/adminRegister.css";
 import { mapActions } from "vuex";
 
@@ -28,7 +28,7 @@ export default {
   methods: {
     ...mapActions(["setMyInfo"]),
     attendance() {
-      axios({
+      api({
         method: "get",
         url: "/exercise/attendance/absentees",
         headers: {

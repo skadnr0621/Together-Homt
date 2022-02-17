@@ -1,16 +1,21 @@
 <template>
   <div class="exercise-list">
     <exercise-list-header v-on:goBack="onGoBack" />
-    <exercise-list-menu v-on:changeExerciseType="onChangeExerciseType" />
-    <exercise-list-main :exerciseType="exerciseType" />
-    <!-- @sendLocal="onAddExercise" -->
-    <exercise-list-basket-header v-on:DeleteStorage="onDeleteStorage" />
-    <exercise-list-basket :todayExercise="todayExercises" />
-  </div>
+      <div id="exercise-box">
+        <exercise-list-menu v-on:changeExerciseType="onChangeExerciseType" />
+        <exercise-list-main :exerciseType="exerciseType" />
+        <!-- @sendLocal="onAddExercise" -->
+      </div>
+      <div id="exercise-box">
+        <exercise-list-basket-header v-on:DeleteStorage="onDeleteStorage" />
+        <exercise-list-basket :todayExercise="todayExercises" />
+      </div>
+    </div>
 </template>
 
 <script>
-import "@/assets/css/ExerciseList.css";
+import "@/assets/css/exercise/exerciseList.css";
+import "@/assets/css/exercise/exerciseBasket.css";
 import ExerciseListHeader from "@/components/exercise/ExerciseListHeader";
 import ExerciseListMain from "@/components/exercise/ExerciseListMain";
 import ExerciseListMenu from "@/components/exercise/ExerciseListMenu";

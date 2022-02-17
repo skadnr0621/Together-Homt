@@ -1,16 +1,17 @@
 <template>
   <div id="exercise-list-basket-header">
-    {{ timestamp }} 운동 장바구니
+    <div id="basket-title">
+      <p>오늘의 운동</p>
+      <p>{{ timestamp }}</p></div>
     <div>
-      <button v-on:click="DeleteStorage()">운동 전체삭제</button>
-      <button v-on:click="QuitExercise()">운동 종료</button>
-      <!-- 휴지통 아이콘으로 대체 -->
+      <!-- <button v-on:click="DeleteStorage()">운동 전체삭제</button> -->
+    <button v-on:click="QuitExercise()">운동 종료</button>
     </div>
   </div>
 </template>
 
 <script>
-import Feed from "@/views/main/feed/Feed";
+import { mapState } from 'vuex';
 
 export default {
   name: "Exerciselistbasketheader",
@@ -25,9 +26,8 @@ export default {
     },
     QuitExercise() {
       this.$router.push({
-        path: "/main/feed",
-        name: "Feed",
-        component: Feed,
+        name: "Profile",
+        params: { username: this.myInfo.username, email: this.myInfo.email },
       });
     },
   },
@@ -47,6 +47,10 @@ export default {
     const week = weekList[now.getDay()];
     this.timestamp = `${month} 월 ${date} 일 ${week}`;
   },
+
+  computed: {
+    ...mapState({ myInfo: (state) => state.myStore.myInfo }),
+  }
 };
 </script>
 

@@ -25,7 +25,7 @@ import "@/assets/css/admin/admin.css";
 import ProfileInfo from "@/components/profile/ProfileInfo";
 import ProfileFeedList from "@/components/profile/ProfileFeedList";
 import ProfileEditControl from "@/components/profile/ProfileEditControl";
-import axios from "axios";
+import api from "@/api/api.js";
 import { mapState, mapActions } from "vuex";
 
 export default {
@@ -54,7 +54,7 @@ export default {
     ...mapActions(["setMyInfo"]),
 
     adminFeeds() {
-      axios({
+      api({
         method: "get",
         url: `/feed/feeds/profiles/${this.myInfo.email}/temp`,
         headers: {
@@ -71,7 +71,7 @@ export default {
     },
 
     attendance() {
-      axios({
+      api({
         method: "get",
         url: "/exercise/attendance/absentees",
         headers: {
