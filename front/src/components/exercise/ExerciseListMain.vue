@@ -1,9 +1,6 @@
 <template>
   <div id="exercise-list-main">
     <div v-for="(exercise, index) in viewExercise" :key="index">
-      <<<<<<< HEAD =======
-      <!-- <div><img :src="require(`@/assets/푸쉬업.png`)" alt="푸쉬업" /></div> -->
-      >>>>>>> design_chan
       <span class="basket" @click="sendLocal(exercise)">{{ exercise }}</span>
     </div>
   </div>
