@@ -61,7 +61,7 @@ export default {
   created() {
     var vm = this;
     axios
-      .get("/feed/feeds/follower", {
+      .get("http://3.38.103.222:8092/feed/feeds/follower", {
         headers: {
           Authorization: sessionStorage.getItem("jwt"),
         },
