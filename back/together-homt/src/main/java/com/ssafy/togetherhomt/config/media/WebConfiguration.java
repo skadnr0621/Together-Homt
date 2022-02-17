@@ -12,20 +12,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class WebConfiguration implements WebMvcConfigurer {
 
-    @Autowired
     private GlobalConfig config;
 
-    @Bean
-    public GlobalConfig config(){
-        return new GlobalConfig();
+    @Autowired
+    public WebConfiguration(GlobalConfig config) {
+        this.config = config;
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String resourcePattern = config.getUploadResourcePath()+"**";
+        String resourcePattern = config.getResourcePath()+"**";
 
         registry.addResourceHandler(resourcePattern)
-                .addResourceLocations("file:///"+ config.getUploadFilePath());
+                .addResourceLocations("file:///"+ config.getUploadPath());
         System.out.println("resourcePattern = " + resourcePattern);
 
     }

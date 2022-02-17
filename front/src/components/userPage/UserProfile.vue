@@ -6,7 +6,11 @@
         :src="pictureUrl()"
         alt="유저 프로필 사진"
       />
-      <img v-else src="@/assets/profileBasic.png" alt="기본 프로필 사진" />
+      <img
+        v-else
+        src="https://cdn.pixabay.com/photo/2022/01/29/08/40/08-40-47-951_960_720.png"
+        alt="프로필 사진"
+      />
     </div>
     <div class="name">@{{ nickname }}</div>
   </div>
@@ -24,6 +28,7 @@ export default {
   },
   methods: {
     pictureUrl() {
+      console.log(this.myInfo.profile_url)
       return "http://localhost:8092" + this.myInfo.profile_url;
     },
   },

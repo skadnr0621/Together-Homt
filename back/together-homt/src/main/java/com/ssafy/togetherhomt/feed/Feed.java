@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ssafy.togetherhomt.baseEntity.BaseTimeEntity;
 import com.ssafy.togetherhomt.feed.comment.Comment;
 import com.ssafy.togetherhomt.feed.like.Like;
+import com.ssafy.togetherhomt.feed.tag.Tag;
 import com.ssafy.togetherhomt.user.User;
 import lombok.*;
 
@@ -24,25 +25,38 @@ public class Feed extends BaseTimeEntity {
     @Id
     @Column(name = "feed_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long feed_id;
+    private Long feedId;
 
+    @Column(name = "title")
     private String title;
 
+    @Column(name = "content")
     private String content;
 
-    private String media_url;
+    @Column(name = "media_url")
+    private String mediaUrl;
 
-    private Long like_cnt;
+    @Column(name = "like_cnt")
+    private Long likeCnt;
+
+    @Builder.Default
+    @ManyToMany
+    @JoinTable(name = "feed_tag",
+            joinColumns = @JoinColumn(name = "feed_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private List<Tag> tags = new ArrayList<Tag>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "feed")
+    @Builder.Default
+    @OneToMany(mappedBy = "feed",cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"feed"})
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "feed")
+    @Builder.Default
+    @OneToMany(mappedBy = "feed",cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"feed"})
     private List<Like> likes = new ArrayList<>();
 }

@@ -7,7 +7,7 @@
         </router-link>
       </li>
       <li class="menu-search">
-        <router-link :to="{ name: '' }">
+        <router-link :to="{ name: 'searchPage' }">
           <span class="material-icons" @click="changeMenu(1)"> search </span>
         </router-link>
       </li>
@@ -24,7 +24,7 @@
         </router-link>
       </li>
       <li class="menu-homt">
-        <router-link :to="{ name: '' }">
+        <router-link :to="{ name: 'ExerciseList' }">
           <span class="material-icons-outlined" @click="changeMenu(3)">
             fitness_center
           </span>
@@ -56,6 +56,7 @@ export default {
     };
   },
   methods: {
+    // 이전값이랑 비교?
     changeMenu(num) {
       for (let i = 0; i < 5; i++) {
         // 활성화색으로 바꾸기

@@ -11,25 +11,30 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "notification")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @Builder
 public class Notification {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "notification_id")
     private Long notificationId;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sender")
     private User sender;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "receiver")
     private User receiver;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "notification_type")
     private NotificationType notificationType;
 
     @CreationTimestamp
+    @Column(name = "sent_date")
     private LocalDateTime sentDate;
 
 }

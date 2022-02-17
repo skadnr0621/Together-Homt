@@ -1,24 +1,30 @@
 import MainPage from "@/views/MainPage";
-import Feed from "@/components/Feed";
+// import Feed from "@/components/Feed";
 import UserPage from "@/components/UserPage";
 import FollowPage from "@/components/FollowPage";
 import UserEditPage from "@/components/UserEditPage";
 import CalendarPage from "@/components/CalendarPage";
 import RegisterFeedPage from "@/components/RegisterFeedPage";
 import ChangePasswordPage from "@/components/ChangePasswordPage";
+import FeedDetailPage from "@/components/FeedDetailPage";
+import CommentPage from "@/components/CommentPage";
+import LikeListPage from "@/components/LikeListPage";
+
+import ExerciseList from "@/views/exercise/ExerciseList";
+import SearchPage from "@/views/search/SearchPage";
 
 export default {
   path: "/homet",
   component: MainPage,
   children: [
-    {
-      name: "Feed",
-      path: "feed",
-      component: Feed,
-    },
+    // {
+    //   name: "Feed",
+    //   path: "feed",
+    //   component: Feed,
+    // },
     {
       name: "UserPage",
-      path: ":userName",
+      path: "profile/:userName",
       component: UserPage,
       props: {
         default: true,
@@ -40,6 +46,17 @@ export default {
         default: true,
       },
     },
+
+    {
+      name: "ExerciseList",
+      path: "exerciselist",
+      component: ExerciseList,
+    },
+    {
+      name: "searchPage",
+      path: "search",
+      component: SearchPage,
+    },
     {
       name: "CalendarPage",
       path: "calendar/:userName",
@@ -58,8 +75,32 @@ export default {
     },
     {
       name: "ChangePasswordPage",
-      path: "/pw/:userName",
+      path: "pw/:userName",
       component: ChangePasswordPage,
+      props: {
+        default: true,
+      },
+    },
+    {
+      name: "FeedDetailPage",
+      path: "feed/:userName/:feedId",
+      component: FeedDetailPage,
+      props: {
+        default: true,
+      },
+    },
+    {
+      name: "CommentPage",
+      path: "feed/:userName/:feedId/comments",
+      component: CommentPage,
+      props: {
+        default: true,
+      },
+    },
+    {
+      name: "LikeListPage",
+      path: "feed/:userName/:feedId/like",
+      component: LikeListPage,
       props: {
         default: true,
       },

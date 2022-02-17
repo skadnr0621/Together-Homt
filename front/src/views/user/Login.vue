@@ -61,7 +61,7 @@ export default {
     return {
       user: {
         email: 'ohsg97@gmail.com',
-        password: 'aaasdf',
+        password: 'aaaddd',
       },
       errForm: {
         email: null,
