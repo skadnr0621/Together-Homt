@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "@/api/api.js";
 
 export default {
   namespaced: true,
@@ -35,7 +35,7 @@ export default {
   actions: {
     // 내 정보 조회해서 저장하기
     async setOtherInfo({ commit }, payload) {
-      return await axios
+      return await api
         .get(`/user/users/${payload.email}`, {
           headers: {
             Authorization: payload.token,
@@ -49,7 +49,7 @@ export default {
 
     // 나의 팔로워 + 팔로잉 조회해서 저장하기
     async setOtherFollows({ commit }, payload) {
-      return await axios
+      return await api
         .get(`/communication/follows/${payload.email}`, {
           headers: {
             Authorization: payload.token,
@@ -64,7 +64,7 @@ export default {
 
     // 나의 팔로워 조회해서 저장하기
     async setOtherFollowers({ commit }, payload) {
-      return await axios
+      return await api
         .get(`/communication/follows/${payload.email}/followers`, {
           headers: {
             Authorization: payload.token,
@@ -79,7 +79,7 @@ export default {
 
     // 나의 팔로잉 조회해서 저장하기
     async setOtherFollowings({ commit }, payload) {
-      return await axios
+      return await api
         .get(`/communication/follows/${payload.email}/followings`, {
           headers: {
             Authorization: payload.token,

@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import axios from "axios";
-axios.defaults.headers.common["Authorization"] = sessionStorage.getItem("jwt");
+import api from "@/api/api.js";
+api.defaults.headers.common["Authorization"] = sessionStorage.getItem("jwt");
 
 export default {
   name: "LikeList",

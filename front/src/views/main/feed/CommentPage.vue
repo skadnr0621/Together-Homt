@@ -10,7 +10,7 @@
 import CommentHeader from "@/components/CommentPage/CommentHeader";
 import CommentDetail from "@/components/CommentPage/CommentDetail";
 import CommentRegister from "@/components/CommentPage/CommentRegister";
-import axios from "axios";
+import api from "@/api/api.js";
 import "@/assets/css/CommentPage.css";
 
 export default {
@@ -23,7 +23,7 @@ export default {
   created() {
     const feedId = this.$route.query.feedId;
     console.log(feedId);
-    axios
+    api
       .get(`/feed/${feedId}/comments`, {
         headers: {
           Authorization: sessionStorage.getItem("jwt"),
@@ -49,7 +49,7 @@ export default {
       console.log(feedId);
       console.log(username);
 
-      axios
+      api
         .get(`/feed/${feedId}/comments`, {
           headers: {
             Authorization: sessionStorage.getItem("jwt"),
@@ -67,7 +67,7 @@ export default {
     },
     async onRegisterComment(value) {
       const feedId = this.myInfo.feeds[this.$route.params.feedId].feed_id;
-      await axios
+      await api
         .post(
           `/feed/${feedId}/comments`,
           { content: value, feed_id: feedId, username: this.myInfo.username },

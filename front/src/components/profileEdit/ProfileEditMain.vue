@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/api/api.js";
 import { mapState } from "vuex";
 
 export default {
@@ -89,7 +89,7 @@ export default {
         }
 
         // 프로필 편집하기
-        await axios
+        await api
           .put(`/user/users/${this.info.email}`, formData, {
             headers: {
               "Content-Type": "multipart/form-data",

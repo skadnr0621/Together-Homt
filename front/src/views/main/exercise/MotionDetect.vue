@@ -24,15 +24,13 @@
         <progress id="percent" :value="percent" max="1.00"></progress>
       </div>
     </div>
-
-   
   </div>
 </template>
 
 <script>
 import * as tmPose from "@teachablemachine/pose";
 import "@/assets/css/motiondetect.scss";
-import axios from "axios";
+import api from "@/api/api.js";
 
 let ctx, labelContainer, maxPredictions;
 
@@ -197,7 +195,6 @@ export default {
         this.percent = prediction[2].probability.toFixed(2);
       }
 
-
       this.drawPose(pose);
     },
 
@@ -273,7 +270,7 @@ export default {
 
     doneExercise() {
       if (this.success) {
-        axios({
+        api({
           method: "put",
           url: `/exercise/today-exercises/${this.exercise}?count-check=1`,
           header: { Authorization: sessionStorage.getItem("jwt") },
@@ -284,7 +281,6 @@ export default {
         alert("운동을 완료해주세요");
       }
     },
-
   },
 };
 </script>

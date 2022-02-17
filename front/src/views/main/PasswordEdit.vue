@@ -25,7 +25,7 @@
 
 <script>
 import { mapState } from "vuex";
-import axios from "axios";
+import api from "@/api/api.js";
 
 import "@/assets/css/passwordEdit.css";
 
@@ -50,7 +50,7 @@ export default {
 
     // 비밀번호 변경
     async changePassword() {
-      await axios
+      await api
         .post(`/user/login`, {
           email: this.loginUser,
           password: this.currentPassword,
@@ -62,7 +62,7 @@ export default {
           // 새 비밀번호 = 새 비밀번호 확인
           if (this.newPassword == this.confirmPassword) {
             // 비밀번호 변경하기
-            axios
+            api
               .put(
                 `/user/password`,
                 { newPassword: this.confirmPassword },

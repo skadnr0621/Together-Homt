@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/api/api.js";
 
 export default {
   name: "ProfileFollowControl",
@@ -23,7 +23,7 @@ export default {
   methods: {
     // 팔로우 하기
     async onFollow() {
-      await axios
+      await api
         .post(`/communication/follows/${this.email}`, null, {
           headers: {
             Authorization: this.token,
@@ -42,7 +42,7 @@ export default {
 
     // 언팔로우 하기
     async onUnFollow() {
-      await axios
+      await api
         .delete(`/communication/follows/${this.email}`, {
           headers: {
             Authorization: this.token,

@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/api/api.js";
 import { mapState } from "vuex";
 
 export default {
@@ -103,7 +103,7 @@ export default {
     async deleteUser() {
       console.log(sessionStorage.getItem("jwt"));
       if (confirm("정말 탈퇴하시겠습니까?")) {
-        await axios
+        await api
           .delete(`/user/account/withdrawal`, {
             headers: {
               // Authorization: sessionStorage.getItem("jwt"),
@@ -144,7 +144,7 @@ export default {
         }
 
         // 프로필 편집하기
-        await axios
+        await api
           .put(`/user/users/${this.info.email}`, formData, {
             headers: {
               "Content-Type": "multipart/form-data",

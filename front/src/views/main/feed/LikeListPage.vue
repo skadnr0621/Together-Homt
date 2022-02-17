@@ -8,7 +8,7 @@
 <script>
 // import LikeListHeader from "@/components/LikeListPage/LikeListHeader";
 import LikeList from "@/components/LikeListPage/LikeList";
-import axios from "axios";
+import api from "@/api/api.js";
 
 export default {
   name: "LikeListPage",
@@ -25,7 +25,7 @@ export default {
   created() {
     const feedId = this.$route.query.feedId;
     console.log(feedId);
-    axios
+    api
       .get(`/feed/${feedId}/likes`, {
         headers: {
           Authorization: sessionStorage.getItem("jwt"),

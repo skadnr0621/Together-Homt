@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/api/api.js";
 
 export default {
   name: "FindPW",
@@ -45,7 +45,7 @@ export default {
   methods: {
     sendPW: function () {
       console.log("임시비밀번호 찾기 요청 보냄!");
-      axios({
+      api({
         method: "patch",
         url: "/user/account/reset-password",
         data: this.emailFront + "@" + this.emailBack,

@@ -8,7 +8,7 @@
       <div class="input-with-label" id="short">
         <label for="nickname">닉네임</label>
         <input
-          class="signup-input-data "
+          class="signup-input-data"
           v-model="user.username"
           id="nickname"
           placeholder="닉네임을 3글자 이상 입력하세요."
@@ -22,7 +22,7 @@
 
         <input
           v-model="user.email"
-          class="signup-input-data "
+          class="signup-input-data"
           id="email"
           placeholder="이메일을 입력해주세요."
           type="text"
@@ -33,7 +33,7 @@
       <div class="input-with-label">
         <label for="input-confirmnum">인증번호</label>
         <input
-          class="signup-input-data "
+          class="signup-input-data"
           v-model="inputConfirmNum"
           id="input-confirmnum"
           placeholder="인증번호를 입력하세요."
@@ -78,22 +78,16 @@
         />
         <label for="passwordConfirm">비밀번호 확인</label>
       </div>
-      
+
       <!-- 이용약관 -->
       <div class="checkbox">
-        <input
-          class=""
-          type="checkbox"
-          id="checkbox"
-          v-model="checked"
-        />
+        <input class="" type="checkbox" id="checkbox" v-model="checked" />
         <label for="checkbox"
           ><strong>이용약관</strong> 및 <strong>개인정보 처리방침</strong>에
           동의합니다.</label
         >
       </div>
     </div>
-
 
     <!-- 회원가입 -->
     <div v-if="isSubmit" id="btn-status">
@@ -114,7 +108,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/api/api.js";
 
 export default {
   name: "Signup",
@@ -145,7 +139,7 @@ export default {
     // 회원가입
     Signup: function () {
       console.log(this.user);
-      axios({
+      api({
         method: "post",
         url: `/user/account/sign-up`,
         data: this.user,
@@ -161,7 +155,7 @@ export default {
     // 이메일 인증 발송
     sendConfirm: function () {
       if (this.user.email != null && this.user.email.includes("@")) {
-        axios({
+        api({
           method: "post",
           url: `/user/account/sign-up/confirm`,
           data: this.user.email,
@@ -243,4 +237,3 @@ export default {
   },
 };
 </script>
-

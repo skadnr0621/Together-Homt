@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import axios from "axios";
-axios.defaults.headers.common["Authorization"] = sessionStorage.getItem("jwt");
+import api from "@/api/api.js";
+api.defaults.headers.common["Authorization"] = sessionStorage.getItem("jwt");
 
 export default {
   name: "Commentdetail",
@@ -42,7 +42,7 @@ export default {
     //   console.log("삭제 요청");
     //   console.log(commentId);
     //   console.log(feedId);
-    //   axios
+    //   api
     //     .delete(`/feed/${feedId}/comments/${commentId}`)
     //     .then((res) => {
     //       alert("댓글 삭제");

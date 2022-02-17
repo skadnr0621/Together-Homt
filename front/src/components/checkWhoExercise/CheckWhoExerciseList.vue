@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/api/api.js";
 
 export default {
   name: "CheckWhoExerciseList",
@@ -42,7 +42,7 @@ export default {
   methods: {
     // 알림 보내기
     async sendNotification(name, email) {
-      await axios
+      await api
         .post(
           `/notification/notifications`,
           {
@@ -68,7 +68,7 @@ export default {
   },
   async mounted() {
     // 내가 팔로우한 사람의 명단 가져오기
-    await axios
+    await api
       .get(`/exercise/attendance/followings/absentees`, {
         headers: {
           Authorization: this.token,

@@ -1,5 +1,5 @@
-import axios from "axios";
-const config = { Authorization : sessionStorage.getItem("jwt") }
+import api from "@/api/api.js";
+const config = { Authorization: sessionStorage.getItem("jwt") };
 
 export default {
   namespaced: true,
@@ -10,25 +10,24 @@ export default {
 
   mutations: {
     async GET_GROUP_MEMBERS(state, groupMembers) {
-      state.groupMembers = groupMembers
-    }
+      state.groupMembers = groupMembers;
+    },
   },
 
   actions: {
-    async getGroupMembers({commit}, groupId) {
-      return await 
-      axios({
+    async getGroupMembers({ commit }, groupId) {
+      return await api({
         method: "get",
         url: `/group/groups/${groupId}/members`,
-        headers: config
+        headers: config,
       })
-      .then((res) => {
-        console.log(res.data)
-        commit("GET_GROUP_MEMBERS", res.data);
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+        .then((res) => {
+          console.log(res.data);
+          commit("GET_GROUP_MEMBERS", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

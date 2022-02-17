@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import axios from "axios";
-const server = "http://localhost:8092";
+import api from "@/api/api.js";
+const server = "http://3.38.103.222:8092";
 
 export default {
   name: "SearchList",
@@ -75,7 +75,7 @@ export default {
     },
   },
   mounted() {
-    axios({
+    api({
       method: "get",
       url: `/feed/feeds/search`,
       headers: {

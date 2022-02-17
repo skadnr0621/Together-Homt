@@ -113,10 +113,10 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/api/api.js";
 import { mapState } from "vuex";
 import "@/assets/css/search/searchFeedsDetail.css";
-axios.defaults.headers.common["Authorization"] = sessionStorage.getItem("jwt");
+api.defaults.headers.common["Authorization"] = sessionStorage.getItem("jwt");
 
 export default {
   name: "ProfileFeedDetailMain",
@@ -154,7 +154,7 @@ export default {
 
     // 좋아요 등록
     async likeFeed(feedId, index) {
-      await axios
+      await api
         .post(`/feed/${feedId}/likes`)
         .then(() => {
           this.$store.dispatch("feedStore/updateSearchFeeds", {
@@ -172,7 +172,7 @@ export default {
 
     // 좋아요 취소
     async unlikeFeed(feedId, index) {
-      await axios
+      await api
         .delete(`/feed/${feedId}/likes`)
         .then(() => {
           this.$store.dispatch("feedStore/updateSearchFeeds", {

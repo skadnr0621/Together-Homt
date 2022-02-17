@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/api/api.js";
 
 import { mapState } from "vuex";
 
@@ -44,7 +44,7 @@ export default {
     // 알림 삭제
     async deleteNotification(id, index) {
       if (confirm("알림을 삭제하시겠습니까?")) {
-        await axios
+        await api
           .delete(`/notification/notifications/${id}`, {
             headers: {
               Authorization: this.token,

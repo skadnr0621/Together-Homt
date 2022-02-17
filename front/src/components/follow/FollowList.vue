@@ -187,7 +187,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/api/api.js";
 
 import { mapState } from "vuex";
 
@@ -223,7 +223,7 @@ export default {
 
     // 팔로우 하기
     async onFollow(email) {
-      await axios
+      await api
         .post(`/communication/follows/${email}`, null, {
           headers: {
             Authorization: this.token,
@@ -243,7 +243,7 @@ export default {
 
     // 언팔로우 하기
     async onUnfollow(email) {
-      await axios
+      await api
         .delete(`/communication/follows/${email}`, {
           headers: {
             Authorization: this.token,

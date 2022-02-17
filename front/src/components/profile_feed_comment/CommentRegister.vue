@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/api/api.js";
 
 export default {
   name: "CommentRegister",
@@ -33,7 +33,7 @@ export default {
   props: ["myInfo"],
   methods: {
     async registerComment() {
-      await axios
+      await api
         .post(
           `/feed/${this.$route.params.feedId}/comments`,
           { content: this.comment },

@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/api/api.js";
 
 export default {
   name: "ProfileFeedDetailMain",
@@ -117,7 +117,7 @@ export default {
     // 피드 삭제
     async deleteFeed(feedId) {
       if (confirm("정말 삭제하시겠습니까?")) {
-        await axios
+        await api
           .delete(`/feed/feeds/${feedId}`, {
             headers: {
               Authorization: this.token,
@@ -139,7 +139,7 @@ export default {
 
     // 좋아요 등록
     async likeFeed(feedId) {
-      await axios
+      await api
         .post(`/feed/${feedId}/likes`, null, {
           headers: {
             Authorization: this.token,
@@ -159,7 +159,7 @@ export default {
 
     // 좋아요 취소
     async unlikeFeed(feedId) {
-      await axios
+      await api
         .delete(`/feed/${feedId}/likes`, {
           headers: {
             Authorization: this.token,

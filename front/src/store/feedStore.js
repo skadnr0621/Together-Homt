@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "@/api/api.js";
 
 export default {
   namespaced: true,
@@ -50,7 +50,7 @@ export default {
   actions: {
     // 피드 조회해서 저장하기
     async setFeedsInfo({ commit }, payload) {
-      return await axios
+      return await api
         .get(`/feed/feeds/profiles/${payload.email}/temp`, {
           headers: {
             Authorization: payload.token,
@@ -64,7 +64,7 @@ export default {
 
     // 상세 피드 조회해서 저장하기
     async setFeedInfo({ commit }, payload) {
-      return await axios
+      return await api
         .get(`/feed/feeds/${payload.feedId}`, {
           headers: {
             Authorization: payload.token,
@@ -78,7 +78,7 @@ export default {
 
     // 댓글 조회해서 저장하기
     async setCommentInfo({ commit }, payload) {
-      return await axios
+      return await api
         .get(`/feed/${payload.feedId}/comments`, {
           headers: {
             Authorization: payload.token,
@@ -93,7 +93,7 @@ export default {
 
     // 좋아요 조회해서 저장하기
     async setLikeInfo({ commit }, payload) {
-      return await axios
+      return await api
         .get(`/feed/${payload.feedId}/likes`, {
           headers: {
             Authorization: payload.token,
@@ -113,7 +113,7 @@ export default {
 
     // 검색 피드 갱신
     updateSearchFeeds({ commit }, payload) {
-      axios({
+      api({
         method: "get",
         url: `/feed/feeds/${payload.feedId}`,
         headers: {
@@ -130,7 +130,7 @@ export default {
     // 검색 피드 삭제
     searchFeedsDelete({ commit }, payload) {
       console.log(payload);
-      axios({
+      api({
         method: "delete",
         url: `/feed/feeds/${payload.feedId}`,
         headers: {

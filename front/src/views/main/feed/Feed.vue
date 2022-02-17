@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/api/api.js";
 import THpost from "@/components/feed/THpost";
 
 export default {
@@ -60,7 +60,7 @@ export default {
   },
   created() {
     var vm = this;
-    axios
+    api
       .get("http://3.38.103.222:8092/feed/feeds/follower", {
         headers: {
           Authorization: sessionStorage.getItem("jwt"),

@@ -105,8 +105,8 @@
 </template>
 
 <script>
-import axios from "axios";
-axios.defaults.headers.common["Authorization"] = sessionStorage.getItem("jwt");
+import api from "@/api/api.js";
+api.defaults.headers.common["Authorization"] = sessionStorage.getItem("jwt");
 
 import "@/assets/css/THpost.css";
 
@@ -132,7 +132,7 @@ export default {
 
     //좋아요
     async likeFeed(feedId) {
-      await axios
+      await api
         .post(`/feed/${feedId}/likes`, null, {
           headers: {
             Authorization: this.token,
@@ -152,7 +152,7 @@ export default {
 
     // 좋아요 취소
     async unlikeFeed(feedId) {
-      await axios
+      await api
         .delete(`/feed/${feedId}/likes`, {
           headers: {
             Authorization: this.token,

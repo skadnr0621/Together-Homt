@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/api/api.js";
 
 export default {
   name: "CommentMain",
@@ -59,7 +59,7 @@ export default {
     // 댓글 삭제
     async deleteComment(feedId, commentId) {
       if (confirm("정말 삭제하시겠습니까?")) {
-        await axios
+        await api
           .delete(`/feed/${feedId}/comments/${commentId}`, {
             headers: {
               Authorization: this.token,

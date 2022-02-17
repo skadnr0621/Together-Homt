@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/api/api.js";
 import { mapState } from "vuex";
 
 export default {
@@ -43,7 +43,7 @@ export default {
     ...mapState({ loginUser: (state) => state.userStore.LoginUser }),
   },
   async created() {
-    await axios
+    await api
       .get(`/exercise/records/${this.loginUser}`, {
         headers: {
           Authorization: this.token,
