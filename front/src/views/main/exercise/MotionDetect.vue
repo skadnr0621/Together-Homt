@@ -106,9 +106,13 @@ export default {
       const size = 400;
       const flip = true; // whether to flip the webcam
       this.webcam = new tmPose.Webcam(size, size, flip); // width, height, flip
+
+      console.log("1");
+      console.log(this.webcam);
       await this.webcam.setup(); // request access to the webcam
       await this.webcam.play();
 
+      console.log("2");
       window.requestAnimationFrame(this.loop);
 
       const canvas = document.getElementById("canvas");
@@ -116,11 +120,12 @@ export default {
       canvas.height = size;
       ctx = canvas.getContext("2d");
       labelContainer = document.getElementById("label-container");
-
+      console.log("3");
       maxPredictions = this.model.getTotalClasses();
       for (let i = 0; i < maxPredictions; i++) {
         labelContainer.appendChild(document.createElement("div"));
       }
+      console.log("4");
     },
 
     async loop() {
