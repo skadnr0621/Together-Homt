@@ -48,6 +48,20 @@ export default {
   },
 
   actions: {
+    // 팔로우 기반 피드 조회해서 저장하기
+    async setFollowFeedsInfo({ commit }, payload) {
+      return await api
+        .get("/feed/feeds/follower", {
+          headers: {
+            Authorization: payload.token,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          commit("SET_FEEDS_INFO", res.data);
+        });
+    },
+
     // 피드 조회해서 저장하기
     async setFeedsInfo({ commit }, payload) {
       return await api

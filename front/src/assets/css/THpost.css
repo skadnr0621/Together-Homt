@@ -1,114 +1,191 @@
-.print {
-  border: 1px solid black;
-  margin: 20px;
-}
-.print > .header-level > div {
+#feed {
+  width: 100%;
+  height: 100%;
   display: flex;
+  flex-direction: column;
 }
-.th-post > .print > .header-level > div > #img {
+
+/* Container */
+#feed > .th-post {
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  padding-bottom: 120px;
+
+  overflow: scroll;
+}
+
+#feed > .th-post > .print {
+  width: 100%;
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(80px);
+  border-radius: 12px;
+
+  margin-bottom: 30px;
+}
+
+/* 사용자 프로필 */
+#feed > .th-post > .print > .header-level {
+  display: flex;
+  height: 50px;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+#feed > .th-post > .print > .header-level > div {
+  display: flex;
+  align-items: center;
+}
+
+#feed > .th-post > .print > .header-level > div > #img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
 }
-.th-post > .print > .header-level > div > #usrnm {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
-}
-.th-post > .print > .header-level > div > div > img {
+
+#feed > .th-post > .print > .header-level > div > #img > img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
 }
-.th-post > .print > .feed-image > .feed-image-container {
-  margin-left: 5px;
+
+#feed > .th-post > .print > .header-level > div > #usrnm {
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* 피드 이미지 */
+#feed > .th-post > .print > .feed-image {
   width: 100%;
-  height: 100%;
 }
-.th-post > .print > .feed-image > .feed-image-container > .img {
+
+#feed > .th-post > .print > .feed-image > .feed-image-container {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
-.th-post > .print > .feed-image > .feed-image-container2 {
-  margin-left: 5px;
-}
-.th-post > .print > .feed-image > .feed-image-container2 > .img {
+
+#feed > .th-post > .print > .feed-image > .feed-image-container > img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
-.print > .header-level > div > div {
-  margin: 5px;
+
+#feed > .th-post > .print > .feed-image > .feed-image-container > video {
+  width: 100%;
 }
-.print > .header-level > div > div {
-  margin: 5px;
-}
-.th-post > .print > .feed-content > .imoticon {
+
+/* 피드 메뉴바 좋아요, 댓글 */
+#feed > .th-post > .print > .feed-detail-menu {
   display: flex;
-  margin: 5px;
+  align-items: center;
+  height: 44px;
+  padding: 0 10px;
 }
-.th-post > .print > .feed-content > .imoticon > .heart {
+
+#feed > .th-post > .print > .feed-detail-menu > div {
+  height: 24px;
+  width: 24px;
+  margin-right: 14px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* 피드 내용 - 좋아요 개수, 피드 내용, 댓글 */
+#feed > .th-post > .print > .feed-detail-content {
+  padding: 0 10px;
   display: flex;
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  margin: 3px;
-  margin-right: 15px;
+  flex-direction: column;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.87);
 }
-.th-post > .print > .feed-content > .imoticon > .heart2 {
+
+/* 좋아요 */
+#feed > .th-post > .print > .feed-detail-content > div:nth-child(1) {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* 닉네임 내용 */
+#feed > .th-post > .print > .feed-detail-content > div:nth-child(2) {
   display: flex;
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  margin: 3px;
-  margin-right: 15px;
 }
-.th-post > .print > .feed-content > .imoticon > .speech {
-  display: flex;
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  margin: 3px;
+
+#feed > .th-post > .print > .feed-detail-content > div:nth-child(2) > div {
+  margin-right: 5px;
 }
-.th-post > .print > .feed-content > .likes > #click-likes {
-  margin: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  cursor: pointer;
+
+#feed
+  > .th-post
+  > .print
+  > .feed-detail-content
+  > div:nth-child(2)
+  > div:nth-child(2)
+  > span {
+  color: rgba(0, 0, 0, 0.38);
 }
-.th-post > .print > .feed-content > .caption > .username {
-  margin-left: 5px;
-  cursor: pointer;
+
+/* 댓글 */
+#feed > .th-post > .print > .feed-detail-content > div:nth-child(3) {
+  color: rgba(0, 0, 0, 0.38);
 }
-.th-post > .print > .feed-content > .caption > .caption-content > .detail {
-  margin-left: 5px;
-  cursor: pointer;
+
+/* 피드 게시 날짜 */
+#feed > .th-post > .print > .feed-detail-date {
+  padding: 10px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.38);
 }
-.th-post > .print > .feed-content > .caption > .caption-content {
-  margin-left: 5px;
-  cursor: pointer;
+
+/* 736px 이상일 경우 적용되는 코드 */
+@media (min-width: 736px) {
+  #feed > .th-post {
+    padding-top: 32px;
+  }
+
+  #feed > .th-post > .print > .header-level {
+    height: 70px;
+  }
+
+  #feed > .th-post > .print > .feed-detail-menu {
+    height: 50px;
+  }
+
+  #feed > .th-post > .print > .feed-detail-content > div:nth-child(1) {
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+
+  #feed > .th-post > .print > .feed-detail-date {
+    margin-top: 6px;
+  }
 }
-.th-post > .print > .feed-content > .caption > .caption-content2 {
-  margin-left: 5px;
-  cursor: pointer;
-}
-.th-post > .print > .comments {
-  margin-left: 5px;
-  cursor: pointer;
-}
-.th-post > .print > .Tags {
-  margin-left: 5px;
-}
-.th-post > .print > .createTime {
-  margin-left: 5px;
-  font-size: 0.8em;
-  color: grey;
-}
-.th-post > .print > .createTime2 > #font {
-  margin-left: 5px;
-  font-size: 0.8em;
-  color: grey;
+
+/* 1024px 이상일 경우 적용되는 코드 */
+@media (min-width: 1024px) {
+  #feed > .th-post > .print > .header-level {
+    height: 80px;
+  }
+
+  #feed > .th-post > .print > .header-level > div > #img {
+    width: 60px;
+    height: 60px;
+  }
+
+  #feed > .th-post > .print > .feed-detail-menu {
+    height: 56px;
+  }
+
+  #feed > .th-post > .print > .feed-detail-content > div:nth-child(1) {
+    font-weight: bold;
+    margin-bottom: 22px;
+  }
+
+  #feed > .th-post > .print > .feed-detail-date {
+    margin-top: 12px;
+  }
 }

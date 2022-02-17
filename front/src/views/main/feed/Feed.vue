@@ -1,92 +1,42 @@
 <template>
   <div id="feed">
-    <THpost :tmp="tmp"></THpost>
-    <!-- <router-link
-      :to="{
-        name: 'Profile',
-        params: { userName: `aaa`, email: `aaa@aaa.com` },
-      }"
-    >
-      aaa
-    </router-link>
-    <router-link
-      :to="{
-        name: 'Profile',
-        params: { userName: `bbb`, email: `bbb@bbb.com` },
-      }"
-    >
-      bbb
-    </router-link>
-    <router-link
-      :to="{
-        name: 'Profile',
-        params: { userName: `ccc`, email: `ccc@ccc.com` },
-      }"
-    >
-      ccc
-    </router-link>
-    <router-link
-      :to="{
-        name: 'Profile',
-        params: { userName: `ddd`, email: `ddd@ddd.com` },
-      }"
-    >
-      ddd
-    </router-link>
-    <router-link
-      :to="{
-        name: 'Profile',
-        params: { userName: `eee`, email: `eee@eee.com` },
-      }"
-    >
-      eee
-    </router-link> -->
+    <THpost />
   </div>
 </template>
 
 <script>
-import api from "@/api/api.js";
 import THpost from "@/components/feed/THpost";
+
+import { mapState } from "vuex";
 
 export default {
   name: "Feed",
   data: () => {
     return {
-      tmp: [],
+      token: sessionStorage.getItem("jwt"),
     };
   },
   components: {
     THpost,
   },
-  created() {
-    var vm = this;
-    api
-      .get("http://3.38.103.222:8092/feed/feeds/follower", {
-        headers: {
-          Authorization: sessionStorage.getItem("jwt"),
-        },
-      })
-      .then((res) => {
-        vm.tmp = res.data;
-        console.log(vm.tmp);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  computed: {
+    // 로그인한 사용자 이메일 가져오기
+    ...mapState({ loginUser: (state) => state.userStore.LoginUser }),
   },
-  computed: {},
-  methods: {},
+  async mounted() {
+    // 내 정보 가져오기
+    await this.$store.dispatch("myStore/setMyInfo", {
+      email: this.loginUser,
+      token: this.token,
+    });
+
+    //팔로우 기반 피드 리스트 가져오기
+    await this.$store.dispatch("feedStore/setFollowFeedsInfo", {
+      email: this.email,
+      token: this.token,
+    });
+  },
 };
 </script>
 
-<style lang="scss" scoped>
-#feed {
-  position: fixed;
-  top: 45px;
-  left: 0;
-  right: 0;
-  bottom: 45px;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.025);
-}
-</style>
+<style lang="scss" scoped></style>

@@ -1,6 +1,6 @@
 <template>
   <div class="th-post">
-    <div class="print" v-for="(item, index) in tmp" v-bind:key="index">
+    <div class="print" v-for="(item, index) in feedsInfo" v-bind:key="index">
       <!-- re:사용자 프로필, 삭제 버튼 -->
       <div class="header-level">
         <div>
@@ -14,97 +14,74 @@
 
       <!-- re: 피드 이미지 -->
       <div class="feed-image">
-        <div class="feed-image-container" v-if="item.mediaUrl == null">
-          <img :src="item.mediaUrl" alt="피드 기본 이미지" />
-        </div>
-        <div class="feed-image-container2" v-else>
-          <img :src="item.mediaUrl" alt="피드 저장 이미지" />
+        <div class="feed-image-container">
+          <video
+            v-if="isVideo(item.mediaUrl)"
+            :src="item.mediaUrl"
+            alt=""
+            autoplay
+            controls
+            muted
+          />
+          <img v-else :src="item.mediaUrl" alt="" />
         </div>
       </div>
-      <!-- re: 피드 컨텐츠 - 좋아요 개수, 피드 내용, 댓글 -->
-      <div class="feed-content">
-        <div class="imoticon">
-          <!-- 좋아요 이모티콘-->
-          <div class="heart" v-if="item.likeStatus">
-            <i
-              class="fa-solid fa-heart fa-2x"
-              @click="unlikeFeed(item.feedId)"
-            ></i>
-          </div>
-          <div class="heart2" v-else>
-            <i
-              class="fa-regular fa-heart fa-2x"
-              @click="likeFeed(item.feedId)"
-            ></i>
-          </div>
-          <!-- 댓글 이모티콘 -->
-          <div class="speech">
-            <i
-              class="fa-regular fa-comment fa-2x"
-              @click="goComment(item.username, item.email, item.feedId)"
-            ></i>
-          </div>
-        </div>
 
-        <!-- 좋아요 -->
-        <div class="likes">
-          <div
-            id="click-likes"
-            v-if="item.likeCnt == null"
-            @click="golikeList(item.username, item.email, item.feedId)"
+      <!-- 피드 메뉴바 (좋아요, 댓글, 스크랩) -->
+      <div class="feed-detail-menu">
+        <div>
+          <span
+            v-if="item.likeStatus"
+            class="material-icons-outlined"
+            @click="unlikeFeed(item.feedId)"
           >
-            제일 먼저 좋아요를 눌러보세요.
-          </div>
-          <div
-            id="click-likes"
+            favorite
+          </span>
+          <span
             v-else
-            @click="golikeList(item.username, item.email, item.feedId)"
+            class="material-icons-outlined"
+            @click="likeFeed(item.feedId)"
           >
-            좋아요 {{ item.likeCnt }} 개
-          </div>
+            favorite_border
+          </span>
         </div>
-
-        <!-- 피드 내용 -->
-        <div class="caption">
-          <div class="username">{{ item.username }}</div>
-          <div
-            class="caption-content"
-            v-if="item.content.length > 15"
-            @click="goCaptionDetail(item.username, item.email, item.feedId)"
+        <div>
+          <span
+            class="material-icons-outlined"
+            @click="goComment(item.username, item.email, item.feedId)"
           >
-            {{ item.content.substring(0, 15) }}
-            <span
-              class="detail"
-              @click="goCaptionDetail(item.username, item.email, item.feedId)"
-              >...더보기</span
-            >
-          </div>
-          <div class="caption-content2" v-else>
+            comment
+          </span>
+        </div>
+      </div>
+
+      <!-- 피드 내용 (좋아요 개수, 피드 내용, 댓글) -->
+      <div class="feed-detail-content">
+        <div v-if="item.likeCnt == 0">가장 먼저 좋아요를 눌러보세요.</div>
+        <div v-else @click="goLikeList(item.username, item.email, item.feedId)">
+          좋아요 {{ item.likeCnt }}개
+        </div>
+        <div>
+          <div>
             {{ item.content }}
           </div>
         </div>
+        <div @click="goComment(item.username, item.email, item.feedId)">
+          댓글 ??개 모두 보기
+        </div>
       </div>
-      <div
-        class="comments"
-        @click="goComment(item.username, item.email, item.feedId)"
-      >
-        전체 댓글 보기
-      </div>
-      <div class="Tags">태그 #{{ item.tags }}</div>
 
-      <!--피드 게시 날짜 -->
-      <div class="createTime" v-if="item.createdAt != null">
+      <!-- 피드 게시 날짜-->
+      <div class="feed-detail-date">
         {{ item.createdAt[0] }}년 {{ item.createdAt[1] }}월
         {{ item.createdAt[2] }}일
-      </div>
-      <div class="createTime2" v-else>
-        <font id="font">생성날짜가 없습니다.</font>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import api from "@/api/api.js";
 api.defaults.headers.common["Authorization"] = sessionStorage.getItem("jwt");
 
@@ -115,13 +92,31 @@ export default {
   data() {
     return {
       token: sessionStorage.getItem("jwt"),
-      email: this.$route.params.email,
-      name: this.$route.params.userName,
     };
   },
-  props: ["info", "feedInfo", "isDelete", "tmp"],
-  computed: {},
+  computed: {
+    // 로그인한 사용자 이메일 가져오기
+    ...mapState({ loginUser: (state) => state.userStore.LoginUser }),
+
+    // 내 정보
+    ...mapState({ myInfo: (state) => state.myStore.myInfo }),
+
+    // 피드 정보
+    ...mapState({ feedsInfo: (state) => state.feedStore.feedsInfo }),
+  },
   methods: {
+    // 확장자 체크하기
+    isVideo(fileName) {
+      let fileLength = fileName.length;
+      let lastDot = fileName.lastIndexOf(".");
+
+      const name = fileName.substring(lastDot + 1, fileLength).toLowerCase();
+
+      if (name == "png" || name == "jpg" || name == "gif" || name == "jpeg")
+        return false;
+      else return true;
+    },
+
     //프로필 이동
     goProfile(name, email) {
       this.$router.push({
@@ -170,22 +165,12 @@ export default {
       this.$router.go();
     },
 
-    // goComment(name, email, id) {
-    //   this.$router.push({
-    //     name: "CommentPage",
-    //     query: {
-    //       feedId: this.tmp.feedId,
-    //       username: this.tmp.username,
-    //     },
-    //   });
-    // },
     // 피드 댓글 이동
     goComment(name, email, id) {
       this.$router.push({
         name: "ProfileFeedComment",
         params: { userName: name, email: email, feedId: id },
       });
-      this.$router.go();
     },
 
     //좋아요 리스트 조회
