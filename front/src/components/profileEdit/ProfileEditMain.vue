@@ -67,7 +67,7 @@ export default {
       reader.readAsDataURL(this.editProfile);
     },
   },
-  created() {
+  mounted() {
     this.info = this.myInfo;
     this.info.imagePath = "http://3.38.103.222:8092".concat(
       this.info.imagePath

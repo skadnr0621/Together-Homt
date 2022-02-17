@@ -4,16 +4,7 @@
       <div id="profile-edit-main">
         <div class="profile">
           <div class="view">
-            <img
-              v-if="info.imagePath"
-              :src="info.imagePath"
-              alt="프로필 사진"
-            />
-            <img
-              v-else
-              src="https://cdn.pixabay.com/photo/2022/01/29/08/40/basic-6976744_960_720.png"
-              alt="프로필 사진"
-            />
+            <img :src="info.imagePath" alt="프로필 사진" />
           </div>
           <div class="edit">
             <label for="upload_profile">프로필 사진 바꾸기</label>
@@ -129,6 +120,7 @@ export default {
   },
   mounted() {
     this.info = this.myInfo;
+    this.info.imagePath = "http://3.38.103.222:8092" + this.info.imagePath;
   },
   watch: {
     async isEdit(value) {
