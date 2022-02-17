@@ -67,9 +67,10 @@ export default {
       reader.readAsDataURL(this.editProfile);
     },
   },
-  mounted() {
+  created() {
     this.info = this.myInfo;
     this.info.imagePath = "http://3.38.103.222:8092" + this.info.imagePath;
+    console.log(this.info.imagePath);
   },
   watch: {
     async isEdit(value) {
