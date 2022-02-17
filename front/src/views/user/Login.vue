@@ -81,12 +81,9 @@ export default {
     // put : 데이터 modify
     // delete : 데이터 delete
 
-    Login: async function () {
-      await axios({
-        method: "post",
-        url: `/user/account/login`,
-        data: this.user,
-      })
+Login: async function () {
+      await axios
+        .post(`/user/account/login`, this.user)
         .then((res) => {
           const token = res.headers.authorization;
 
@@ -101,6 +98,25 @@ export default {
           this.user.email = "";
           this.user.password = "";
         });
+      // await axios({
+      //   method: "post",
+      //   url: `/user/account/login`,
+      //   data: this.user,
+      // })
+      //   .then((res) => {
+      //     const token = res.headers.authorization;
+
+      //     sessionStorage.setItem("jwt", token);
+
+      //     this.$store.dispatch("userStore/getLoginUser", this.user.email); //로그인 응답으로 username 받음
+      //     this.$router.push({ name: "Feed" });
+      //   })
+      //   .catch((err) => {
+      //     // 어떤 에러냐에 따라 문구 변경
+      //     alert(err);
+      //     this.user.email = "";
+      //     this.user.password = "";
+      //   });
     },
 
     // socialLogin: function () {
