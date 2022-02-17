@@ -15,6 +15,9 @@ public class FeedProfileDto {
     @ApiParam(value = "피드아이디")
     private Long feedId;
 
+    @ApiParam(value = "이메일")
+    private String email;
+
     @ApiParam(value = "피드사진")
     private String mediaUrl;
 

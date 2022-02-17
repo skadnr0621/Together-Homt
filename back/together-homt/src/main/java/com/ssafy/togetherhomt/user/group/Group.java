@@ -22,16 +22,20 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long groupId;
 
+    @Column(name = "main_category")
     private String mainCategory;
 
+    @Column(name = "middle_category")
     private String middleCategory;
 
+    @Column(name = "sub_category")
     private String subCategory;
 
+    @Column(name = "name")
     private String name;
 
     @OneToMany(mappedBy = "group")
     @JsonIgnoreProperties({"group"})
-    private List<User> users;
+    private List<User> members;
 
 }

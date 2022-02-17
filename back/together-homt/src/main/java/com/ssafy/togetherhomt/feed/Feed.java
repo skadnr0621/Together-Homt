@@ -27,14 +27,19 @@ public class Feed extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long feedId;
 
+    @Column(name = "title")
     private String title;
 
+    @Column(name = "content")
     private String content;
 
+    @Column(name = "media_url")
     private String mediaUrl;
 
+    @Column(name = "like_cnt")
     private Long likeCnt;
 
+    @Builder.Default
     @ManyToMany
     @JoinTable(name = "feed_tag",
             joinColumns = @JoinColumn(name = "feed_id"),
@@ -45,11 +50,13 @@ public class Feed extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "feed")
+    @Builder.Default
+    @OneToMany(mappedBy = "feed",cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"feed"})
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "feed")
+    @Builder.Default
+    @OneToMany(mappedBy = "feed",cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"feed"})
     private List<Like> likes = new ArrayList<>();
 }

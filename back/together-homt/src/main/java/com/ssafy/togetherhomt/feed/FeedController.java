@@ -35,7 +35,7 @@ public class FeedController {
             @ApiResponse(code = 500, message = "서버 에러입니다.")
     })
     @PostMapping("/feeds")
-    public ResponseEntity<?> postFeed(@ModelAttribute("file") FeedDto feedDto, TagDto tagDto){
+    public ResponseEntity<?> postFeed(@ModelAttribute FeedDto feedDto, TagDto tagDto){
         return feedService.postFeed(feedDto,tagDto);
     }
 
@@ -64,9 +64,19 @@ public class FeedController {
             @ApiResponse(code = 200, message = "요청한 사용자의 피드 조회에 성공하였습니다."),
             @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
     })
-    @GetMapping("/feeds/{email}")
+    @GetMapping("/feeds/profiles/{email}")
     public ResponseEntity<List<FeedDto>> getProfileFeeds(@PathVariable String email) {
         return ResponseEntity.ok(feedService.getProfileFeeds(email));
+    }
+
+    @ApiOperation(value = "피드 개별 조회", notes = "개별 피드를 조회합니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "피드 조회에 성공하였습니다."),
+            @ApiResponse(code = 500, message = "서버에러가 발생했습니다.")
+    })
+    @GetMapping("/feeds/{feed_id}")
+    public FeedListDto getFeed(@PathVariable("feed_id") Long feedId) {
+        return feedService.getFeed(feedId);
     }
 
     @ApiOperation(value = "피드리스트 조회(검색)", notes = "전체 피드리스트(검색)")
@@ -84,7 +94,7 @@ public class FeedController {
             @ApiResponse(code = 200, message = "유저가 작성한 피드 리스트 조회 성공"),
             @ApiResponse(code = 500, message = "서버 에러입니다.")
     })
-    @GetMapping("/feeds/{email}/temp")
+    @GetMapping("/feeds/profiles/{email}/temp")
     public ResponseEntity<List<FeedProfileDto>> getProfileFeeds_temp(@PathVariable String email) {
         return ResponseEntity.ok(feedService.getProfileFeeds_temp(email));
     }
@@ -94,7 +104,7 @@ public class FeedController {
             @ApiResponse(code = 200, message = "피드 수정에 성공하였습니다."),
             @ApiResponse(code = 500, message = "서버 에러입니다.")
     })
-    @GetMapping("/feeds/{feed_id}")
+    @GetMapping("/feeds/{feed_id}/temp")
     public ResponseEntity<?> getUpdateFeedInfo(@PathVariable Long feed_id){
         return ResponseEntity.ok(feedService.getUpdateFeedInfo(feed_id));
     }

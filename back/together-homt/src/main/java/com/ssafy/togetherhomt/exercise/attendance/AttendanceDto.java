@@ -13,6 +13,8 @@ public class AttendanceDto {
 
     private String username;
 
+    private String email;
+
     private String image;
 
     private Boolean done;
