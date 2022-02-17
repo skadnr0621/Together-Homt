@@ -1,17 +1,22 @@
 <template>
-  <div>
-    <div @click="$router.go(-1)">back</div>
-    <h1>AdminRegister</h1>
+  <div id="admin-register">
+    <span @click="$router.go(-1)" 
+    id="back"
+    class="material-icons-outlined">arrow_back_ios</span>
+    <h1>미퇴실자 명단</h1>
     <div>
-    <canvas id="canvas" width="auto" height="auto"></canvas>
-    <button @click="attendance()">미퇴실 명단</button>
-    <img id="image" src="" alt="">
+    <div id="make-image">
+      <canvas id="canvas"></canvas>
+      <button @click="attendance()">미퇴실 명단 다운로드</button>
+    </div>
 </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import '@/assets/css/admin/adminRegister.css'
+import { mapActions } from 'vuex';
 
 export default {
   name: "AdminRegister",
@@ -21,6 +26,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      "setMyInfo",
+    ]),
     attendance() {
       axios({
         method: 'get',
@@ -32,7 +40,9 @@ export default {
       .then((res) => {
         var arr = []
         for (let student of res.data) {
-          arr.push(student.username)
+          if (student.username != 'admin') {
+            arr.push(student.username)
+          }
         }
         this.absent = arr
         console.log(this.absent)
@@ -46,9 +56,9 @@ export default {
         var ctx = canvas.getContext('2d');
         ctx.font = '20px serif';
         ctx.fillStyle = 'rgb(204,229,255)';
-        ctx.fillRect(0, 0, 200, 500);
+        ctx.fillRect(0,0,canvas.width,canvas.height);
         ctx.fillStyle = 'rgb(0,0,0)'
-        ctx.fillText(this.absent, 80, 80);
+        ctx.fillText(this.absent, 20, 30);
       }
       this.saveImage();
     },
@@ -58,8 +68,9 @@ export default {
       link.download = "미퇴실명단.png"
       link.href = document.getElementById('canvas').toDataURL('image/png')
       link.click();
-    }
-  }
+    },
+  },
+
 }
 </script>
 
