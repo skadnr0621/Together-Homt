@@ -93,6 +93,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                     }
                                 })
                 )
+                .oauth2Login()
+                    .loginPage("http://i6b206.p.ssafy.io/")
+                    .permitAll()
+                    .and()
                 // Security-h2 충돌 방지
                 .headers().frameOptions().sameOrigin()
                 .and()
@@ -108,8 +112,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .and()
             .formLogin()
-//                .loginPage("http://i6b206.p.ssafy.io/")
-//                .successForwardUrl("/user/users")
+                .loginPage("http://i6b206.p.ssafy.io/")
                 .permitAll()
                 .and()
             .httpBasic().disable()
