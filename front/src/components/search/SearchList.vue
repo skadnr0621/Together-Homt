@@ -2,25 +2,27 @@
   <div class="search-list">
     <div id="feed-container">
       <div
-      id="search-thumbnail"
-      v-for="(feed, index) in showList"
-      :key="index"
-      @click="goFeeds(index)"
+        id="search-thumbnail"
+        v-for="(feed, index) in showList"
+        :key="index"
+        @click="goFeeds(index)"
       >
-        <div 
-        id="thumbnail-detail"
-        v-if="mediaURL(index).slice(-3) == 'jpg' || mediaURL(index).slice(-3) == 'png'">
-          <img
-          id="thumbnail-media"
-          :src="mediaURL(index)">
-        </div>
         <div
-        id="thumbnail-detail" 
-        v-else>
+          id="thumbnail-detail"
+          v-if="
+            mediaURL(index).slice(-3) == 'jpg' ||
+            mediaURL(index).slice(-3) == 'png'
+          "
+        >
+          <img id="thumbnail-media" :src="mediaURL(index)" />
+        </div>
+        <div id="thumbnail-detail" v-else>
           <video
-          id="thumbnail-media"
-          :src="mediaURL(index)"
-          controls autoplay></video>
+            id="thumbnail-media"
+            :src="mediaURL(index)"
+            controls
+            autoplay
+          ></video>
         </div>
       </div>
     </div>
@@ -28,8 +30,8 @@
 </template>
 
 <script>
-import axios from 'axios'
-const server = "http://localhost:8092"
+import axios from "axios";
+const server = "http://localhost:8092";
 
 export default {
   name: "SearchList",
@@ -38,11 +40,11 @@ export default {
     showFeedList: Array,
     searchFeedDetailList: Array,
   },
-  data: function() {
+  data: function () {
     return {
       allFeeds: null,
       showList: null,
-    }
+    };
   },
   methods: {
     mediaURL(idx) {
@@ -50,64 +52,49 @@ export default {
     },
 
     goFeeds(idx) {
-      console.log(idx)
-    if (this.showList != null) {
-        this.$store.dispatch("feedStore/setSearchFeeds", this.showList.slice(idx))
-        this.$router.push({ name: "SearchFeedsDetail", query: { searchKeywordDetail : this.searchKeyword}})
+      console.log(idx);
+      if (this.showList != null) {
+        this.$store.dispatch(
+          "feedStore/setSearchFeeds",
+          this.showList.slice(idx)
+        );
+        this.$router.push({
+          name: "SearchFeedsDetail",
+          query: { searchKeywordDetail: this.searchKeyword },
+        });
       } else {
-        this.$store.dispatch("feedStore/setSearchFeeds", this.allFeeds.slice(idx))
-        this.$router.push({ name: "SearchFeedsDetail", query: { searchKeywordDetail: this.searchKeyword}})
+        this.$store.dispatch(
+          "feedStore/setSearchFeeds",
+          this.allFeeds.slice(idx)
+        );
+        this.$router.push({
+          name: "SearchFeedsDetail",
+          query: { searchKeywordDetail: this.searchKeyword },
+        });
       }
-    }
+    },
   },
   mounted() {
     axios({
-      method: 'get',
+      method: "get",
       url: `/feed/feeds/search`,
       headers: {
-        Authorization: sessionStorage.getItem("jwt")
-      }
+        Authorization: sessionStorage.getItem("jwt"),
+      },
     })
-    .then((res)=> {
-      this.allFeeds = res.data
-      this.$emit('all-feeds', this.allFeeds)
-      
-      if (this.showFeedList == null) {
-        this.showList = this.allFeeds
-      } else {
-        this.showList = this.showFeedList
-      }
-    })
-    .catch((err)=>{
-      alert(err)
-    })
+      .then((res) => {
+        this.allFeeds = res.data;
+        this.$emit("all-feeds", this.allFeeds);
+
+        if (this.showFeedList == null) {
+          this.showList = this.allFeeds;
+        } else {
+          this.showList = this.showFeedList;
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
   },
-}
+};
 </script>
-
-<style>
-#feed-container {
-  display: grid;
-  gap: 1px 1px;
-  grid-template-columns: repeat(3, 1fr);
-}
-
-#thumbnail-detail {
-  width: 100%;
-  height: 100%;
-}
-
-#feed-container #search-thumbnail {
-  aspect-ratio: 1;
-}
-
-#thumbnail-media {
-  background: black;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  object-fit: fill;
-}
-
-
-</style>

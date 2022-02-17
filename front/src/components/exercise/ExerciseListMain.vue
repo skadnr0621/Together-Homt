@@ -1,7 +1,9 @@
 <template>
   <div id="exercise-list-main">
     <div v-for="(exercise, index) in viewExercise" :key="index">
+      <<<<<<< HEAD =======
       <!-- <div><img :src="require(`@/assets/푸쉬업.png`)" alt="푸쉬업" /></div> -->
+      >>>>>>> design_chan
       <span class="basket" @click="sendLocal(exercise)">{{ exercise }}</span>
     </div>
   </div>
@@ -63,6 +65,10 @@ export default {
     sendLocal(todayExercise) {
       this.todayExercise = todayExercise;
       localStorage.setItem(this.todayExercise, this.todayExercise);
+      if (localStorage.length > 0) {
+        // alert("장바구니에 운동을 담았습니다.");
+        this.$router.go();
+      }
     },
   },
 };

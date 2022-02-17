@@ -6,9 +6,8 @@
         <input
           type="file"
           id="upload_file"
-          @change="handleFileChange($event)"
           style="display: none"
-          accept="image/*, video/*"
+          @change="handleFileChange($event)"
         />
         <label for="upload_file">
           <div v-if="viewImg">
@@ -18,7 +17,6 @@
               alt="피드 동영상"
               id="upload_file"
               autoplay
-              controls
             />
             <img v-else :src="viewImg" alt="피드 사진" id="upload_file" />
           </div>
@@ -55,18 +53,6 @@
           {{ tag }}
           <span class="material-icons" @click="deleteTag(index)"> close </span>
         </div>
-      </div>
-    </div>
-
-    <!-- 피드 타입 설정-->
-    <div id="register-feed-setting">
-      <div class="container">
-        일상 피드
-        <span class="material-icons on"> toggle_on </span>
-      </div>
-      <div class="container">
-        나만의 운동
-        <span class="material-icons off"> toggle_off </span>
       </div>
     </div>
   </div>
@@ -166,11 +152,17 @@ export default {
             alert("게시글 등록 실패");
             console.log(err);
           });
-
-        await this.$router.push({
-          name: "Profile",
-          params: { userName: this.myInfo.username, email: this.myInfo.email },
-        });
+        if (this.myInfo.username != 'admin') {
+          await this.$router.push({
+            name: "Profile",
+            params: { userName: this.myInfo.username, email: this.myInfo.email },
+          });
+        } else {
+          await this.$router.push({
+            name: "AdminPage",
+            params: { userName: this.myInfo.username, email: this.myInfo.email },
+          });
+        }
       }
     },
   },

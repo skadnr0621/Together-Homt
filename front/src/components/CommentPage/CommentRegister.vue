@@ -55,26 +55,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.comment-register {
-  display: flex;
-  margin: 10px;
-}
-.comment-register > .Userprofile {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  margin-left: 5px;
-}
-.comment-register > .Userprofile > img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-.comment-register > .registerInput {
-  margin-left: 10px;
-}
-.comment-register > .registerBtn {
-  margin-left: 10px;
-}
+// .comment-register {
+//   display: flex;
+//   margin: 10px;
+// }
+// .comment-register > .Userprofile {
+//   width: 40px;
+//   height: 40px;
+//   border-radius: 50%;
+//   border: 1px solid rgba(0, 0, 0, 0.1);
+//   margin-left: 5px;
+// }
+// .comment-register > .Userprofile > img {
+//   width: 100%;
+//   height: 100%;
+//   border-radius: 50%;
+// }
+// .comment-register > .registerInput {
+//   margin-left: 10px;
+// }
+// .comment-register > .registerBtn {
+//   margin-left: 10px;
+// }
 </style>

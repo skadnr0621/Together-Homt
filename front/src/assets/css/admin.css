@@ -1,9 +1,9 @@
-#admin-feeds-line {
+/* #admin-feeds-line {
   height:36px; 
   background-color: rgb(245, 245, 245);
 }
 
-/* ProfileFeedList */
+
 #profile-feed-list {
   margin: 2px 0;
   display: grid;
@@ -20,4 +20,4 @@
 #profile-feed-list > .feed > img {
   width: 100%;
   height: 100%;
-}
+} */

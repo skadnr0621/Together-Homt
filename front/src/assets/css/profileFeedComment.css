@@ -1,68 +1,238 @@
 #profile-feed-comment {
-  position: fixed;
-  top: 45px;
-  left: 0;
-  right: 0;
-  bottom: 45px;
-  overflow: auto;
-  /* background-color: rgba(0, 0, 0, 0.025); */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* CommentHeader */
-#comment-header {
-  background-color: #ffffff;
+#profile-feed-comment > #comment-header {
   display: flex;
   height: 40px;
-  text-align: center;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 0 10px;
+  padding: 0 20px;
 }
 
-#comment-header > .cancel {
+#profile-feed-comment > #comment-header > .cancel {
   height: 24px;
+  color: rgba(0, 0, 0, 0.87);
 }
 
-#comment-header > .cancel > span {
+#profile-feed-comment > #comment-header > .cancel > span {
   font-size: 24px;
   color: rgba(0, 0, 0, 0.87);
 }
 
-#comment-header > .context {
+#profile-feed-comment > #comment-header > .context {
+  font-weight: bold;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* CommentMain */
+#profile-feed-comment > #comment-main {
+  width: 100%;
+  padding: 16px;
+  padding-bottom: 120px;
+  overflow: scroll;
+}
+
+/* FeedContent */
+#profile-feed-comment > #comment-main > .feed-content {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(80px);
+  border-radius: 12px;
+}
+
+#profile-feed-comment > #comment-main > .feed-content > div {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+#profile-feed-comment > #comment-main > .feed-content > div > div {
+  display: flex;
+  align-items: center;
+}
+
+#profile-feed-comment
+  > #comment-main
+  > .feed-content
+  > div
+  > div:nth-child(1)
+  > div:nth-child(1) {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+#profile-feed-comment
+  > #comment-main
+  > .feed-content
+  > div
+  > div:nth-child(1)
+  > div:nth-child(2) {
+  font-size: 15px;
   font-weight: bold;
 }
 
-/* CommentRegister */
-#comment-register {
-  align-items: center;
-  display: flex;
-  height: 50px;
-  background-color: rgba(0, 0, 0, 0.025);
-  padding: 0 10px;
+#profile-feed-comment > #comment-main > .feed-content > div > div > div > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
-#comment-register > div:first-child {
+#profile-feed-comment > #comment-main > .feed-content > div > div:nth-child(2) {
+  margin: 5px 0 10px 50px;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#profile-feed-comment > #comment-main > .feed-content > div > .tag {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5px 0 15px 50px;
+  font-size: 14px;
+  font-weight: bold;
+  color: rgba(41, 98, 255, 0.6);
+}
+
+#profile-feed-comment > #comment-main > .feed-content > div > .tag > div {
+  padding: 2px 5px;
+}
+
+#profile-feed-comment > #comment-main > .feed-content > div > div:last-child {
+  margin-left: 50px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.38);
+}
+
+#profile-feed-comment > #comment-main > .feed-comment {
+  /* display: flex;
+  flex-direction: column;
+  margin: 16px 0px; */
+}
+
+#profile-feed-comment > #comment-main > .feed-comment > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 15px;
+
+  width: 100%;
+  padding: 10px;
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(80px);
+  border-radius: 12px;
+}
+
+#profile-feed-comment > #comment-main > .feed-comment > div > div {
+  display: flex;
+  align-items: center;
+}
+
+#profile-feed-comment
+  > #comment-main
+  > .feed-comment
+  > div
+  > div
+  > div:nth-child(1) {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-right: 10px;
+}
+
+#profile-feed-comment
+  > #comment-main
+  > .feed-comment
+  > div
+  > div
+  > div:nth-child(1)
+  > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+#profile-feed-comment
+  > #comment-main
+  > .feed-comment
+  > div
+  > div
+  > div:nth-child(2) {
+  margin-right: 5px;
+  font-size: 15px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#profile-feed-comment > #comment-main > .feed-comment > div > div > span {
+  color: rgba(0, 0, 0, 0.38);
+  font-size: 24px;
+}
+
+/* CommentRegister */
+#profile-feed-comment > #comment-register {
+  position: fixed;
+  bottom: 60px;
+  width: 100%;
+  max-width: 1024px;
+  padding: 0 16px;
+}
+
+#profile-feed-comment > #comment-register > div {
+  padding: 10px;
+  width: 100%;
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(80px);
+  border-radius: 12px;
+}
+
+#profile-feed-comment > #comment-register > div > div {
+  align-items: center;
+  display: flex;
+}
+
+#profile-feed-comment > #comment-register > div > div > div:first-child {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-#comment-register > div > img {
+#profile-feed-comment > #comment-register > div > div > div > img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
 }
 
-#comment-register > div:nth-child(2) {
+#profile-feed-comment > #comment-register > div > div > div:nth-child(2) {
   display: flex;
   align-items: center;
   margin-left: 10px;
   flex: 1 1 auto;
 }
 
-#comment-register > div > input {
+#profile-feed-comment > #comment-register > div > div > div > input {
   /* width: 90%; */
   height: 30px;
   border: 1px solid rgba(0, 0, 0, 0.38);
@@ -74,7 +244,7 @@
   margin-right: 5px;
 }
 
-#comment-register > div > span {
+#profile-feed-comment > #comment-register > div > div > div > span {
   display: inline-block;
   font-size: 24px;
   text-align: center;
@@ -82,105 +252,20 @@
   /* color: rgba(0, 0, 0, 0.87); */
 }
 
-/* CommentMain */
+/* 736px 이상일 경우 적용되는 코드 */
+@media (min-width: 736px) {
+  #profile-feed-comment > #comment-header {
+    margin-top: 10px;
+  }
 
-#comment-main > .feed-content {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.025);
+  #profile-feed-comment > #comment-main > .feed-comment > div {
+    margin: 20px 0px;
+  }
 }
 
-#comment-main > .feed-content > div {
-  display: flex;
-  align-items: center;
-}
-
-#comment-main > .feed-content > div:nth-child(1) > div:nth-child(1) {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  margin-right: 10px;
-}
-
-#comment-main > .feed-content > div:nth-child(1) > div:nth-child(2) {
-  font-size: 15px;
-  font-weight: bold;
-}
-
-#comment-main > .feed-content > div > div > img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-
-#comment-main > .feed-content > div:nth-child(2) {
-  margin: 5px 0 10px 50px;
-  font-size: 15px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-#comment-main > .feed-content > .tag {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 5px 0 15px 50px;
-  font-size: 13px;
-  color: rgba(41, 98, 255, 0.6);
-}
-
-#comment-main > .feed-content > .tag > div {
-  padding: 2px 5px;
-}
-
-#comment-main > .feed-content > div:last-child {
-  margin-left: 50px;
-  font-size: 12px;
-  color: rgba(0, 0, 0, 0.38);
-}
-
-#comment-main > .feed-comment {
-  display: flex;
-  flex-direction: column;
-  padding: 0 10px;
-}
-
-#comment-main > .feed-comment > div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 10px 0;
-  color: rgba(0, 0, 0, 0.87);
-  font-size: 15px;
-}
-
-#comment-main > .feed-comment > div > div {
-  display: flex;
-  align-items: center;
-}
-
-#comment-main > .feed-comment > div > div > div:nth-child(1) {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  margin-right: 10px;
-}
-
-#comment-main > .feed-comment > div > div > div:nth-child(1) > img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-
-#comment-main > .feed-comment > div > div > div:nth-child(2) {
-  margin-right: 5px;
-  font-size: 15px;
-  font-weight: bold;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-#comment-main > .feed-comment > div > div > span {
-  color: rgba(0, 0, 0, 0.38);
-  font-size: 24px;
+/* 1024px 이상일 경우 적용되는 코드 */
+@media (min-width: 1024px) {
+  #profile-feed-comment > #comment-register {
+    width: 1024px;
+  }
 }

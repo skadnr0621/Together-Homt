@@ -7,9 +7,7 @@
             >keyboard_arrow_left</span
           >
         </div>
-        <p class="exercise-title">
-          Let's <strong>{{ exercise }}</strong>
-        </p>
+        <p class="exercise-title">{{ exercise }}</p>
         <button class="is-exercise fail-btn" @click="doneExercise()">
           미완료
         </button>
@@ -17,6 +15,9 @@
 
       <div v-if="webcam != null && model != null">
         <canvas id="canvas"></canvas>
+        <div id="all-progress" v-if="percent2 != null">
+          <progress id="percent" :value="percent2" max="1.00"></progress>
+        </div>
       </div>
       <div id="exercise-gage">
         <div id="label-container"></div>
@@ -24,23 +25,7 @@
       </div>
     </div>
 
-    <!-- countdown -->
-    <!-- <div id="wrap">
-    <div class="c"></div>
-    <div class="o"></div>
-    <div class="u"></div>
-    <div class="n"></div>
-    <div class="t"></div>
-  </div>
-  <svg>
-  <defs>
-    <filter id="filter">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur" />
-      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 28 -10" result="filter" />
-      <feComposite in="SourceGraphic" in2="filter" operator="atop" />
-    </filter>
-  </defs>
-</svg> -->
+   
   </div>
 </template>
 
@@ -212,6 +197,7 @@ export default {
         this.percent = prediction[2].probability.toFixed(2);
       }
 
+
       this.drawPose(pose);
     },
 
@@ -299,31 +285,6 @@ export default {
       }
     },
 
-    // ready() {
-    //   var i = 3;
-    //   let wrap = document.querySelector('#wrap')
-    //   function countdown(){
-    //     if (i < 0) {
-    //       i = 3;
-    //       setTimeout(function(){
-    //         countdown();
-    //       }, 2000);
-    //       return false;
-    //     }
-    //     wrap.classList.remove("class");
-    //     setTimeout(function(){
-    //       wrap.classList.add('wrap-' + i);
-    //       setTimeout(function(){
-    //         i--;
-    //         countdown();
-    //       }, 1000);
-    //     }, 600);
-    //   }
-    //   countdown();
-    //   setTimeout(()=>{
-    //     this.init();
-    //   },2500)
-    // }
   },
 };
 </script>

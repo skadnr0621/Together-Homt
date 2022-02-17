@@ -1,0 +1,247 @@
+#search-keyword-feedlist {
+  max-width: 800px;
+  min-width: 300px;
+  width: 100%;
+}
+
+/* searchFeedDetailHeader */
+#search-feed-detail-header {
+  height: 40px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  margin-bottom: 50px;
+}
+
+#search-feed-detail-header > span:hover {
+  cursor: pointer;
+}
+
+#search-feed-detail-header > div {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#search-feed-detail-header > .cancel {
+  height: 24px;
+}
+
+#search-feed-detail-header > .cancel > span {
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#search-feed-detail-header > .context {
+  font-weight: bold;
+}
+
+/* searchFeedDetailMain */
+#search-keyword-feedlist#search-feed-detail-main {
+  overflow: scroll;
+}
+
+#search-keyword-feedlist #search-one-feed{
+  margin: 35px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-sizing: border-box;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(80px);
+  border-radius: 12px;
+}
+
+#search-feed-detail-main > div > div > .feed-detail-header {
+  display: flex;
+  height: 50px;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+#search-feed-detail-main > div > div > .feed-detail-header > div:first-child {
+  display: flex;
+  align-items: center;
+}
+
+#search-feed-detail-main
+  > div
+  > div
+  > .feed-detail-header
+  > div:first-child
+  > div:first-child {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
+#search-feed-detail-main > div > div > .feed-detail-header > div > div > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+#search-feed-detail-main
+  > div
+  > div
+  > .feed-detail-header
+  > div
+  > div:nth-child(2) {
+  margin-left: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#search-feed-detail-main > div > div > .feed-detail-header > div > span {
+  color: rgba(0, 0, 0, 0.38);
+  font-size: 24px;
+}
+
+#search-feed-detail-main > div > div > .feed-detail-img {
+  /* padding-bo */
+}
+
+#search-feed-detail-main > div > div > .feed-detail-img > img {
+  width: 100%;
+}
+
+#search-feed-detail-main > div > div > .feed-detail-menu {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 10px;
+}
+
+#search-feed-detail-main > div > div > .feed-detail-menu > div {
+  height: 24px;
+  width: 24px;
+  margin-right: 14px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#search-feed-detail-main > div > div > .feed-detail-content {
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* 좋아요 */
+#search-feed-detail-main
+  > div
+  > div
+  > .feed-detail-content
+  > div:nth-child(1) {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* 닉네임 내용 */
+#search-feed-detail-main
+  > div
+  > div
+  > .feed-detail-content
+  > div:nth-child(2) {
+  display: flex;
+}
+
+#search-feed-detail-main
+  > div
+  > .feed-detail-content
+  > div:nth-child(2)
+  > div {
+  margin-right: 5px;
+}
+
+#search-feed-detail-main
+  > div
+  > .feed-detail-content
+  > div:nth-child(2)
+  > div:nth-child(1) {
+  font-weight: bold;
+}
+
+#search-feed-detail-main
+  > div
+  > .feed-detail-content
+  > div:nth-child(2)
+  > div:nth-child(2)
+  > span {
+  color: rgba(0, 0, 0, 0.38);
+}
+
+/* 댓글 */
+#search-feed-detail-main
+  > div
+  > div
+  > .feed-detail-content
+  > div:nth-child(3) {
+  color: rgba(0, 0, 0, 0.38);
+}
+
+#search-feed-detail-main > div > div > .feed-detail-date {
+  padding: 10px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.38);
+}
+
+
+
+@media (min-width: 736px) {
+  #search-keyword-feedlist #search-one-feed{
+    margin: 50px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
+  }
+
+  #search-feed-detail-main > div > div > .feed-detail-header {
+    padding: 20px 13px;
+    display: flex;
+    height: 75px;
+  }
+
+  #search-feed-detail-main > div > #search-one-feed #profile-img {
+    width: 60px;
+    height: 60px;
+  }
+  
+  #search-feed-detail-main > div > #search-one-feed #profile-username {
+    font-size: 20px;
+    margin-left: 20px;
+  }
+
+  #search-feed-detail-main > div > div > .feed-detail-menu {
+    display: flex;
+    align-items: center;
+    height: 44px;
+    padding: 0 10px;
+  }
+
+
+  #search-feed-detail-main > div > div > .feed-detail-menu > div{
+    height: 35px;
+    width: 35px;
+  }
+
+
+  #search-feed-detail-main > div > div > .feed-detail-menu span{
+    height: 100%;
+    width: 100%;
+    margin-right: 14px;
+    color: rgba(0, 0, 0, 0.87);
+  }
+  
+  #search-feed-detail-main > div > div > .feed-detail-content {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.87);
+  }
+}

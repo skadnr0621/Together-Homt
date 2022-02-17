@@ -4,15 +4,13 @@
       v-on:goBack="onGoBack"
       v-on:editProfile="onEditProfile"
     />
-    <profile-edit-main :isEdit="isEdit" />
-    <profile-edit-footer />
+    <profile-edit-container :isEdit="isEdit" />
   </div>
 </template>
 
 <script>
 import ProfileEditHeader from "@/components/profileEdit/ProfileEditHeader";
-import ProfileEditMain from "@/components/profileEdit/ProfileEditMain";
-import ProfileEditFooter from "@/components/profileEdit/ProfileEditFooter";
+import ProfileEditContainer from "@/components/profileEdit/ProfileEditContainer";
 
 import "@/assets/css/profileEdit.css";
 
@@ -20,13 +18,10 @@ export default {
   name: "ProfileEdit",
   components: {
     ProfileEditHeader,
-    ProfileEditMain,
-    ProfileEditFooter,
+    ProfileEditContainer,
   },
   data() {
-    return {
-      isEdit: false,
-    };
+    return { isEdit: false };
   },
   methods: {
     onGoBack() {

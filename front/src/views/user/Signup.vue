@@ -1,14 +1,14 @@
 <template>
   <div class="user" id="signup">
     <!-- 회원가입 로고 -->
-    <div class="logo">회원 가입</div>
+    <div id="logo">회원 가입</div>
 
     <!-- 닉네임 -->
-    <div>
+    <div id="form-box">
       <div class="input-with-label" id="short">
         <label for="nickname">닉네임</label>
         <input
-          class="signup-input-data form-control"
+          class="signup-input-data "
           v-model="user.username"
           id="nickname"
           placeholder="닉네임을 3글자 이상 입력하세요."
@@ -22,7 +22,7 @@
 
         <input
           v-model="user.email"
-          class="signup-input-data form-control"
+          class="signup-input-data "
           id="email"
           placeholder="이메일을 입력해주세요."
           type="text"
@@ -31,9 +31,9 @@
 
       <!-- 인증번호 -->
       <div class="input-with-label">
-        <label for="input-confirmnum">인증번호 입력</label>
+        <label for="input-confirmnum">인증번호</label>
         <input
-          class="signup-input-data form-control"
+          class="signup-input-data "
           v-model="inputConfirmNum"
           id="input-confirmnum"
           placeholder="인증번호를 입력하세요."
@@ -42,65 +42,64 @@
         <div v-if="isSendNum">
           <!-- 확인 -->
           <button
-            class="send-confirmNum"
+            class="send-confirmnum"
             @click="emailConfirm()"
             id="input-confirmnum-btn"
           >
-            <p class="font-scale-8">확인</p>
+            <div class="font-scale-8">확인</div>
           </button>
           <!-- 재전송 -->
         </div>
         <div v-else>
-          <button class="send-confirmNum" @click="sendConfirm()">
-            <p class="font-scale-8">인증번호 받기</p>
+          <button class="send-confirmnum" @click="sendConfirm()">
+            <div class="font-scale-8">인증번호 받기</div>
           </button>
         </div>
       </div>
 
       <!-- 비밀번호 -->
-      <div class="input-with-label" id="short">
+      <div class="input-with-label" id="password">
         <input
-          class="signup-input-data form-control"
+          class="signup-input-data"
           v-model="user.password"
-          id="password"
-          placeholder="비밀번호를 입력하세요.(영문 + 숫자 6자리)"
+          placeholder="비밀번호를 입력하세요.(영문+숫자 6자리)"
           type="password"
         />
         <label for="password">비밀번호</label>
       </div>
 
       <!-- 비밀번호 확인 -->
-      <div class="input-with-label">
+      <div class="input-with-label" id="password-confirm">
         <input
-          class="signup-input-data form-control"
+          class="signup-input-data"
           v-model="passwordConfirm"
           type="password"
-          id="passwordConfirm"
-          placeholder="비밀번호를 다시한번 입력하세요."
+          placeholder="비밀번호를 입력하세요."
         />
         <label for="passwordConfirm">비밀번호 확인</label>
       </div>
+      
+      <!-- 이용약관 -->
+      <div class="checkbox">
+        <input
+          class=""
+          type="checkbox"
+          id="checkbox"
+          v-model="checked"
+        />
+        <label for="checkbox"
+          ><strong>이용약관</strong> 및 <strong>개인정보 처리방침</strong>에
+          동의합니다.</label
+        >
+      </div>
     </div>
 
-    <!-- 이용약관 -->
-    <div class="checkbox">
-      <input
-        class="form-control"
-        type="checkbox"
-        id="checkbox"
-        v-model="checked"
-      />
-      <label for="checkbox"
-        ><strong>이용약관</strong> 및 <strong>개인정보 처리방침</strong>에
-        동의합니다.</label
-      >
-    </div>
 
     <!-- 회원가입 -->
-    <div v-if="isSubmit">
-      <button class="user-btn form-control" @click="Signup()">가입 하기</button>
+    <div v-if="isSubmit" id="btn-status">
+      <button class="user-btn" @click="Signup()">가입 하기</button>
     </div>
-    <div v-else>
+    <div v-else id="btn-status">
       <button class="user-btn-reject">가입 하기</button>
     </div>
 
@@ -245,4 +244,3 @@ export default {
 };
 </script>
 
-<style></style>

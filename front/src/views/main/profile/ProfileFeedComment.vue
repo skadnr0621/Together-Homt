@@ -1,7 +1,7 @@
 <template>
   <div id="profile-feed-comment">
     <comment-header v-on:goBack="onGoBack" />
-    <comment-register :myInfo="myInfo" />
+
     <comment-main
       v-if="loginUser == $route.params.email"
       :info="myInfo"
@@ -16,6 +16,8 @@
       :feedInfo="feedInfo"
       :loginUser="loginUser"
     />
+
+    <comment-register :myInfo="myInfo" />
   </div>
 </template>
 

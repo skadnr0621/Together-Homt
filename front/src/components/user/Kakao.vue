@@ -3,8 +3,8 @@
     <button style="border: 0; outline: 0; background-color: transparent">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="45"
-        height="45"
+        width="100%"
+        height="100%"
         viewBox="0 0 55 55"
       >
         <g id="그룹_247" data-name="그룹 247" transform="translate(-237 -406)">
