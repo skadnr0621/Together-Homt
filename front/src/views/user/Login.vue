@@ -84,7 +84,7 @@ export default {
     Login: async function () {
       await api({
         method: "post",
-        // url: `http://3.38.103.222:8092/user/account/login`,
+        url: `/user/account/login`,
         data: this.user,
       })
         .then((res) => {
