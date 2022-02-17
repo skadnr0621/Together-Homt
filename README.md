@@ -1,5 +1,5 @@
 <h1 align="center" style="max-width: 100%;">
-  <img width="700" alt="Logo" src="README.assets/Logo.png" style="max-width: 100%;" /><br/>
+  <img width="550" alt="Logo" src="README.assets/Logo.png" style="max-width: 100%;" /><br/>
   <a href="https://www.3.38.103.222.com">togetherhomt</a>
 </h1>
 
