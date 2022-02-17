@@ -13,16 +13,18 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "attendance")
 public class Attendance {
     @Id
     @Column(name = "attendance_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long attendanceId;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "done")
     private Boolean done;
 
 }

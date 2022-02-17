@@ -96,19 +96,22 @@ public class FeedService {
         // Tag
         List<Tag> resTags = new ArrayList<>();
 
-        for (String tempName : tagDto.getNameList()) {
-            Tag tempTag = tagRepository.findByName(tempName);
-            if (tempTag != null) {
-                resTags.add(tempTag);
-            } else {
-                Tag newTag = Tag.builder()
-                        .name(tempName)
-                        .build();
-                tagRepository.save(newTag);
-                resTags.add(newTag);
+
+        if (tagDto != null) {
+            for (String tempName : tagDto.getTagList()) {
+                Tag tempTag = tagRepository.findByName(tempName);
+                if (tempTag != null) {
+                    resTags.add(tempTag);
+                } else {
+                    Tag newTag = Tag.builder()
+                            .name(tempName)
+                            .build();
+                    tagRepository.save(newTag);
+                    resTags.add(newTag);
+                }
             }
         }
-
+        
         // Create Feed
         Feed feed = Feed.builder()
                 .title(feedDto.getTitle())
@@ -144,6 +147,7 @@ public class FeedService {
             feedDto.setUsername(feed.getUser().getUsername());
             feedDto.setCreatedAt(feed.getCreatedAt());
             feedDto.setUpdatedAt(feed.getUpdatedAt());
+            feedDto.setEmail(feed.getUser().getEmail());
 
             // Check like_status
             Like like_flag = likeRepository.findByUserAndFeed(user, feed);
@@ -201,6 +205,7 @@ public class FeedService {
                 feedListDto.setMediaUrl(feed.getMediaUrl());
                 feedListDto.setLikeCnt(feed.getLikeCnt());
                 feedListDto.setContent(feed.getContent());
+                feedListDto.setEmail(feed.getUser().getEmail());
 
                 List<String> tempTags = new ArrayList<>();
                 for (Tag tag : feed.getTags()) {
@@ -234,6 +239,7 @@ public class FeedService {
             feedListDto.setMediaUrl(feed.getMediaUrl());
             feedListDto.setLikeCnt(feed.getLikeCnt());
             feedListDto.setContent(feed.getContent());
+            feedListDto.setEmail(feed.getUser().getEmail());
 
             List<String> tempTags = new ArrayList<>();
             for (Tag tag : feed.getTags()) {
@@ -266,7 +272,55 @@ public class FeedService {
         return result;
     }
 
+    public FeedListDto getFeed(Long feedId) {
+
+        // Get User
+        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userTemp = principalDetails.getUser();
+        User user = userRepository.findByEmail(userTemp.getEmail());
+
+        // Get Feed
+        Optional<Feed> optFeed = feedRepository.findById(feedId);
+        if (!optFeed.isPresent()) {
+            return null;
+        }
+        Feed feed = optFeed.get();
+
+        FeedListDto result = new FeedListDto();
+
+        result.setFeedId(feed.getFeedId());
+        result.setContent(feed.getContent());
+        result.setMediaUrl(feed.getMediaUrl());
+        result.setLikeCnt(feed.getLikeCnt());
+        result.setUsername(feed.getUser().getUsername());
+        result.setCreatedAt(feed.getCreatedAt());
+        result.setUpdatedAt(feed.getUpdatedAt());
+        result.setProfileUrl(feed.getUser().getImagePath());
+        result.setEmail(feed.getUser().getEmail());
+
+        // Check like_status
+        Like like_flag = likeRepository.findByUserAndFeed(user, feed);
+        if (like_flag != null) {
+            result.setLikeStatus(true);
+        } else {
+            result.setLikeStatus(false);
+        }
+
+        List<String> tempTags = new ArrayList<>();
+        for (Tag tag : feed.getTags()) {
+            tempTags.add(tag.getName());
+        };
+        result.setTags(tempTags);
+
+        return result;
+    }
+
     public List<FeedDto> getProfileFeeds(String email) {
+
+        // Get User
+        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userTemp = principalDetails.getUser();
+        User loginUser = userRepository.findByEmail(userTemp.getEmail());
 
         User user = userRepository.findByEmail(email);
 
@@ -280,6 +334,7 @@ public class FeedService {
             feedDto.setMediaUrl(feed.getMediaUrl());
             feedDto.setLikeCnt(feed.getLikeCnt());
             feedDto.setUsername(feed.getUser().getUsername());
+            feedDto.setEmail(feed.getUser().getEmail());
 
             List<String> tempTags = new ArrayList<>();
             for (Tag tag : feed.getTags()) {
@@ -288,7 +343,7 @@ public class FeedService {
             feedDto.setTags(tempTags);
 
             // Check like_status
-            Like like_flag = likeRepository.findByUserAndFeed(user, feed);
+            Like like_flag = likeRepository.findByUserAndFeed(loginUser, feed);
             if (like_flag != null) {
                 feedDto.setLikeStatus(true);
             } else {
@@ -336,6 +391,8 @@ public class FeedService {
 
             feedListDto.setCreatedAt(feed.getCreatedAt());
             feedListDto.setUpdatedAt(feed.getUpdatedAt());
+            feedListDto.setProfileUrl(feed.getUser().getImagePath());
+            feedListDto.setEmail(feed.getUser().getEmail());
 
             // Check like_status
             Like like_flag = likeRepository.findByUserAndFeed(user, feed);
@@ -360,6 +417,12 @@ public class FeedService {
     }
 
     public List<FeedProfileDto> getProfileFeeds_temp(String email) {
+
+        // Get User
+        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userTemp = principalDetails.getUser();
+        User loginUser = userRepository.findByEmail(userTemp.getEmail());
+
         User user = userRepository.findByEmail(email);
         List<Feed> feeds = feedRepository.findByUser(user);
         List<FeedProfileDto> result= new ArrayList<>();
@@ -371,6 +434,7 @@ public class FeedService {
             feedProfileDto.setMediaUrl(feed.getMediaUrl());
             feedProfileDto.setLikeCnt(feed.getLikeCnt());
             feedProfileDto.setContent(feed.getContent());
+            feedProfileDto.setEmail(feed.getUser().getEmail());
 
             List<String> tempTags = new ArrayList<>();
             for (Tag tag : feed.getTags()) {
@@ -382,7 +446,7 @@ public class FeedService {
             feedProfileDto.setUpdatedAt(feed.getUpdatedAt());
 
             // Check like_status
-            Like like_flag = likeRepository.findByUserAndFeed(user, feed);
+            Like like_flag = likeRepository.findByUserAndFeed(loginUser, feed);
             if (like_flag != null) {
                 feedProfileDto.setLikeStatus(true);
             } else {
@@ -406,6 +470,9 @@ public class FeedService {
 
         // Get Feed
         Optional<Feed> optFeed = feedRepository.findById(feed_id);
+        if (!optFeed.isPresent()) {
+            return null;
+        }
         Feed feed = optFeed.get();
 
         FeedDto feedDto = new FeedDto();
@@ -417,6 +484,7 @@ public class FeedService {
         feedDto.setUpdatedAt(feed.getUpdatedAt());
         feedDto.setMediaUrl(feed.getMediaUrl());
         feedDto.setUsername(feed.getUser().getUsername());
+        feedDto.setEmail(feed.getUser().getEmail());
 
         List<String> tempTags = new ArrayList<>();
         for (Tag tag : feed.getTags()) {
@@ -432,6 +500,9 @@ public class FeedService {
 
         // Get Feed
         Optional<Feed> optFeed = feedRepository.findById(feedId);
+        if (!optFeed.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         Feed feed = optFeed.get();
 
         List<Tag> resTags = new ArrayList<>();
@@ -463,7 +534,9 @@ public class FeedService {
 
         // Get Feed
         Optional<Feed> feed = feedRepository.findById(feed_id);
-
+        if (!feed.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         // Check Existence
         if (!feed.isPresent()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -477,7 +550,9 @@ public class FeedService {
 
         // Get Feed
         Optional<Feed> feed = feedRepository.findById(feed_id);
-
+        if (!feed.isPresent()) {
+            return null;
+        }
         List<CommentListDto> result = new ArrayList<>();
 
         for (Comment comment : commentRepository.findByFeed(feed.get())) {
@@ -506,7 +581,9 @@ public class FeedService {
 
         // Get Feed
         Optional<Feed> feed = feedRepository.findById(feed_id);
-
+        if (!feed.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         // Build & Save Comment
         Comment comment = Comment.builder()
                 .content(commentDto.getContent())

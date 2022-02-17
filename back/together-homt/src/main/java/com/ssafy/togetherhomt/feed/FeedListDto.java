@@ -19,6 +19,9 @@ public class FeedListDto {
     @ApiParam(value = "유저이름")
     private String username;
 
+    @ApiParam(value = "이메일")
+    private String email;
+
     @ApiParam(value = "프로필사진")
     private String profileUrl;
 
