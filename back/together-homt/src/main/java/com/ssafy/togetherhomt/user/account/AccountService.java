@@ -6,7 +6,6 @@ import com.ssafy.togetherhomt.exercise.attendance.Attendance;
 import com.ssafy.togetherhomt.exercise.attendance.AttendanceRepository;
 import com.ssafy.togetherhomt.user.User;
 import com.ssafy.togetherhomt.user.UserRepository;
-import com.ssafy.togetherhomt.user.UserService;
 import com.ssafy.togetherhomt.util.Mailing.MailingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,7 +22,6 @@ public class AccountService {
     /*** Service ***/
     private final MailingService mailingService;
     private final CommonService commonService;
-    private final UserService userService;
     /*** Repository ***/
     private final UserRepository userRepository;
     private final AttendanceRepository attendanceRepository;
