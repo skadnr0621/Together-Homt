@@ -25,6 +25,7 @@
             :src="'http://3.38.103.222:8092' + item.mediaUrl"
             alt=""
             autoplay
+            playsinline
             controls
             muted
           />

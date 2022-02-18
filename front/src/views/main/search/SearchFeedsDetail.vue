@@ -59,6 +59,7 @@
               :src="`http://3.38.103.222:8092` + feed.mediaUrl"
               controls
               autoplay
+              playsinline
             ></video>
           </div>
 
