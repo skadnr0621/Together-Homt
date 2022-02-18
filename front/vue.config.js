@@ -21,3 +21,13 @@
 //     }
 // }
 
+const SERVER_PATH = '/home/ssl'
+module.exports = {
+    devServer: {
+        https: {
+            key: fs.readFileSync(SERVER_PATH + '/together-homt.kro.kr.key'),
+            cert: fs.readFileSync(SERVER_PATH + '/together-homt.kro.kr.crt'),
+            ca: fs.readFileSync(SERVER_PATH + '/rootca.crt'),
+        }
+    }
+};
