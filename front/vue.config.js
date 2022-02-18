@@ -21,7 +21,9 @@
 //     }
 // }
 
-const SERVER_PATH = '/home/ssl'
+const fs = require('fs');
+
+const SERVER_PATH = '/home/ssl';
 module.exports = {
     devServer: {
         https: {
