@@ -16,7 +16,6 @@
               :src="viewImg"
               alt="피드 동영상"
               id="upload_file"
-              autoplay
               playsinline
             />
             <img v-else :src="viewImg" alt="피드 사진" id="upload_file" />

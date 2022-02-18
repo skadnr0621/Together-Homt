@@ -27,7 +27,6 @@
             v-if="isVideo(feedInfo.mediaUrl)"
             :src="'http://3.38.103.222:8092' + feedInfo.mediaUrl"
             alt=""
-            autoplay
             playsinline
             controls
           />

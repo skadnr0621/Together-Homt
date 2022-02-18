@@ -58,7 +58,7 @@ export default {
       .then((res) => {
         this.todayExercises = res.data;
         console.log(res.data);
-        // alert("장바구니 불러오기 성공");
+        alert("장바구니 불러오기 성공");
       })
       .catch((err) => {
         console.log(err);

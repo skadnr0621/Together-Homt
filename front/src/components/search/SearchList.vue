@@ -21,7 +21,6 @@
           <video
             id="thumbnail-media"
             :src="mediaURL(index)"
-            autoplay
             playsinline
             muted
           ></video>
