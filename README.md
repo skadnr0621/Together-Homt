@@ -121,6 +121,7 @@ https://www.notion.so/API-SNS-030cbdc0fef44900a31e4d78a57518a6
 - ##### 정명수 (BE)
 
   - jira
+  - 파일 업로드, 운동 기능, 소셜 로그인
 
 - #####  이건희 (BE)
 
@@ -1100,7 +1101,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
 ## 🏃 Sub 1-4, 정명수
 
-> 
+> Spring Boot과 Java를 처음 접해보는 프로젝트였습니다. Java의 문법에도 익숙하지 않은데 전공자 친구들의 도움으로 많이 배우고 발전한 것을 느꼈습니다. 뿐만 아니라 배포나 깃 관리 같은 부분에서 너무 많은 도움을 받았고, 갈 길이 멀다는 것을 느끼고 동기부여가 되었습니다.앞으로도 꾸준히 공부하고 더 좋은 프로젝트를 만들어보도록 노력하겠습니다.
 
 ## 🏃 Sub 1-5, 오수경
 
