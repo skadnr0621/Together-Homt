@@ -1,48 +1,58 @@
 <template>
   <div id="header">
-    <img src="@/assets/logo.png" alt="로고" />
     <div>
-      <span class="btn js-click-modal material-icons-outlined"> menu </span>
-      <!-- <div class="modal">
-        <ul class="body">
-          <li>설정</li>
-          <li>보관</li>
-        </ul>
-        <div class="header">설정 목록</div>
-        <a class="btn js-close-modal">X</a>
-      </div> -->
+      <div class="logo">
+        <img
+          src="@/assets/투게더 홈트.png"
+          alt="로고"
+          style="width: 120px; height: 30px"
+        />
+      </div>
+      <div class="menu">
+        <div>
+          <span
+            class="material-icons"
+            v-if="myAlarms.length == 0"
+            @click="goOtherPage('Notification')"
+          >
+            notifications
+          </span>
+          <span
+            class="material-icons alarm"
+            v-else
+            @click="goOtherPage('Notification')"
+          >
+            notifications_active
+          </span>
+        </div>
+        <div>
+          <span class="material-icons" @click="goOtherPage('CheckWhoExercise')">
+            people
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import "@/assets/css/header.css";
+
+import { mapState } from "vuex";
+
 export default {
   name: "Header",
+  methods: {
+    goOtherPage(pageName) {
+      this.$router.push({
+        name: pageName,
+      });
+    },
+  },
+  computed: {
+    ...mapState({ myAlarms: (state) => state.myStore.myAlarms }),
+  },
 };
 </script>
 
-<style>
-#header {
-  position: fixed;
-  top: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  height: 45px;
-  width: 100%;
-  padding-top: 2px;
-  /* padding: 2px 0; */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#header > img {
-  height: 100%;
-}
-
-#header > span {
-  font-size: 24px;
-  text-align: center;
-  margin-right: 10px;
-  color: rgba(0, 0, 0, 0.87);
-}
-</style>
+<style></style>
