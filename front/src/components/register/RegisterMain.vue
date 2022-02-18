@@ -55,6 +55,26 @@
         </div>
       </div>
     </div>
+
+    <!-- 운동 장바구니 목록 -->
+    <div id="register-today-exercise">
+      <div>
+        <div v-for="(todayExercise, index) in todayExercises" :key="index">
+          <div v-if="!todayExercise.done">
+            <input
+              type="checkbox"
+              :id="todayExercise.exercise"
+              :value="todayExercise.exercise"
+              v-model="doneExercises"
+            />
+            <label :for="todayExercise.exercise">{{
+              todayExercise.exercise
+            }}</label>
+          </div>
+        </div>
+        <!-- <span>{{ doneExercises }}</span> -->
+      </div>
+    </div>
   </div>
 </template>
 
@@ -72,6 +92,9 @@ export default {
   },
   data() {
     return {
+      todayExercises: [],
+      doneExercises: [],
+
       token: sessionStorage.getItem("jwt"),
 
       viewImg: null,
@@ -126,6 +149,15 @@ export default {
     // 게시글 등록하기
     async isRegister(value) {
       if (value) {
+        // 운동 완료하기
+        for (let exercise of this.doneExercises) {
+          await api({
+            method: "put",
+            url: `/exercise/today-exercises/${exercise}?count-check=1`,
+            header: { Authorization: sessionStorage.getItem("jwt") },
+          });
+        }
+
         const userName = this.myInfo.username;
         console.log(this.myInfo.username);
         let formData = new FormData();
@@ -152,19 +184,41 @@ export default {
             alert("게시글 등록 실패");
             console.log(err);
           });
-        if (this.myInfo.username != 'admin') {
+        if (this.myInfo.username != "admin") {
           await this.$router.push({
             name: "Profile",
-            params: { userName: this.myInfo.username, email: this.myInfo.email },
+            params: {
+              userName: this.myInfo.username,
+              email: this.myInfo.email,
+            },
           });
         } else {
           await this.$router.push({
             name: "AdminPage",
-            params: { userName: this.myInfo.username, email: this.myInfo.email },
+            params: {
+              userName: this.myInfo.username,
+              email: this.myInfo.email,
+            },
           });
         }
       }
     },
+  },
+  mounted() {
+    // 장바구니 목록 가져와서 보여주기
+    api
+      .get("/exercise/today-exercises", {
+        headers: {
+          Authorization: sessionStorage.getItem("jwt"),
+        },
+      })
+      .then((res) => {
+        this.todayExercises = res.data;
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 };
 </script>

@@ -11,8 +11,8 @@
         <div>
           {{ viewRecord.exercise }}
         </div>
-        <div v-if="viewRecord.count">&nbsp;{{ viewRecord.count }}회</div>
-        <div v-else>&nbsp;10회</div>
+        <!-- <div v-if="viewRecord.count">&nbsp;{{ viewRecord.count }}회</div>
+        <div v-else>&nbsp;10회</div> -->
       </div>
     </div>
   </div>
