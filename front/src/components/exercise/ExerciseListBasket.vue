@@ -1,7 +1,7 @@
 <template>
   <div id="exercise-list-basket">
     <div v-for="(exer, index) in todayExercises" :key="index">
-      <div id="basket-item">
+      <div id="basket-item" v-if="!exer.done">
         <span id="exercise-circle" @click="goExercise(exer.exercise)">
           <div>{{ exer.exercise }}</div>
         </span>
@@ -10,7 +10,18 @@
           @click="removeExercise(exer.exercise)"
         ></i>
       </div>
-      <span class=""> </span>
+      <div id="basket-item" v-else>
+        <span id="exercise-circle-done">
+          <div>
+            <span>{{ exer.exercise }}</span> 완료
+          </div>
+        </span>
+        <i
+          class="fa-solid fa-trash-can"
+          @click="removeExercise(exer.exercise)"
+        ></i>
+      </div>
+      <!-- <span class=""> </span> -->
     </div>
   </div>
 </template>

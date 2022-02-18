@@ -2,7 +2,11 @@
   <div id="header">
     <div>
       <div class="logo">
-        <img src="@/assets/로고.png" alt="로고" />
+        <img
+          src="@/assets/투게더 홈트.png"
+          alt="로고"
+          style="width: 120px; height: 30px"
+        />
       </div>
       <div class="menu">
         <div>

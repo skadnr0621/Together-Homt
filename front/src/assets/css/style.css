@@ -31,9 +31,13 @@ ul {
 }
 
 #app {
-  background: #77a1d3;
+  background-image: url("../../assets/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  /* background: #77a1d3;
   background: -webkit-linear-gradient(to right, #e684ae, #79cbca, #77a1d3);
-  background: linear-gradient(to right, #e684ae, #79cbca, #77a1d3);
+  background: linear-gradient(to right, #e684ae, #79cbca, #77a1d3); */
 
   width: 100%;
   height: 100%;
@@ -44,7 +48,11 @@ ul {
 
 /* 736px 이상일 경우 적용되는 코드 */
 @media (min-width: 736px) {
-
+  #app {
+    background-image: url("../../assets/background2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 }
 
 /* 1024px 이상일 경우 적용되는 코드 */

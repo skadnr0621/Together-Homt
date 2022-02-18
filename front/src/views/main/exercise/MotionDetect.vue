@@ -231,9 +231,8 @@ export default {
         this.status = "bent";
       }
       for (let i = 0; i < maxPredictions; i++) {
-        const classPrediction =
-          prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-        labelContainer.childNodes[i].innerHTML = classPrediction;
+        const classPrediction = prediction[1].className;
+        labelContainer.childNodes[0].innerHTML = classPrediction;
       }
 
       this.percent = prediction[1].probability.toFixed(2);
