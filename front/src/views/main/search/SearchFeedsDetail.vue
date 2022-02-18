@@ -47,10 +47,9 @@
           <div
             id="feed-detail-img"
             v-if="
-              feed.mediaUrl.splice(-3) == 'jpg' ||
-              feed.mediaUrl.splice(-3) == 'png' ||
-              feed.mediaUrl.splice(-3) == 'gif' ||
-              feed.mediaURL.splice(-4) == 'jpeg'
+              feed.mediaUrl.slice(-3) == 'jpg' ||
+              feed.mediaUrl.slice(-3) == 'png' ||
+              feed.mediaUrl.slice(-3) == 'gif'
             "
           >
             <img :src="`http://3.38.103.222:8092` + feed.mediaUrl" />
