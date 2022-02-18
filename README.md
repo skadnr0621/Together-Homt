@@ -164,21 +164,6 @@ https://www.notion.so/API-SNS-030cbdc0fef44900a31e4d78a57518a6
 
 > 처음 접하는 Java, SpringBoot, JPA
 
-
-## 🏃 Sub 1-4, 정명수
-
-> 
-
-## 🏃 Sub 1-5, 오수경
-
-> 
-
-## 🏃 Sub 1-6, 임채은
-
-> 
-
-
-
 ## Feed
 
 >> Spring Boot, JPA, Lombok
@@ -1111,6 +1096,21 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     List<Comment> findByFeed(Feed feed);
 ```
+
+
+## 🏃 Sub 1-4, 정명수
+
+> 
+
+## 🏃 Sub 1-5, 오수경
+
+> 
+
+## 🏃 Sub 1-6, 임채은
+
+> 
+
+
 
 
 ## 🏃 Part 2, 공통
