@@ -121,7 +121,13 @@ export default {
 
       const name = fileName.substring(lastDot + 1, fileLength).toLowerCase();
 
-      if (name == "png" || name == "jpg" || name == "gif" || name == "jpeg")
+      if (
+        name == "png" ||
+        name == "jpg" ||
+        name == "gif" ||
+        name == "jpeg" ||
+        name == "jfif"
+      )
         return false;
       else return true;
     },

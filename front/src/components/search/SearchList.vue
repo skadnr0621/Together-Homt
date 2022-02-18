@@ -12,7 +12,9 @@
           v-if="
             mediaURL(index).slice(-3) == 'jpg' ||
             mediaURL(index).slice(-3) == 'png' ||
-            mediaURL(index).slice(-3) == 'gif'
+            mediaURL(index).slice(-3) == 'gif' ||
+            mediaURL(index).slice(-4) == 'jpeg' ||
+            mediaURL(index).slice(-4) == 'jfif'
           "
         >
           <img id="thumbnail-media" :src="mediaURL(index)" />
