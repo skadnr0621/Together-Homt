@@ -10,7 +10,7 @@
               alt="피드작성자프로필"
             />
           </div>
-          <div>{{ info.username }}</div>
+          <div>{{ feedInfo.username }}</div>
         </div>
         <div>{{ feedInfo.content }}</div>
         <div class="tag">
