@@ -6,7 +6,6 @@
           v-on:goBack="onGoBack"
           :menu="this.$route.params.follow"
         />
-
         <follow-list :isMe="loginUser == email" />
       </div>
     </div>

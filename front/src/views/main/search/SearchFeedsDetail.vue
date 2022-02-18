@@ -26,7 +26,10 @@
           <div class="feed-detail-header">
             <div @click="goProfile(feed.username, feed.email)">
               <div id="profile-img">
-                <img :src="feed.profileUrl" alt="피드작성자프로필" />
+                <img
+                  :src="`http://3.38.103.222:8092` + feed.profileUrl"
+                  alt="피드작성자프로필"
+                />
               </div>
               <div id="profile-username">{{ feed.username }}</div>
             </div>
@@ -47,30 +50,42 @@
               feed.mediaUrl.slice(-3) == 'jpg' ||
               feed.mediaUrl.slice(-3) == 'png' ||
               feed.mediaUrl.slice(-3) == 'gif'
-            ">
-            <img  :src="feed.mediaUrl" />
+            "
+          >
+            <img :src="`http://3.38.103.222:8092` + feed.mediaUrl" />
           </div>
           <div v-else id="feed-detail-img">
             <video
-              :src="feed.mediaUrl"
+              :src="`http://3.38.103.222:8092` + feed.mediaUrl"
               controls
-              autoplay></video>
+              autoplay
+            ></video>
           </div>
 
           <!-- 피드 메뉴바 (좋아요, 댓글, 스크랩) -->
           <div class="feed-detail-menu">
             <div id="like-btn">
-                <img 
-                  v-if="feed.likeStatus" id="like-status-btn"
-                  @click="unlikeFeed(feed.feedId, index)"
-                  src="@/assets/icon/full-heart.png" alt="">
-                <img 
-                v-else id="unlike-status-btn"
+              <img
+                v-if="feed.likeStatus"
+                id="like-status-btn"
+                @click="unlikeFeed(feed.feedId, index)"
+                src="@/assets/icon/full-heart.png"
+                alt=""
+              />
+              <img
+                v-else
+                id="unlike-status-btn"
                 @click="likeFeed(feed.feedId, index)"
-                src="@/assets/icon/empty-heart.png" alt="">
+                src="@/assets/icon/empty-heart.png"
+                alt=""
+              />
             </div>
-            <img id="comment-btn" src="@/assets/icon/comment-btn.png" alt="" @click="
-              goComment(myInfo.username, myInfo.email, feed.feedId, index)">
+            <img
+              id="comment-btn"
+              src="@/assets/icon/comment-btn.png"
+              alt=""
+              @click="goComment(feed.username, feed.email, feed.feedId)"
+            />
           </div>
 
           <!-- 피드 내용 (좋아요 개수, 피드 내용, 댓글) -->
@@ -78,9 +93,7 @@
             <div v-if="feed.likeCnt == 0">가장 먼저 좋아요를 눌러보세요.</div>
             <div
               v-else
-              @click="
-                goLikeList(myInfo.username, myInfo.email, feed.feedId, index)
-              "
+              @click="goLikeList(feed.username, feed.email, feed.feedId)"
             >
               좋아요 {{ feed.likeCnt }}개
             </div>
@@ -90,12 +103,11 @@
                 <span @click="goContentDetail()">...더보기</span>
               </div>
               <div v-else id="feed-one-content">
-                <p>{{ feed.username }}</p><p>{{ feed.content }}</p>
+                <p>{{ feed.username }}</p>
+                <p>{{ feed.content }}</p>
               </div>
             </div>
-            <div
-              @click="goComment(feed.username, feed.email, feed.feedId, index)"
-            >
+            <div @click="goComment(feed.username, feed.email, feed.feedId)">
               ...더보기
             </div>
           </div>
@@ -155,7 +167,7 @@ export default {
     // 좋아요 등록
     async likeFeed(feedId, index) {
       await api
-        .post(`/feed/${feedId}/likes`)
+        .post(`/feed/${feedId}/likes`, null)
         .then(() => {
           this.$store.dispatch("feedStore/updateSearchFeeds", {
             feedId: feedId,
@@ -189,18 +201,24 @@ export default {
     },
 
     // 피드 댓글 이동
-    goComment(name, email, id, index) {
+    async goComment(name, email, id) {
+      // 상세 피드 가져오기
+      await this.$store.dispatch("feedStore/setFeedInfo", {
+        feedId: id,
+        token: sessionStorage.getItem("jwt"),
+      });
+
       this.$router.push({
         name: "ProfileFeedComment",
-        params: { userName: name, email: email, feedId: id, index: index },
+        params: { userName: name, email: email, feedId: id },
       });
     },
 
     // 좋아요 리스트 이동
-    goLikeList(name, email, id, index) {
+    goLikeList(name, email, id) {
       this.$router.push({
         name: "ProfileFeedLike",
-        params: { userName: name, email: email, feedId: id, index: index },
+        params: { userName: name, email: email, feedId: id },
       });
     },
 
@@ -208,7 +226,7 @@ export default {
       console.log(email);
       this.$router.push({
         name: "Profile",
-        params: { username: name, email: email },
+        params: { userName: name, email: email },
       });
     },
   },

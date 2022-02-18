@@ -25,7 +25,6 @@
   /* justify-content: center; */
 }
 
-
 .search-page #search-bar-box .no-search-mode-input {
   width: 90%;
   height: 100%;
@@ -50,7 +49,7 @@
 }
 
 .search-page .search-mode-input::placeholder {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 15px;
 }
 
@@ -59,7 +58,7 @@
 }
 
 .search-page #btn-standard > button {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   position: absolute;
   top: 6px;
   left: -60px;
@@ -70,8 +69,12 @@
 }
 
 @keyframes fadein {
-  from { opacity: 0;}
-  to { opacity: 1;}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .search-page #input-box > svg {
@@ -91,16 +94,12 @@
   width: 100%;
 }
 
-
-
-
-
-@media (min-width : 736px) {
+@media (min-width: 736px) {
   .search-page #search-bar-box > #input-box {
     max-width: 400px;
     height: 37px;
   }
-  
+
   .search-page #search-bar::placeholder {
     font-size: 17px;
   }
@@ -118,7 +117,7 @@
   }
 
   .search-page #btn-standard > button {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 18px;
   }
 }

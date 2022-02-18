@@ -42,7 +42,7 @@
   overflow: scroll;
 }
 
-#search-keyword-feedlist #search-one-feed{
+#search-keyword-feedlist #search-one-feed {
   margin: 35px 20px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -78,12 +78,11 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-
 #search-feed-detail-main > div > div > .feed-detail-header > div > div > img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: #FFFFFF;
+  background: #ffffff;
   box-sizing: border-box;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
 }
@@ -109,7 +108,8 @@
   /* padding-bo */
 }
 
-#search-feed-detail-main #feed-detail-img > img, video {
+#search-feed-detail-main #feed-detail-img > img,
+video {
   width: 100%;
 }
 
@@ -120,21 +120,20 @@
   align-items: center;
 }
 
-#search-feed-detail-main > div > div > .feed-detail-menu 
-#comment-btn {
+#search-feed-detail-main > div > div > .feed-detail-menu #comment-btn {
   margin-top: -2px;
   margin-left: 8px;
-} 
+}
 
-#search-feed-detail-main > div > div > .feed-detail-menu 
-#like-status-btn, #unlike-status-btn,
-#comment-btn{
+#search-feed-detail-main > div > div > .feed-detail-menu #like-status-btn,
+#unlike-status-btn,
+#comment-btn {
   width: 20px;
   height: 20px;
   display: flex;
   justify-items: flex-start;
   margin-left: 10px;
-} 
+}
 
 #search-feed-detail-main > div > div > .feed-detail-content {
   padding: 0 10px;
@@ -144,7 +143,11 @@
   color: rgba(0, 0, 0, 0.87);
 }
 
-#search-feed-detail-main > div > div > .feed-detail-content #feed-detail-content-box{
+#search-feed-detail-main
+  > div
+  > div
+  > .feed-detail-content
+  #feed-detail-content-box {
   width: 70%;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -154,11 +157,7 @@
 }
 
 /* 좋아요 */
-#search-feed-detail-main
-  > div
-  > div
-  > .feed-detail-content
-  > div:nth-child(1) {
+#search-feed-detail-main > div > div > .feed-detail-content > div:nth-child(1) {
   font-weight: bold;
 }
 
@@ -170,22 +169,19 @@
   margin: 10px 0;
 }
 
-#search-feed-detail-main .feed-detail-content #feed-one-content
- > p{
+#search-feed-detail-main .feed-detail-content #feed-one-content > p {
   font-size: 13px;
 }
 
-#search-feed-detail-main .feed-detail-content #feed-one-content
- > p:nth-child(1){
+#search-feed-detail-main
+  .feed-detail-content
+  #feed-one-content
+  > p:nth-child(1) {
   font-weight: bold;
   margin-right: 10px;
 }
 
-#search-feed-detail-main
-  > div
-  > .feed-detail-content
-  > div:nth-child(2)
-  > div {
+#search-feed-detail-main > div > .feed-detail-content > div:nth-child(2) > div {
   margin-right: 5px;
 }
 
@@ -207,11 +203,7 @@
 }
 
 /* 더보기 */
-#search-feed-detail-main
-  > div
-  > div
-  > .feed-detail-content
-  > div:nth-child(3) {
+#search-feed-detail-main > div > div > .feed-detail-content > div:nth-child(3) {
   color: rgba(0, 0, 0, 0.38);
 }
 
@@ -222,10 +214,8 @@
   color: rgba(0, 0, 0, 0.38);
 }
 
-
-
 @media (min-width: 736px) {
-  #search-keyword-feedlist #search-one-feed{
+  #search-keyword-feedlist #search-one-feed {
     margin: 50px 25px;
     border: 2px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.4);
@@ -241,7 +231,7 @@
     width: 60px;
     height: 60px;
   }
-  
+
   #search-feed-detail-main > div > #search-one-feed #profile-username {
     font-size: 20px;
     margin-left: 20px;
@@ -255,20 +245,18 @@
     padding-left: 10px;
   }
 
-  #search-feed-detail-main > div > div > .feed-detail-menu 
-  #comment-btn {
+  #search-feed-detail-main > div > div > .feed-detail-menu #comment-btn {
     margin-left: 10px;
-  } 
+  }
 
-  #search-feed-detail-main > div > div > .feed-detail-menu 
-  #like-status-btn, #unlike-status-btn,
-  #comment-btn{
+  #search-feed-detail-main > div > div > .feed-detail-menu #like-status-btn,
+  #unlike-status-btn,
+  #comment-btn {
     width: 30px;
     height: 30px;
     display: flex;
     justify-items: flex-start;
-  } 
-
+  }
 
   #search-feed-detail-main > div > div > .feed-detail-content {
     padding: 0 20px;
@@ -286,26 +274,27 @@
     margin: 20px 5px;
   }
 
-  #search-feed-detail-main .feed-detail-content #feed-one-content
-  > p{
+  #search-feed-detail-main .feed-detail-content #feed-one-content > p {
     font-size: 18px;
   }
 
-  #search-feed-detail-main .feed-detail-content #feed-one-content
-  > p:nth-child(1){
+  #search-feed-detail-main
+    .feed-detail-content
+    #feed-one-content
+    > p:nth-child(1) {
     font-weight: bold;
     margin-right: 10px;
   }
 
   /* 더보기 */
   #search-feed-detail-main
-  > div
-  > div
-  > .feed-detail-content
-  > div:nth-child(3) {
-  color: rgba(0, 0, 0, 0.38);
-  font-size: 14px;
-  padding-left: 5px;
+    > div
+    > div
+    > .feed-detail-content
+    > div:nth-child(3) {
+    color: rgba(0, 0, 0, 0.38);
+    font-size: 14px;
+    padding-left: 5px;
   }
 
   /* 게시 날짜 */

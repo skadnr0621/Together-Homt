@@ -4,8 +4,13 @@
       <!-- re:사용자 프로필, 삭제 버튼 -->
       <div class="header-level">
         <div>
-          <div id="img"><img :src="item.profileUrl" alt="프로필 사진" /></div>
-          <div id="usrnm" @click="goProfile(item.name, item.email)">
+          <div id="img">
+            <img
+              :src="'http://3.38.103.222:8092' + item.profileUrl"
+              alt="프로필 사진"
+            />
+          </div>
+          <div id="usrnm" @click="goProfile(item.username, item.email)">
             {{ item.username }}
           </div>
           <!-- 프로필로 이동하기 -->
@@ -17,13 +22,17 @@
         <div class="feed-image-container">
           <video
             v-if="isVideo(item.mediaUrl)"
-            :src="item.mediaUrl"
+            :src="'http://3.38.103.222:8092' + item.mediaUrl"
             alt=""
             autoplay
             controls
             muted
           />
-          <img v-else :src="item.mediaUrl" alt="" />
+          <img
+            v-else
+            :src="'http://3.38.103.222:8092' + item.mediaUrl"
+            alt=""
+          />
         </div>
       </div>
 

@@ -17,7 +17,7 @@
     </div>
 
     <!-- jwt 토큰을 가지고 있지 않을 경우 -->
-    <div v-else>{{ logout() }}</div>
+    <!-- <div v-else>{{ logout() }}</div> -->
   </div>
 </template>
 
@@ -26,7 +26,7 @@ import Header from "@/components/common/Header";
 import Navbar from "@/components/common/Navbar";
 
 import "@/assets/css/main.css";
-import { mapActions, mapState } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "Main",
@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     // 내 정보 조회
-    ...mapActions(["setMyInfo", "setMyFollow", "setMyFeeds"]),
+    // ...mapActions(["setMyInfo", "setMyFollow", "setMyFeeds"]),
 
     // 로그아웃
     logout() {
@@ -74,7 +74,6 @@ export default {
     console.log("Main에서 토큰 확인");
     // 내 정보 조회
     // this.setMyInfo({ email: this.loginUser, token: this.token });
-
     // 내 알람 정보 가져오기
     await this.$store.dispatch("myStore/setMyAlarms", {
       token: this.token,

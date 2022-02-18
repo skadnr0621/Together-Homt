@@ -58,6 +58,7 @@ export default {
     ...mapState({ feedInfo: (state) => state.feedStore.feedInfo }),
   },
   async mounted() {
+    console.log("hello");
     // 피드 댓글 리스트 가져오기
     await this.$store.dispatch("feedStore/setCommentInfo", {
       feedId: this.feedId,

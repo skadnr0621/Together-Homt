@@ -23,7 +23,10 @@
               class="profile"
               @click="goProfile(value.username, value.email)"
             >
-              <img :src="value.imagePath" alt="프로필 사진" />
+              <img
+                :src="'http://3.38.103.222:8092' + value.imagePath"
+                alt="프로필 사진"
+              />
             </div>
             <div
               class="username"
@@ -62,7 +65,10 @@
               class="profile"
               @click="goProfile(value.username, value.email)"
             >
-              <img :src="value.imagePath" alt="프로필 사진" />
+              <img
+                :src="'http://3.38.103.222:8092' + value.imagePath"
+                alt="프로필 사진"
+              />
             </div>
             <div
               class="username"
@@ -111,7 +117,10 @@
               class="profile"
               @click="goProfile(value.username, value.email)"
             >
-              <img :src="value.imagePath" alt="프로필 사진" />
+              <img
+                :src="'http://3.38.103.222:8092' + value.imagePath"
+                alt="프로필 사진"
+              />
             </div>
             <div
               class="username"
@@ -157,7 +166,10 @@
               class="profile"
               @click="goProfile(value.username, value.email)"
             >
-              <img :src="value.imagePath" alt="프로필 사진" />
+              <img
+                :src="'http://3.38.103.222:8092' + value.imagePath"
+                alt="프로필 사진"
+              />
             </div>
             <div
               class="username"
@@ -232,13 +244,12 @@ export default {
         .then((res) => {
           console.log(res);
           alert("팔로우 성공!");
+          this.$router.go();
         })
         .catch((err) => {
           console.log(err);
           alert("팔로우 실패!");
         });
-
-      this.$router.go();
     },
 
     // 언팔로우 하기
@@ -252,13 +263,12 @@ export default {
         .then((res) => {
           console.log(res);
           alert("언팔로우 성공!");
+          this.$router.go();
         })
         .catch((err) => {
           console.log(err);
           alert("언팔로우 실패!");
         });
-
-      this.$router.go();
     },
   },
   async mounted() {

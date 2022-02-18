@@ -6,7 +6,7 @@
         <div>
           <div>
             <img
-              :src="'http://3.38.103.222:8092' + info.imagePath"
+              :src="'http://3.38.103.222:8092' + feedInfo.profileUrl"
               alt="피드작성자프로필"
             />
           </div>
