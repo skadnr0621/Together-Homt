@@ -76,7 +76,7 @@
           </div>
         </div>
         <div @click="goComment(item.username, item.email, item.feedId)">
-          댓글 ??개 모두 보기
+          댓글 모두 보기
         </div>
       </div>
 

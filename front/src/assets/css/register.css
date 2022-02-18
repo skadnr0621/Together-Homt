@@ -184,6 +184,27 @@
   margin-left: 4px;
 }
 
+#register-today-exercise {
+  padding: 0px 15px 15px 15px;
+  display: flex;
+  max-width: 600px;
+  margin: 0 auto;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#register-today-exercise > div > div > div {
+  margin-bottom: 5px;
+}
+
+#register-today-exercise > div > div > div > input {
+  margin-right: 5px;
+}
+
+#register-today-exercise > div > div > div > label {
+  /* font-size: 13px; */
+  color: rgba(0, 0, 0, 0.87);
+}
+
 /* 736px 이상일 경우 적용되는 코드 */
 @media (min-width: 736px) {
   #register-feed {
