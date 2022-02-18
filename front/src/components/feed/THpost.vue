@@ -176,6 +176,12 @@ export default {
 
     // 피드 댓글 이동
     goComment(name, email, id) {
+      // 상세 피드 가져오기
+      await this.$store.dispatch("feedStore/setFeedInfo", {
+        feedId: id,
+        token: sessionStorage.getItem("jwt"),
+      });
+
       this.$router.push({
         name: "ProfileFeedComment",
         params: { userName: name, email: email, feedId: id },
