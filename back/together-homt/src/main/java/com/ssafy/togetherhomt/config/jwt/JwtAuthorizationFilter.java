@@ -31,7 +31,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        log.info(String.format("Requested URI : %s   (full URL : %s)", request.getRequestURI(), request.getRequestURL().toString()));
+        log.info(String.format("Requested URI : [%s] %s   (full URL : %s)", request.getMethod(), request.getRequestURI(), request.getRequestURL().toString()));
 
         String jwtHeader = request.getHeader("Authorization");
         if (jwtHeader == null || !jwtHeader.startsWith("Bearer")) {
