@@ -41,7 +41,7 @@
 
 ## ✨ 개발 환경
 
-- **Backend**
+🖱 **Backend**
   
   - IntelliJ
   - spring boot
@@ -51,28 +51,20 @@
   - AWS EC2
   - Maria DB
   
-  🖱**Frontend**
+🖱 **Frontend**
 
 - Visual Studio Code
-
 - Vue.js
-
 - Vuex
-
 - SCSS , CSS
   
-  🖱**Pose Detection**
-
+🖱**Pose Detection**
 - Teachable Machine
   
-  🖱**CI/CD**
-
+🖱**CI/CD**
 - aws ec2
-
 - docker
-
 - nginx
-
 - jenkins
 
 ## 
