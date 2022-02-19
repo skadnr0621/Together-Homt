@@ -253,25 +253,3 @@ https://www.figma.com/file/fSi9NPvyqNqPmjeloZaBYZ/Untitled?node-id=219%3A937
 ### API
 
 http://3.38.103.222:8092/swagger-ui/index.html
-
-
-
-## 📖 Reference
-
-formdata - [FormData - Web API | MDN](https://developer.mozilla.org/ko/docs/Web/API/FormData)
-
-그림판 - [GitHub - shlee0882/painting-js: JS 그림판 만들기](https://github.com/shlee0882/painting-js)
-
-blob Data 변환 - [[JSP] 수정한 canvas를 file 타입의 input태그에 넣기](https://codebb.tistory.com/22)
-
-배경 테마 - https://codepen.io/trending
-
-Axios - [GitHub - axios/axios: Promise based HTTP client for the browser and node.js](https://github.com/axios/axios)
-
-Base - [Samsung SW Academy For Youth](https://edu.ssafy.com)
-
-컬러바코드 - [Movie Colors - Happy Coding](https://happycoding.io/gallery/movie-colors/index)
-
-대표 색채 - [25 Beautiful Color Palettes From Famous Movie Scenes - Airows](https://airows.com/culture/color-palettes-from-famous-movie-scenes)
-
-티어 시스템 - [Baekjoon Online Judge](https://www.acmicpc.net/), [solved.ac](https://solved.ac/)
