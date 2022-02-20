@@ -42,26 +42,28 @@
 ## ✨ 개발 환경
 
 🖱 **Backend**
-  
-  - IntelliJ
-  - spring boot
-  - spring-boot-jpa
-  - Spring Security
-  - Java 8
-  - AWS EC2
-  - Maria DB
-  
+
+- IntelliJ
+- spring boot
+- spring-boot-jpa
+- Spring Security
+- Java 8
+- AWS EC2
+- Maria DB
+
 🖱 **Frontend**
 
 - Visual Studio Code
 - Vue.js
 - Vuex
 - SCSS , CSS
-  
+
 🖱**Pose Detection**
+
 - Teachable Machine
-  
+
 🖱**CI/CD**
+
 - aws ec2
 - docker
 - nginx
