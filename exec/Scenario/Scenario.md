@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ![회원페이지](C:\Users\SSAFY\Documents\S06P12B206\exec\Scenario\Scenario.assets\1_회원페이지.png)
 
 ![](C:\Users\SSAFY\Documents\S06P12B206\exec\Scenario\Scenario.assets\2_피드페이지.png)
@@ -15,3 +16,6 @@
 ![](C:\Users\SSAFY\Documents\S06P12B206\exec\Scenario\Scenario.assets\8_사용자페이지.png)
 
 ![](C:\Users\SSAFY\Documents\S06P12B206\exec\Scenario\Scenario.assets\9_부가적인_서비스페이지.png)
+=======
+![회원페이지](Scenario.assets/1_회원페이지.png)
+>>>>>>> ced96ca715698dbddd0d50d161e0e79711d795f1
