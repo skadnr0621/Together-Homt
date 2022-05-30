@@ -24,11 +24,11 @@ spring:
       client:
         registration:
           google:
-            clientId: 218055408714-o6sjf0a0210j1mphhhk2skqd8fgibg1c.apps.googleusercontent.com
-            clientSecret: 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
+            clientId: `client secret id`
+            clientSecret: `client secret key`
           naver:
-            clientId: hO0yDac2E736Nw_kl6m6
-            clientSecret: AffQGYyFfg
+            clientId: `client secret id`
+            clientSecret: `client secret key`
             redirectUri: 'http://i6b206.p.ssafy.io:80/main/feed'
             authorizationGrantType: authorization_code
             clientName: naver
@@ -50,8 +50,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://3.38.103.222:3606/together-homt?serverTimezone=Asia/Seoul
-    username: ssafy
-    password: 1234
+    username: `username`
+    password: `password`
 
   ### JPA
   jpa:
